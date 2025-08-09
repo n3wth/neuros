@@ -55,6 +55,8 @@ export default function AIShowcase() {
   ]
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const handleMouseMove = (e: MouseEvent) => {
       if (ref.current) {
         const rect = (ref.current as HTMLElement).getBoundingClientRect()

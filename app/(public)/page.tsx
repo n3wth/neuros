@@ -8,7 +8,7 @@ export default async function Home() {
   const { data: { user } } = await supabase.auth.getUser()
   
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FAFAF9]">
       <ProfessionalHero isAuthenticated={!!user} />
       <AIShowcase />
       <TrustIndicators />

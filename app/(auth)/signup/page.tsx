@@ -3,140 +3,52 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { SignUpForm } from '@/components/features/auth/sign-up-form'
-import { SparkleIcon } from '@/components/icons/line-icons'
+import { SparkleIcon, BrainIcon, RocketIcon, HeartIcon } from '@/components/icons/line-icons'
 
 export default function SignUpPage() {
   return (
-    <div className="min-h-screen bg-[#FAFAF9] relative overflow-hidden">
-      {/* Full Page Background Pattern - Cute organic shapes */}
-      <div className="absolute inset-0">
-        {/* Gradient base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5]" />
-        
-        {/* Floating organic shapes */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 800" preserveAspectRatio="none">
-          <defs>
-            <pattern id="dots-signup" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.03)" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#dots-signup)" />
-          
-          {/* Cute organic blobs - different arrangement for signup */}
-          <motion.path
-            d="M 100 200 Q 300 50 500 200 T 900 200"
-            stroke="rgba(79, 70, 229, 0.08)"
-            strokeWidth="80"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 3, ease: "easeInOut" }}
-          />
-          <motion.circle
-            cx="250"
-            cy="650"
-            r="120"
-            fill="rgba(255, 107, 107, 0.04)"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
-          <motion.circle
-            cx="1200"
-            cy="200"
-            r="180"
-            fill="rgba(149, 231, 126, 0.04)"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1, delay: 0.7 }}
-          />
-          <motion.path
-            d="M 1000 600 Q 900 500 1000 400 T 1000 200"
-            stroke="rgba(255, 215, 0, 0.06)"
-            strokeWidth="60"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 3, delay: 0.3, ease: "easeInOut" }}
-          />
-        </svg>
-
-        {/* Floating elements - different positions */}
-        <motion.div
-          className="absolute bottom-40 left-20 text-6xl opacity-10"
-          animate={{ 
-            y: [0, -30, 0],
-            rotate: [0, -15, 0]
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          🎓
-        </motion.div>
-        <motion.div
-          className="absolute top-20 right-20 text-5xl opacity-10"
-          animate={{ 
-            y: [0, 20, 0],
-            rotate: [0, 10, 0]
-          }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        >
-          💡
-        </motion.div>
-        <motion.div
-          className="absolute top-2/3 right-32 text-4xl opacity-10"
-          animate={{ 
-            x: [0, -20, 0],
-            y: [0, 10, 0]
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        >
-          ✏️
-        </motion.div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-8 py-12">
+    <div className="min-h-screen bg-[#FAFAF9] flex">
+      {/* Left Side - Form */}
+      <div className="w-full lg:w-1/2 xl:w-2/5 flex items-center justify-center px-8 py-12">
         <motion.div 
           className="w-full max-w-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Logo/Brand */}
-          <div className="text-center mb-12">
+          {/* Mobile Logo (shown only on mobile) */}
+          <div className="text-center mb-12 lg:hidden">
             <Link href="/" className="inline-flex items-center gap-3 group">
               <SparkleIcon className="w-8 h-8 text-black/70 group-hover:text-black transition-colors" />
               <span className="text-2xl font-serif font-light">Neuros</span>
             </Link>
           </div>
 
-          {/* Card */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-black/5 p-10 shadow-sm">
+          {/* Form Card */}
+          <div>
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-3xl font-serif font-light mb-3">Create your account</h1>
+              <h2 className="text-3xl font-serif font-light mb-3">Create your account</h2>
               <p className="text-base text-black/60 font-light">
                 Start your personalized learning journey today
               </p>
             </div>
 
-            {/* Benefits */}
-            <div className="mb-8 space-y-3">
+            {/* Benefits - Compact Version */}
+            <div className="mb-6 space-y-2">
               {[
-                'AI-powered personalized learning paths',
-                'Spaced repetition for lasting memory',
-                'Track progress with detailed analytics'
+                'AI-powered personalized learning',
+                'Track progress with analytics',
+                '14-day free trial, no credit card'
               ].map((benefit, index) => (
                 <motion.div 
                   key={benefit}
-                  className="flex items-start gap-3"
+                  className="flex items-center gap-2"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
+                  transition={{ delay: 0.2 + index * 0.1 }}
                 >
-                  <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-green-600 text-xs">✓</span>
-                  </div>
+                  <span className="text-green-600 text-sm">✓</span>
                   <span className="text-sm text-black/70">{benefit}</span>
                 </motion.div>
               ))}
@@ -151,7 +63,7 @@ export default function SignUpPage() {
                 <div className="w-full border-t border-black/10"></div>
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-4 text-black/40 font-mono tracking-wider">or</span>
+                <span className="bg-[#FAFAF9] px-4 text-black/40 font-mono tracking-wider">or continue with</span>
               </div>
             </div>
 
@@ -164,38 +76,150 @@ export default function SignUpPage() {
                   <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                   <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                 </svg>
-                Sign up with Google
+                Google
               </button>
               
               <button className="w-full px-6 py-3 border border-black/20 rounded-full hover:bg-black/5 transition-colors flex items-center justify-center gap-3">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
                 </svg>
-                Sign up with GitHub
+                GitHub
               </button>
             </div>
 
-            {/* Footer */}
-            <div className="mt-8 pt-8 border-t border-black/5 text-center">
-              <p className="text-sm text-black/60">
+            {/* Footer Links */}
+            <div className="mt-8 space-y-4">
+              <p className="text-center text-sm text-black/60">
                 Already have an account?{' '}
                 <Link href="/signin" className="font-medium text-black hover:text-black/80 transition-colors">
                   Sign in
                 </Link>
               </p>
+              
+              <p className="text-center text-xs text-black/40 px-4">
+                By creating an account, you agree to our{' '}
+                <Link href="/terms" className="underline hover:text-black/60">Terms</Link>
+                {' '}and{' '}
+                <Link href="/privacy" className="underline hover:text-black/60">Privacy Policy</Link>
+              </p>
             </div>
           </div>
-
-          {/* Terms */}
-          <div className="mt-8 text-center px-6">
-            <p className="text-xs text-black/40 leading-relaxed">
-              By creating an account, you agree to our{' '}
-              <Link href="/terms" className="underline hover:text-black/60">Terms of Service</Link>
-              {' '}and{' '}
-              <Link href="/privacy" className="underline hover:text-black/60">Privacy Policy</Link>
-            </p>
-          </div>
         </motion.div>
+      </div>
+
+      {/* Right Side - Value Proposition */}
+      <div className="hidden lg:flex lg:w-1/2 xl:w-3/5 bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] relative overflow-hidden">
+        {/* Background Pattern */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <defs>
+            <pattern id="dots-signup-right" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.02)" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#dots-signup-right)" />
+          
+          {/* Organic shapes */}
+          <motion.path
+            d="M 200 200 Q 500 100 700 300 T 1000 400"
+            stroke="rgba(255, 107, 107, 0.05)"
+            strokeWidth="120"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 3, ease: "easeInOut" }}
+          />
+          <motion.circle
+            cx="800"
+            cy="700"
+            r="200"
+            fill="rgba(79, 70, 229, 0.02)"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
+        </svg>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Logo */}
+            <div className="mb-16">
+              <Link href="/" className="inline-flex items-center gap-3">
+                <SparkleIcon className="w-10 h-10 text-black/70" />
+                <span className="text-3xl font-serif font-light">Neuros</span>
+              </Link>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-5xl xl:text-6xl font-serif font-light leading-tight mb-6">
+              Learn anything.
+              <span className="block text-black/60 mt-2">Remember everything.</span>
+            </h1>
+
+            <p className="text-xl text-black/60 font-light mb-12 max-w-lg">
+              Join thousands who are mastering new skills 2.3x faster with AI-powered learning.
+            </p>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-8 mb-12">
+              {[
+                { value: '2.5M+', label: 'Active learners' },
+                { value: '87%', label: 'Retention rate' },
+                { value: '4.9/5', label: 'User rating' }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                >
+                  <div className="text-3xl font-serif font-light">{stat.value}</div>
+                  <div className="text-sm text-black/50">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* How it works */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-medium text-black/80">How it works</h3>
+              {[
+                {
+                  icon: BrainIcon,
+                  title: 'AI creates your cards',
+                  description: 'Upload notes or topics, our AI generates perfect flashcards'
+                },
+                {
+                  icon: RocketIcon,
+                  title: 'Learn at optimal times',
+                  description: 'Spaced repetition shows you cards right before you forget'
+                },
+                {
+                  icon: HeartIcon,
+                  title: 'Master any subject',
+                  description: 'From languages to medicine, achieve true mastery'
+                }
+              ].map((step, index) => (
+                <motion.div
+                  key={step.title}
+                  className="flex items-start gap-4"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                >
+                  <step.icon className="w-6 h-6 text-black/60 mt-1" />
+                  <div>
+                    <h4 className="font-medium text-black/80">{step.title}</h4>
+                    <p className="text-sm text-black/50">{step.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   )

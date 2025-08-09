@@ -18,6 +18,9 @@ export default function NotFound() {
 
   // Calculate eye movement based on mouse position
   const calculateEyePosition = (baseX: number, baseY: number) => {
+    if (typeof window === 'undefined') {
+      return { x: baseX, y: baseY }
+    }
     const dx = (mousePos.x - window.innerWidth / 2) / window.innerWidth
     const dy = (mousePos.y - window.innerHeight / 2) / window.innerHeight
     return {

@@ -1,4 +1,49 @@
-# Next.js 15.4 + Supabase + JavaScript Best Practices
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# AI-Powered Learning Platform - Next.js 15.4 + Supabase
+
+## 📋 Quick Reference
+
+### Essential Commands (Most Used)
+```bash
+# Development (daily)
+npm run dev              # Start with hot reload
+npm run build           # Production build (required before deploy)
+npm run test            # Run tests in watch mode
+
+# Database (after ANY schema change)
+npm run db:reset        # Apply migrations locally
+npm run db:types        # Regenerate TypeScript types
+supabase migration new description_here  # Create new migration
+
+# Supabase Local Stack
+npm run db:start        # Start local Supabase (first time setup)
+npm run db:stop         # Stop Supabase services
+```
+
+### Project Structure (Key Locations)
+```
+├── server/actions/     # Server Actions (main backend logic)
+│   ├── auth.ts        # signUp, signIn, signOut
+│   ├── cards.ts       # Flashcard CRUD
+│   ├── reviews.ts     # SM-2 spaced repetition
+│   └── ai.ts          # OpenAI integration
+├── components/icons/line-icons.tsx  # Custom SVG icons (use these, not emojis)
+├── supabase/migrations/  # Database schema (migration-first development)
+├── types/supabase.ts   # Generated DB types (auto-updated)
+└── app/(dashboard)/    # Protected routes (authenticated only)
+```
+
+### Current Database Schema (7 Tables)
+- **cards**: Flashcards (front, back, difficulty, tags)
+- **topics**: Subject categories with colors/icons
+- **user_cards**: Progress tracking per user (SM-2 data)
+- **reviews**: Historical performance records
+- **study_sessions**: Learning session aggregates
+- **study_stats**: Analytics (daily/weekly progress)
+- **goals**: User-defined learning objectives
 
 ## 🚀 Core Principles
 
@@ -652,47 +697,194 @@ supabase db push          # Deploy migrations
 
 ### Core Features Implemented
 - **Spaced Repetition System**: SM-2 algorithm in PostgreSQL & TypeScript
-- **AI Card Generation**: OpenAI GPT-4 integration for smart flashcards
+- **AI Card Generation**: OpenAI GPT-4 integration for smart flashcards  
 - **Real-time Updates**: Supabase subscriptions for live data
-- **Professional Design**: OpenAI.com/Medium.com inspired aesthetic
-- **Company Logos**: Local vector icons in `/components/icons/company-logos.tsx`
+- **Editorial Design**: Warm gradient backgrounds, organic SVG patterns
+- **Custom Icons**: Line-art SVG icons (NOT emoji or icon fonts)
 
-### Database Schema
-- 7 tables: cards, topics, user_cards, reviews, study_sessions, study_stats, goals
-- Real-time enabled for cards, user_cards, study_stats
-- Image storage tables: card_images, topic_images
-
-### API Keys Required
+### Critical Environment Variables
 ```env
-OPENAI_API_KEY=sk-proj-...  # For AI features
-ANTHROPIC_API_KEY=sk-ant-...  # Optional AI provider
+# Required for local development
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# Required for AI features  
+OPENAI_API_KEY=sk-proj-...  
+ANTHROPIC_API_KEY=sk-ant-...  # Optional
 ```
 
-### Key Server Actions
-- `/server/actions/cards.ts` - CRUD operations
-- `/server/actions/reviews.ts` - SM-2 algorithm implementation  
-- `/server/actions/ai.ts` - AI card generation
-- `/server/actions/images.ts` - DALL-E 3 image generation
+### Key Implementation Files
+- `/server/actions/cards.ts` - CRUD operations + SM-2 logic
+- `/server/actions/auth.ts` - signUp, signIn, signOut functions
+- `/server/actions/ai.ts` - GPT-4 card generation
+- `/components/landing/professional-hero.tsx` - Homepage with cute background
+- `/components/icons/line-icons.tsx` - Custom SVG icons (SparkleIcon, BrainIcon, etc.)
 
-### Navigation Routes
-- `/` - Landing page with professional hero
-- `/signin`, `/signup` - Authentication
-- `/dashboard` - Main learning dashboard
-- `/learn` - Card review interface
-- `/explore` - Browse learning topics
-- `/research` - Scientific background
-- `/enterprise` - Business features
-- `/pricing` - Subscription plans
+### Route Architecture
+- `/` - Landing (warm gradient bg, organic shapes)
+- `/signin`, `/signup` - Auth pages (cute aesthetic with SVG patterns)
+- `/dashboard` - Main learning hub (protected route)
+- `/learn` - Card review interface (SM-2 algorithm)
+- `/explore` - Browse topics
 
-### Testing Setup
-- Vitest configured with React Testing Library
-- Component tests in `__tests__` directories
-- Mocked Supabase client for isolated testing
+### Build Requirements
+- **MUST run `npm run build` before deploy** - catches SSR/window issues
+- **MUST run `npm run db:types`** after any schema changes
+- **Guard all `window` usage**: `if (typeof window === 'undefined') return`
+- **Authentication middleware**: Already configured in `middleware.ts`
 
-### VS Code Integration
-- Full debugging configs in `.vscode/`
-- Launch profiles for server, client, and full-stack debugging
-- Tasks for common operations
+### Testing & Debugging
+- **Vitest + React Testing Library**: Unit/integration tests
+- **MCP Playwright**: End-to-end browser automation (available via MCP)
+- **VS Code debugging profiles**: In `.vscode/` directory
+- **Mocked Supabase client**: In `test/setup.ts`
+- **Test runners**: `npm run test:ui` for Vitest UI, MCP Playwright for E2E
+
+#### MCP Playwright Testing (Available)
+```typescript
+// Use MCP Playwright for E2E testing of the learning platform
+// Key scenarios to test:
+
+// 1. Authentication flow
+await mcp__playwright__browser_navigate({ url: 'http://localhost:3000/signup' })
+await mcp__playwright__browser_type({ 
+  element: 'email field', 
+  ref: 'input[type="email"]',
+  text: 'test@example.com' 
+})
+await mcp__playwright__browser_click({ 
+  element: 'create account button', 
+  ref: 'button[type="submit"]' 
+})
+
+// 2. Card creation and review
+await mcp__playwright__browser_navigate({ url: 'http://localhost:3000/dashboard' })
+await mcp__playwright__browser_click({ 
+  element: 'create card button', 
+  ref: '[data-testid="create-card"]' 
+})
+
+// 3. Visual validation
+await mcp__playwright__browser_take_screenshot({ 
+  filename: 'dashboard-state.png',
+  fullPage: true 
+})
+
+// 4. Test spaced repetition flow
+await mcp__playwright__browser_navigate({ url: 'http://localhost:3000/learn' })
+await mcp__playwright__browser_click({ element: 'reveal answer', ref: '[data-testid="reveal"]' })
+await mcp__playwright__browser_click({ element: 'difficulty rating', ref: '[data-rating="3"]' })
+```
+
+#### Testing Strategy by Component
+- **Unit Tests (Vitest)**: Server Actions, utility functions, hooks
+- **Component Tests (RTL)**: Form validation, state management, error handling  
+- **E2E Tests (MCP Playwright)**: Authentication, card review flow, AI generation
+- **Visual Tests (Screenshots)**: Homepage hero, auth pages, dashboard layouts
+
+### Page Structure & Layout Patterns
+
+#### App Router Structure (Next.js 15.4)
+```
+app/
+├── (public)/          # Public routes (marketing)
+│   ├── page.tsx       # Homepage with cute gradient bg
+│   ├── explore/page.tsx
+│   ├── pricing/page.tsx
+│   └── layout.tsx     # Public layout (navbar, footer)
+├── (auth)/            # Auth routes (special styling)
+│   ├── signin/page.tsx  # Warm bg with SVG patterns
+│   ├── signup/page.tsx  # Matches signin aesthetic
+│   └── layout.tsx     # Minimal auth layout
+├── (dashboard)/       # Protected routes
+│   ├── dashboard/page.tsx  # Main learning hub
+│   ├── learn/page.tsx     # Card review interface
+│   └── layout.tsx     # Dashboard layout (sidebar, user menu)
+├── globals.css        # Tailwind v4 + custom vars
+├── layout.tsx         # Root layout
+└── middleware.ts      # Auth protection
+```
+
+#### Component Organization
+```
+components/
+├── ui/                # shadcn/ui base components
+│   ├── button.tsx     # Customized with rounded-full
+│   ├── card.tsx       # White bg, subtle borders
+│   └── ...
+├── icons/
+│   └── line-icons.tsx # Custom SVG icons (SparkleIcon, BrainIcon)
+├── landing/           # Homepage sections
+│   ├── professional-hero.tsx  # Main hero with gradient bg
+│   ├── ai-showcase.tsx       # Features section
+│   └── trust-indicators.tsx  # Social proof
+├── features/          # Feature-specific components
+│   ├── auth/          # Sign in/up forms
+│   │   ├── sign-in-form.tsx
+│   │   └── sign-up-form.tsx
+│   ├── cards/         # Flashcard components
+│   └── learning/      # Study interface
+└── layouts/           # Layout components (if needed)
+```
+
+#### Design System Implementation
+```css
+/* Key Design Tokens (already in globals.css) */
+:root {
+  --background: #FAFAF9;        /* Warm off-white */
+  --font-serif: 'Playfair Display';  /* Headlines */
+  --font-mono: 'JetBrains Mono';     /* Body + UI */
+  --radius: 0.375rem;           /* Reduced rounding */
+}
+
+/* Page Backgrounds */
+.warm-gradient { 
+  background: linear-gradient(135deg, #F5F5FF 0%, #FFF5F5 100%);
+}
+.organic-shapes {
+  /* SVG patterns with subtle colors */
+  /* See signup/signin pages for examples */
+}
+```
+
+#### Server Action Patterns
+```typescript
+// server/actions/[feature].ts
+'use server'
+
+import { createClient } from '@/lib/supabase/server'
+import { revalidateTag } from 'next/cache'
+
+export async function createCard(formData: CardInput) {
+  const supabase = await createClient()
+  
+  // 1. Validate user authentication
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+  
+  // 2. Database operation
+  const { data, error } = await supabase
+    .from('cards')
+    .insert({ ...formData, user_id: user.id })
+    .select()
+    .single()
+    
+  if (error) throw error
+  
+  // 3. Revalidate cache
+  revalidateTag('cards')
+  
+  return data
+}
+```
+
+#### Authentication Flow (Already Implemented)
+1. **Middleware** (`middleware.ts`) - Checks auth on ALL routes
+2. **Protected Layouts** - Redirect to `/signin` if not authenticated  
+3. **Server Actions** - `signUp()`, `signIn()`, `signOut()` in `/server/actions/auth.ts`
+4. **Form Components** - `SignInForm`, `SignUpForm` with validation
+5. **Profile Creation** - Auto-creates profile on signup
 
 ## 🎨 Design System & Style Guide
 

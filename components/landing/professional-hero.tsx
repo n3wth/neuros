@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import Link from 'next/link'
-import { IconArrowRight, IconSparkles } from '@tabler/icons-react'
+import { IconArrowRight } from '@tabler/icons-react'
 
 interface ProfessionalHeroProps {
   isAuthenticated: boolean
@@ -20,10 +20,10 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
   const textY = useTransform(scrollY, [0, 400], [0, -30])
   
   const springConfig = { damping: 25, stiffness: 700 }
-  const cursorX = useSpring(mouseX, springConfig)
-  const cursorY = useSpring(mouseY, springConfig)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const handleMouseMove = (e: MouseEvent) => {
       if (heroRef.current) {
         const rect = heroRef.current.getBoundingClientRect()
@@ -34,44 +34,83 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [mouseX, mouseY])
 
   return (
     <motion.section 
       ref={heroRef}
       style={{ opacity }}
-      className="relative min-h-screen overflow-hidden bg-[#FAFAF9]"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5]"
     >
-      {/* Organic background shapes */}
+      {/* Background Pattern - matching auth pages */}
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <defs>
+          <pattern id="dots-hero" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.02)" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots-hero)" />
+        
+        {/* Organic shapes */}
+        <motion.path
+          d="M 100 100 Q 400 50 600 200 T 900 300"
+          stroke="rgba(255, 107, 107, 0.05)"
+          strokeWidth="120"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, ease: "easeInOut" }}
+        />
+        <motion.circle
+          cx="150"
+          cy="600"
+          r="180"
+          fill="rgba(79, 70, 229, 0.02)"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        />
+        <motion.path
+          d="M 300 700 Q 600 600 900 800"
+          stroke="rgba(34, 197, 94, 0.03)"
+          strokeWidth="100"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 2.5, delay: 0.3 }}
+        />
+      </svg>
+      
+      {/* Additional decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute -top-20 -right-20 w-[600px] h-[600px] rounded-full"
+          className="absolute top-20 right-40 w-[400px] h-[400px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(255, 200, 87, 0.15) 0%, transparent 70%)',
-            filter: 'blur(40px)',
+            background: 'radial-gradient(circle, rgba(255, 200, 87, 0.08) 0%, transparent 70%)',
+            filter: 'blur(80px)',
           }}
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
+            scale: [1, 1.3, 1],
+            opacity: [0.5, 0.8, 0.5],
           }}
           transition={{
-            duration: 20,
+            duration: 15,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-[800px] h-[800px] rounded-full"
+          className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%)',
-            filter: 'blur(60px)',
+            background: 'radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)',
+            filter: 'blur(100px)',
           }}
           animate={{
             scale: [1.2, 1, 1.2],
-            rotate: [0, -90, 0],
+            opacity: [0.4, 0.7, 0.4],
           }}
           transition={{
-            duration: 25,
+            duration: 20,
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -258,13 +297,30 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           </motion.div>
         </motion.div>
 
-        {/* Refined floating elements */}
+        {/* Cute floating elements */}
         <motion.div className="absolute top-32 right-32 hidden xl:block">
           <motion.div
-            className="w-24 h-24 rounded-full border border-black/5"
+            className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100/60 to-purple-100/60 border border-purple-200/30"
             animate={{
-              y: [0, -20, 0],
+              y: [0, -25, 0],
               rotate: [0, 180, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </motion.div>
+        
+        <motion.div className="absolute bottom-48 left-32 hidden xl:block">
+          <motion.div
+            className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-100/70 to-orange-100/70 backdrop-blur-sm border border-yellow-200/30"
+            animate={{
+              y: [0, 35, 0],
+              x: [0, -25, 0],
+              rotate: [0, -360],
             }}
             transition={{
               duration: 20,
@@ -274,30 +330,31 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           />
         </motion.div>
         
-        <motion.div className="absolute bottom-48 left-32 hidden xl:block">
+        <motion.div className="absolute top-64 left-[60%] hidden xl:block">
           <motion.div
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-100/50 to-orange-100/50 backdrop-blur-sm"
+            className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-100/60 to-indigo-100/60 backdrop-blur-sm border border-blue-200/30"
             animate={{
-              y: [0, 30, 0],
-              x: [0, -20, 0],
+              y: [0, -20, 0],
+              x: [0, 20, 0],
+              scale: [1, 0.9, 1],
             }}
             transition={{
-              duration: 22,
+              duration: 15,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
         </motion.div>
         
-        <motion.div className="absolute top-64 left-[60%] hidden xl:block">
+        <motion.div className="absolute top-96 left-[40%] hidden xl:block">
           <motion.div
-            className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100/50 to-purple-100/50 backdrop-blur-sm"
+            className="w-10 h-10 rounded-full bg-gradient-to-br from-green-100/60 to-emerald-100/60 backdrop-blur-sm border border-green-200/30"
             animate={{
-              y: [0, -15, 0],
-              x: [0, 15, 0],
+              y: [0, 15, 0],
+              x: [0, -10, 0],
             }}
             transition={{
-              duration: 17,
+              duration: 12,
               repeat: Infinity,
               ease: "easeInOut"
             }}
