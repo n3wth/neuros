@@ -28,7 +28,7 @@ export default function EditorialFeatures() {
       category: 'Profile',
       categoryColor: '#4ECDC4',
       title: 'Zero to Staff Engineer',
-      subtitle: 'One developer's 12-month transformation',
+      subtitle: "One developer's 12-month transformation",
       excerpt: 'Alex Rivera went from debugging React components to designing distributed systems at Google—using just 15 minutes a day.',
       author: 'Maya Patel',
       authorTitle: 'Senior Editor',

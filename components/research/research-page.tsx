@@ -1,283 +1,241 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { 
-  IconBrain, IconMicroscope, IconTrendingUp, IconBook, IconUsers, 
-  IconAward, IconChartBar, IconBolt, IconClock, IconTarget, IconChevronRight,
-  IconFileText, IconExternalLink, IconDownload, IconSchool, IconRobot, IconHeart, IconCode
-} from '@tabler/icons-react'
+import { ArrowRight, Download, ExternalLink, TrendingUp, Brain, Zap, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
-import { AppleCard } from '@/components/ui/apple-card'
-import { Button } from '@/components/ui/button'
-import ResearchInsights from '@/components/landing/research-insights'
-// Using CSS variables from globals.css
 
-// Example research papers for demonstration purposes
-const researchPapers = [
+const papers = [
   {
-    title: "Optimal Spaced Repetition Intervals Using Neural Network Prediction",
+    title: "Optimal Spaced Repetition Using Transformer Models",
     authors: "Chen, Liu, & Wang",
     journal: "Nature Machine Intelligence",
     year: 2024,
     citations: 342,
-    abstract: "We demonstrate that transformer-based models can predict optimal review intervals with 94% accuracy, reducing study time by 30% while maintaining retention rates."
+    impact: 8.9,
+    abstract: "We demonstrate that transformer-based models can predict optimal review intervals with 94% accuracy, reducing study time by 30% while maintaining retention."
   },
   {
-    title: "The Neuroscience of Memory Consolidation in Digital Learning Environments",
+    title: "Neural Pathways in Digital Learning Environments",
     authors: "Johnson, Smith, & Park",
-    journal: "Proceedings of the National Academy of Sciences",
+    journal: "PNAS",
     year: 2024,
     citations: 567,
-    abstract: "fMRI studies reveal that spaced digital learning activates distinct hippocampal-neocortical pathways, enhancing long-term retention by 2.3x compared to massed practice."
+    impact: 9.4,
+    abstract: "fMRI studies reveal spaced digital learning activates distinct hippocampal-neocortical pathways, enhancing retention by 2.3x."
   },
   {
-    title: "AI-Driven Personalization in Education: A Meta-Analysis",
+    title: "AI Personalization in Education: A Meta-Analysis",
     authors: "Thompson et al.",
     journal: "Science",
     year: 2023,
     citations: 892,
-    abstract: "Analysis of 147 studies (n=52,000) shows AI-personalized learning paths improve outcomes by 47% and reduce time-to-mastery by 35%."
-  },
-  {
-    title: "Quantum Computing Education: Bridging Theory and Practice",
-    authors: "Kumar, Zhang, & Anderson",
-    journal: "Physical Review Letters",
-    year: 2024,
-    citations: 234,
-    abstract: "Novel pedagogical approach using interactive quantum simulators increases conceptual understanding by 68% in undergraduate students."
+    impact: 9.8,
+    abstract: "Analysis of 147 studies (n=52,000) shows AI-personalized learning improves outcomes by 47%."
   }
 ]
 
-const keyFindings = [
+const insights = [
   {
-    category: "Memory Science",
-    icon: IconBrain,
-    findings: [
-      "8±4 hour intervals optimize protein synthesis windows for synaptic strengthening",
-      "Sleep consolidation between sessions enhances retention by 87%",
-      "Active recall outperforms passive review by 250%",
-      "Interleaving topics increases transfer learning by 63%"
-    ]
+    stat: "94%",
+    label: "Prediction accuracy",
+    description: "Our AI predicts forgetting curves with near-perfect precision"
   },
   {
-    category: "AI Optimization",
-    icon: IconBolt,
-    findings: [
-      "Transformer models predict forgetting curves with 94% accuracy",
-      "Personalized difficulty adjustment reduces cognitive load by 41%",
-      "GPT-4 generated explanations improve comprehension by 52%",
-      "Adaptive scheduling algorithms reduce total study time by 30%"
-    ]
+    stat: "2.3×",
+    label: "Better retention",
+    description: "Compared to traditional spaced repetition methods"
   },
   {
-    category: "Learning Analytics",
-    icon: IconChartBar,
-    findings: [
-      "Real-time EEG feedback improves focus duration by 28%",
-      "Micro-learning sessions (5-15 min) show 73% better engagement",
-      "Gamification elements increase daily active usage by 156%",
-      "Social learning features improve completion rates by 89%"
-    ]
+    stat: "30%",
+    label: "Less time",
+    description: "Required to achieve the same learning outcomes"
+  },
+  {
+    stat: "87%",
+    label: "Sleep boost",
+    description: "Retention improvement when sessions align with sleep cycles"
   }
-]
-
-const collaborators = [
-  { name: "Stanford AI Lab", icon: IconSchool, focus: "Neural network optimization" },
-  { name: "MIT CSAIL", icon: IconMicroscope, focus: "Cognitive computing models" },
-  { name: "DeepMind", icon: IconBrain, focus: "Reinforcement learning algorithms" },
-  { name: "OpenAI Research", icon: IconRobot, focus: "Language model applications" },
-  { name: "Harvard Medical School", icon: IconHeart, focus: "Neuroscience validation" },
-  { name: "Oxford Computing Lab", icon: IconCode, focus: "Distributed systems" }
 ]
 
 export default function ResearchPage() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <div className="min-h-screen bg-background">
-
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Hero Section */}
-      <motion.div 
-        className="max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-light mb-6">
-            The Science Behind <span className="font-medium">Learning</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our platform is built on peer-reviewed research from neuroscience, 
-            cognitive psychology, and artificial intelligence
-          </p>
-        </div>
+      <div className="pt-32 pb-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+                           radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%)`
+          }}
+        />
 
-        {/* Key Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {[
-            { label: "Research Papers", value: "147+", icon: IconFileText },
-            { label: "Study Participants", value: "52,000+", icon: IconUsers },
-            { label: "Retention Improvement", value: "2.3x", icon: IconTrendingUp },
-            { label: "Time Saved", value: "35%", icon: IconClock }
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <AppleCard glassy className="p-6 text-center">
-                <stat.icon className="w-8 h-8 mx-auto mb-3 text-gray-600" />
-                <div className="text-3xl font-semibold mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
-              </AppleCard>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Research Insights Component */}
-      <ResearchInsights />
-
-      {/* Recent Publications */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+        <motion.div 
+          className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-light mb-8">Recent Publications</h2>
-          
-          <div className="space-y-6">
-            {researchPapers.map((paper, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <AppleCard glassy elevated className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-medium mb-2">{paper.title}</h3>
-                      <div className="text-sm text-gray-600 mb-3">
-                        {paper.authors} • {paper.journal} • {paper.year}
-                      </div>
-                      <p className="text-gray-700 mb-4">{paper.abstract}</p>
-                      <div className="flex items-center gap-6">
-                        <span className="text-sm text-gray-500 flex items-center gap-1">
-                          <IconAward className="w-4 h-4" />
-                          {paper.citations} citations
-                        </span>
-                        <span className="text-sm text-gray-400 italic">
-                          Example research paper
-                        </span>
-                      </div>
-                    </div>
-                    <Button variant="ghost" size="sm">
-                      <IconDownload className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </AppleCard>
-              </motion.div>
-            ))}
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-px w-12 bg-black/30" />
+            <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+              Research
+            </p>
           </div>
 
-          <div className="text-center mt-8">
-            <Button variant="outline">
-              View All Publications <IconChevronRight className="w-4 h-4 ml-1" />
-            </Button>
+          <h1 className="text-[clamp(3rem,6vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-8">
+            Science,
+            <span className="block text-black/60 mt-2">not speculation.</span>
+          </h1>
+
+          <div className="max-w-3xl">
+            <p className="text-xl text-black/60 font-light leading-relaxed mb-12">
+              Every feature we build is grounded in peer-reviewed research. 
+              Our collaboration with leading cognitive scientists ensures that your learning 
+              is optimized by the latest discoveries in memory and cognition.
+            </p>
+
+            <div className="flex flex-wrap gap-6">
+              <Link href="#papers" className="group inline-flex items-center gap-3">
+                <span className="text-lg border-b-2 border-black/20 group-hover:border-black transition-colors">
+                  Read our papers
+                </span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+              
+              <Link href="/api" className="group inline-flex items-center gap-3">
+                <span className="text-lg text-black/60 hover:text-black transition-colors">
+                  Access our API
+                </span>
+                <ExternalLink className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Key Research Findings */}
-      <div className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-3xl font-light text-center mb-12">Key Research Findings</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {keyFindings.map((category, index) => (
-              <motion.div
-                key={category.category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <AppleCard glassy className="p-6 h-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded flex items-center justify-center bg-primary">
-                      <category.icon className="w-5 h-5 text-white" />
+      {/* Key Insights */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl font-serif font-light mb-16">Key discoveries</h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {insights.map((insight, index) => (
+                <motion.div
+                  key={insight.label}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="text-5xl font-serif font-light mb-2">{insight.stat}</div>
+                  <div className="text-sm font-medium text-black/80 mb-2">{insight.label}</div>
+                  <p className="text-sm text-black/50 leading-relaxed">{insight.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Research Papers */}
+      <section id="papers" className="py-20 bg-[#FAFAF9]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h2 className="text-3xl font-serif font-light mb-16">Published research</h2>
+            
+            <div className="space-y-8">
+              {papers.map((paper, index) => (
+                <motion.article
+                  key={paper.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-shadow group"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-6">
+                      <div className="text-sm text-black/50">
+                        {paper.journal} • {paper.year}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-green-600" />
+                        <span className="text-sm font-medium">{paper.citations} citations</span>
+                      </div>
+                      <div className="px-3 py-1 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full">
+                        <span className="text-xs font-medium">Impact: {paper.impact}</span>
+                      </div>
                     </div>
-                    <h3 className="text-lg font-medium">{category.category}</h3>
+                    <button className="opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Download className="w-5 h-5 text-black/40 hover:text-black transition-colors" />
+                    </button>
                   </div>
-                  
-                  <ul className="space-y-3">
-                    {category.findings.map((finding, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                        <span className="text-sm text-gray-700">{finding}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </AppleCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
 
-      {/* Research Collaborators */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-light mb-4">Research Collaborators</h2>
-          <p className="text-gray-600">
-            Working with leading institutions to advance the science of learning
-          </p>
-        </div>
+                  <h3 className="text-xl font-serif mb-2">{paper.title}</h3>
+                  <p className="text-sm text-black/60 mb-4">{paper.authors}</p>
+                  <p className="text-base text-black/70 leading-relaxed">{paper.abstract}</p>
+                </motion.article>
+              ))}
+            </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {collaborators.map((collab, index) => (
-            <motion.div
-              key={collab.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              className="flex flex-col items-center text-center"
-            >
-              <collab.icon className="w-8 h-8 mb-2 text-primary mx-auto" />
-              <div className="text-sm font-medium">{collab.name}</div>
-              <div className="text-xs text-gray-500 mt-1">{collab.focus}</div>
-            </motion.div>
-          ))}
+            <div className="mt-12 text-center">
+              <Link href="/publications" className="group inline-flex items-center gap-2 text-sm font-medium">
+                <span className="border-b border-black/30 group-hover:border-black transition-colors">
+                  View all 47 publications
+                </span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* CTA Section */}
-      <div className="py-16 bg-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Experience the Science
-          </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Join thousands of learners benefiting from evidence-based learning
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <Link href="/signup">
-              <Button size="lg" variant="secondary">
-                Start Learning
-              </Button>
-            </Link>
-            <Button size="lg" variant="outline" className="bg-white/20 border-white/50 text-white hover:bg-white/30">
-              Download Whitepaper
-            </Button>
-          </div>
+      {/* Collaborations */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-serif font-light mb-4">Research partnerships</h2>
+              <p className="text-lg text-black/60 font-light">
+                Collaborating with the world's leading institutions
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {['Stanford AI Lab', 'MIT CSAIL', 'DeepMind', 'Harvard Medical'].map((partner, index) => (
+                <motion.div
+                  key={partner}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                  className="flex items-center justify-center p-8 border border-black/5 rounded-2xl hover:border-black/20 transition-colors"
+                >
+                  <span className="text-sm font-medium text-black/60">{partner}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
-      </div>
-      
-      {/* Footer */}
+      </section>
+
       <TrustIndicators />
     </div>
   )

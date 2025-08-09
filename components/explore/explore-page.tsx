@@ -1,399 +1,292 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useState, useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { 
-  IconBrain, IconCode, IconMicroscope, IconTrendingUp, IconPalette, IconWorld,
-  IconBook,
-  IconChevronRight, IconSearch, IconSparkles, IconUsers, IconClock, IconAward
-} from '@tabler/icons-react'
+import { ArrowRight, Search, Users, Clock } from 'lucide-react'
+import { BrainIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
-import { AppleCard } from '@/components/ui/apple-card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { 
-  GoogleIcon, MicrosoftIcon, MetaIcon, OpenAIIcon,
-  StanfordIcon, MITIcon, HarvardIcon
-} from '@/components/icons/company-logos'
-import { getMultipleAvatars } from '@/lib/avatars'
 
 const categories = [
   {
     id: 'ai-ml',
-    name: 'AI & Machine Learning',
-    icon: IconBrain,
-    className: 'bg-orange-200',
-    count: '2,340',
+    name: 'Artificial Intelligence',
+    icon: BrainIcon,
+    color: '#FF6B6B',
+    count: '2,340 cards',
     trending: true,
-    description: 'Neural networks, transformers, computer vision, NLP',
-    topics: ['Deep Learning', 'GPT & LLMs', 'Computer Vision', 'Reinforcement Learning']
+    description: 'Neural networks, transformers, and the future of computing',
+    featured: ['GPT & LLMs', 'Computer Vision', 'Deep Learning']
   },
   {
     id: 'programming',
     name: 'Programming',
-    icon: IconCode,
-    className: 'bg-blue-200',
-    count: '5,120',
-    description: 'Full-stack development, systems programming, web3',
-    topics: ['React & Next.js', 'Rust', 'TypeScript', 'System Design']
+    icon: CodeIcon,
+    color: '#4ECDC4',
+    count: '5,120 cards',
+    description: 'From systems to web, master every paradigm',
+    featured: ['TypeScript', 'Rust', 'System Design']
   },
   {
     id: 'science',
-    name: 'Science',
-    icon: IconMicroscope,
-    className: 'bg-green-200',
-    count: '1,890',
-    description: 'Physics, chemistry, biology, neuroscience',
-    topics: ['Quantum Physics', 'Molecular Biology', 'Neuroscience', 'Climate Science']
+    name: 'Sciences',
+    icon: BeakerIcon,
+    color: '#95E77E',
+    count: '1,890 cards',
+    description: 'The fundamentals that shape our understanding',
+    featured: ['Quantum Physics', 'Neuroscience', 'Biology']
   },
   {
     id: 'business',
-    name: 'Business & Finance',
-    icon: IconTrendingUp,
-    className: 'bg-red-200',
-    count: '3,450',
-    description: 'Strategy, finance, entrepreneurship, crypto',
-    topics: ['Product Management', 'Venture Capital', 'DeFi', 'Growth Marketing']
+    name: 'Business',
+    icon: ChartIcon,
+    color: '#A78BFA',
+    count: '3,450 cards',
+    description: 'Strategy, finance, and the art of growth',
+    featured: ['Product Management', 'Venture Capital', 'Marketing']
   },
   {
     id: 'design',
-    name: 'Design & Creative',
-    icon: IconPalette,
-    className: 'bg-orange-300',
-    count: '2,780',
-    description: 'UX/UI, 3D modeling, generative art, motion design',
-    topics: ['Design Systems', '3D & WebGL', 'Generative AI Art', 'Motion Graphics']
+    name: 'Design',
+    icon: PaletteIcon,
+    color: '#FFD700',
+    count: '2,780 cards',
+    description: 'Where creativity meets problem-solving',
+    featured: ['Design Systems', '3D & WebGL', 'Motion']
   },
   {
     id: 'languages',
     name: 'Languages',
-    icon: IconWorld,
-    className: 'bg-green-300',
-    count: '4,230',
-    description: 'Natural languages, linguistics, translation',
-    topics: ['Mandarin', 'Spanish', 'Japanese', 'Arabic']
+    icon: GlobeIcon,
+    color: '#4169E1',
+    count: '4,230 cards',
+    description: 'Connect with the world, one word at a time',
+    featured: ['Mandarin', 'Spanish', 'Japanese']
   }
 ]
 
-const trendingPaths = [
+const curated = [
   {
-    title: 'Become an AI Engineer',
+    title: 'The AI Engineer Path',
+    author: 'Sarah Chen',
     duration: '12 weeks',
-    level: 'Intermediate',
     students: '45.2k',
     rating: 4.9,
-    partner: GoogleIcon,
-    modules: 8
+    description: 'From ML basics to deploying production models'
   },
   {
-    title: 'Full-Stack with Next.js 15',
+    title: 'Modern Full-Stack',
+    author: 'Alex Rivera',
     duration: '8 weeks',
-    level: 'Beginner',
     students: '32.1k',
     rating: 4.8,
-    partner: MetaIcon,
-    modules: 6
+    description: 'Next.js, TypeScript, and the modern web stack'
   },
   {
-    title: 'Quantum Computing Fundamentals',
+    title: 'Quantum Fundamentals',
+    author: 'Dr. James Liu',
     duration: '10 weeks',
-    level: 'Advanced',
-    students: '12.4k',
-    rating: 4.7,
-    partner: MITIcon,
-    modules: 10
-  },
-  {
-    title: 'Product Management Masterclass',
-    duration: '6 weeks',
-    level: 'Intermediate',
-    students: '28.3k',
+    students: '12.3k',
     rating: 4.9,
-    partner: MicrosoftIcon,
-    modules: 5
+    description: 'Demystifying quantum computing for developers'
   }
 ]
 
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [, setSelectedCategory] = useState<string | null>(null)
-
-  // Filter categories based on search query
-  const filteredCategories = categories.filter(category => {
-    if (!searchQuery.trim()) return true
-    
-    const query = searchQuery.toLowerCase()
-    return (
-      category.name.toLowerCase().includes(query) ||
-      category.description.toLowerCase().includes(query) ||
-      category.topics.some(topic => topic.toLowerCase().includes(query))
-    )
-  })
-
-  // Filter trending paths based on search query
-  const filteredPaths = trendingPaths.filter(path => {
-    if (!searchQuery.trim()) return true
-    
-    const query = searchQuery.toLowerCase()
-    return (
-      path.title.toLowerCase().includes(query) ||
-      path.level.toLowerCase().includes(query)
-    )
-  })
-
-  // Handle search submission
-  const handleSearch = () => {
-    // Search is already reactive, but this could trigger analytics or other actions
-    console.log('Searching for:', searchQuery)
-  }
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Hero Section */}
-      <motion.div 
-        className="max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-light mb-6">
-            Explore <span className="font-medium">Knowledge</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover curated learning paths designed by experts from leading institutions and companies
-          </p>
-        </div>
+      <div className="pt-32 pb-20 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 1px, transparent 15px),
+                           repeating-linear-gradient(-45deg, #000 0, #000 1px, transparent 1px, transparent 15px)`
+          }}
+        />
 
-        {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mb-12">
-          <div className="relative">
-            <IconSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search for topics, skills, or courses..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="pl-12 pr-4 py-6 text-lg rounded-xl border-gray-200"
-            />
-            <Button 
-              className="absolute right-2 top-1/2 -translate-y-1/2"
-              onClick={handleSearch}
-            >
-              Search
-            </Button>
-          </div>
-        </div>
-
-        {/* Partner Logos */}
-        <div className="flex items-center justify-center gap-8 mb-16">
-          <GoogleIcon className="w-8 h-8" />
-          <MicrosoftIcon className="w-8 h-8" />
-          <MetaIcon className="w-8 h-8" />
-          <OpenAIIcon className="w-8 h-8" />
-          <StanfordIcon className="w-8 h-8" />
-          <MITIcon className="w-8 h-8" />
-          <HarvardIcon className="w-8 h-8" />
-        </div>
-      </motion.div>
-
-      {/* Categories Grid */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-light">Browse by Category</h2>
-            {searchQuery && (
-              <p className="text-sm text-gray-500 mt-1">
-                Found {filteredCategories.length} {filteredCategories.length === 1 ? 'category' : 'categories'} matching &quot;{searchQuery}&quot;
-              </p>
-            )}
-          </div>
-          <Button variant="ghost" className="text-gray-600">
-            View All <IconChevronRight className="w-4 h-4 ml-1" />
-          </Button>
-        </div>
-
-        {filteredCategories.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No categories found matching &quot;{searchQuery}&quot;</p>
-            <Button 
-              variant="ghost" 
-              className="mt-4" 
-              onClick={() => setSearchQuery('')}
-            >
-              Clear search
-            </Button>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCategories.map((category, index) => (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <AppleCard 
-                glassy 
-                interactive 
-                className="p-6 h-full cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => setSelectedCategory(category.id)}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.className}`}>
-                    <category.icon className="w-6 h-6 text-white" />
-                  </div>
-                  {category.trending && (
-                    <span className="px-2 py-1 text-xs font-medium rounded flex items-center gap-1 bg-green-100 text-green-700">
-                      <IconSparkles className="w-3 h-3" />
-                      Trending
-                    </span>
-                  )}
-                </div>
-                
-                <h3 className="text-xl font-medium mb-2">{category.name}</h3>
-                <p className="text-gray-600 text-sm mb-4">{category.description}</p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {category.topics.slice(0, 3).map(topic => (
-                    <span key={topic} className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-700">
-                      {topic}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>{category.count} cards</span>
-                  <IconChevronRight className="w-4 h-4" />
-                </div>
-              </AppleCard>
-            </motion.div>
-          ))}
-          </div>
-        )}
-      </div>
-
-      {/* Trending Learning Paths */}
-      <div className="py-16 bg-foreground text-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-light mb-4">
-              Trending Learning Paths
-            </h2>
-            <p className="text-gray-300">
-              Complete, structured programs designed by industry experts
-            </p>
-            {searchQuery && (
-              <p className="text-sm text-gray-400 mt-2">
-                Showing {filteredPaths.length} {filteredPaths.length === 1 ? 'path' : 'paths'} matching &quot;{searchQuery}&quot;
-              </p>
-            )}
-          </div>
-
-          {filteredPaths.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">No learning paths found matching &quot;{searchQuery}&quot;</p>
-              <Button 
-                variant="secondary" 
-                className="mt-4" 
-                onClick={() => setSearchQuery('')}
-              >
-                Clear search
-              </Button>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-6">
-              {filteredPaths.map((path, index) => (
-              <motion.div
-                key={path.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="p-6 rounded-lg cursor-pointer bg-gray-800/20 transition-all duration-300 hover:bg-gray-800/30">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <path.partner className="w-8 h-8" />
-                      <div>
-                        <h3 className="text-xl font-medium">{path.title}</h3>
-                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-300">
-                          <span className="flex items-center gap-1">
-                            <IconClock className="w-3 h-3" />
-                            {path.duration}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <IconBook className="w-3 h-3" />
-                            {path.modules} modules
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <IconUsers className="w-3 h-3" />
-                            {path.students}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="flex items-center gap-1 text-yellow-400">
-                        <IconAward className="w-4 h-4 fill-current" />
-                        <span className="text-white">{path.rating}</span>
-                      </div>
-                      <span className="text-xs text-gray-400">{path.level}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex -space-x-2">
-                      {getMultipleAvatars(4, `path-${index}`).map((avatarSrc, i) => (
-                        <img 
-                          key={i} 
-                          src={avatarSrc} 
-                          alt={`Student ${i + 1}`}
-                          className="w-8 h-8 rounded object-cover border-2" 
-style={{ borderColor: 'white' }}
-                        />
-                      ))}
-                      <div className="w-8 h-8 rounded flex items-center justify-center text-xs border-2 bg-gray-600 border-white">
-                        +{parseInt(path.students) > 10 ? Math.floor(parseInt(path.students) / 1000) : 5}k
-                      </div>
-                    </div>
-                    <Button variant="secondary" size="sm">
-                      Start Path <IconChevronRight className="w-3 h-3 ml-1" />
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <motion.div 
-          className="rounded-lg p-12 text-center bg-primary text-primary-foreground"
+          className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Can&apos;t find what you&apos;re looking for?
-          </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Our AI can create a personalized learning path just for you
-          </p>
-          <Link href="/signup">
-            <Button size="lg" variant="secondary">
-              Create Custom Path <IconSparkles className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
+          {/* Eyebrow */}
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-px w-12 bg-black/30" />
+            <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+              Explore
+            </p>
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-[clamp(3rem,6vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-8">
+            Knowledge,
+            <span className="block text-black/60 mt-2">curated by experts.</span>
+          </h1>
+
+          {/* Search Bar */}
+          <div className="max-w-2xl">
+            <p className="text-xl text-black/60 font-light mb-8">
+              Thousands of cards across every domain. From quantum physics to poetry, 
+              find exactly what you need to master.
+            </p>
+            
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search topics, concepts, or skills..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-6 py-4 pr-12 bg-white border border-black/10 rounded-2xl focus:outline-none focus:border-black/30 transition-colors text-base"
+              />
+              <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-black/30" />
+            </div>
+          </div>
         </motion.div>
       </div>
-      
-      {/* Footer */}
+
+      {/* Categories Grid */}
+      <section ref={ref} className="py-20 bg-white">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl font-serif font-light mb-12">Browse by domain</h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {categories.map((category, index) => (
+                <motion.div
+                  key={category.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative bg-white border border-black/5 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                  onClick={() => setSelectedCategory(category.id)}
+                  onMouseEnter={() => setSelectedCategory(category.id)}
+                  onMouseLeave={() => setSelectedCategory(null)}
+                >
+                  {/* Category Icon */}
+                  <category.icon className="w-10 h-10 mb-4 text-black/70 stroke-[1.5]" />
+
+                  {/* Category Info */}
+                  <div className="mb-6">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-2xl font-serif font-light">{category.name}</h3>
+                      {category.trending && (
+                        <span className="px-2 py-1 bg-gradient-to-r from-yellow-100 to-orange-100 text-xs rounded-full">
+                          Trending
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-black/50 mb-4">{category.count}</p>
+                    <p className="text-base text-black/70 font-light leading-relaxed">
+                      {category.description}
+                    </p>
+                  </div>
+
+                  {/* Featured Topics */}
+                  <div className="space-y-2">
+                    {category.featured.map((topic) => (
+                      <div key={topic} className="flex items-center gap-2 text-sm text-black/60">
+                        <div className="w-1 h-1 rounded-full bg-black/30" />
+                        {topic}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Hover Indicator */}
+                  <motion.div
+                    className="absolute bottom-8 right-8 w-10 h-10 rounded-full border border-black/10 flex items-center justify-center"
+                    animate={selectedCategory === category.id ? { scale: 1.1 } : { scale: 1 }}
+                  >
+                    <ArrowRight className="w-4 h-4 text-black/30" />
+                  </motion.div>
+
+                  {/* Color Accent */}
+                  <motion.div
+                    className="absolute top-0 left-0 w-1 h-full rounded-l-3xl origin-top"
+                    style={{ backgroundColor: category.color }}
+                    initial={{ scaleY: 0 }}
+                    animate={selectedCategory === category.id ? { scaleY: 1 } : { scaleY: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Curated Paths */}
+      <section className="py-20 bg-[#FAFAF9]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="flex items-end justify-between mb-12">
+              <div>
+                <h2 className="text-3xl font-serif font-light mb-4">Curated learning paths</h2>
+                <p className="text-lg text-black/60 font-light">
+                  Structured journeys designed by experts in the field
+                </p>
+              </div>
+              <Link href="/paths" className="group flex items-center gap-2 text-sm font-medium">
+                <span className="border-b border-black/30 group-hover:border-black transition-colors">
+                  View all paths
+                </span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-8">
+              {curated.map((path, index) => (
+                <motion.div
+                  key={path.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-black/40" />
+                      <span className="text-sm text-black/60">{path.duration}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="text-sm font-medium">{path.rating}</span>
+                      <span className="text-yellow-500">★</span>
+                    </div>
+                  </div>
+
+                  <h3 className="text-xl font-serif mb-2">{path.title}</h3>
+                  <p className="text-sm text-black/60 mb-4">{path.description}</p>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-black/5">
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm text-black/60">by {path.author}</div>
+                      <div className="flex items-center gap-1 text-sm text-black/40">
+                        <Users className="w-3 h-3" />
+                        {path.students}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <TrustIndicators />
     </div>
   )

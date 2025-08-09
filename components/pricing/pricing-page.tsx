@@ -1,18 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useState, useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { 
-  IconCheck, IconX, IconBrain, IconSparkles, IconBolt, IconUsers, IconShield,
-  IconChevronRight, IconHelpCircle, IconCreditCard, IconBuilding, 
-  IconAward, IconClock, IconChartBar, IconWorld, IconHeadphones
-} from '@tabler/icons-react'
+import { Check, X, ChevronRight, Users, Globe, Award, Clock, Building, Sparkles } from 'lucide-react'
 import Link from 'next/link'
-import { AppleCard } from '@/components/ui/apple-card'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-// Using CSS variables from globals.css
 
 const plans = [
   {
@@ -132,43 +124,66 @@ const comparisonFeatures = [
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-background">
-
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Hero Section */}
-      <motion.div 
-        className="max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-light mb-6">
-            Simple, Transparent <span className="font-medium">Pricing</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Choose the perfect plan for your learning journey. 
-            Start free, upgrade when you're ready.
-          </p>
+      <div className="pt-32 pb-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+                           radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%)`
+          }}
+        />
 
-          {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4">
-            <span className={`text-lg ${!isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-              Monthly
-            </span>
-            <Switch
-              checked={isAnnual}
-              onCheckedChange={setIsAnnual}
-            />
-            <span className={`text-lg ${isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-              Annual
-              <span className="ml-2 px-2 py-1 text-sm font-medium rounded bg-secondary text-green-600">
-                Save 20%
-              </span>
-            </span>
+        <motion.div 
+          className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-px w-12 bg-black/30" />
+            <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+              Pricing
+            </p>
           </div>
-        </div>
-      </motion.div>
+
+          <h1 className="text-[clamp(3rem,6vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-8">
+            Simple pricing.
+            <span className="block text-black/60 mt-2">Powerful results.</span>
+          </h1>
+
+          <div className="max-w-3xl">
+            <p className="text-xl text-black/60 font-light leading-relaxed mb-12">
+              Choose the perfect plan for your learning journey. 
+              Start free, upgrade when you're ready.
+            </p>
+
+            {/* Billing Toggle */}
+            <div className="flex items-center gap-6">
+              <button
+                onClick={() => setIsAnnual(false)}
+                className={`text-lg transition-colors ${!isAnnual ? 'text-black font-medium' : 'text-black/40'}`}
+              >
+                Monthly
+              </button>
+              <div className="h-6 w-px bg-black/20" />
+              <button
+                onClick={() => setIsAnnual(true)}
+                className={`text-lg transition-colors ${isAnnual ? 'text-black font-medium' : 'text-black/40'}`}
+              >
+                Annual
+                <span className="ml-2 px-3 py-1 text-sm bg-green-50 text-green-700 rounded-full">
+                  Save 20%
+                </span>
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Pricing Cards */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16">

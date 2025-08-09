@@ -136,14 +136,6 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
             >
               everything.
             </motion.span>
-            <motion.span 
-              className="block text-[clamp(1.5rem,3.5vw,2.5rem)] font-sans font-extralight mt-6 text-black/50 tracking-wide"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              Forever.
-            </motion.span>
           </motion.h1>
 
           {/* Editorial body text in columns */}
