@@ -211,9 +211,11 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   const formatGreeting = () => {
     const hour = new Date().getHours()
     const name = user.email?.split('@')[0] || 'there'
-    if (hour < 12) return `Good morning, ${name}`
-    if (hour < 18) return `Good afternoon, ${name}`
-    return `Good evening, ${name}`
+    // Capitalize the first letter of the name
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+    if (hour < 12) return `Good morning, ${capitalizedName}`
+    if (hour < 18) return `Good afternoon, ${capitalizedName}`
+    return `Good evening, ${capitalizedName}`
   }
 
   const filteredCards = cards.filter(card => 
@@ -330,7 +332,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   }`}
                 >
                   <BeakerIcon className="w-5 h-5 stroke-[2]" />
-                  AI Settings
+                  AI
                 </button>
                 <button
                   onClick={() => setViewMode('knowledge')}
@@ -341,7 +343,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   }`}
                 >
                   <SparkleIcon className="w-5 h-5 stroke-[2]" />
-                  Knowledge Graph
+                  Knowledge
                 </button>
                 <button
                   onClick={() => setViewMode('network')}
@@ -352,7 +354,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   }`}
                 >
                   <HeartIcon className="w-5 h-5 stroke-[2]" />
-                  Global Network
+                  Network
                 </button>
                 <button
                   onClick={() => setViewMode('viral')}
@@ -363,7 +365,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   }`}
                 >
                   <RocketIcon className="w-5 h-5 stroke-[2]" />
-                  Viral Impact
+                  Impact
                 </button>
               </nav>
             </div>
