@@ -2,9 +2,8 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Shield, Award, Globe, Lock } from 'lucide-react'
-import { IconSparkles } from '@tabler/icons-react'
 import Link from 'next/link'
+import { SparkleIcon, ShieldIcon, GlobeIcon, LockIcon } from '@/components/icons/line-icons'
 
 export default function TrustIndicators() {
   const ref = useRef(null)
@@ -16,10 +15,10 @@ export default function TrustIndicators() {
   ]
 
   const security = [
-    { icon: Shield, title: 'SOC 2 Type II', description: 'Certified security controls' },
-    { icon: Lock, title: 'End-to-end encryption', description: 'Your data stays private' },
-    { icon: Globe, title: 'GDPR compliant', description: 'Global privacy standards' },
-    { icon: Award, title: 'ISO 27001', description: 'Information security certified' }
+    { icon: ShieldIcon, title: 'SOC 2 Type II', description: 'Certified security controls' },
+    { icon: LockIcon, title: 'End-to-end encryption', description: 'Your data stays private' },
+    { icon: GlobeIcon, title: 'GDPR compliant', description: 'Global privacy standards' },
+    { icon: ShieldIcon, title: 'ISO 27001', description: 'Information security certified' }
   ]
 
   return (
@@ -59,7 +58,7 @@ export default function TrustIndicators() {
             const Icon = item.icon
             return (
               <div key={index} className="text-center">
-                <Icon className="w-8 h-8 mx-auto mb-3 text-gray-400" />
+                <Icon className="w-8 h-8 mx-auto mb-3 text-black/40 stroke-[1.5]" />
                 <p className="text-sm font-medium text-gray-900">{item.title}</p>
                 <p className="text-xs text-gray-500 mt-1">{item.description}</p>
               </div>
@@ -74,49 +73,72 @@ export default function TrustIndicators() {
           <div>
             <h4 className="text-sm font-medium mb-4">Product</h4>
             <ul className="space-y-3">
-              <li><Link href="/features" className="text-sm text-gray-600 hover:text-black transition-colors">Features</Link></li>
+              <li><Link href="/explore" className="text-sm text-gray-600 hover:text-black transition-colors">Explore</Link></li>
               <li><Link href="/pricing" className="text-sm text-gray-600 hover:text-black transition-colors">Pricing</Link></li>
               <li><Link href="/enterprise" className="text-sm text-gray-600 hover:text-black transition-colors">Enterprise</Link></li>
-              <li><Link href="/changelog" className="text-sm text-gray-600 hover:text-black transition-colors">Changelog</Link></li>
+              <li><Link href="/dashboard" className="text-sm text-gray-600 hover:text-black transition-colors">Dashboard</Link></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-medium mb-4">Resources</h4>
+            <h4 className="text-sm font-medium mb-4">Learn</h4>
             <ul className="space-y-3">
-              <li><Link href="/docs" className="text-sm text-gray-600 hover:text-black transition-colors">Documentation</Link></li>
-              <li><Link href="/api" className="text-sm text-gray-600 hover:text-black transition-colors">API</Link></li>
               <li><Link href="/research" className="text-sm text-gray-600 hover:text-black transition-colors">Research</Link></li>
-              <li><Link href="/blog" className="text-sm text-gray-600 hover:text-black transition-colors">Blog</Link></li>
+              <li><Link href="/learn" className="text-sm text-gray-600 hover:text-black transition-colors">Start Learning</Link></li>
+              <li><Link href="/ai-demo" className="text-sm text-gray-600 hover:text-black transition-colors">AI Demo</Link></li>
+              <li><a href="https://github.com/n3wth/supa-template" className="text-sm text-gray-600 hover:text-black transition-colors">GitHub</a></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-medium mb-4">Company</h4>
+            <h4 className="text-sm font-medium mb-4">Connect</h4>
             <ul className="space-y-3">
-              <li><Link href="/about" className="text-sm text-gray-600 hover:text-black transition-colors">About</Link></li>
-              <li><Link href="/careers" className="text-sm text-gray-600 hover:text-black transition-colors">Careers</Link></li>
-              <li><Link href="/press" className="text-sm text-gray-600 hover:text-black transition-colors">Press</Link></li>
-              <li><Link href="/contact" className="text-sm text-gray-600 hover:text-black transition-colors">Contact</Link></li>
+              <li><a href="https://twitter.com" className="text-sm text-gray-600 hover:text-black transition-colors">Twitter</a></li>
+              <li><a href="https://linkedin.com" className="text-sm text-gray-600 hover:text-black transition-colors">LinkedIn</a></li>
+              <li><a href="https://discord.com" className="text-sm text-gray-600 hover:text-black transition-colors">Discord</a></li>
+              <li><a href="mailto:hello@neuros.ai" className="text-sm text-gray-600 hover:text-black transition-colors">Email</a></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-medium mb-4">Legal</h4>
+            <h4 className="text-sm font-medium mb-4">Account</h4>
             <ul className="space-y-3">
-              <li><Link href="/privacy" className="text-sm text-gray-600 hover:text-black transition-colors">Privacy</Link></li>
-              <li><Link href="/terms" className="text-sm text-gray-600 hover:text-black transition-colors">Terms</Link></li>
-              <li><Link href="/security" className="text-sm text-gray-600 hover:text-black transition-colors">Security</Link></li>
-              <li><Link href="/compliance" className="text-sm text-gray-600 hover:text-black transition-colors">Compliance</Link></li>
+              <li><Link href="/signin" className="text-sm text-gray-600 hover:text-black transition-colors">Sign In</Link></li>
+              <li><Link href="/signup" className="text-sm text-gray-600 hover:text-black transition-colors">Sign Up</Link></li>
+              <li><Link href="/dashboard" className="text-sm text-gray-600 hover:text-black transition-colors">Dashboard</Link></li>
+              <li><a href="#" className="text-sm text-gray-400 cursor-not-allowed">Settings</a></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center">
-          <div className="flex items-center space-x-2">
-            <IconSparkles className="w-6 h-6 text-black" />
-            <span className="text-sm text-gray-600">© 2025 Neuros. All rights reserved.</span>
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <SparkleIcon className="w-5 h-5 text-black/70 stroke-[1.5]" />
+              <span className="text-sm text-gray-600">© 2025 Neuros</span>
+            </div>
+            
+            {/* Cute detail: animated dots that respond to hover */}
+            <div className="flex items-center gap-4">
+              <div className="flex gap-1 group">
+                <motion.div 
+                  className="w-2 h-2 rounded-full bg-black/10 group-hover:bg-blue-400 transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                />
+                <motion.div 
+                  className="w-2 h-2 rounded-full bg-black/10 group-hover:bg-green-400 transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ delay: 0.1 }}
+                />
+                <motion.div 
+                  className="w-2 h-2 rounded-full bg-black/10 group-hover:bg-purple-400 transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ delay: 0.2 }}
+                />
+              </div>
+              <span className="text-xs text-gray-400 font-light">Made with curiosity</span>
+            </div>
           </div>
         </div>
       </div>

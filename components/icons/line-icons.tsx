@@ -81,3 +81,24 @@ export const SparkleIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2 2-7z" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
+
+export const ShieldIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M12 2l8 4v6c0 4-3 7-8 10-5-3-8-6-8-10V6l8-4z" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const LockIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <rect x="5" y="11" width="14" height="10" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="12" cy="16" r="1" fill="currentColor" />
+  </svg>
+)
+
+export const HeartIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M12 21c-1-1-9-6-9-12 0-3 2-5 5-5 2 0 3 1 4 2 1-1 2-2 4-2 3 0 5 2 5 5 0 6-8 11-9 12z" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
