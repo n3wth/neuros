@@ -1,8 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import FullLearningDashboard from '@/components/learning/full-dashboard'
+import NeurosLearningDashboard from '@/components/learning/neuros-dashboard'
 
-export default async function DashboardPage() {
+export default async function LearnPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -10,5 +10,5 @@ export default async function DashboardPage() {
     redirect('/signin')
   }
 
-  return <FullLearningDashboard user={user} />
+  return <NeurosLearningDashboard user={user} />
 }

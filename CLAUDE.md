@@ -652,3 +652,49 @@ supabase db push          # Deploy migrations
 9. **Implement proper error boundaries**
 10. **Stream data with Suspense for better UX**
 11. **Test business logic, not implementation details**
+
+## 🎓 Project-Specific: AI-Powered Learning Platform
+
+### Core Features Implemented
+- **Spaced Repetition System**: SM-2 algorithm in PostgreSQL & TypeScript
+- **AI Card Generation**: OpenAI GPT-4 integration for smart flashcards
+- **Real-time Updates**: Supabase subscriptions for live data
+- **Professional Design**: OpenAI.com/Medium.com inspired aesthetic
+- **Company Logos**: Local vector icons in `/components/icons/company-logos.tsx`
+
+### Database Schema
+- 7 tables: cards, topics, user_cards, reviews, study_sessions, study_stats, goals
+- Real-time enabled for cards, user_cards, study_stats
+- Image storage tables: card_images, topic_images
+
+### API Keys Required
+```env
+OPENAI_API_KEY=sk-proj-...  # For AI features
+ANTHROPIC_API_KEY=sk-ant-...  # Optional AI provider
+```
+
+### Key Server Actions
+- `/server/actions/cards.ts` - CRUD operations
+- `/server/actions/reviews.ts` - SM-2 algorithm implementation  
+- `/server/actions/ai.ts` - AI card generation
+- `/server/actions/images.ts` - DALL-E 3 image generation
+
+### Navigation Routes
+- `/` - Landing page with professional hero
+- `/signin`, `/signup` - Authentication
+- `/dashboard` - Main learning dashboard
+- `/learn` - Card review interface
+- `/explore` - Browse learning topics
+- `/research` - Scientific background
+- `/enterprise` - Business features
+- `/pricing` - Subscription plans
+
+### Testing Setup
+- Vitest configured with React Testing Library
+- Component tests in `__tests__` directories
+- Mocked Supabase client for isolated testing
+
+### VS Code Integration
+- Full debugging configs in `.vscode/`
+- Launch profiles for server, client, and full-stack debugging
+- Tasks for common operations
