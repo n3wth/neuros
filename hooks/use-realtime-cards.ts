@@ -105,7 +105,7 @@ export function useRealtimeStats(userId?: string) {
   useEffect(() => {
     if (!userId) return
 
-    // Subscribe to study_stats changes
+    // Subscribe to user_stats changes
     const statsChannel = supabase
       .channel('stats-changes')
       .on(
@@ -113,7 +113,7 @@ export function useRealtimeStats(userId?: string) {
         {
           event: '*',
           schema: 'public',
-          table: 'study_stats',
+          table: 'user_stats',
           filter: `user_id=eq.${userId}`
         },
         async (payload) => {
@@ -121,7 +121,7 @@ export function useRealtimeStats(userId?: string) {
           
           // Fetch fresh stats
           const { data, error } = await supabase
-            .from('study_stats')
+            .from('user_stats')
             .select('*')
             .eq('user_id', userId)
             .single()

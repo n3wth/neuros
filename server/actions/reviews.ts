@@ -66,7 +66,7 @@ export async function submitReview(
   if (!user) throw new Error('Not authenticated')
 
   // Get current user_card data
-  const { data: userCard, error: fetchError } = await supabase
+  let { data: userCard, error: fetchError } = await supabase
     .from('user_cards')
     .select('*')
     .eq('user_id', user.id)
@@ -89,14 +89,17 @@ export async function submitReview(
       .single()
 
     if (createError) throw createError
+    if (!newUserCard) throw new Error('Failed to create user card')
     userCard = newUserCard
   }
 
+  if (!userCard) throw new Error('User card not found')
+
   // Calculate next review using SM-2
   const sm2Result = calculateSM2(
-    userCard.ease_factor,
-    userCard.interval_days,
-    userCard.repetitions,
+    userCard.ease_factor || 2.5,
+    userCard.interval_days || 0,
+    userCard.repetitions || 0,
     rating
   )
 
@@ -109,9 +112,9 @@ export async function submitReview(
       repetitions: sm2Result.repetitions,
       next_review_date: sm2Result.nextReviewDate.toISOString(),
       last_review_date: new Date().toISOString(),
-      total_reviews: userCard.total_reviews + 1,
-      correct_reviews: rating >= 3 ? userCard.correct_reviews + 1 : userCard.correct_reviews,
-      mastery_level: Math.min(100, userCard.mastery_level + (rating >= 3 ? 5 : -10)),
+      total_reviews: (userCard.total_reviews || 0) + 1,
+      correct_reviews: rating >= 3 ? (userCard.correct_reviews || 0) + 1 : (userCard.correct_reviews || 0),
+      mastery_level: Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)),
       average_response_time: userCard.average_response_time 
         ? Math.round((userCard.average_response_time + responseTime) / 2)
         : responseTime
@@ -142,7 +145,7 @@ export async function submitReview(
   return {
     success: true,
     nextReviewDate: sm2Result.nextReviewDate,
-    mastery: Math.min(100, userCard.mastery_level + (rating >= 3 ? 5 : -10))
+    mastery: Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10))
   }
 }
 
@@ -188,7 +191,7 @@ export async function endStudySession(
 
   if (fetchError) throw fetchError
 
-  const startTime = new Date(session.started_at).getTime()
+  const startTime = session.started_at ? new Date(session.started_at).getTime() : Date.now()
   const endTime = Date.now()
   const totalSeconds = Math.floor((endTime - startTime) / 1000)
 
@@ -249,8 +252,8 @@ async function updateUserStats(userId: string) {
   const totalReviews = reviews?.length || 0
   const correctReviews = reviews?.filter(r => r.rating >= 3).length || 0
   const accuracy = totalReviews > 0 ? (correctReviews / totalReviews) * 100 : 0
-  const totalMinutes = sessions?.reduce((sum, s) => sum + (s.total_time_seconds || 0), 0) / 60 || 0
-  const cardsMastered = userCards?.filter(c => c.mastery_level >= 80).length || 0
+  const totalMinutes = (sessions?.reduce((sum, s) => sum + (s.total_time_seconds || 0), 0) || 0) / 60
+  const cardsMastered = userCards?.filter(c => (c.mastery_level || 0) >= 80).length || 0
 
   // Calculate streak
   const { data: recentSessions } = await supabase
@@ -260,7 +263,7 @@ async function updateUserStats(userId: string) {
     .order('started_at', { ascending: false })
     .limit(30)
 
-  const currentStreak = calculateStreak(recentSessions?.map(s => s.started_at) || [])
+  const currentStreak = calculateStreak(recentSessions?.map(s => s.started_at).filter((date): date is string => date !== null) || [])
 
   // Update or insert user stats
   const { error } = await supabase

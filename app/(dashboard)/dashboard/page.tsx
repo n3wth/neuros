@@ -2,6 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import FullLearningDashboard from '@/components/learning/full-dashboard'
 
+// Force dynamic rendering - this page uses cookies via Supabase
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   try {
     const supabase = await createClient()

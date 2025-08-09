@@ -1,0 +1,294 @@
+'use server'
+
+import { createClient } from '@/lib/supabase/server'
+import { openai } from '@/lib/openai'
+import { analyzeMetaLearningPatterns } from './meta-learning'
+
+interface TutorPersonality {
+  name: string
+  style: 'socratic' | 'encouraging' | 'challenging' | 'adaptive'
+  expertise: string[]
+  personalityTraits: string[]
+  teachingMethods: string[]
+}
+
+interface LearningContext {
+  userId: string
+  currentTopic: string
+  recentMistakes: string[]
+  emotionalState: 'frustrated' | 'confident' | 'curious' | 'overwhelmed' | 'neutral'
+  sessionGoal: string
+}
+
+// Generate an adaptive AI tutor that evolves based on user interactions
+export async function generateAdaptiveTutor(
+  userId: string,
+  context: LearningContext
+): Promise<TutorPersonality> {
+  const patterns = await analyzeMetaLearningPatterns(userId)
+  
+  const tutorGeneration = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `You are designing an AI tutor personality that will maximize 
+        learning outcomes. Based on the user's learning patterns and current context, 
+        create a tutor that adapts to their needs. Consider pedagogical research 
+        on personalized instruction, cognitive load theory, and motivational psychology.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({ patterns, context })
+      }
+    ],
+    response_format: { type: 'json_object' },
+    temperature: 0.8,
+  })
+  
+  const tutor = JSON.parse(tutorGeneration.choices[0].message.content!) as TutorPersonality
+  
+  // Store tutor configuration for learning in ai_generations table
+  const supabase = await createClient()
+  await supabase
+    .from('ai_generations')
+    .insert({
+      user_id: userId,
+      generation_type: 'tutor_personality',
+      prompt: JSON.stringify(context),
+      response: tutor as any,
+    })
+  
+  return tutor
+}
+
+// Generate a personalized learning intervention
+export async function generateTutorIntervention(
+  userId: string,
+  question: string,
+  userAnswer: string,
+  isCorrect: boolean
+) {
+  const context: LearningContext = {
+    userId,
+    currentTopic: question,
+    recentMistakes: isCorrect ? [] : [userAnswer],
+    emotionalState: isCorrect ? 'confident' : 'frustrated',
+    sessionGoal: 'Master the current concept',
+  }
+  
+  const tutor = await generateAdaptiveTutor(userId, context)
+  const patterns = await analyzeMetaLearningPatterns(userId)
+  
+  const intervention = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `You are ${tutor.name}, an AI tutor with the following traits:
+        - Teaching style: ${tutor.style}
+        - Personality: ${tutor.personalityTraits.join(', ')}
+        - Methods: ${tutor.teachingMethods.join(', ')}
+        
+        Based on the user's answer and learning patterns, provide a personalized 
+        intervention that:
+        1. Addresses their specific mistake or reinforces their success
+        2. Adapts to their emotional state
+        3. Uses their preferred learning style
+        4. Builds on their existing knowledge
+        5. Motivates continued learning
+        
+        Be conversational, encouraging, and pedagogically sound.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          question,
+          userAnswer,
+          isCorrect,
+          patterns: patterns.patterns,
+          context,
+        })
+      }
+    ],
+    temperature: 0.7,
+  })
+  
+  // Track intervention effectiveness in ai_generations table
+  const supabase = await createClient()
+  await supabase
+    .from('ai_generations')
+    .insert({
+      user_id: userId,
+      generation_type: 'tutor_intervention',
+      prompt: JSON.stringify({ question, userAnswer, isCorrect, context }),
+      response: intervention.choices[0].message.content as any,
+    })
+  
+  return {
+    message: intervention.choices[0].message.content,
+    tutor,
+    suggestedNextSteps: await generateNextSteps(userId, question, isCorrect),
+  }
+}
+
+// Generate personalized next steps
+async function generateNextSteps(
+  userId: string,
+  currentTopic: string,
+  wasSuccessful: boolean
+) {
+  const patterns = await analyzeMetaLearningPatterns(userId)
+  
+  const steps = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `Based on the user's performance and learning patterns, suggest 
+        3-5 personalized next steps that will maximize their learning. Consider 
+        spaced repetition, interleaving, and progressive difficulty.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          currentTopic,
+          wasSuccessful,
+          patterns: patterns.predictions,
+        })
+      }
+    ],
+    response_format: { type: 'json_object' },
+  })
+  
+  return JSON.parse(steps.choices[0].message.content!)
+}
+
+// Socratic dialogue generator
+export async function generateSocraticDialogue(
+  userId: string,
+  topic: string,
+  userStatement: string
+) {
+  const patterns = await analyzeMetaLearningPatterns(userId)
+  
+  const dialogue = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `You are conducting a Socratic dialogue to help the user discover 
+        insights about ${topic}. Based on their statement, ask a thought-provoking 
+        question that:
+        1. Challenges their assumptions
+        2. Encourages deeper thinking
+        3. Leads to self-discovery
+        4. Adapts to their cognitive level
+        
+        The goal is not to give answers but to guide discovery through questions.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          userStatement,
+          cognitiveLevel: patterns.metaInsights.cognitiveLoad,
+          learningStyle: patterns.metaInsights.learningStyle,
+        })
+      }
+    ],
+    temperature: 0.8,
+  })
+  
+  return dialogue.choices[0].message.content
+}
+
+// Collaborative learning matcher
+export async function findLearningPartner(userId: string) {
+  const supabase = await createClient()
+  const userPatterns = await analyzeMetaLearningPatterns(userId)
+  
+  // Find users with complementary learning patterns
+  const { data: allPatterns } = await supabase
+    .from('meta_learning_patterns')
+    .select('*')
+    .neq('user_id', userId)
+  
+  if (!allPatterns) return null
+  
+  // Calculate compatibility scores
+  const compatibilityScores = allPatterns.map(partner => {
+    const score = calculateCompatibility(
+      userPatterns.patterns,
+      partner.patterns
+    )
+    return { partnerId: partner.user_id, score, patterns: partner.patterns }
+  })
+  
+  // Sort by compatibility and return best match
+  compatibilityScores.sort((a, b) => b.score - a.score)
+  const bestMatch = compatibilityScores[0]
+  
+  if (bestMatch && bestMatch.score > 0.7) {
+    // Create collaboration session
+    await supabase
+      .from('collaboration_sessions')
+      .insert({
+        user1_id: userId,
+        user2_id: bestMatch.partnerId,
+        compatibility_score: bestMatch.score,
+        status: 'pending',
+        created_at: new Date().toISOString(),
+      })
+    
+    return {
+      partnerId: bestMatch.partnerId,
+      compatibilityScore: bestMatch.score,
+      complementaryStrengths: identifyComplementaryStrengths(
+        userPatterns.patterns,
+        bestMatch.patterns
+      ),
+    }
+  }
+  
+  return null
+}
+
+function calculateCompatibility(patterns1: any, patterns2: any): number {
+  // Calculate compatibility based on complementary strengths
+  let score = 0
+  
+  // Similar pace but different strengths
+  if (patterns1.learningPace === patterns2.learningPace) score += 0.3
+  
+  // Complementary content preferences
+  if (patterns1.contentPreference !== patterns2.contentPreference) score += 0.2
+  
+  // Similar optimal times
+  const timeOverlap = patterns1.timeOfDay.filter((t: number) => 
+    patterns2.timeOfDay.includes(t)
+  ).length
+  score += (timeOverlap / patterns1.timeOfDay.length) * 0.3
+  
+  // Collaborative tendency
+  score += (patterns1.collaborativeTendency + patterns2.collaborativeTendency) / 2 * 0.2
+  
+  return score
+}
+
+function identifyComplementaryStrengths(patterns1: any, patterns2: any) {
+  const strengths = []
+  
+  if (patterns1.contentPreference === 'visual' && patterns2.contentPreference === 'textual') {
+    strengths.push('Visual-textual learning synergy')
+  }
+  
+  if (patterns1.difficultyPreference !== patterns2.difficultyPreference) {
+    strengths.push('Balanced challenge levels')
+  }
+  
+  if (patterns1.learningPace !== patterns2.learningPace) {
+    strengths.push('Pace variation for deeper understanding')
+  }
+  
+  return strengths
+}

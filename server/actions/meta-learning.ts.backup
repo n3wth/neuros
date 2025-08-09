@@ -1,0 +1,199 @@
+'use server'
+
+import { createClient } from '@/lib/supabase/server'
+import { openai } from '@/lib/openai'
+import { z } from 'zod'
+
+// Meta-learning pattern detection schema
+const LearningPatternSchema = z.object({
+  userId: z.string(),
+  patterns: z.object({
+    timeOfDay: z.array(z.number()), // Optimal learning hours
+    sessionDuration: z.number(), // Average effective session length
+    breakFrequency: z.number(), // Optimal break intervals
+    contentPreference: z.enum(['visual', 'textual', 'interactive', 'mixed']),
+    learningPace: z.enum(['fast', 'moderate', 'deliberate']),
+    retentionCurve: z.array(z.number()), // Forgetting curve data
+    engagementTriggers: z.array(z.string()), // What increases engagement
+    difficultyPreference: z.enum(['challenging', 'balanced', 'comfortable']),
+    collaborativeTendency: z.number(), // 0-1 scale
+    knowledgeConnections: z.record(z.array(z.string())), // Topic relationships
+  }),
+  metaInsights: z.object({
+    learningStyle: z.string(),
+    cognitiveLoad: z.number(),
+    motivationalDrivers: z.array(z.string()),
+    growthTrajectory: z.array(z.object({
+      date: z.string(),
+      score: z.number(),
+      velocity: z.number(),
+    })),
+  }),
+  predictions: z.object({
+    nextOptimalTopic: z.string(),
+    estimatedMastery: z.number(),
+    recommendedIntervention: z.string(),
+    burnoutRisk: z.number(),
+  }),
+})
+
+type LearningPattern = z.infer<typeof LearningPatternSchema>
+
+// Analyze user's learning patterns using meta-learning
+export async function analyzeMetaLearningPatterns(userId: string) {
+  const supabase = await createClient()
+  
+  // Fetch user's learning history
+  const { data: sessions } = await supabase
+    .from('learning_sessions')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(100)
+  
+  const { data: cards } = await supabase
+    .from('cards')
+    .select('*, card_interactions(*)')
+    .eq('user_id', userId)
+  
+  // Use GPT-4 to analyze patterns
+  const analysis = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `You are a meta-learning AI that analyzes how people learn. 
+        Identify deep patterns in learning behavior, predict future performance, 
+        and recommend personalized interventions. Think like a cognitive scientist 
+        mixed with a data scientist. Output valid JSON matching the schema.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({ sessions, cards })
+      }
+    ],
+    response_format: { type: 'json_object' },
+    temperature: 0.7,
+  })
+  
+  const patterns = LearningPatternSchema.parse(
+    JSON.parse(analysis.choices[0].message.content!)
+  )
+  
+  // Store patterns for continuous improvement
+  await supabase
+    .from('meta_learning_patterns')
+    .upsert({
+      user_id: userId,
+      patterns: patterns.patterns,
+      meta_insights: patterns.metaInsights,
+      predictions: patterns.predictions,
+      updated_at: new Date().toISOString(),
+    })
+  
+  return patterns
+}
+
+// Self-improving algorithm that learns from all users
+export async function evolveSystemIntelligence() {
+  const supabase = await createClient()
+  
+  // Aggregate patterns across all users
+  const { data: allPatterns } = await supabase
+    .from('meta_learning_patterns')
+    .select('*')
+  
+  if (!allPatterns || allPatterns.length === 0) return
+  
+  // Identify successful learning strategies
+  const successfulStrategies = allPatterns
+    .filter(p => p.meta_insights.growthTrajectory?.slice(-1)[0]?.velocity > 0.7)
+    .map(p => ({
+      strategy: p.patterns,
+      effectiveness: p.meta_insights.growthTrajectory?.slice(-1)[0]?.velocity,
+    }))
+  
+  // Generate system-wide improvements
+  const systemEvolution = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `You are the core intelligence of a self-improving learning system. 
+        Analyze successful learning strategies across all users and generate 
+        system-wide improvements. Think about network effects, viral learning 
+        mechanisms, and how to create a global knowledge revolution.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify(successfulStrategies)
+      }
+    ],
+    temperature: 0.9, // Higher creativity for innovation
+  })
+  
+  // Apply improvements to system configuration
+  await supabase
+    .from('system_evolution')
+    .insert({
+      improvements: systemEvolution.choices[0].message.content,
+      generation: allPatterns.length,
+      created_at: new Date().toISOString(),
+    })
+  
+  return systemEvolution.choices[0].message.content
+}
+
+// Predict future learning trajectory
+export async function predictLearningTrajectory(
+  userId: string,
+  timeHorizon: number = 30 // days
+) {
+  const patterns = await analyzeMetaLearningPatterns(userId)
+  
+  const prediction = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `Based on meta-learning patterns, predict the user's learning 
+        trajectory over the next ${timeHorizon} days. Consider forgetting curves, 
+        motivation cycles, and potential breakthrough moments. Be specific and 
+        actionable.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify(patterns)
+      }
+    ],
+  })
+  
+  return prediction.choices[0].message.content
+}
+
+// Generate personalized learning interventions
+export async function generateAdaptiveIntervention(
+  userId: string,
+  context: string
+) {
+  const patterns = await analyzeMetaLearningPatterns(userId)
+  
+  const intervention = await openai.chat.completions.create({
+    model: 'gpt-4-turbo-preview',
+    messages: [
+      {
+        role: 'system',
+        content: `You are an expert learning coach. Based on the user's 
+        meta-learning patterns, generate a personalized intervention that will 
+        maximize their learning potential. Consider their cognitive load, 
+        motivation, and optimal learning conditions.`
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({ patterns, context })
+      }
+    ],
+  })
+  
+  return intervention.choices[0].message.content
+}

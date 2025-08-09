@@ -148,6 +148,7 @@ export async function getUpcomingCards() {
 
   // Group by day
   const grouped = data?.reduce((acc, item) => {
+    if (!item.next_review_date) return acc
     const date = new Date(item.next_review_date).toLocaleDateString()
     if (!acc[date]) acc[date] = []
     acc[date].push(item)
@@ -219,9 +220,9 @@ export async function getCardStats() {
     .select('mastery_level')
     .eq('user_id', user.id)
 
-  const mastered = masteryData?.filter(c => c.mastery_level >= 80).length || 0
-  const learning = masteryData?.filter(c => c.mastery_level >= 40 && c.mastery_level < 80).length || 0
-  const difficult = masteryData?.filter(c => c.mastery_level < 40).length || 0
+  const mastered = masteryData?.filter(c => c.mastery_level != null && c.mastery_level >= 80).length || 0
+  const learning = masteryData?.filter(c => c.mastery_level != null && c.mastery_level >= 40 && c.mastery_level < 80).length || 0
+  const difficult = masteryData?.filter(c => c.mastery_level != null && c.mastery_level < 40).length || 0
 
   // Get due cards count
   const { count: dueCards } = await supabase

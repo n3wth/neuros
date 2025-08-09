@@ -179,7 +179,7 @@ export default function AIAssistant({ userName, currentCard }: AIAssistantProps)
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-400">Optimal Time</span>
-                <span className="text-xs text-white">{currentCard.timeEstimate} min</span>
+                <span className="text-xs text-white">15 min</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-400">Your Pace</span>

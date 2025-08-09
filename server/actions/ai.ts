@@ -3,6 +3,8 @@
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
 import { createCard } from './cards'
+import { checkMultipleRateLimits } from '@/lib/rate-limit-server'
+import { RateLimitExceededError } from '@/lib/rate-limit'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -21,6 +23,17 @@ export async function generateCardsFromText(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+
+  // Check rate limits (both specific and global)
+  const rateLimitResult = await checkMultipleRateLimits(user.id, ['CARD_GENERATION', 'GLOBAL_AI'])
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'Rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'CARD_GENERATION'
+    )
+  }
 
   const count = options?.count || 20
   const difficulty = options?.difficulty || 'intermediate'
@@ -110,10 +123,17 @@ export async function generateCardsFromText(
       tokensUsed: completion.usage?.total_tokens
     }
   } catch (error) {
+    // Re-throw rate limit errors without modification
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    
     console.error('AI generation error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,
-      error: error
+      error: error,
+      userId: user.id,
+      timestamp: new Date().toISOString()
     })
     
     // More specific error messages
@@ -122,10 +142,10 @@ export async function generateCardsFromText(
         throw new Error('OpenAI API key is invalid or missing')
       }
       if (error.message.includes('rate limit') || error.message.includes('quota')) {
-        throw new Error('OpenAI API rate limit or quota exceeded')
+        throw new Error('OpenAI API rate limit or quota exceeded. Please try again later.')
       }
       if (error.message.includes('network') || error.message.includes('timeout')) {
-        throw new Error('Network error connecting to OpenAI API')
+        throw new Error('Network error connecting to OpenAI API. Please check your connection.')
       }
       throw new Error(`AI generation failed: ${error.message}`)
     }
@@ -143,6 +163,17 @@ export async function generateExplanation(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+
+  // Check rate limits
+  const rateLimitResult = await checkMultipleRateLimits(user.id, ['EXPLANATION', 'GLOBAL_AI'])
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'Rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'EXPLANATION'
+    )
+  }
 
   const prompts = {
     simple: 'Explain this concept clearly and concisely',
@@ -183,7 +214,23 @@ export async function generateExplanation(
       tokensUsed: completion.usage?.total_tokens
     }
   } catch (error) {
-    console.error('AI explanation error:', error)
+    // Re-throw rate limit errors without modification
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    
+    console.error('AI explanation error:', {
+      error,
+      userId: user.id,
+      concept,
+      level,
+      timestamp: new Date().toISOString()
+    })
+    
+    if (error instanceof Error && error.message.includes('rate limit')) {
+      throw new Error('OpenAI API rate limit exceeded. Please try again later.')
+    }
+    
     throw new Error('Failed to generate explanation')
   }
 }
@@ -198,6 +245,17 @@ export async function generatePracticeQuestions(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+
+  // Check rate limits
+  const rateLimitResult = await checkMultipleRateLimits(user.id, ['PRACTICE_QUESTIONS', 'GLOBAL_AI'])
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'Rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'PRACTICE_QUESTIONS'
+    )
+  }
 
   try {
     const completion = await openai.chat.completions.create({
@@ -243,7 +301,22 @@ export async function generatePracticeQuestions(
       tokensUsed: completion.usage?.total_tokens
     }
   } catch (error) {
-    console.error('AI practice questions error:', error)
+    // Re-throw rate limit errors without modification
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    
+    console.error('AI practice questions error:', {
+      error,
+      userId: user.id,
+      cardFront,
+      timestamp: new Date().toISOString()
+    })
+    
+    if (error instanceof Error && error.message.includes('rate limit')) {
+      throw new Error('OpenAI API rate limit exceeded. Please try again later.')
+    }
+    
     throw new Error('Failed to generate practice questions')
   }
 }
@@ -258,6 +331,17 @@ export async function generateLearningPath(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+
+  // Check rate limits
+  const rateLimitResult = await checkMultipleRateLimits(user.id, ['LEARNING_PATH', 'GLOBAL_AI'])
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'Rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'LEARNING_PATH'
+    )
+  }
 
   try {
     const completion = await openai.chat.completions.create({
@@ -302,7 +386,23 @@ export async function generateLearningPath(
       tokensUsed: completion.usage?.total_tokens
     }
   } catch (error) {
-    console.error('AI learning path error:', error)
+    // Re-throw rate limit errors without modification
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    
+    console.error('AI learning path error:', {
+      error,
+      userId: user.id,
+      topic,
+      currentLevel,
+      timestamp: new Date().toISOString()
+    })
+    
+    if (error instanceof Error && error.message.includes('rate limit')) {
+      throw new Error('OpenAI API rate limit exceeded. Please try again later.')
+    }
+    
     throw new Error('Failed to generate learning path')
   }
 }
@@ -322,6 +422,17 @@ export async function generateLearningInsights(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+
+  // Check rate limits
+  const rateLimitResult = await checkMultipleRateLimits(user.id, ['INSIGHTS', 'GLOBAL_AI'])
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'Rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'INSIGHTS'
+    )
+  }
 
   try {
     const completion = await openai.chat.completions.create({
@@ -361,7 +472,22 @@ export async function generateLearningInsights(
       tokensUsed: completion.usage?.total_tokens
     }
   } catch (error) {
-    console.error('AI insights error:', error)
+    // Re-throw rate limit errors without modification
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    
+    console.error('AI insights error:', {
+      error,
+      userId: user.id,
+      stats,
+      timestamp: new Date().toISOString()
+    })
+    
+    if (error instanceof Error && error.message.includes('rate limit')) {
+      throw new Error('OpenAI API rate limit exceeded. Please try again later.')
+    }
+    
     throw new Error('Failed to generate insights')
   }
 }

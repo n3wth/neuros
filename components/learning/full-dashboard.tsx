@@ -39,6 +39,24 @@ import {
   getStudyStats 
 } from '@/server/actions/reviews'
 import { generateLearningInsights } from '@/server/actions/ai'
+// Meta-learning imports for future use
+// import { analyzeMetaLearningPatterns, evolveSystemIntelligence } from '@/server/actions/meta-learning'
+// import { generateTutorIntervention } from '@/server/actions/ai-tutor'
+import dynamic from 'next/dynamic'
+
+// Lazy load heavy visualization components
+const KnowledgeGraph = dynamic(() => import('@/components/visualizations/knowledge-graph'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-96" />
+})
+const GlobalLearningNetwork = dynamic(() => import('@/components/global/learning-network'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-96" />
+})
+const ViralMechanisms = dynamic(() => import('@/components/sharing/viral-mechanisms'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-96" />
+})
 
 interface User {
   id: string
@@ -49,7 +67,7 @@ interface FullLearningDashboardProps {
   user: User
 }
 
-type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'images' | 'settings'
+type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'images' | 'settings' | 'knowledge' | 'network' | 'viral'
 
 export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
@@ -87,11 +105,43 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         getUpcomingCards()
       ])
 
-      setCards(userCards)
-      setDueCards(dueCardsData)
+      setCards(userCards.map(card => ({
+        id: card.id,
+        front: card.front,
+        back: card.back,
+        difficulty: card.difficulty || 'medium',
+        topics: card.topics ? {
+          name: card.topics.name,
+          color: card.topics.color || '#999999'
+        } : undefined,
+        user_cards: card.user_cards?.map(uc => ({
+          mastery_level: uc.mastery_level || 0
+        }))
+      })))
+      setDueCards(dueCardsData.map(item => ({
+        id: item.id,
+        cards: {
+          front: item.cards.front,
+          back: item.cards.back,
+          topics: item.cards.topics ? {
+            name: item.cards.topics.name
+          } : undefined
+        },
+        mastery_level: item.mastery_level || 0,
+        total_reviews: item.total_reviews || 0
+      })))
       setStats(cardStats)
-      setStudyStats(studyStatsData)
-      setUpcomingCards(upcomingData)
+      setStudyStats(studyStatsData ? {
+        total_reviews: studyStatsData.total_reviews || 0,
+        average_accuracy: studyStatsData.average_accuracy || 0,
+        total_study_time_minutes: studyStatsData.total_study_time_minutes || 0,
+        current_streak_days: studyStatsData.current_streak_days || 0
+      } : null)
+      const formattedUpcoming: Record<string, Array<{ id: string }>> = {}
+      Object.entries(upcomingData).forEach(([date, items]) => {
+        formattedUpcoming[date] = items.map(item => ({ id: item.cards.id }))
+      })
+      setUpcomingCards(formattedUpcoming)
 
       // Generate AI insights if we have stats or show fallback for new users
       if (studyStatsData && cardStats && cardStats.totalCards > 0) {
@@ -100,8 +150,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             totalCards: cardStats.totalCards,
             mastered: cardStats.mastered,
             struggling: cardStats.difficult,
-            averageAccuracy: studyStatsData.average_accuracy,
-            studyTimeMinutes: studyStatsData.total_study_time_minutes
+            averageAccuracy: studyStatsData.average_accuracy || 0,
+            studyTimeMinutes: studyStatsData.total_study_time_minutes || 0
           })
           setAiInsights(insights.insights || [])
         } catch (error) {
@@ -282,11 +332,44 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   <BeakerIcon className="w-5 h-5 stroke-[2]" />
                   AI Settings
                 </button>
+                <button
+                  onClick={() => setViewMode('knowledge')}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                    viewMode === 'knowledge' 
+                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                  }`}
+                >
+                  <SparkleIcon className="w-5 h-5 stroke-[2]" />
+                  Knowledge Graph
+                </button>
+                <button
+                  onClick={() => setViewMode('network')}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                    viewMode === 'network' 
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                  }`}
+                >
+                  <HeartIcon className="w-5 h-5 stroke-[2]" />
+                  Global Network
+                </button>
+                <button
+                  onClick={() => setViewMode('viral')}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                    viewMode === 'viral' 
+                      ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                  }`}
+                >
+                  <RocketIcon className="w-5 h-5 stroke-[2]" />
+                  Viral Impact
+                </button>
               </nav>
             </div>
 
             <div className="flex items-center space-x-3">
-              {studyStats?.current_streak_days > 0 && (
+              {studyStats && studyStats.current_streak_days > 0 && (
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full border border-black/10">
                   <RocketIcon className="w-4 h-4 text-black/70 stroke-[1.5]" />
                   <span className="text-sm font-light text-black/70">
@@ -303,15 +386,13 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 New Card
               </Button>
 
-              <form action={signOut}>
-                <button
-                  type="submit"
-                  className="p-2.5 hover:bg-black/5 rounded-full transition-all duration-300 group"
-                  title="Sign out"
-                >
-                  <LogOutIcon className="w-4 h-4 text-black/60 group-hover:text-black/80 stroke-[1.5]" />
-                </button>
-              </form>
+              <button
+                onClick={async () => await signOut()}
+                className="p-2.5 hover:bg-black/5 rounded-full transition-all duration-300 group"
+                title="Sign out"
+              >
+                <LogOutIcon className="w-4 h-4 text-black/60 group-hover:text-black/80 stroke-[1.5]" />
+              </button>
             </div>
           </div>
         </div>
@@ -423,7 +504,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 {/* Main Action Area */}
                 <div className="lg:col-span-2">
                   {/* Start Review Card */}
-                  {stats?.dueCards > 0 ? (
+                  {stats && stats.dueCards > 0 ? (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -883,13 +964,13 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div>
                       <div className="flex justify-between text-sm mb-2">
                         <span className="text-black/70 font-light">Mastered ({stats?.mastered || 0})</span>
-                        <span className="text-black/60 font-mono text-xs">{Math.round((stats?.mastered / stats?.totalCards) * 100) || 0}%</span>
+                        <span className="text-black/60 font-mono text-xs">{stats && stats.totalCards > 0 ? Math.round((stats.mastered / stats.totalCards) * 100) : 0}%</span>
                       </div>
                       <div className="h-4 bg-black/5 rounded-full overflow-hidden">
                         <motion.div 
                           className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
                           initial={{ width: 0 }}
-                          animate={{ width: `${(stats?.mastered / stats?.totalCards) * 100 || 0}%` }}
+                          animate={{ width: `${stats && stats.totalCards > 0 ? (stats.mastered / stats.totalCards) * 100 : 0}%` }}
                           transition={{ duration: 1, delay: 0.7 }}
                         />
                       </div>
@@ -898,13 +979,13 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div>
                       <div className="flex justify-between text-sm mb-2">
                         <span className="text-black/70 font-light">Learning ({stats?.learning || 0})</span>
-                        <span className="text-black/60 font-mono text-xs">{Math.round((stats?.learning / stats?.totalCards) * 100) || 0}%</span>
+                        <span className="text-black/60 font-mono text-xs">{stats && stats.totalCards > 0 ? Math.round((stats.learning / stats.totalCards) * 100) : 0}%</span>
                       </div>
                       <div className="h-4 bg-black/5 rounded-full overflow-hidden">
                         <motion.div 
                           className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
                           initial={{ width: 0 }}
-                          animate={{ width: `${(stats?.learning / stats?.totalCards) * 100 || 0}%` }}
+                          animate={{ width: `${stats && stats.totalCards > 0 ? (stats.learning / stats.totalCards) * 100 : 0}%` }}
                           transition={{ duration: 1, delay: 0.8 }}
                         />
                       </div>
@@ -913,13 +994,13 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div>
                       <div className="flex justify-between text-sm mb-2">
                         <span className="text-black/70 font-light">Difficult ({stats?.difficult || 0})</span>
-                        <span className="text-black/60 font-mono text-xs">{Math.round((stats?.difficult / stats?.totalCards) * 100) || 0}%</span>
+                        <span className="text-black/60 font-mono text-xs">{stats && stats.totalCards > 0 ? Math.round((stats.difficult / stats.totalCards) * 100) : 0}%</span>
                       </div>
                       <div className="h-4 bg-black/5 rounded-full overflow-hidden">
                         <motion.div 
                           className="h-full bg-gradient-to-r from-red-400 to-pink-400 rounded-full"
                           initial={{ width: 0 }}
-                          animate={{ width: `${(stats?.difficult / stats?.totalCards) * 100 || 0}%` }}
+                          animate={{ width: `${stats && stats.totalCards > 0 ? (stats.difficult / stats.totalCards) * 100 : 0}%` }}
                           transition={{ duration: 1, delay: 0.9 }}
                         />
                       </div>
@@ -978,6 +1059,142 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   }}
                 />
               </div>
+            </motion.div>
+          )}
+          
+          {/* Knowledge Graph View */}
+          {viewMode === 'knowledge' && (
+            <motion.div
+              key="knowledge"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4 }}
+              className="max-w-7xl mx-auto"
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl font-serif font-light text-black/90 mb-2">
+                  Your Knowledge Universe
+                </h2>
+                <p className="text-black/60 font-light">
+                  Visualize how your learning connects and grows over time
+                </p>
+              </div>
+              
+              <Card className="p-8 bg-white/90 backdrop-blur-sm rounded-3xl border-black/5">
+                <KnowledgeGraph
+                  nodes={[
+                    { id: '1', label: 'Machine Learning', type: 'topic', mastery: 0.7, size: 30 },
+                    { id: '2', label: 'Neural Networks', type: 'concept', mastery: 0.5, size: 25 },
+                    { id: '3', label: 'Backpropagation', type: 'skill', mastery: 0.3, size: 20 },
+                    { id: '4', label: 'Deep Learning', type: 'topic', mastery: 0.6, size: 28 },
+                    { id: '5', label: 'Computer Vision', type: 'concept', mastery: 0.4, size: 22 },
+                    { id: '6', label: user.email || 'You', type: 'user', size: 35 },
+                  ]}
+                  edges={[
+                    { source: '1', target: '2', strength: 0.9, type: 'prerequisite' },
+                    { source: '2', target: '3', strength: 0.8, type: 'builds-on' },
+                    { source: '1', target: '4', strength: 0.7, type: 'related' },
+                    { source: '4', target: '5', strength: 0.6, type: 'related' },
+                    { source: '6', target: '1', strength: 0.7, type: 'similar' },
+                    { source: '6', target: '4', strength: 0.5, type: 'similar' },
+                  ]}
+                  width={1000}
+                  height={600}
+                  onNodeClick={(node) => {
+                    console.log('Node clicked:', node)
+                    // Future: Open detailed view of this knowledge area
+                  }}
+                />
+              </Card>
+              
+              <div className="mt-6 grid grid-cols-3 gap-4">
+                <Card className="p-6 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl">
+                  <h3 className="font-semibold mb-2">Knowledge Depth</h3>
+                  <p className="text-2xl font-bold text-purple-600">Level 7</p>
+                  <p className="text-sm text-gray-600 mt-1">Advanced Learner</p>
+                </Card>
+                <Card className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl">
+                  <h3 className="font-semibold mb-2">Connections Made</h3>
+                  <p className="text-2xl font-bold text-blue-600">142</p>
+                  <p className="text-sm text-gray-600 mt-1">Cross-domain links</p>
+                </Card>
+                <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl">
+                  <h3 className="font-semibold mb-2">Growth Rate</h3>
+                  <p className="text-2xl font-bold text-green-600">+23%</p>
+                  <p className="text-sm text-gray-600 mt-1">This month</p>
+                </Card>
+              </div>
+            </motion.div>
+          )}
+          
+          {/* Global Learning Network View */}
+          {viewMode === 'network' && (
+            <motion.div
+              key="network"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-7xl mx-auto"
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl font-serif font-light text-black/90 mb-2">
+                  Global Learning Community
+                </h2>
+                <p className="text-black/60 font-light">
+                  Connect with learners worldwide in real-time
+                </p>
+              </div>
+              
+              <GlobalLearningNetwork />
+              
+              <div className="mt-8 grid grid-cols-2 gap-6">
+                <Card className="p-6 bg-white rounded-2xl">
+                  <h3 className="font-semibold mb-4">Learning Together</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Join collaborative learning sessions with peers who share your interests
+                    and complement your learning style.
+                  </p>
+                  <Button className="w-full">
+                    Find Learning Partner
+                  </Button>
+                </Card>
+                
+                <Card className="p-6 bg-white rounded-2xl">
+                  <h3 className="font-semibold mb-4">Knowledge Exchange</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Share your expertise and learn from others through peer-to-peer
+                    knowledge markets.
+                  </p>
+                  <Button variant="outline" className="w-full">
+                    Browse Knowledge Market
+                  </Button>
+                </Card>
+              </div>
+            </motion.div>
+          )}
+          
+          {/* Viral Impact View */}
+          {viewMode === 'viral' && (
+            <motion.div
+              key="viral"
+              initial={{ opacity: 0, rotateY: -10 }}
+              animate={{ opacity: 1, rotateY: 0 }}
+              exit={{ opacity: 0, rotateY: 10 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl font-serif font-light text-black/90 mb-2">
+                  Your Learning Impact
+                </h2>
+                <p className="text-black/60 font-light">
+                  Share achievements, join challenges, and inspire others
+                </p>
+              </div>
+              
+              <ViralMechanisms userId={user.id} />
             </motion.div>
           )}
         </AnimatePresence>

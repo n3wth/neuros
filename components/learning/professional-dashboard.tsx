@@ -156,11 +156,12 @@ export default function ProfessionalDashboard({ user }: ProfessionalDashboardPro
               <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <Settings className="w-5 h-5 text-gray-600" />
               </button>
-              <form action={signOut}>
-                <button type="submit" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                  <LogOut className="w-5 h-5 text-gray-600" />
-                </button>
-              </form>
+              <button 
+                onClick={async () => await signOut()}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <LogOut className="w-5 h-5 text-gray-600" />
+              </button>
             </div>
           </div>
         </div>

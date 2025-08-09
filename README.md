@@ -1,4 +1,4 @@
-# 🧠 Neuros - AI-Powered Learning Platform
+# Neuros - AI-Powered Learning Platform
 
 <div align="center">
 
@@ -12,59 +12,59 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-orange?logo=openai)](https://openai.com/)
 
-[🚀 **Live Demo**](https://neuros.vercel.app) • [📖 **Documentation**](#documentation) • [🎯 **Features**](#features)
+[**Live Demo**](https://neuros.vercel.app) • [**Documentation**](#documentation) • [**Features**](#features)
 
 </div>
 
 ---
 
-## 🌟 What is Neuros?
+## What is Neuros?
 
 Neuros is a next-generation learning platform that harnesses the power of AI to create personalized, adaptive learning experiences. Whether you're a student, professional, or lifelong learner, Neuros transforms any content into interactive learning cards, provides intelligent insights, and adapts to your unique learning style.
 
-### ✨ Key Highlights
+### Key Highlights
 
-- 🤖 **AI-Powered Content Generation** - Turn any text into structured learning cards
-- 🎯 **Adaptive Learning Paths** - Personalized progression based on your performance  
-- 📊 **Advanced Analytics** - Deep insights into your learning patterns
-- 🎨 **Beautiful, Modern Interface** - Carefully crafted with attention to detail
-- 🔒 **Secure & Private** - Your data is protected with enterprise-grade security
+- **AI-Powered Content Generation** - Turn any text into structured learning cards
+- **Adaptive Learning Paths** - Personalized progression based on your performance
+- **Advanced Analytics** - Deep insights into your learning patterns
+- **Beautiful Modern Interface** - Carefully crafted with attention to detail
+- **Secure & Private** - Your data is protected with enterprise-grade security
 
 ---
 
-## 🚀 Features
+## Features
 
-### 🧠 Intelligent Learning Engine
+### Intelligent Learning Engine
 
 - **Smart Card Generation**: Transform any content into optimized learning cards with AI
 - **Adaptive Difficulty**: Content automatically adjusts to your skill level
 - **Spaced Repetition**: Research-backed algorithms optimize retention
-- **Multi-Modal Learning**: Text, images, and interactive elements
+- **Multi-Modal Learning**: Text images and interactive elements
 
-### 📈 Analytics & Insights
+### Analytics & Insights
 
-- **Learning Analytics**: Detailed progress tracking and performance metrics  
+- **Learning Analytics**: Detailed progress tracking and performance metrics
 - **Knowledge Mapping**: Visualize connections between concepts
 - **Streak Tracking**: Maintain learning momentum with gamification
 - **Performance Predictions**: AI insights into your learning trajectory
 
-### 🎨 Premium Experience
+### Premium Experience
 
-- **Apple-Inspired Design**: Polished, intuitive interface
+- **Apple-Inspired Design**: Polished intuitive interface
 - **Dark/Light Themes**: Seamless theme switching
 - **Responsive Design**: Perfect experience across all devices
 - **Accessibility First**: WCAG compliant for inclusive learning
 
-### 🔧 Developer Features
+### Developer Features
 
-- **Modern Tech Stack**: Next.js 15, TypeScript, Supabase, Tailwind CSS v4
-- **Real-time Sync**: Instant updates across all your devices  
-- **Offline Support**: Learn anywhere, sync when connected
+- **Modern Tech Stack**: Next.js 15 TypeScript Supabase Tailwind CSS v4
+- **Real-time Sync**: Instant updates across all your devices
+- **Offline Support**: Learn anywhere sync when connected
 - **API Integration**: OpenAI GPT-4 for intelligent content processing
 
 ---
 
-## 🎯 Perfect For
+## Perfect For
 
 | **Students** | **Professionals** | **Educators** | **Teams** |
 |--------------|-------------------|---------------|-----------|

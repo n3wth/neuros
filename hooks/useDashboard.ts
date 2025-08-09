@@ -46,13 +46,13 @@ export function useDashboard() {
       if (studyStatsData && cardStats) {
         try {
           const insights = await generateLearningInsights({
-            totalCards: cardStats.totalCards,
-            mastered: cardStats.mastered,
-            struggling: cardStats.difficult,
-            averageAccuracy: studyStatsData.average_accuracy,
-            studyTimeMinutes: studyStatsData.total_study_time_minutes
+            totalCards: cardStats.totalCards || 0,
+            mastered: cardStats.mastered || 0,
+            struggling: cardStats.difficult || 0,
+            averageAccuracy: studyStatsData.average_accuracy || 0,
+            studyTimeMinutes: studyStatsData.total_study_time_minutes || 0
           })
-          setAiInsights(insights.insights || [])
+          setAiInsights(insights?.insights || [])
         } catch {
           setAiInsights([{
             type: 'info',
@@ -73,7 +73,9 @@ export function useDashboard() {
   const startReview = async () => {
     try {
       const session = await startStudySession()
-      setCurrentSessionId(session.id)
+      if (session?.id) {
+        setCurrentSessionId(session.id)
+      }
       return session
     } catch (error) {
       console.error('Failed to start study session:', error)

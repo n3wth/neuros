@@ -1,7 +1,31 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 import "./globals.css";
 import "./polish.css";
+
+// Optimized font loading
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+  preload: false, // Only load when needed
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+  preload: false, // Only load when needed
+});
 
 export const metadata: Metadata = {
   title: "Neuros - AI-Powered Learning Platform",
@@ -30,19 +54,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link 
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" 
-          rel="stylesheet" 
-        />
-      </head>
-      <body className="antialiased">
-        {children}
-        <Toaster />
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}>
+      <body className="antialiased font-sans">
+        <ErrorBoundary>
+          {children}
+          <Toaster />
+        </ErrorBoundary>
       </body>
     </html>
   );

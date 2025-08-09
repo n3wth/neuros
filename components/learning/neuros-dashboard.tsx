@@ -175,16 +175,14 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
                     <p className="text-sm text-white font-medium">{user?.email?.split('@')[0]}</p>
                     <p className="text-xs text-gray-400">Level 12 Learner</p>
                   </div>
-                  <form action={signOut}>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      className="text-gray-400 hover:text-white"
-                      type="submit"
-                    >
-                      <LogOut className="w-4 h-4" />
-                    </Button>
-                  </form>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="text-gray-400 hover:text-white"
+                    onClick={async () => await signOut()}
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
             </div>
@@ -383,7 +381,11 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
               >
                 <AIAssistant 
                   userName={user?.email?.split('@')[0] || 'Learner'}
-                  currentCard={learningQueue.find(c => c.id === activeCardId)}
+                  currentCard={learningQueue.find(c => c.id === activeCardId) ? {
+                    id: learningQueue.find(c => c.id === activeCardId)!.id,
+                    title: learningQueue.find(c => c.id === activeCardId)!.title,
+                    content: learningQueue.find(c => c.id === activeCardId)!.category
+                  } : null}
                 />
               </motion.div>
             </div>

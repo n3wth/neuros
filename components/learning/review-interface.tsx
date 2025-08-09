@@ -54,12 +54,8 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
 
   const currentCard = cards[currentIndex]
 
-  // Load due cards
-  useEffect(() => {
-    loadCards()
-  }, [])
-
-  const loadCards = async () => {
+  // Define loadCards first so it can be used in callbacks
+  const loadCards = useCallback(async () => {
     setIsLoading(true)
     try {
       const dueCards = await getDueCards(20)
@@ -69,7 +65,73 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
+
+  // Define callbacks before they're used
+  const handleShowAnswer = useCallback(() => {
+    setShowAnswer(true)
+    setStartTime(Date.now())
+  }, [])
+
+  const handleRate = useCallback(async (rating: number) => {
+    if (!currentCard) return
+
+    const responseTime = Date.now() - startTime
+
+    try {
+      await submitReview(
+        currentCard.cards.id,
+        rating,
+        responseTime,
+        sessionId
+      )
+
+      // Update stats
+      setStats(prev => ({
+        reviewed: prev.reviewed + 1,
+        correct: rating >= 3 ? prev.correct + 1 : prev.correct,
+        incorrect: rating < 3 ? prev.incorrect + 1 : prev.incorrect
+      }))
+
+      // Move to next card
+      if (currentIndex < cards.length - 1) {
+        setCurrentIndex(prev => prev + 1)
+        setShowAnswer(false)
+        setShowExplanation(false)
+        setAiExplanation('')
+      } else {
+        // No more cards
+        await loadCards()
+        setCurrentIndex(0)
+        setShowAnswer(false)
+      }
+    } catch (error) {
+      console.error('Failed to submit review:', error)
+    }
+  }, [currentCard, startTime, sessionId, cards.length, currentIndex, loadCards])
+
+  const toggleExplanation = useCallback(() => {
+    setShowExplanation(!showExplanation)
+  }, [showExplanation])
+
+  const getAIHelp = useCallback(async () => {
+    if (!currentCard || aiExplanation) return
+
+    try {
+      const result = await generateExplanation(
+        `${currentCard.cards.front} - ${currentCard.cards.back}`,
+        'simple'
+      )
+      setAiExplanation(result.explanation || '')
+    } catch (error) {
+      console.error('Failed to get AI explanation:', error)
+    }
+  }, [currentCard, aiExplanation])
+
+  // Load due cards
+  useEffect(() => {
+    loadCards()
+  }, [loadCards])
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -113,66 +175,6 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [currentCard, showAnswer, aiExplanation, startTime, handleShowAnswer, handleRate, toggleExplanation, getAIHelp])
-
-  const handleShowAnswer = useCallback(() => {
-    setShowAnswer(true)
-    setStartTime(Date.now())
-  }, [])
-
-  const handleRate = useCallback(async (rating: number) => {
-    if (!currentCard) return
-
-    const responseTime = Date.now() - startTime
-
-    try {
-      await submitReview(
-        currentCard.cards.id,
-        rating,
-        responseTime,
-        sessionId
-      )
-
-      // Update stats
-      setStats(prev => ({
-        reviewed: prev.reviewed + 1,
-        correct: rating >= 3 ? prev.correct + 1 : prev.correct,
-        incorrect: rating < 3 ? prev.incorrect + 1 : prev.incorrect
-      }))
-
-      // Move to next card
-      if (currentIndex < cards.length - 1) {
-        setCurrentIndex(prev => prev + 1)
-        setShowAnswer(false)
-        setShowExplanation(false)
-        setAiExplanation('')
-      } else {
-        // No more cards
-        await loadCards()
-        setCurrentIndex(0)
-        setShowAnswer(false)
-      }
-    } catch (error) {
-      console.error('Failed to submit review:', error)
-    }
-  }, [currentCard, startTime, sessionId, cards.length, currentIndex])
-
-  const toggleExplanation = useCallback(() => {
-    setShowExplanation(!showExplanation)
-  }, [showExplanation])
-
-  const getAIHelp = useCallback(async () => {
-    if (!currentCard || aiExplanation) return
-
-    try {
-      const result = await generateExplanation(
-        `${currentCard.cards.front} - ${currentCard.cards.back}`,
-        'simple'
-      )
-      setAiExplanation(result.explanation || '')
-    } catch (error) {
-      console.error('Failed to get AI explanation:', error)
-    }
-  }, [currentCard, aiExplanation])
 
   const getRatingColor = (rating: number) => {
     switch (rating) {

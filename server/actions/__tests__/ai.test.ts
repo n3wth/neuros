@@ -1,17 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { generateCardsFromText } from '../ai'
 
-// Mock OpenAI
-vi.mock('openai', () => ({
-  default: vi.fn().mockImplementation(() => ({
-    chat: {
-      completions: {
-        create: vi.fn()
-      }
-    }
-  }))
-}))
-
 // Mock Supabase client
 vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(() => ({
@@ -38,13 +27,13 @@ vi.mock('../cards', () => ({
 describe('AI Server Actions', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    global.global.mockOpenAICreate.mockClear()
     process.env.OPENAI_API_KEY = 'test-api-key'
   })
 
   describe('generateCardsFromText', () => {
     it('should generate cards with correct parameters', async () => {
-      const OpenAI = (await import('openai')).default
-      const mockCreate = vi.fn().mockResolvedValue({
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: JSON.stringify({
@@ -62,21 +51,12 @@ describe('AI Server Actions', () => {
         usage: { total_tokens: 150 }
       })
 
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
-
       const result = await generateCardsFromText('Python basics: variables, functions', {
         difficulty: 'beginner',
         count: 5
       })
 
-      expect(mockCreate).toHaveBeenCalledWith({
+      expect(global.mockOpenAICreate).toHaveBeenCalledWith({
         model: 'gpt-4o',
         messages: [
           {
@@ -98,8 +78,7 @@ describe('AI Server Actions', () => {
     })
 
     it('should use default parameters when none provided', async () => {
-      const OpenAI = (await import('openai')).default
-      const mockCreate = vi.fn().mockResolvedValue({
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: JSON.stringify({
@@ -115,18 +94,9 @@ describe('AI Server Actions', () => {
         usage: { total_tokens: 500 }
       })
 
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
-
       const result = await generateCardsFromText('Test content')
 
-      expect(mockCreate).toHaveBeenCalledWith(
+      expect(global.mockOpenAICreate).toHaveBeenCalledWith(
         expect.objectContaining({
           messages: [
             expect.objectContaining({
@@ -156,24 +126,24 @@ describe('AI Server Actions', () => {
     })
 
     it('should handle OpenAI API errors', async () => {
-      const OpenAI = (await import('openai')).default
-      const mockCreate = vi.fn().mockRejectedValue(new Error('OpenAI API error'))
+      // Make sure user is authenticated
+      const { createClient } = await import('@/lib/supabase/server')
+      vi.mocked(createClient).mockReturnValue({
+        auth: {
+          getUser: vi.fn(() => Promise.resolve({
+            data: { user: { id: 'test-user' } }
+          }))
+        },
+        from: vi.fn()
+      } as any)
 
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
+      global.mockOpenAICreate.mockRejectedValue(new Error('OpenAI API error'))
 
       await expect(generateCardsFromText('test content')).rejects.toThrow('AI generation failed: OpenAI API error')
     })
 
     it('should handle invalid JSON response from OpenAI', async () => {
-      const OpenAI = (await import('openai')).default
-      const mockCreate = vi.fn().mockResolvedValue({
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: 'invalid json'
@@ -182,21 +152,22 @@ describe('AI Server Actions', () => {
         usage: { total_tokens: 50 }
       })
 
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
-
       await expect(generateCardsFromText('test content')).rejects.toThrow()
     })
 
     it('should handle missing cards in response', async () => {
-      const OpenAI = (await import('openai')).default
-      const mockCreate = vi.fn().mockResolvedValue({
+      // Make sure user is authenticated
+      const { createClient } = await import('@/lib/supabase/server')
+      vi.mocked(createClient).mockReturnValue({
+        auth: {
+          getUser: vi.fn(() => Promise.resolve({
+            data: { user: { id: 'test-user' } }
+          }))
+        },
+        from: vi.fn()
+      } as any)
+
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: JSON.stringify({
@@ -208,23 +179,27 @@ describe('AI Server Actions', () => {
         usage: { total_tokens: 50 }
       })
 
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
-
       await expect(generateCardsFromText('test content')).rejects.toThrow('Invalid response format from AI')
     })
 
     it('should create cards in database for each generated card', async () => {
-      const OpenAI = (await import('openai')).default
+      // Make sure user is authenticated
+      const { createClient } = await import('@/lib/supabase/server')
       const { createCard } = await import('../cards')
       
-      const mockCreate = vi.fn().mockResolvedValue({
+      const mockInsert = vi.fn(() => Promise.resolve({ data: null, error: null }))
+      const mockFrom = vi.fn(() => ({ insert: mockInsert }))
+      
+      vi.mocked(createClient).mockReturnValue({
+        auth: {
+          getUser: vi.fn(() => Promise.resolve({
+            data: { user: { id: 'test-user' } }
+          }))
+        },
+        from: mockFrom
+      } as any)
+      
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: JSON.stringify({
@@ -247,15 +222,6 @@ describe('AI Server Actions', () => {
         }],
         usage: { total_tokens: 200 }
       })
-
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
 
       await generateCardsFromText('test content', {
         difficulty: 'advanced',
@@ -282,7 +248,6 @@ describe('AI Server Actions', () => {
     })
 
     it('should log AI generation to database', async () => {
-      const OpenAI = (await import('openai')).default
       const { createClient } = await import('@/lib/supabase/server')
       
       const mockInsert = vi.fn(() => Promise.resolve({ data: null, error: null }))
@@ -297,7 +262,7 @@ describe('AI Server Actions', () => {
         from: mockFrom
       } as any)
 
-      const mockCreate = vi.fn().mockResolvedValue({
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: JSON.stringify({
@@ -312,15 +277,6 @@ describe('AI Server Actions', () => {
         }],
         usage: { total_tokens: 100 }
       })
-
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
 
       await generateCardsFromText('test prompt')
 
@@ -335,8 +291,7 @@ describe('AI Server Actions', () => {
     })
 
     it('should use gpt-4o model', async () => {
-      const OpenAI = (await import('openai')).default
-      const mockCreate = vi.fn().mockResolvedValue({
+      global.mockOpenAICreate.mockResolvedValue({
         choices: [{
           message: {
             content: JSON.stringify({
@@ -352,18 +307,9 @@ describe('AI Server Actions', () => {
         usage: { total_tokens: 100 }
       })
 
-      const mockOpenAI = OpenAI as any
-      mockOpenAI.mockImplementation(() => ({
-        chat: {
-          completions: {
-            create: mockCreate
-          }
-        }
-      }))
-
       await generateCardsFromText('test')
 
-      expect(mockCreate).toHaveBeenCalledWith(
+      expect(global.mockOpenAICreate).toHaveBeenCalledWith(
         expect.objectContaining({
           model: 'gpt-4o'
         })

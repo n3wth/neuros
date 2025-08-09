@@ -3,6 +3,9 @@ import ProfessionalHero from '@/components/landing/professional-hero'
 import AIShowcase from '@/components/landing/ai-showcase'
 import TrustIndicators from '@/components/landing/trust-indicators'
 
+// Force dynamic rendering - this page uses cookies via Supabase
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

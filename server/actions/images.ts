@@ -36,21 +36,20 @@ export async function generateCardImage(
       n: 1,
     })
 
-    const imageUrl = response.data[0].url
+    const imageUrl = response.data?.[0]?.url
     
     if (!imageUrl) {
       throw new Error('No image generated')
     }
 
-    // Save the image URL to database
+    // Save the image URL to database using ai_generations table
     const { data, error } = await supabase
-      .from('card_images')
+      .from('ai_generations')
       .insert({
         user_id: user.id,
+        generation_type: 'card_image',
         prompt,
-        style,
-        image_url: imageUrl,
-        created_at: new Date().toISOString()
+        response: { imageUrl, style } as any
       })
       .select()
       .single()
@@ -101,7 +100,7 @@ export async function generateProgressVisualization(
 
     return {
       success: true,
-      imageUrl: response.data[0].url
+      imageUrl: response.data?.[0]?.url
     }
   } catch (error) {
     console.error('Visualization generation error:', error)
@@ -138,17 +137,20 @@ export async function generateTopicIllustration(
       n: 1,
     })
 
-    const imageUrl = response.data[0].url
+    const imageUrl = response.data?.[0]?.url
 
-    // Store in database
+    if (!imageUrl) {
+      throw new Error('No image generated')
+    }
+
+    // Store in database using ai_generations table
     const { data, error } = await supabase
-      .from('topic_images')
+      .from('ai_generations')
       .insert({
         user_id: user.id,
-        topic,
-        concepts,
-        image_url: imageUrl,
-        created_at: new Date().toISOString()
+        generation_type: 'topic_image',
+        prompt,
+        response: { imageUrl, topic, concepts } as any
       })
       .select()
       .single()
@@ -184,12 +186,16 @@ export async function batchGenerateCardImages(
         'abstract'
       )
       
-      // Update card with image
+      // Store image association in ai_generations table
       await supabase
-        .from('cards')
-        .update({ image_url: result.imageUrl })
-        .eq('id', card.id)
-        .eq('user_id', user.id)
+        .from('ai_generations')
+        .insert({
+          user_id: user.id,
+          card_id: card.id,
+          generation_type: 'batch_image',
+          prompt: card.front,
+          response: { imageUrl: result.imageUrl } as any
+        })
 
       results.push({
         cardId: card.id,
