@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import "./polish.css";
 
 export const metadata: Metadata = {
   title: "Neuros - AI-Powered Learning Platform",

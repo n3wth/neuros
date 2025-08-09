@@ -1,0 +1,149 @@
+/* Apple-style polish and micro-interactions */
+
+/* Enhanced text selection */
+::selection {
+  background: rgba(79, 70, 229, 0.15);
+  color: rgb(31, 41, 55);
+}
+
+/* Smooth focus indicators */
+*:focus-visible {
+  outline: 2px solid rgba(79, 70, 229, 0.6);
+  outline-offset: 2px;
+  border-radius: 6px;
+  transition: outline 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Subtle button enhancements */
+button, [role="button"] {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+button:active, [role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* Link hover enhancements */
+a {
+  transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navigation polish */
+nav a {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Card interactions */
+.stat-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading state shimmer */
+@keyframes shimmer {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.loading {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* iOS-style momentum scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Enhanced form inputs */
+input, textarea, select {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:focus, textarea:focus, select:focus {
+  transform: scale(1.01);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Backdrop blur polish */
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* Subtle image loading */
+img {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img:not([src]),
+img[src=""] {
+  opacity: 0;
+}
+
+/* Enhanced shadows */
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Refined transitions for Framer Motion */
+.framer-motion {
+  will-change: transform, opacity;
+}
+
+/* Polished scrollbar (webkit) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Improved readability */
+p, span, div {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

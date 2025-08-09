@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { IconArrowRight } from '@tabler/icons-react'
+import MemoryTraces from './neural-network'
 
 interface ProfessionalHeroProps {
   isAuthenticated: boolean
@@ -19,7 +20,6 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
   const opacity = useTransform(scrollY, [0, 600], [1, 0.3])
   const textY = useTransform(scrollY, [0, 400], [0, -30])
   
-  const springConfig = { damping: 25, stiffness: 700 }
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -179,7 +179,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
             >
               <p className="text-xl leading-[1.6] text-black/80 font-light">
                 We built a learning system that works like your brain does—making connections, 
-                finding patterns, and storing memories exactly when they're about to fade.
+                finding patterns, and storing memories exactly when they&apos;re about to fade.
               </p>
               <p className="text-xl leading-[1.6] text-black/60 font-light mt-6">
                 No more forgetting. No more re-learning. Just pure, permanent knowledge.
@@ -187,30 +187,49 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               
               {/* Refined CTA section */}
               <div className="mt-16 space-y-6">
-                <Link 
-                  href={isAuthenticated ? "/dashboard" : "/signup"}
-                  className="group relative inline-flex items-center gap-4 overflow-hidden"
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <span className="text-lg font-medium tracking-wide relative z-10">
-                    Begin your journey
-                  </span>
-                  <div className="relative w-12 h-12 rounded-full border border-black/20 group-hover:border-black/40 transition-colors flex items-center justify-center">
-                    <IconArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                  <motion.div 
-                    className="absolute bottom-0 left-0 w-full h-0.5 bg-black origin-left"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </Link>
+                  <Link 
+                    href={isAuthenticated ? "/dashboard" : "/signup"}
+                    className="group relative inline-flex items-center gap-4 overflow-hidden transition-all duration-200 ease-out"
+                  >
+                    <span className="text-lg font-medium tracking-wide relative z-10 transition-colors duration-200">
+                      Begin your journey
+                    </span>
+                    <motion.div 
+                      className="relative w-12 h-12 rounded-full border border-black/20 group-hover:border-black/40 transition-all duration-200 flex items-center justify-center"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    >
+                      <IconArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-200" />
+                    </motion.div>
+                    <motion.div 
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-black origin-left"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  </Link>
+                </motion.div>
                 
-                <button className="flex items-center gap-2 text-sm text-black/40 hover:text-black/60 transition-colors group">
-                  <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-colors">
-                    <div className="w-0 h-0 border-l-[6px] border-l-black/40 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent group-hover:border-l-black/60 transition-colors" />
-                  </div>
-                  <span>Watch demo — 2 min</span>
-                </button>
+                <motion.button 
+                  className="flex items-center gap-2 text-sm text-black/40 hover:text-black/60 transition-all duration-200 ease-out group"
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <motion.div 
+                    className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-all duration-200"
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <div className="w-0 h-0 border-l-[6px] border-l-black/40 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent group-hover:border-l-black/60 transition-colors duration-200" />
+                  </motion.div>
+                  <span className="transition-colors duration-200">Watch demo — 2 min</span>
+                </motion.button>
               </div>
             </motion.div>
 
@@ -228,10 +247,11 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  className="relative p-8 rounded-3xl bg-white border border-black/5 overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-shadow"
+                  className="stat-card relative p-8 rounded-3xl bg-white border border-black/5 overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300 ease-out"
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <motion.div
@@ -297,8 +317,14 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           </motion.div>
         </motion.div>
 
+        {/* Subtle Memory Formation Traces */}
+        <MemoryTraces 
+          show={true}
+          position={{ top: '12rem', right: '8rem' }}
+        />
+
         {/* Cute floating elements */}
-        <motion.div className="absolute top-32 right-32 hidden xl:block">
+        <motion.div className="absolute top-32 right-48 hidden xl:block">
           <motion.div
             className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100/60 to-purple-100/60 border border-purple-200/30"
             animate={{
