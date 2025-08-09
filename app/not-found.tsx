@@ -58,8 +58,8 @@ export default function NotFound() {
               4
             </text>
             
-            {/* Face as the 0 */}
-            <g transform="translate(100, 50)">
+            {/* Face as the 0 - perfectly centered between the 4s */}
+            <g transform="translate(112, 45)">
               {/* Face outline */}
               <circle
                 cx="0"
