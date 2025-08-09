@@ -99,7 +99,7 @@ export default function ExplorePage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9]">
+    <div className="min-h-screen bg-gradient-to-br from-[#F0FDF4] to-[#F5FFF7]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         {/* Background Pattern */}

@@ -64,7 +64,7 @@ export default function ResearchPage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9]">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F3FF] to-[#FAF5FF]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.015]"
