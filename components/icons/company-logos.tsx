@@ -42,36 +42,37 @@ export const OpenAIIcon = ({ className = "w-6 h-6" }: { className?: string }) =>
 
 export const StanfordIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <rect fill="#8C1515" width="24" height="24" rx="4"/>
-    <text x="12" y="16" fontSize="14" fontWeight="bold" fill="white" textAnchor="middle">S</text>
+    <path fill="#8C1515" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+    <path fill="#8C1515" d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm2.5 9l-1-1.5c-.4-.6-.9-1-1.5-1.3v2.8h-1v-6h1.5c1.4 0 2.5.6 2.5 2 0 1-.6 1.6-1.5 1.8.4.2.8.5 1 .9l1 1.3h-1z"/>
   </svg>
 )
 
 export const MITIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <rect fill="#750014" width="24" height="24" rx="4"/>
-    <text x="12" y="16" fontSize="10" fontWeight="bold" fill="white" textAnchor="middle">MIT</text>
+    <path fill="#750014" d="M4 4h16v16H4z"/>
+    <path fill="#FFFFFF" d="M6 8h2v8H6zm4 0h2v8h-2zm4 0h6v2h-2v6h-2v-6h-2z"/>
   </svg>
 )
 
 export const HarvardIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <rect fill="#A51C30" width="24" height="24" rx="4"/>
-    <text x="12" y="16" fontSize="14" fontWeight="bold" fill="white" textAnchor="middle">H</text>
+    <path fill="#A51C30" d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+    <path fill="#FFFFFF" d="M8 8h2v3h4v-3h2v8h-2v-3h-4v3H8z"/>
   </svg>
 )
 
 export const BerkeleyIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <rect fill="#003262" width="24" height="24" rx="4"/>
-    <text x="12" y="16" fontSize="14" fontWeight="bold" fill="#FDB515" textAnchor="middle">B</text>
+    <path fill="#003262" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+    <path fill="#FDB515" d="M8 7h5c1.66 0 3 1.34 3 3 0 .8-.32 1.54-.84 2.08.9.49 1.52 1.46 1.52 2.57 0 1.61-1.31 2.92-2.92 2.92H8V7zm2 2v2h2.5c.55 0 1-.45 1-1s-.45-1-1-1H10zm0 4v2.57h3.17c.6 0 1.08-.49 1.08-1.08 0-.6-.49-1.08-1.08-1.08H10z"/>
   </svg>
 )
 
 export const OxfordIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <rect fill="#002147" width="24" height="24" rx="4"/>
-    <text x="12" y="16" fontSize="14" fontWeight="bold" fill="white" textAnchor="middle">O</text>
+    <path fill="#002147" d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+    <circle fill="#FFFFFF" cx="12" cy="12" r="4"/>
+    <path fill="#002147" d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
   </svg>
 )
 

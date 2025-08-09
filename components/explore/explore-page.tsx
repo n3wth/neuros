@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import TrustIndicators from '@/components/landing/trust-indicators'
 import { 
   IconBrain, IconCode, IconMicroscope, IconTrendingUp, IconPalette, IconWorld,
   IconBook,
@@ -391,6 +392,9 @@ style={{ borderColor: 'white' }}
           </Link>
         </motion.div>
       </div>
+      
+      {/* Footer */}
+      <TrustIndicators />
     </div>
   )
 }

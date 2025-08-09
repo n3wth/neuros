@@ -72,8 +72,8 @@ export default function ResearchInsights() {
               transition={{ delay: index * 0.1 }}
             >
               <AppleCard glassy elevated interactive className="p-6 h-full">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${insight.color} flex items-center justify-center mb-4`}>
-                  <insight.icon className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <insight.icon className="w-6 h-6 text-primary" />
                 </div>
                 <div className="text-3xl font-semibold mb-2">{insight.stat}</div>
                 <h3 className="text-lg font-medium mb-2">{insight.title}</h3>
