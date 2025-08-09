@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import ResearchInsights from '@/components/landing/research-insights'
 // Using CSS variables from globals.css
 
+// Example research papers for demonstration purposes
 const researchPapers = [
   {
     title: "Optimal Spaced Repetition Intervals Using Neural Network Prediction",
@@ -19,8 +20,7 @@ const researchPapers = [
     journal: "Nature Machine Intelligence",
     year: 2024,
     citations: 342,
-    abstract: "We demonstrate that transformer-based models can predict optimal review intervals with 94% accuracy, reducing study time by 30% while maintaining retention rates.",
-    doi: "10.1038/s42256-024-00812-5"
+    abstract: "We demonstrate that transformer-based models can predict optimal review intervals with 94% accuracy, reducing study time by 30% while maintaining retention rates."
   },
   {
     title: "The Neuroscience of Memory Consolidation in Digital Learning Environments",
@@ -28,8 +28,7 @@ const researchPapers = [
     journal: "Proceedings of the National Academy of Sciences",
     year: 2024,
     citations: 567,
-    abstract: "fMRI studies reveal that spaced digital learning activates distinct hippocampal-neocortical pathways, enhancing long-term retention by 2.3x compared to massed practice.",
-    doi: "10.1073/pnas.2401234121"
+    abstract: "fMRI studies reveal that spaced digital learning activates distinct hippocampal-neocortical pathways, enhancing long-term retention by 2.3x compared to massed practice."
   },
   {
     title: "AI-Driven Personalization in Education: A Meta-Analysis",
@@ -37,8 +36,7 @@ const researchPapers = [
     journal: "Science",
     year: 2023,
     citations: 892,
-    abstract: "Analysis of 147 studies (n=52,000) shows AI-personalized learning paths improve outcomes by 47% and reduce time-to-mastery by 35%.",
-    doi: "10.1126/science.abm1234"
+    abstract: "Analysis of 147 studies (n=52,000) shows AI-personalized learning paths improve outcomes by 47% and reduce time-to-mastery by 35%."
   },
   {
     title: "Quantum Computing Education: Bridging Theory and Practice",
@@ -46,8 +44,7 @@ const researchPapers = [
     journal: "Physical Review Letters",
     year: 2024,
     citations: 234,
-    abstract: "Novel pedagogical approach using interactive quantum simulators increases conceptual understanding by 68% in undergraduate students.",
-    doi: "10.1103/PhysRevLett.132.123456"
+    abstract: "Novel pedagogical approach using interactive quantum simulators increases conceptual understanding by 68% in undergraduate students."
   }
 ]
 
@@ -152,7 +149,7 @@ export default function ResearchPage() {
           <div className="space-y-6">
             {researchPapers.map((paper, index) => (
               <motion.div
-                key={paper.doi}
+                key={index}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -171,14 +168,9 @@ export default function ResearchPage() {
                           <IconAward className="w-4 h-4" />
                           {paper.citations} citations
                         </span>
-                        <a 
-                          href={`https://doi.org/${paper.doi}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                        >
-                          View Paper <IconExternalLink className="w-3 h-3" />
-                        </a>
+                        <span className="text-sm text-gray-400 italic">
+                          Example research paper
+                        </span>
                       </div>
                     </div>
                     <Button variant="ghost" size="sm">

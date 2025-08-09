@@ -5,7 +5,7 @@
 
 export function getAvatar(seed: string | number): string {
   const seedStr = typeof seed === 'string' ? seed : seed.toString();
-  return `https://api.dicebear.com/7.x/personas/svg?seed=${encodeURIComponent(seedStr)}&backgroundColor=transparent`;
+  return `https://api.dicebear.com/9.x/personas/svg?seed=${encodeURIComponent(seedStr)}&backgroundColor=transparent`;
 }
 
 export function getMultipleAvatars(count: number, baseSeed: string = 'user'): string[] {
