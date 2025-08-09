@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
 import { ArrowRight } from 'lucide-react'
-import { BrainIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon, RocketIcon, SparkleIcon } from '@/components/icons/line-icons'
+import { BrainIcon, CodeIcon, ChartIcon, GlobeIcon, RocketIcon, SparkleIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
 
 const features = [

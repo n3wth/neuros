@@ -693,3 +693,192 @@ ANTHROPIC_API_KEY=sk-ant-...  # Optional AI provider
 - Full debugging configs in `.vscode/`
 - Launch profiles for server, client, and full-stack debugging
 - Tasks for common operations
+
+## 🎨 Design System & Style Guide
+
+### Visual Aesthetic
+- **Design Philosophy**: Editorial-inspired, content-focused design with warm, humanist touches
+- **Inspired By**: Premium publications (New Yorker, Monocle), modern editorial sites
+- **Key Principle**: Typography-first, minimal ornamentation, let content breathe
+
+### Color Palette
+```css
+/* Primary Background */
+--color-background: #FAFAF9;  /* Warm off-white, softer than pure white */
+
+/* Text Colors */
+--color-text-primary: rgba(0, 0, 0, 0.87);    /* High contrast for readability */
+--color-text-secondary: rgba(0, 0, 0, 0.60);  /* Subtle secondary text */
+--color-text-tertiary: rgba(0, 0, 0, 0.40);   /* Hints and metadata */
+
+/* Accent Colors (sparingly used) */
+--color-accent-blue: #4169E1;    /* Royal blue for links/CTAs */
+--color-accent-green: #22C55E;   /* Success states */
+--color-accent-red: #FF6B6B;     /* Coral red for emphasis */
+```
+
+### Typography
+```css
+/* Primary Serif - Headlines & Display */
+--font-serif: 'Playfair Display', 'Georgia', serif;
+/* Used for: h1-h3, feature headlines, quotes */
+
+/* Primary Sans - Body & UI */
+--font-sans: 'Inter', -apple-system, sans-serif;
+/* Used for: body text, navigation, buttons, forms */
+
+/* Monospace - Code & Metadata */
+--font-mono: 'JetBrains Mono', 'Menlo', monospace;
+/* Used for: code snippets, timestamps, technical details */
+
+/* Type Scale */
+--text-xs: 0.75rem;     /* 12px - metadata, labels */
+--text-sm: 0.875rem;    /* 14px - captions, hints */
+--text-base: 1rem;      /* 16px - body text */
+--text-lg: 1.125rem;    /* 18px - lead paragraphs */
+--text-xl: 1.25rem;     /* 20px - section intros */
+--text-2xl: 1.5rem;     /* 24px - subsection headers */
+--text-3xl: 2rem;       /* 32px - section headers */
+--text-4xl: 3rem;       /* 48px - page titles */
+--text-5xl: 4rem;       /* 64px - hero headlines */
+```
+
+### Iconography System
+- **Primary Icons**: Custom line-art icons in `/components/icons/line-icons.tsx`
+- **Style**: Minimalist, single-stroke design with calligraphy-inspired curves
+- **Stroke Width**: Consistent 1.5px for all icons
+- **Usage**: Replace ALL emojis and icon fonts with custom line-art components
+- **Philosophy**: Icons should complement, not dominate the content
+
+### Component Patterns
+
+#### Cards & Containers
+- **Border Radius**: `rounded-3xl` (1.5rem) for major containers
+- **Borders**: Subtle `border-black/5` for definition
+- **Shadows**: Reserved for hover states (`hover:shadow-lg`)
+- **Background**: White cards on warm background for depth
+
+#### Buttons & Interactive Elements
+- **Primary Button**: Black background, white text, `rounded-full`
+- **Secondary Button**: Transparent with border, `rounded-full`
+- **Hover States**: Subtle opacity changes, no color shifts
+- **Focus States**: Clean outline, no glowing effects
+
+#### Layout Principles
+- **Max Width**: 1400px for content containers
+- **Padding**: Generous whitespace (8-16 spacing units)
+- **Grid**: 12-column base, often used as 3 or 4 column layouts
+- **Sections**: Clear visual hierarchy with alternating backgrounds
+
+### Animation & Motion
+```javascript
+/* Standard Transitions */
+transition-colors: 300ms ease
+transition-shadow: 500ms ease
+transition-transform: 200ms ease
+
+/* Framer Motion Defaults */
+initial: { opacity: 0, y: 20 }
+animate: { opacity: 1, y: 0 }
+transition: { duration: 0.8 }
+
+/* Stagger Children */
+delay: index * 0.1  // Sequential reveal
+```
+
+### Required Libraries & Dependencies
+
+#### Core Framework
+- **Next.js 15.4**: App Router, Server Components first
+- **React 18+**: With concurrent features
+- **TypeScript/JavaScript**: Type-safe with JSDoc annotations
+
+#### Styling
+- **Tailwind CSS v4**: Modern CSS with @theme layer
+- **NO Additional CSS Frameworks**: No Bootstrap, Material-UI, etc.
+- **Custom CSS**: Minimal, only for complex animations
+
+#### UI Components
+- **shadcn/ui**: For base components (heavily customized)
+- **Framer Motion**: For animations and interactions
+- **Lucide React**: ONLY for utility icons (arrow, search, etc.)
+- **Custom Line Icons**: Primary icon system
+
+#### Database & Backend
+- **Supabase**: PostgreSQL + Auth + Realtime
+- **@supabase/ssr**: For SSR integration
+- **Server Actions**: For all mutations
+
+#### AI & Content
+- **OpenAI SDK**: For GPT-4 integration
+- **Anthropic SDK**: Optional alternative AI provider
+
+### Development Rules
+
+#### Component Creation
+1. **NEVER use pre-made component libraries** (except shadcn/ui base)
+2. **ALWAYS use custom line-art icons** instead of icon libraries
+3. **PREFER native HTML elements** with Tailwind classes
+4. **AVOID complex component abstractions** unless necessary
+
+#### Styling Approach
+1. **Typography First**: Start with text hierarchy
+2. **Minimal Color**: Black, grays, and rare accent colors
+3. **No Gradients**: Except subtle overlays for depth
+4. **No Drop Shadows**: Use borders and backgrounds for depth
+
+#### Code Organization
+```
+/components
+  /icons          # Custom line-art icons only
+  /ui             # Base shadcn/ui components
+  /landing        # Homepage sections
+  /dashboard      # App sections
+  /[feature]      # Feature-specific components
+```
+
+### Accessibility Standards
+- **WCAG 2.1 AA Compliance**: Minimum requirement
+- **Keyboard Navigation**: Full support
+- **Screen Readers**: Proper ARIA labels
+- **Color Contrast**: 4.5:1 minimum for body text
+- **Focus Indicators**: Clear and visible
+
+### Performance Guidelines
+- **Server Components Default**: Client only when needed
+- **Image Optimization**: Next.js Image component
+- **Font Loading**: Preload critical fonts
+- **Code Splitting**: Automatic with App Router
+- **Lazy Loading**: For below-fold content
+
+### Anti-Patterns (What NOT to Do)
+❌ Using emoji as primary icons
+❌ Generic "tech startup" aesthetic
+❌ Neon colors or dark mode by default
+❌ Complex gradient backgrounds
+❌ Overly animated interfaces
+❌ Icon-heavy navigation
+❌ Dense, cramped layouts
+❌ Multiple fonts beyond the system
+❌ CSS-in-JS libraries (styled-components, emotion)
+❌ Component libraries (MUI, Ant Design, Chakra)
+
+### Example Implementation
+```tsx
+// ✅ GOOD: Editorial-inspired component
+<div className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-shadow">
+  <BrainIcon className="w-10 h-10 mb-4 text-black/70 stroke-[1.5]" />
+  <h3 className="text-2xl font-serif font-light mb-2">Intelligent Learning</h3>
+  <p className="text-base text-black/60 font-light leading-relaxed">
+    Our AI adapts to your learning style, creating a personalized experience.
+  </p>
+</div>
+
+// ❌ BAD: Generic tech aesthetic
+<Card className="gradient-border neon-glow">
+  <CardHeader>
+    <RocketEmoji /> <AnimatedText>AI-Powered Learning 🚀</AnimatedText>
+  </CardHeader>
+  <GradientButton>Get Started →</GradientButton>
+</Card>
+```

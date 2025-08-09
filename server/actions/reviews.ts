@@ -292,7 +292,7 @@ function calculateStreak(dates: string[]): number {
   if (lastStudy !== today && lastStudy !== yesterday) return 0
   
   let streak = 0
-  let currentDate = new Date()
+  const currentDate = new Date()
   
   for (let i = 0; i < 365; i++) {
     const dateStr = currentDate.toDateString()

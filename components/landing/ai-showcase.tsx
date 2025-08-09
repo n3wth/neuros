@@ -102,7 +102,7 @@ export default function AIShowcase() {
           </h2>
           
           <p className="text-xl leading-[1.6] text-black/60 font-light max-w-3xl">
-            We didn't build features. We built a cognitive architecture that understands 
+            We didn&apos;t build features. We built a cognitive architecture that understands 
             how human memory actually works—then amplified it with AI.
           </p>
         </motion.div>
