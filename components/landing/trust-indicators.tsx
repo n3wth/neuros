@@ -116,7 +116,7 @@ export default function TrustIndicators() {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
               <SparkleIcon className="w-5 h-5 text-black/70 stroke-[1.5]" />
-              <span className="text-sm text-gray-600">© 2025 Neuros</span>
+              <span className="text-sm text-gray-400">© 2025 Neuros</span>
             </div>
             
             {/* Cute detail: animated dots that respond to hover */}
