@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import TrustIndicators from '@/components/landing/trust-indicators'
 import { 
   IconBrain, IconMicroscope, IconTrendingUp, IconBook, IconUsers, 
   IconAward, IconChartBar, IconBolt, IconClock, IconTarget, IconChevronRight,
@@ -244,9 +245,9 @@ export default function ResearchPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="text-center"
+              className="flex flex-col items-center text-center"
             >
-              <collab.icon className="w-8 h-8 mb-2 text-primary" />
+              <collab.icon className="w-8 h-8 mb-2 text-primary mx-auto" />
               <div className="text-sm font-medium">{collab.name}</div>
               <div className="text-xs text-gray-500 mt-1">{collab.focus}</div>
             </motion.div>
@@ -275,6 +276,9 @@ export default function ResearchPage() {
           </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <TrustIndicators />
     </div>
   )
 }

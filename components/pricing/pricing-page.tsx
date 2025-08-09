@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import TrustIndicators from '@/components/landing/trust-indicators'
 import { 
   IconCheck, IconX, IconBrain, IconSparkles, IconBolt, IconUsers, IconShield,
   IconChevronRight, IconHelpCircle, IconCreditCard, IconBuilding, 
@@ -388,6 +389,9 @@ export default function PricingPage() {
           </div>
         </motion.div>
       </div>
+      
+      {/* Footer */}
+      <TrustIndicators />
     </div>
   )
 }

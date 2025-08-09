@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import TrustIndicators from '@/components/landing/trust-indicators'
 import { 
   IconBuilding, IconUsers, IconShield, IconChartBar, IconBolt, IconWorld,
   IconCheck, IconChevronRight, IconAward, IconClock, IconTarget, IconTrendingUp,
@@ -429,6 +430,9 @@ export default function EnterprisePage() {
           </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <TrustIndicators />
     </div>
   )
 }

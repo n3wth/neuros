@@ -2,9 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import TrustIndicators from '@/components/landing/trust-indicators'
 import { 
   IconBrain, IconCode, IconMicroscope, IconTrendingUp, IconPalette, IconWorld,
-  IconHeart, IconBuilding, IconCpu, IconBook, IconMusic, IconCamera,
+  IconBook,
   IconChevronRight, IconSearch, IconSparkles, IconUsers, IconClock, IconAward
 } from '@tabler/icons-react'
 import Link from 'next/link'
@@ -116,7 +117,36 @@ const trendingPaths = [
 
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [, setSelectedCategory] = useState<string | null>(null)
+
+  // Filter categories based on search query
+  const filteredCategories = categories.filter(category => {
+    if (!searchQuery.trim()) return true
+    
+    const query = searchQuery.toLowerCase()
+    return (
+      category.name.toLowerCase().includes(query) ||
+      category.description.toLowerCase().includes(query) ||
+      category.topics.some(topic => topic.toLowerCase().includes(query))
+    )
+  })
+
+  // Filter trending paths based on search query
+  const filteredPaths = trendingPaths.filter(path => {
+    if (!searchQuery.trim()) return true
+    
+    const query = searchQuery.toLowerCase()
+    return (
+      path.title.toLowerCase().includes(query) ||
+      path.level.toLowerCase().includes(query)
+    )
+  })
+
+  // Handle search submission
+  const handleSearch = () => {
+    // Search is already reactive, but this could trigger analytics or other actions
+    console.log('Searching for:', searchQuery)
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -145,9 +175,13 @@ export default function ExplorePage() {
               placeholder="Search for topics, skills, or courses..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               className="pl-12 pr-4 py-6 text-lg rounded-xl border-gray-200"
             />
-            <Button className="absolute right-2 top-1/2 -translate-y-1/2">
+            <Button 
+              className="absolute right-2 top-1/2 -translate-y-1/2"
+              onClick={handleSearch}
+            >
               Search
             </Button>
           </div>
@@ -168,14 +202,33 @@ export default function ExplorePage() {
       {/* Categories Grid */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-light">Browse by Category</h2>
+          <div>
+            <h2 className="text-3xl font-light">Browse by Category</h2>
+            {searchQuery && (
+              <p className="text-sm text-gray-500 mt-1">
+                Found {filteredCategories.length} {filteredCategories.length === 1 ? 'category' : 'categories'} matching &quot;{searchQuery}&quot;
+              </p>
+            )}
+          </div>
           <Button variant="ghost" className="text-gray-600">
             View All <IconChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category, index) => (
+        {filteredCategories.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No categories found matching &quot;{searchQuery}&quot;</p>
+            <Button 
+              variant="ghost" 
+              className="mt-4" 
+              onClick={() => setSearchQuery('')}
+            >
+              Clear search
+            </Button>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCategories.map((category, index) => (
             <motion.div
               key={category.id}
               initial={{ opacity: 0, y: 20 }}
@@ -218,7 +271,8 @@ export default function ExplorePage() {
               </AppleCard>
             </motion.div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Trending Learning Paths */}
@@ -231,10 +285,27 @@ export default function ExplorePage() {
             <p className="text-gray-300">
               Complete, structured programs designed by industry experts
             </p>
+            {searchQuery && (
+              <p className="text-sm text-gray-400 mt-2">
+                Showing {filteredPaths.length} {filteredPaths.length === 1 ? 'path' : 'paths'} matching &quot;{searchQuery}&quot;
+              </p>
+            )}
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {trendingPaths.map((path, index) => (
+          {filteredPaths.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-lg">No learning paths found matching &quot;{searchQuery}&quot;</p>
+              <Button 
+                variant="secondary" 
+                className="mt-4" 
+                onClick={() => setSearchQuery('')}
+              >
+                Clear search
+              </Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {filteredPaths.map((path, index) => (
               <motion.div
                 key={path.title}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
@@ -295,7 +366,8 @@ style={{ borderColor: 'white' }}
                 </div>
               </motion.div>
             ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -308,7 +380,7 @@ style={{ borderColor: 'white' }}
           viewport={{ once: true }}
         >
           <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Can't find what you're looking for?
+            Can&apos;t find what you&apos;re looking for?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
             Our AI can create a personalized learning path just for you
@@ -320,6 +392,9 @@ style={{ borderColor: 'white' }}
           </Link>
         </motion.div>
       </div>
+      
+      {/* Footer */}
+      <TrustIndicators />
     </div>
   )
 }
