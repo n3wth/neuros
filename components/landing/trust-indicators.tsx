@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Shield, Award, Globe, Lock } from 'lucide-react'
+import { IconSparkles } from '@tabler/icons-react'
 import Link from 'next/link'
 
 export default function TrustIndicators() {
@@ -114,9 +115,7 @@ export default function TrustIndicators() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-white text-xs font-bold">N</span>
-            </div>
+            <IconSparkles className="w-6 h-6 text-black" />
             <span className="text-sm text-gray-600">© 2025 Neuros. All rights reserved.</span>
           </div>
           
