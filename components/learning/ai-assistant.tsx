@@ -8,28 +8,25 @@ import { Badge } from '@/components/ui/badge'
 import { 
   Brain, 
   Sparkles, 
-  MessageSquare, 
   Lightbulb, 
   TrendingUp,
   BookOpen,
   Send,
-  Mic,
-  Volume2,
   ChevronRight,
   RefreshCw,
   Target,
+  Mic,
   Zap
 } from 'lucide-react'
 
 interface AIAssistantProps {
   userName: string
-  currentCard?: any
+  currentCard?: { id: string; title: string; content: string } | null
 }
 
 export default function AIAssistant({ userName, currentCard }: AIAssistantProps) {
   const [isListening, setIsListening] = useState(false)
   const [currentSuggestion, setCurrentSuggestion] = useState(0)
-  const [showInsight, setShowInsight] = useState(true)
 
   const suggestions = [
     {
@@ -63,7 +60,7 @@ export default function AIAssistant({ userName, currentCard }: AIAssistantProps)
       setCurrentSuggestion((prev) => (prev + 1) % suggestions.length)
     }, 10000)
     return () => clearInterval(interval)
-  }, [])
+  }, [suggestions.length])
 
   const quickActions = [
     { label: 'Explain Simply', icon: BookOpen },

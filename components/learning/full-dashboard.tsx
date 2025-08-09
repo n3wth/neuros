@@ -10,10 +10,7 @@ import {
   RocketIcon, 
   BeakerIcon,
   PaletteIcon,
-  GlobeIcon,
   HeartIcon,
-  ShieldIcon,
-  LeafIcon,
   PlusIcon,
   PlayIcon,
   ChevronRightIcon,
@@ -58,12 +55,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null)
-  const [cards, setCards] = useState<any[]>([])
-  const [dueCards, setDueCards] = useState<any[]>([])
-  const [stats, setStats] = useState<any>(null)
-  const [studyStats, setStudyStats] = useState<any>(null)
-  const [upcomingCards, setUpcomingCards] = useState<any>({})
-  const [aiInsights, setAiInsights] = useState<any[]>([])
+  const [cards, setCards] = useState<Array<{ id: string; front: string; back: string; difficulty: string; topics?: { name: string; color: string }; user_cards?: Array<{ mastery_level: number }> }>>([])
+  const [dueCards, setDueCards] = useState<Array<{ id: string; cards: { front: string; back: string; topics?: { name: string } }; mastery_level: number; total_reviews: number }>>([])
+  const [stats, setStats] = useState<{ totalCards: number; dueCards: number; mastered: number; learning: number; difficult: number } | null>(null)
+  const [studyStats, setStudyStats] = useState<{ total_reviews: number; average_accuracy: number; total_study_time_minutes: number; current_streak_days: number } | null>(null)
+  const [upcomingCards, setUpcomingCards] = useState<Record<string, Array<{ id: string }>>>({})
+  const [aiInsights, setAiInsights] = useState<Array<{ type: string; title: string; description: string; action?: string }>>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -90,11 +87,11 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         getUpcomingCards()
       ])
 
-      setCards(userCards as any)
-      setDueCards(dueCardsData as any)
+      setCards(userCards)
+      setDueCards(dueCardsData)
       setStats(cardStats)
       setStudyStats(studyStatsData)
-      setUpcomingCards(upcomingData as any)
+      setUpcomingCards(upcomingData)
 
       // Generate AI insights if we have stats or show fallback for new users
       if (studyStatsData && cardStats && cardStats.totalCards > 0) {
@@ -215,9 +212,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">
-              <Link href="/" className="flex items-center space-x-3 group">
-                <SparkleIcon className="w-8 h-8 text-black/70 stroke-[1.5] group-hover:text-black transition-colors" />
-                <span className="text-xl font-serif font-light text-black/90 group-hover:text-black transition-colors">Neuros</span>
+              <Link href="/" className="flex items-center group p-2 rounded-xl hover:bg-black/5 transition-all duration-300">
+                <SparkleIcon className="w-8 h-8 text-black/70 stroke-[2] group-hover:text-black group-hover:rotate-12 transition-all duration-300" />
               </Link>
               
               <nav className="hidden md:flex items-center space-x-1">
@@ -239,7 +235,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <BrainIcon className="w-4 h-4 stroke-[1.5]" />
+                  <BrainIcon className="w-5 h-5 stroke-[2]" />
                   Review
                 </button>
                 <button
@@ -250,7 +246,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <BookIcon className="w-4 h-4 stroke-[1.5]" />
+                  <BookIcon className="w-5 h-5 stroke-[2]" />
                   Browse
                 </button>
                 <button
@@ -261,7 +257,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <ChartIcon className="w-4 h-4 stroke-[1.5]" />
+                  <ChartIcon className="w-5 h-5 stroke-[2]" />
                   Stats
                 </button>
                 <button
@@ -272,7 +268,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <PaletteIcon className="w-4 h-4 stroke-[1.5]" />
+                  <PaletteIcon className="w-5 h-5 stroke-[2]" />
                   Images
                 </button>
                 <button
@@ -283,7 +279,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <BeakerIcon className="w-4 h-4 stroke-[1.5]" />
+                  <BeakerIcon className="w-5 h-5 stroke-[2]" />
                   AI Settings
                 </button>
               </nav>
@@ -352,9 +348,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
                     <div className="flex items-center justify-between mb-3">
-                      <BookIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <BookIcon className="w-7 h-7 text-black/70 stroke-[2]" />
                       <span className="text-xs text-black/40 font-mono">Total</span>
                     </div>
                     <p className="text-3xl font-serif font-light text-black/90">{stats?.totalCards || 0}</p>
@@ -367,9 +363,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
                     <div className="flex items-center justify-between mb-3">
-                      <RocketIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <RocketIcon className="w-7 h-7 text-black/70 stroke-[2]" />
                       <span className="text-xs text-black/40 font-mono">Mastered</span>
                     </div>
                     <p className="text-3xl font-serif font-light text-black/90">{stats?.mastered || 0}</p>
@@ -382,9 +378,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
                     <div className="flex items-center justify-between mb-3">
-                      <SparkleIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <SparkleIcon className="w-7 h-7 text-black/70 stroke-[2]" />
                       <span className="text-xs text-black/40 font-mono">Due</span>
                     </div>
                     <p className="text-3xl font-serif font-light text-black/90">{stats?.dueCards || 0}</p>
@@ -397,9 +393,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
                     <div className="flex items-center justify-between mb-3">
-                      <ChartIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <ChartIcon className="w-7 h-7 text-black/70 stroke-[2]" />
                       <span className="text-xs text-black/40 font-mono">Accuracy</span>
                     </div>
                     <p className="text-3xl font-serif font-light text-black/90">{studyStats?.average_accuracy || 0}%</p>
@@ -412,9 +408,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
                     <div className="flex items-center justify-between mb-3">
-                      <HeartIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <HeartIcon className="w-7 h-7 text-black/70 stroke-[2]" />
                       <span className="text-xs text-black/40 font-mono">Reviews</span>
                     </div>
                     <p className="text-3xl font-serif font-light text-black/90">{studyStats?.total_reviews || 0}</p>
@@ -522,7 +518,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     >
                       <h3 className="text-xl font-serif font-light mb-6 text-black/90">Cards Due Today</h3>
                       <div className="space-y-4">
-                        {dueCards.slice(0, 5).map((card: any, index) => (
+                        {dueCards.slice(0, 5).map((card, index) => (
                           <motion.div
                             key={card.id}
                             initial={{ opacity: 0, x: -20 }}
@@ -646,7 +642,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       <SparkleIcon className="w-5 h-5 text-orange-600/70" />
                     </div>
                     <div className="space-y-3">
-                      {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, any]) => (
+                      {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, Array<{ id: string }>]) => (
                         <div key={date} className="flex items-center justify-between text-sm p-3 bg-gray-50 rounded-2xl">
                           <span className="text-black/60 font-light">{date}</span>
                           <span className="font-light text-black/80 text-xs font-mono">{cards.length} cards</span>

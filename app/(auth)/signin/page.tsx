@@ -103,7 +103,7 @@ export default function SignInPage() {
             {/* Testimonial */}
             <div className="mt-16 pt-12 border-t border-black/10">
               <blockquote className="text-lg italic text-black/60 font-light">
-                "Neuros helped me pass my medical boards on the first try. The AI knew exactly when I needed to review each concept."
+                &ldquo;Neuros helped me pass my medical boards on the first try. The AI knew exactly when I needed to review each concept.&rdquo;
               </blockquote>
               <p className="mt-4 text-sm text-black/50">
                 — Dr. Sarah Chen, Johns Hopkins

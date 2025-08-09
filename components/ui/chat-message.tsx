@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion'
 import { Brain, User, Copy, ThumbsUp, ThumbsDown, RefreshCw, Share } from 'lucide-react'
 import { useState } from 'react'
-import { Button } from './button'
 
 interface ChatMessageProps {
   role: 'user' | 'assistant'

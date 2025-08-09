@@ -9,23 +9,14 @@ import {
   TrendingUp, 
   Sparkles, 
   BookOpen, 
-  Trophy, 
   Activity,
   ArrowRight,
   Clock,
   Flame,
-  BarChart3,
-  Lightbulb,
-  Code,
   Heart,
-  Users,
   LogOut,
   Plus,
-  Play,
-  RefreshCw,
-  ChevronRight,
-  Calendar,
-  MessageSquare
+  RefreshCw
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -139,9 +130,9 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
 
   const getGreeting = () => {
     const greetings = {
-      morning: "Good morning! Ready to expand your mind? ☀️",
-      afternoon: "Afternoon focus time! Let's dive deep 🚀",
-      evening: "Evening review session - perfect for retention 🌙"
+      morning: "Good morning! Ready to expand your mind?",
+      afternoon: "Afternoon focus time! Let's dive deep",
+      evening: "Evening review session - perfect for retention"
     }
     return greetings[timeOfDay]
   }

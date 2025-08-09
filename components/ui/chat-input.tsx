@@ -1,8 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Send, Paperclip, Mic, Square, Sparkles } from 'lucide-react'
-import { Button } from './button'
+import { Send, Paperclip, Square, Sparkles } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface ChatInputProps {

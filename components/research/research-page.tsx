@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { ArrowRight, Download, ExternalLink, TrendingUp, Brain, Zap, BarChart3 } from 'lucide-react'
+import { ArrowRight, Download, ExternalLink, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 
 const papers = [

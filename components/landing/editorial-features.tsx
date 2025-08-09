@@ -183,7 +183,7 @@ export default function EditorialFeatures() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="lg:col-span-5 space-y-8"
             >
-              {articles.slice(1).map((article, index) => (
+              {articles.slice(1).map((article) => (
                 <article 
                   key={article.id} 
                   className="group cursor-pointer pb-8 border-b border-black/5 last:border-0"

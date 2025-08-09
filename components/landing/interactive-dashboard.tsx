@@ -1,19 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Brain, Zap, Target, TrendingUp, Sparkles, BookOpen, Trophy, Activity } from 'lucide-react'
 
 export default function InteractiveDashboard() {
   const [activeCard, setActiveCard] = useState<number | null>(null)
-  const [progress, setProgress] = useState(0)
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => (prev >= 100 ? 0 : prev + 1))
-    }, 100)
-    return () => clearInterval(timer)
-  }, [])
 
   const learningCards = [
     {
@@ -247,8 +240,8 @@ export default function InteractiveDashboard() {
                 <div className="flex-1">
                   <p className="text-white font-medium mb-2">AI Learning Assistant</p>
                   <p className="text-gray-300 text-sm">
-                    "Based on your learning patterns, I recommend reviewing 'Transformer Architecture' before your meeting tomorrow. 
-                    You've shown 92% retention on related concepts. Ready for a quick 5-minute session?"
+                    &ldquo;Based on your learning patterns, I recommend reviewing &lsquo;Transformer Architecture&rsquo; before your meeting tomorrow. 
+                    You&rsquo;ve shown 92% retention on related concepts. Ready for a quick 5-minute session?&rdquo;
                   </p>
                   <div className="flex gap-3 mt-4">
                     <button className="px-4 py-2 bg-white/10 backdrop-blur rounded-xl text-white text-sm hover:bg-white/20 transition-colors">

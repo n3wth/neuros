@@ -190,7 +190,7 @@ export default function FeaturesGrid() {
         >
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-white mb-2">Coming Soon</h3>
-            <p className="text-gray-400">Features we're building based on your feedback</p>
+            <p className="text-gray-400">Features we&rsquo;re building based on your feedback</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">

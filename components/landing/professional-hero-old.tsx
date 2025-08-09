@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
-import { IconArrowRight, IconSparkles } from '@tabler/icons-react'
+import { IconArrowRight } from '@tabler/icons-react'
 import { DESIGN_COLORS } from '@/lib/avatar-utils'
 
 interface ProfessionalHeroProps {

@@ -161,7 +161,7 @@ describe('FullLearningDashboard', () => {
 
     it('ends review session when clicking end button', async () => {
       const user = userEvent.setup()
-      const { startStudySession, endStudySession } = await import('@/server/actions/reviews')
+      const { endStudySession } = await import('@/server/actions/reviews')
       
       render(<FullLearningDashboard user={mockUser} />)
       
@@ -257,9 +257,6 @@ describe('FullLearningDashboard', () => {
 
   describe('User Actions', () => {
     it('handles sign out', async () => {
-      const user = userEvent.setup()
-      const { signOut } = await import('@/server/actions/auth')
-      
       render(<FullLearningDashboard user={mockUser} />)
       
       await waitFor(() => {
@@ -292,7 +289,7 @@ describe('FullLearningDashboard', () => {
 
   describe('Loading States', () => {
     it('shows loading state initially', () => {
-      const { getUserCards } = require('@/server/actions/cards')
+      const { getUserCards } = await import('@/server/actions/cards')
       getUserCards.mockImplementation(() => new Promise(() => {})) // Never resolves
       
       render(<FullLearningDashboard user={mockUser} />)

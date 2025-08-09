@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Brain, Zap, TrendingUp, Award, Clock, Users, Target, BarChart3 } from 'lucide-react'
+import { Brain, TrendingUp, Clock, Users } from 'lucide-react'
 import { AppleCard } from '@/components/ui/apple-card'
 
 export default function ResearchInsights() {

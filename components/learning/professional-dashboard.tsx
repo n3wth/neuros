@@ -9,7 +9,6 @@ import {
   TrendingUp,
   BookOpen,
   ChevronRight,
-  BarChart3,
   Calendar,
   Zap,
   Target,
@@ -17,7 +16,6 @@ import {
   Settings,
   LogOut,
   Search,
-  Filter,
   Plus,
   Play,
   RefreshCw

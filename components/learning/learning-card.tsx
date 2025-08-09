@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Clock, Brain, ChevronRight, BarChart3, Calendar, RefreshCw } from 'lucide-react'
+import { Clock, ChevronRight, BarChart3, Calendar, RefreshCw } from 'lucide-react'
 
 interface LearningCardProps {
   card: {
@@ -19,7 +19,7 @@ interface LearningCardProps {
     masteryLevel: number
     lastReviewed: string
     reviewCount: number
-    icon: any
+    icon: React.ComponentType<{ className?: string }>
     gradient: string
   }
   isActive: boolean

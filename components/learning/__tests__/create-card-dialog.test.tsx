@@ -181,7 +181,7 @@ describe('CreateCardDialog', () => {
       const { generateCardsFromText } = await import('@/server/actions/ai')
       
       // Mock a delayed promise
-      let resolvePromise: (value: any) => void
+      let resolvePromise: (value: unknown) => void
       const delayedPromise = new Promise((resolve) => {
         resolvePromise = resolve
       })

@@ -8,7 +8,6 @@ import {
   SparkleIcon, 
   BookIcon, 
   LoaderIcon,
-  DocumentIcon,
   WandIcon,
   CheckCircleIcon,
   CodeIcon,
@@ -35,7 +34,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
   const [difficulty, setDifficulty] = useState<'beginner' | 'intermediate' | 'advanced'>('intermediate')
   const [aiInput, setAiInput] = useState('')
   const [isCreating, setIsCreating] = useState(false)
-  const [generatedCards, setGeneratedCards] = useState<any[]>([])
+  const [generatedCards, setGeneratedCards] = useState<Array<{ front: string; back: string }>>([])
   const [successMessage, setSuccessMessage] = useState('')
 
   const handleManualCreate = async () => {
@@ -117,7 +116,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                   onClick={onClose}
                   className="p-3 hover:bg-black/5 rounded-full transition-all duration-300 group"
                 >
-                  <CloseIcon className="w-5 h-5 text-black/60 group-hover:text-black/80" />
+                  <CloseIcon className="w-6 h-6 text-black/60 group-hover:text-black/80 stroke-[2]" />
                 </button>
               </div>
 
@@ -137,7 +136,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                   }`}
                 >
                   <div className="flex items-center justify-center gap-3">
-                    <SparkleIcon className="w-5 h-5" />
+                    <SparkleIcon className="w-6 h-6 stroke-[2]" />
                     <span className="font-light">AI Generate</span>
                   </div>
                 </button>
@@ -150,7 +149,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                   }`}
                 >
                   <div className="flex items-center justify-center gap-3">
-                    <BookIcon className="w-5 h-5" />
+                    <BookIcon className="w-6 h-6 stroke-[2]" />
                     <span className="font-light">Manual Entry</span>
                   </div>
                 </button>
@@ -242,7 +241,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                       </>
                     ) : (
                       <>
-                        <PlusIcon className="w-5 h-5 mr-3" />
+                        <PlusIcon className="w-6 h-6 mr-3 stroke-[2]" />
                         Create Card
                       </>
                     )}

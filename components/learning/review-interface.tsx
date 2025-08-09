@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   BrainIcon,
@@ -68,7 +68,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     setIsLoading(true)
     try {
       const dueCards = await getDueCards(20)
-      setCards(dueCards as any)
+      setCards(dueCards as ReviewCard[])
     } catch (error) {
       console.error('Failed to load cards:', error)
     } finally {
@@ -117,7 +117,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentCard, showAnswer, aiExplanation])
+  }, [currentCard, showAnswer, aiExplanation, startTime])
 
   const handleShowAnswer = () => {
     setShowAnswer(true)
