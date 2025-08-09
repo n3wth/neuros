@@ -1,142 +1,231 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import Image from 'next/image'
-import { ArrowUpRight, BookOpen, Users, Lightbulb, BarChart3 } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { ArrowUpRight, TrendingUp, Clock } from 'lucide-react'
 
 export default function EditorialFeatures() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [hoveredArticle, setHoveredArticle] = useState<number | null>(null)
 
   const articles = [
     {
-      category: 'Research',
-      title: 'The Science Behind Spaced Repetition',
-      excerpt: 'How cognitive science and AI combine to create the optimal learning experience. Based on decades of memory research.',
+      id: 1,
+      category: 'Neuroscience',
+      categoryColor: '#FF6B6B',
+      title: 'The Forgetting Curve Is Dead',
+      subtitle: 'How AI rewrote 150 years of memory science',
+      excerpt: 'Hermann Ebbinghaus discovered the forgetting curve in 1885. We just made it obsolete. New research shows AI-powered spacing beats traditional methods by 300%.',
       author: 'Dr. Sarah Chen',
-      role: 'Cognitive Scientist',
-      readTime: '8 min read',
-      image: '/api/placeholder/600/400',
-      featured: true
+      authorTitle: 'Stanford Cognitive Science Lab',
+      readTime: '12',
+      featured: true,
+      stats: { views: '48.2K', shares: '2.1K' }
     },
     {
-      category: 'Case Study',
-      title: 'From Junior to Senior Engineer in 12 Months',
-      excerpt: 'How Alex used Neuros to master system design and land a senior role at a FAANG company.',
-      author: 'Alex Rivera',
-      role: 'Software Engineer',
-      readTime: '5 min read',
-      image: '/api/placeholder/400/300'
+      id: 2,
+      category: 'Profile',
+      categoryColor: '#4ECDC4',
+      title: 'Zero to Staff Engineer',
+      subtitle: 'One developer's 12-month transformation',
+      excerpt: 'Alex Rivera went from debugging React components to designing distributed systems at Google—using just 15 minutes a day.',
+      author: 'Maya Patel',
+      authorTitle: 'Senior Editor',
+      readTime: '8',
+      stats: { views: '31.5K', shares: '890' }
     },
     {
-      category: 'Product',
-      title: 'Introducing Voice-First Learning',
-      excerpt: 'Learn while commuting with our new conversational AI mode. Perfect for busy professionals.',
-      author: 'Neuros Team',
-      role: 'Product Update',
-      readTime: '3 min read',
-      image: '/api/placeholder/400/300'
+      id: 3,
+      category: 'Deep Dive',
+      categoryColor: '#95E77E',
+      title: 'Inside Our Algorithm',
+      subtitle: 'The math behind perfect memory',
+      excerpt: 'We open-sourced our core algorithm. Here's exactly how we predict when you'll forget, and why it works.',
+      author: 'Dr. James Liu',
+      authorTitle: 'Chief Science Officer',
+      readTime: '15',
+      stats: { views: '22.8K', shares: '1.4K' }
+    },
+    {
+      id: 4,
+      category: 'Future',
+      categoryColor: '#A78BFA',
+      title: 'The Post-Knowledge Economy',
+      subtitle: 'When everyone remembers everything',
+      excerpt: 'What happens to expertise when perfect recall becomes universal? A philosophical exploration of learning's next chapter.',
+      author: 'Rebecca Torres',
+      authorTitle: 'Contributing Writer',
+      readTime: '10',
+      stats: { views: '19.3K', shares: '560' }
     }
   ]
 
-  const stats = [
-    { icon: BookOpen, value: '3M+', label: 'Cards mastered daily' },
-    { icon: Users, value: '50K+', label: 'Active learners' },
-    { icon: Lightbulb, value: '500+', label: 'Expert-curated topics' },
-    { icon: BarChart3, value: '92%', label: 'Average retention rate' }
-  ]
-
   return (
-    <section ref={ref} className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section ref={ref} className="py-32 bg-[#FAFAF9] relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(90deg, #000 0, #000 1px, transparent 1px, transparent 80px),
+                           repeating-linear-gradient(0deg, #000 0, #000 1px, transparent 1px, transparent 80px)`
+        }}
+      />
+
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10">
         {/* Section Header */}
         <motion.div 
-          className="mb-16"
+          className="mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex items-end justify-between mb-12">
-            <div className="max-w-3xl">
-              <h2 className="text-4xl md:text-5xl font-light mb-6">
-                Stories from the community
-              </h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Discover how professionals, students, and lifelong learners are transforming 
-                their knowledge acquisition with AI-powered learning.
-              </p>
-            </div>
-            <button className="hidden md:flex items-center space-x-2 text-sm font-medium hover:text-gray-600 transition-colors">
-              <span>View all stories</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-px w-12 bg-black/30" />
+            <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+              Editorial
+            </p>
           </div>
 
-          {/* Featured Article Grid */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Main Featured Article */}
+          <div className="grid lg:grid-cols-12 gap-8 items-end mb-16">
+            <div className="lg:col-span-8">
+              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-serif font-light leading-[1.1] tracking-[-0.02em]">
+                Ideas worth
+                <span className="block text-black/60 mt-2">remembering.</span>
+              </h2>
+            </div>
+            <div className="lg:col-span-4 lg:text-right">
+              <p className="text-lg text-black/50 font-light mb-6">
+                Deep dives into the science, philosophy, and future of human learning.
+              </p>
+              <button className="group inline-flex items-center gap-2 text-sm font-medium">
+                <span className="border-b border-black/30 group-hover:border-black transition-colors">
+                  Browse all articles
+                </span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </button>
+            </div>
+          </div>
+
+          {/* Featured Articles Grid */}
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Hero Article */}
             <motion.article
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="group cursor-pointer"
+              className="lg:col-span-7 group cursor-pointer"
+              onMouseEnter={() => setHoveredArticle(1)}
+              onMouseLeave={() => setHoveredArticle(null)}
             >
-              <div className="relative h-80 bg-gray-100 rounded-2xl overflow-hidden mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300" />
-                <div className="absolute bottom-6 left-6">
-                  <span className="inline-block px-3 py-1 bg-white/90 backdrop-blur text-xs font-medium rounded-full mb-3">
-                    {articles[0].category}
+              <div className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden mb-8">
+                {/* Placeholder for image */}
+                <div className="absolute inset-0 bg-black/5" />
+                
+                {/* Category badge */}
+                <div className="absolute top-8 left-8">
+                  <span 
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur rounded-full"
+                    style={{ borderLeft: `3px solid ${articles[0].categoryColor}` }}
+                  >
+                    <span className="text-xs font-mono uppercase tracking-wider">
+                      {articles[0].category}
+                    </span>
                   </span>
+                </div>
+
+                {/* Stats overlay */}
+                <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                  <div className="flex gap-6 text-white/90">
+                    <span className="flex items-center gap-2 text-sm">
+                      <TrendingUp className="w-4 h-4" />
+                      {articles[0].stats.views} views
+                    </span>
+                    <span className="flex items-center gap-2 text-sm">
+                      <Clock className="w-4 h-4" />
+                      {articles[0].readTime} min
+                    </span>
+                  </div>
                 </div>
               </div>
               
-              <h3 className="text-2xl font-medium mb-3 group-hover:text-gray-600 transition-colors">
+              <h3 className="text-4xl font-serif font-light mb-3 leading-tight group-hover:text-black/70 transition-colors">
                 {articles[0].title}
               </h3>
-              <p className="text-gray-600 leading-relaxed mb-4">
+              <p className="text-xl text-black/60 font-light mb-6">
+                {articles[0].subtitle}
+              </p>
+              <p className="text-lg leading-relaxed text-black/70 font-light mb-8">
                 {articles[0].excerpt}
               </p>
               
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gray-200 rounded-full" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-200 to-gray-300" />
                   <div>
                     <p className="text-sm font-medium">{articles[0].author}</p>
-                    <p className="text-xs text-gray-500">{articles[0].role}</p>
+                    <p className="text-xs text-black/50">{articles[0].authorTitle}</p>
                   </div>
                 </div>
-                <span className="text-sm text-gray-500">{articles[0].readTime}</span>
+                <motion.div
+                  className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center"
+                  animate={hoveredArticle === 1 ? { scale: 1.1 } : { scale: 1 }}
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.div>
               </div>
             </motion.article>
 
-            {/* Secondary Articles */}
+            {/* Side Articles */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-8"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="lg:col-span-5 space-y-8"
             >
               {articles.slice(1).map((article, index) => (
-                <article key={index} className="group cursor-pointer">
-                  <div className="flex space-x-6">
-                    <div className="w-32 h-32 bg-gray-100 rounded-xl flex-shrink-0" />
-                    <div className="flex-1">
-                      <span className="inline-block px-2 py-1 bg-gray-100 text-xs font-medium rounded mb-2">
-                        {article.category}
-                      </span>
-                      <h3 className="font-medium mb-2 group-hover:text-gray-600 transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                        {article.excerpt}
-                      </p>
-                      <div className="flex items-center space-x-3 text-sm text-gray-500">
-                        <span>{article.author}</span>
-                        <span>·</span>
-                        <span>{article.readTime}</span>
-                      </div>
+                <article 
+                  key={article.id} 
+                  className="group cursor-pointer pb-8 border-b border-black/5 last:border-0"
+                  onMouseEnter={() => setHoveredArticle(article.id)}
+                  onMouseLeave={() => setHoveredArticle(null)}
+                >
+                  <div className="flex items-start gap-3 mb-4">
+                    <span 
+                      className="text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full"
+                      style={{ 
+                        backgroundColor: `${article.categoryColor}15`,
+                        color: article.categoryColor 
+                      }}
+                    >
+                      {article.category}
+                    </span>
+                    <span className="text-xs text-black/40">
+                      {article.readTime} min read
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-2xl font-serif font-light mb-2 leading-tight group-hover:text-black/70 transition-colors">
+                    {article.title}
+                  </h3>
+                  <p className="text-base text-black/50 font-light mb-4">
+                    {article.subtitle}
+                  </p>
+                  <p className="text-sm leading-relaxed text-black/60 font-light mb-6">
+                    {article.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 text-sm text-black/40">
+                      <span>{article.author}</span>
+                      <span>•</span>
+                      <span>{article.stats.views} views</span>
                     </div>
+                    <motion.div
+                      animate={hoveredArticle === article.id ? { x: 2, y: -2 } : { x: 0, y: 0 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    >
+                      <ArrowUpRight className="w-4 h-4 text-black/30" />
+                    </motion.div>
                   </div>
                 </article>
               ))}
@@ -144,63 +233,44 @@ export default function EditorialFeatures() {
           </div>
         </motion.div>
 
-        {/* Stats Section */}
+        {/* Newsletter Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-24 pt-16 border-t border-gray-200"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-32 relative"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                  className="text-center"
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl" />
+          <div className="relative p-16">
+            <div className="max-w-2xl">
+              <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase mb-4">
+                Weekly Digest
+              </p>
+              <h3 className="text-3xl font-serif font-light mb-4 leading-tight">
+                The future of learning,<br />delivered to your inbox.
+              </h3>
+              <p className="text-lg text-black/60 font-light mb-8">
+                Research breakthroughs, product updates, and stories from our community.
+              </p>
+              
+              <form className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="flex-1 px-6 py-3 bg-white border border-black/10 rounded-full focus:outline-none focus:border-black/30 transition-colors text-base"
+                />
+                <button
+                  type="submit"
+                  className="px-8 py-3 bg-black text-white font-medium rounded-full hover:bg-black/90 transition-colors"
                 >
-                  <Icon className="w-8 h-8 mx-auto mb-4 text-gray-400" />
-                  <div className="text-3xl font-light mb-2">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </motion.div>
-              )
-            })}
-          </div>
-        </motion.div>
-
-        {/* Newsletter CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-24 p-12 bg-gray-50 rounded-2xl"
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-light mb-4">
-              Stay ahead with weekly insights
-            </h3>
-            <p className="text-gray-600 mb-8">
-              Get the latest in AI-powered learning, cognitive science research, and product updates.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-400 transition-colors"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
-            <p className="mt-4 text-xs text-gray-500">
-              Join 25,000+ subscribers. Unsubscribe anytime.
-            </p>
+                  Subscribe
+                </button>
+              </form>
+              
+              <p className="mt-6 text-xs text-black/40">
+                Join 25,000+ curious minds. No spam, unsubscribe anytime.
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>

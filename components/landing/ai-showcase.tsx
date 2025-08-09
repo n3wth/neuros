@@ -1,259 +1,203 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { Brain, Zap, Target, ChevronRight, Play, Pause } from 'lucide-react'
+import { motion, useInView, useMotionValue, useTransform } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { ArrowRight, Sparkles, Activity, BarChart3 } from 'lucide-react'
 
 export default function AIShowcase() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [activeDemo, setActiveDemo] = useState('spaced')
-  const [isPlaying, setIsPlaying] = useState(true)
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
-  const demos = {
-    spaced: {
-      title: 'Intelligent Spacing Algorithm',
-      description: 'Our AI analyzes your forgetting curve and optimizes review timing for maximum retention.',
-      metrics: ['2.3x better retention', '40% less study time', 'Personalized to you']
+  const features = [
+    {
+      id: 'memory',
+      title: 'Memory that mirrors yours',
+      subtitle: 'Intelligent Spacing',
+      description: 'Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories, not temporary knowledge.',
+      icon: Activity,
+      color: '#FF6B6B',
+      stats: {
+        main: '87%',
+        label: 'retention after 30 days',
+        sub: 'vs 23% traditional'
+      }
     },
-    adaptive: {
-      title: 'Adaptive Difficulty',
-      description: 'Content difficulty adjusts in real-time based on your performance and confidence levels.',
-      metrics: ['Progressive challenge', 'Never too easy', 'Never overwhelming']
+    {
+      id: 'adaptive',
+      title: 'Difficulty that evolves',
+      subtitle: 'Adaptive Challenge',
+      description: 'Like a personal tutor that knows exactly when to push you harder and when to ease up. Every session calibrated to your current ability.',
+      icon: Sparkles,
+      color: '#4ECDC4',
+      stats: {
+        main: '2.3×',
+        label: 'faster mastery',
+        sub: 'personalized pacing'
+      }
     },
-    insights: {
-      title: 'Learning Analytics',
-      description: 'Deep insights into your learning patterns, strengths, and areas for improvement.',
-      metrics: ['Daily progress', 'Concept mastery', 'Predictive modeling']
+    {
+      id: 'insights',
+      title: 'Understanding, visualized',
+      subtitle: 'Deep Analytics',
+      description: 'See your learning patterns emerge. Discover your peak performance times, strongest subjects, and optimal review schedules.',
+      icon: BarChart3,
+      color: '#95E77E',
+      stats: {
+        main: '15min',
+        label: 'daily optimal',
+        sub: 'science-backed duration'
+      }
     }
-  }
+  ]
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (ref.current) {
+        const rect = (ref.current as HTMLElement).getBoundingClientRect()
+        mouseX.set(e.clientX - rect.left)
+        mouseY.set(e.clientY - rect.top)
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
 
   return (
-    <section ref={ref} className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section ref={ref} className="py-32 bg-white relative overflow-hidden">
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
+
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10">
         {/* Section Header */}
         <motion.div 
-          className="max-w-3xl mb-16"
+          className="max-w-4xl mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-light mb-6">
-            Learning, reimagined with AI
+          <motion.div 
+            className="flex items-center gap-4 mb-8"
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <div className="h-px w-12 bg-black/30" />
+            <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+              The Science
+            </p>
+          </motion.div>
+
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-8">
+            Not just another
+            <span className="block text-black/60 mt-2">learning app.</span>
           </h2>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            Traditional learning apps use fixed algorithms. Neuros uses advanced neural networks 
-            that adapt to your unique learning patterns in real-time.
+          
+          <p className="text-xl leading-[1.6] text-black/60 font-light max-w-3xl">
+            We didn't build features. We built a cognitive architecture that understands 
+            how human memory actually works—then amplified it with AI.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Demo Selector */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="space-y-4">
-              {Object.entries(demos).map(([key, demo]) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveDemo(key)}
-                  className={`w-full text-left p-6 rounded-xl transition-all duration-300 ${
-                    activeDemo === key 
-                      ? 'bg-white shadow-lg border border-gray-200' 
-                      : 'bg-white/50 hover:bg-white border border-transparent'
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h3 className={`text-lg font-medium mb-2 ${
-                        activeDemo === key ? 'text-black' : 'text-gray-700'
-                      }`}>
-                        {demo.title}
-                      </h3>
-                      <p className={`text-sm leading-relaxed ${
-                        activeDemo === key ? 'text-gray-600' : 'text-gray-500'
-                      }`}>
-                        {demo.description}
-                      </p>
-                      
-                      {activeDemo === key && (
-                        <motion.div 
-                          className="mt-4 flex flex-wrap gap-3"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {demo.metrics.map((metric, i) => (
-                            <span 
-                              key={i}
-                              className="inline-flex items-center px-3 py-1 bg-gray-100 text-xs font-medium text-gray-700 rounded-full"
-                            >
-                              {metric}
-                            </span>
-                          ))}
-                        </motion.div>
-                      )}
-                    </div>
-                    <ChevronRight className={`w-5 h-5 ml-4 transition-transform ${
-                      activeDemo === key ? 'rotate-90 text-black' : 'text-gray-400'
-                    }`} />
+        {/* Feature Cards Grid */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.id}
+              className="group relative"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              onHoverStart={() => setHoveredCard(feature.id)}
+              onHoverEnd={() => setHoveredCard(null)}
+            >
+              <div className="relative bg-white border border-black/5 rounded-3xl p-8 h-full overflow-hidden hover:shadow-xl transition-shadow duration-500">
+                {/* Gradient overlay on hover */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(circle at top left, ${feature.color}10 0%, transparent 50%)`,
+                  }}
+                />
+
+                {/* Icon */}
+                <div className="relative mb-6">
+                  <div 
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center transition-colors duration-300"
+                    style={{ 
+                      backgroundColor: hoveredCard === feature.id ? `${feature.color}20` : '#F5F5F5' 
+                    }}
+                  >
+                    <feature.icon 
+                      className="w-7 h-7 transition-colors duration-300" 
+                      style={{ 
+                        color: hoveredCard === feature.id ? feature.color : '#666' 
+                      }}
+                    />
                   </div>
-                </button>
-              ))}
-            </div>
+                </div>
 
-            {/* Demo Controls */}
-            <div className="mt-8 p-6 bg-white rounded-xl border border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="text-sm font-medium text-gray-700">Live Demonstration</h4>
-                <button 
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-4 h-4 text-gray-600" />
-                  ) : (
-                    <Play className="w-4 h-4 text-gray-600" />
-                  )}
-                </button>
-              </div>
-              
-              {/* Progress visualization */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs text-gray-600">
-                  <span>Memory Strength</span>
-                  <span>87%</span>
-                </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <motion.div 
-                    className="h-full bg-gradient-to-r from-gray-800 to-gray-600 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: isPlaying ? '87%' : '87%' }}
-                    transition={{ duration: 2, ease: "easeOut" }}
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between text-xs text-gray-600">
-                  <span>Next Review</span>
-                  <span>Optimizing...</span>
-                </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <motion.div 
-                    className="h-full bg-gradient-to-r from-gray-800 to-gray-600 rounded-full"
-                    animate={{ width: isPlaying ? ['20%', '60%', '45%'] : '45%' }}
-                    transition={{ duration: 3, repeat: isPlaying ? Infinity : 0 }}
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+                {/* Content */}
+                <div className="relative">
+                  <p className="text-xs font-mono text-black/40 uppercase tracking-wider mb-3">
+                    {feature.subtitle}
+                  </p>
+                  <h3 className="text-2xl font-serif font-light mb-4 leading-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="text-base leading-relaxed text-black/60 font-light mb-8">
+                    {feature.description}
+                  </p>
 
-          {/* Visual Demo Area */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative h-[500px] bg-white rounded-2xl border border-gray-200 overflow-hidden"
-          >
-            {/* AI Visualization */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-64 h-64">
-                {/* Central node */}
-                <motion.div 
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-black rounded-full flex items-center justify-center"
-                  animate={isPlaying ? { scale: [1, 1.1, 1] } : {}}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <Brain className="w-10 h-10 text-white" />
-                </motion.div>
-                
-                {/* Orbiting nodes */}
-                {[...Array(6)].map((_, i) => {
-                  const angle = (i * 60) * Math.PI / 180
-                  const x = Math.cos(angle) * 100
-                  const y = Math.sin(angle) * 100
-                  
-                  return (
-                    <motion.div
-                      key={i}
-                      className="absolute top-1/2 left-1/2 w-12 h-12"
-                      style={{
-                        transform: `translate(${x - 24}px, ${y - 24}px)`
-                      }}
-                      animate={isPlaying ? {
-                        opacity: [0.3, 1, 0.3],
-                        scale: [0.8, 1.2, 0.8]
-                      } : {}}
-                      transition={{
-                        duration: 3,
-                        delay: i * 0.5,
-                        repeat: Infinity
-                      }}
-                    >
-                      <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
-                        {i % 2 === 0 ? (
-                          <Zap className="w-6 h-6 text-gray-600" />
-                        ) : (
-                          <Target className="w-6 h-6 text-gray-600" />
-                        )}
+                  {/* Stats */}
+                  <div className="pt-6 border-t border-black/5">
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-3xl font-serif font-light">{feature.stats.main}</span>
+                      <div className="flex-1">
+                        <p className="text-sm text-black/80">{feature.stats.label}</p>
+                        <p className="text-xs text-black/40 mt-1">{feature.stats.sub}</p>
                       </div>
-                    </motion.div>
-                  )
-                })}
-                
-                {/* Connection lines */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                  {[...Array(6)].map((_, i) => {
-                    const angle = (i * 60) * Math.PI / 180
-                    const x = Math.cos(angle) * 100 + 128
-                    const y = Math.sin(angle) * 100 + 128
-                    
-                    return (
-                      <motion.line
-                        key={`line-${i}`}
-                        x1="128"
-                        y1="128"
-                        x2={x}
-                        y2={y}
-                        stroke="#e5e7eb"
-                        strokeWidth="2"
-                        strokeDasharray="4 4"
-                        initial={{ pathLength: 0 }}
-                        animate={isPlaying ? { pathLength: 1 } : {}}
-                        transition={{
-                          duration: 2,
-                          delay: i * 0.3,
-                          repeat: Infinity,
-                          repeatType: "reverse"
-                        }}
-                      />
-                    )
-                  })}
-                </svg>
-              </div>
-            </div>
+                    </div>
+                  </div>
+                </div>
 
-            {/* Stats overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white to-transparent">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="text-2xl font-semibold">2.3x</div>
-                  <div className="text-xs text-gray-600">Faster Learning</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-semibold">92%</div>
-                  <div className="text-xs text-gray-600">Retention Rate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-semibold">AI</div>
-                  <div className="text-xs text-gray-600">Powered</div>
-                </div>
+                {/* Hover indicator */}
+                <motion.div
+                  className="absolute bottom-8 right-8 w-10 h-10 rounded-full border border-black/10 flex items-center justify-center"
+                  animate={hoveredCard === feature.id ? { scale: 1.1 } : { scale: 1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >
+                  <ArrowRight className="w-4 h-4 text-black/30" />
+                </motion.div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div 
+          className="mt-24 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <p className="text-lg text-black/50 font-light mb-8">
+            Ready to experience learning that actually sticks?
+          </p>
+          <button className="group inline-flex items-center gap-4 px-8 py-4 bg-black text-white rounded-full hover:bg-black/90 transition-colors">
+            <span className="text-base font-medium">See it in action</span>
+            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </button>
+        </motion.div>
       </div>
     </section>
   )

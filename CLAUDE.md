@@ -1,24 +1,20 @@
-# Next.js 15.3 + Supabase + TypeScript Best Practices
+# Next.js 15.4 + Supabase + JavaScript Best Practices
 
 ## 🚀 Core Principles
 
-### 1. Type Generation is Non-Negotiable
+### 1. Type Generation for JavaScript/JSDoc
 
 ```bash
 # After ANY schema change:
-supabase gen types --local > types/supabase.ts
+supabase gen types --lang=typescript --local > types/supabase.js
 
-# Automate with git hooks:
-# .husky/pre-commit
-if git diff --cached --name-only | grep -q "supabase/migrations"; then
-  npm run types:generate
-  git add types/supabase.ts
-fi
+# Use JSDoc for type safety in JavaScript:
+/** @typedef {import('./types/supabase').Database} Database */
 ```
 
-### 2. Server-First Architecture (Next.js 15.3)
+### 2. Server-First Architecture (Next.js 15.4)
 
-```typescript
+```javascript
 // ✅ Server Components by default
 export default async function Page() {
   const data = await getServerData() // Direct DB calls
@@ -28,7 +24,7 @@ export default async function Page() {
 // ✅ Use after() for non-blocking operations
 import { after } from 'next/server'
 
-export async function createPost(data: PostInput) {
+export async function createPost(data) {
   const post = await db.posts.create(data)
   
   after(async () => {
@@ -43,26 +39,25 @@ export async function createPost(data: PostInput) {
 
 ### 3. Supabase Client Separation
 
-```typescript
-// lib/supabase/client.ts - Browser only
+```javascript
+// lib/supabase/client.js - Browser only
 import { createBrowserClient } from '@supabase/ssr'
-import type { Database } from '@/types/supabase'
 
 export const createClient = () =>
-  createBrowserClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   )
 
-// lib/supabase/server.ts - Server only
+// lib/supabase/server.js - Server only
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
 export const createClient = async () => {
   const cookieStore = await cookies()
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll: () => cookieStore.getAll(),
@@ -99,7 +94,7 @@ When working with Supabase databases, **ALWAYS** use migrations for ANY schema c
 4. **After EVERY migration**:
     ```bash
     supabase db reset                          # Apply locally
-    supabase gen types --local > types/supabase.ts  # Update types
+    supabase gen types --local > types/supabase.js  # Update types
     ```
 5. **Example workflow for adding a field**:
     ```bash
@@ -119,11 +114,11 @@ When working with Supabase databases, **ALWAYS** use migrations for ANY schema c
 7. **Commit both**:
     
     - Migration file (`supabase/migrations/*.sql`)
-    - Updated types (`types/supabase.ts`)
+    - Updated types (`types/supabase.js`)
 
 This ensures reproducible database states across all environments and team members.
 
-## 📁 Project Structure (Next.js 15.3 + Supabase)
+## 📁 Project Structure (Next.js 15.4 + Supabase)
 
 ```
 ├── app/                      # App Router
@@ -144,7 +139,7 @@ This ensures reproducible database states across all environments and team membe
 ├── test/                    # Test utilities
 │   └── setup.ts            # Vitest setup
 ├── types/
-│   └── supabase.ts         # Generated types
+│   └── supabase.js         # Generated types
 └── supabase/
     ├── migrations/         # Database migrations
     └── config.toml         # Supabase configuration

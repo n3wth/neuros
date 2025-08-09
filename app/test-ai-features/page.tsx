@@ -1,3 +1,5 @@
+'use client'
+
 import AIFeaturesSettings, { AIFeaturesSettingsWithIcons } from '@/components/learning/ai-features-settings'
 
 export default function TestAIFeaturesPage() {

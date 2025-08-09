@@ -1,7 +1,7 @@
 -- Enable realtime for cards and user_cards tables
 ALTER PUBLICATION supabase_realtime ADD TABLE cards;
 ALTER PUBLICATION supabase_realtime ADD TABLE user_cards;
-ALTER PUBLICATION supabase_realtime ADD TABLE study_stats;
+ALTER PUBLICATION supabase_realtime ADD TABLE user_stats;
 
 -- Create tables for storing images
 CREATE TABLE IF NOT EXISTS card_images (
