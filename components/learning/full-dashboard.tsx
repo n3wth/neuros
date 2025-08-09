@@ -3,28 +3,24 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Brain,
-  Plus,
-  Play,
-  BarChart3,
-  BookOpen,
-  Target,
-  Zap,
-  Clock,
-  TrendingUp,
-  Calendar,
-  ChevronRight,
-  Search,
-  Filter,
-  Sparkles,
-  MessageSquare,
-  Settings,
-  LogOut,
-  RefreshCw,
-  Flame,
-  Award,
-  Image as ImageIcon
-} from 'lucide-react'
+  SparkleIcon, 
+  BrainIcon, 
+  ChartIcon, 
+  BookIcon, 
+  RocketIcon, 
+  BeakerIcon,
+  PaletteIcon,
+  GlobeIcon,
+  HeartIcon,
+  ShieldIcon,
+  LeafIcon,
+  PlusIcon,
+  PlayIcon,
+  ChevronRightIcon,
+  SearchIcon,
+  LogOutIcon,
+  RefreshIcon
+} from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -70,6 +66,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   const [aiInsights, setAiInsights] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     loadDashboardData()
@@ -77,6 +74,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
 
   const loadDashboardData = async () => {
     setIsLoading(true)
+    setError(null)
     try {
       const [
         userCards,
@@ -98,8 +96,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
       setStudyStats(studyStatsData)
       setUpcomingCards(upcomingData as any)
 
-      // Generate AI insights if we have stats
-      if (studyStatsData && cardStats) {
+      // Generate AI insights if we have stats or show fallback for new users
+      if (studyStatsData && cardStats && cardStats.totalCards > 0) {
         try {
           const insights = await generateLearningInsights({
             totalCards: cardStats.totalCards,
@@ -111,10 +109,30 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
           setAiInsights(insights.insights || [])
         } catch (error) {
           console.error('Failed to get AI insights:', error)
+          // Set fallback insights for better UX when API fails
+          setAiInsights([
+            {
+              type: 'info',
+              title: 'Welcome to Neuros!',
+              description: 'Start creating cards to receive personalized learning insights powered by AI.',
+              action: 'Create your first card'
+            }
+          ])
         }
+      } else {
+        // Set welcome insights for new users
+        setAiInsights([
+          {
+            type: 'info',
+            title: 'Welcome to Neuros!',
+            description: 'Start creating cards to receive personalized learning insights powered by AI.',
+            action: 'Create your first card'
+          }
+        ])
       }
     } catch (error) {
       console.error('Failed to load dashboard data:', error)
+      setError('Failed to load dashboard data. Please try refreshing the page.')
     } finally {
       setIsLoading(false)
     }
@@ -160,100 +178,122 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5] flex items-center justify-center">
         <div className="text-center">
-          <Brain className="w-12 h-12 mx-auto mb-4 text-gray-400 animate-pulse" />
-          <p className="text-gray-600">Loading your learning dashboard...</p>
+          <BrainIcon className="w-12 h-12 mx-auto mb-4 text-black/40 animate-pulse stroke-[1.5]" />
+          <p className="text-black/60 font-light">Loading your learning dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error && !stats) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5] flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center">
+            <RefreshIcon className="w-8 h-8 text-red-500 stroke-[1.5]" />
+          </div>
+          <h2 className="text-xl font-serif font-light mb-3 text-black/90">Something went wrong</h2>
+          <p className="text-black/60 font-light mb-6">{error}</p>
+          <Button
+            onClick={loadDashboardData}
+            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            <RefreshIcon className="w-4 h-4 mr-2" />
+            Try Again
+          </Button>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-white/70 backdrop-blur-md border-b border-black/5 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-xl font-semibold">Neuros</span>
+              <Link href="/" className="flex items-center space-x-3 group">
+                <SparkleIcon className="w-8 h-8 text-black/70 stroke-[1.5] group-hover:text-black transition-colors" />
+                <span className="text-xl font-serif font-light text-black/90 group-hover:text-black transition-colors">Neuros</span>
               </Link>
               
               <nav className="hidden md:flex items-center space-x-1">
                 <button
                   onClick={() => setViewMode('overview')}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
                     viewMode === 'overview' 
-                      ? 'bg-gray-100 text-black' 
-                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                      ? 'bg-black text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
                   Overview
                 </button>
                 <button
                   onClick={() => setViewMode('review')}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
                     viewMode === 'review' 
-                      ? 'bg-gray-100 text-black' 
-                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                      ? 'bg-black text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
+                  <BrainIcon className="w-4 h-4 stroke-[1.5]" />
                   Review
                 </button>
                 <button
                   onClick={() => setViewMode('browse')}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
                     viewMode === 'browse' 
-                      ? 'bg-gray-100 text-black' 
-                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                      ? 'bg-black text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
+                  <BookIcon className="w-4 h-4 stroke-[1.5]" />
                   Browse
                 </button>
                 <button
                   onClick={() => setViewMode('stats')}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
                     viewMode === 'stats' 
-                      ? 'bg-gray-100 text-black' 
-                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                      ? 'bg-black text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
+                  <ChartIcon className="w-4 h-4 stroke-[1.5]" />
                   Stats
                 </button>
                 <button
                   onClick={() => setViewMode('images')}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
                     viewMode === 'images' 
-                      ? 'bg-gray-100 text-black' 
-                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                      ? 'bg-black text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <ImageIcon className="w-4 h-4 inline mr-1" />
+                  <PaletteIcon className="w-4 h-4 stroke-[1.5]" />
                   Images
                 </button>
                 <button
                   onClick={() => setViewMode('settings')}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
                     viewMode === 'settings' 
-                      ? 'bg-gray-100 text-black' 
-                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                      ? 'bg-black text-white' 
+                      : 'text-black/60 hover:text-black hover:bg-black/3'
                   }`}
                 >
-                  <Settings className="w-4 h-4 inline mr-1" />
+                  <BeakerIcon className="w-4 h-4 stroke-[1.5]" />
                   AI Settings
                 </button>
               </nav>
             </div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               {studyStats?.current_streak_days > 0 && (
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-orange-50 rounded-full">
-                  <Flame className="w-4 h-4 text-orange-500" />
-                  <span className="text-sm font-medium text-orange-700">
+                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full border border-black/10">
+                  <RocketIcon className="w-4 h-4 text-black/70 stroke-[1.5]" />
+                  <span className="text-sm font-light text-black/70">
                     {studyStats.current_streak_days} day streak
                   </span>
                 </div>
@@ -261,19 +301,19 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               
               <Button
                 onClick={() => setIsCreateDialogOpen(true)}
-                size="sm"
-                className="bg-black text-white hover:bg-gray-800"
+                className="bg-black text-white hover:bg-black/90 rounded-full px-6 font-light shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <Plus className="w-4 h-4 mr-1" />
+                <PlusIcon className="w-4 h-4 mr-2 stroke-[1.5]" />
                 New Card
               </Button>
 
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2.5 hover:bg-black/5 rounded-full transition-all duration-300 group"
+                  title="Sign out"
                 >
-                  <LogOut className="w-5 h-5 text-gray-600" />
+                  <LogOutIcon className="w-4 h-4 text-black/60 group-hover:text-black/80 stroke-[1.5]" />
                 </button>
               </form>
             </div>
@@ -293,59 +333,94 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               transition={{ duration: 0.3 }}
             >
               {/* Greeting */}
-              <div className="mb-8">
-                <h1 className="text-3xl font-light mb-2">{formatGreeting()}</h1>
-                <p className="text-gray-600">
+              <motion.div 
+                className="mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h1 className="text-5xl font-serif font-light mb-3 text-black/90">{formatGreeting()}</h1>
+                <p className="text-lg text-black/60 font-light">
                   You have {stats?.dueCards || 0} cards ready for review
                 </p>
-              </div>
+              </motion.div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                <Card className="p-4 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <BookOpen className="w-5 h-5 text-blue-500" />
-                    <span className="text-xs text-gray-500">Total</span>
-                  </div>
-                  <p className="text-2xl font-light">{stats?.totalCards || 0}</p>
-                  <p className="text-xs text-gray-500">cards</p>
-                </Card>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                >
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                    <div className="flex items-center justify-between mb-3">
+                      <BookIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <span className="text-xs text-black/40 font-mono">Total</span>
+                    </div>
+                    <p className="text-3xl font-serif font-light text-black/90">{stats?.totalCards || 0}</p>
+                    <p className="text-xs text-black/50 font-light">cards</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-4 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <Target className="w-5 h-5 text-green-500" />
-                    <span className="text-xs text-gray-500">Mastered</span>
-                  </div>
-                  <p className="text-2xl font-light">{stats?.mastered || 0}</p>
-                  <p className="text-xs text-gray-500">cards</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                    <div className="flex items-center justify-between mb-3">
+                      <RocketIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <span className="text-xs text-black/40 font-mono">Mastered</span>
+                    </div>
+                    <p className="text-3xl font-serif font-light text-black/90">{stats?.mastered || 0}</p>
+                    <p className="text-xs text-black/50 font-light">cards</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-4 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <Clock className="w-5 h-5 text-orange-500" />
-                    <span className="text-xs text-gray-500">Due</span>
-                  </div>
-                  <p className="text-2xl font-light">{stats?.dueCards || 0}</p>
-                  <p className="text-xs text-gray-500">today</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                    <div className="flex items-center justify-between mb-3">
+                      <SparkleIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <span className="text-xs text-black/40 font-mono">Due</span>
+                    </div>
+                    <p className="text-3xl font-serif font-light text-black/90">{stats?.dueCards || 0}</p>
+                    <p className="text-xs text-black/50 font-light">today</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-4 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <TrendingUp className="w-5 h-5 text-purple-500" />
-                    <span className="text-xs text-gray-500">Accuracy</span>
-                  </div>
-                  <p className="text-2xl font-light">{studyStats?.average_accuracy || 0}%</p>
-                  <p className="text-xs text-gray-500">average</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                    <div className="flex items-center justify-between mb-3">
+                      <ChartIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <span className="text-xs text-black/40 font-mono">Accuracy</span>
+                    </div>
+                    <p className="text-3xl font-serif font-light text-black/90">{studyStats?.average_accuracy || 0}%</p>
+                    <p className="text-xs text-black/50 font-light">average</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-4 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <Award className="w-5 h-5 text-indigo-500" />
-                    <span className="text-xs text-gray-500">Reviews</span>
-                  </div>
-                  <p className="text-2xl font-light">{studyStats?.total_reviews || 0}</p>
-                  <p className="text-xs text-gray-500">total</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl transition-all duration-500">
+                    <div className="flex items-center justify-between mb-3">
+                      <HeartIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
+                      <span className="text-xs text-black/40 font-mono">Reviews</span>
+                    </div>
+                    <p className="text-3xl font-serif font-light text-black/90">{studyStats?.total_reviews || 0}</p>
+                    <p className="text-xs text-black/50 font-light">total</p>
+                  </Card>
+                </motion.div>
               </div>
 
               <div className="grid lg:grid-cols-3 gap-8">
@@ -353,167 +428,264 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 <div className="lg:col-span-2">
                   {/* Start Review Card */}
                   {stats?.dueCards > 0 ? (
-                    <Card className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-0 mb-6">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-lg font-medium mb-2">Ready to review</h3>
-                          <p className="text-gray-600 mb-4">
-                            {stats.dueCards} cards are due for review. 
-                            Estimated time: {Math.ceil(stats.dueCards * 0.5)} minutes
-                          </p>
-                          <Button
-                            onClick={handleStartReview}
-                            className="bg-black text-white hover:bg-gray-800"
-                          >
-                            <Play className="w-4 h-4 mr-2" />
-                            Start Review Session
-                          </Button>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.6 }}
+                    >
+                      <Card className="p-8 bg-white/95 backdrop-blur-sm border border-black/5 rounded-3xl mb-8 hover:shadow-xl transition-all duration-500">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Ready to review</h3>
+                            <p className="text-black/60 mb-6 font-light max-w-md">
+                              {stats.dueCards} cards are due for review. 
+                              Estimated time: {Math.ceil(stats.dueCards * 0.5)} minutes
+                            </p>
+                            <Button
+                              onClick={handleStartReview}
+                              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+                            >
+                              <PlayIcon className="w-4 h-4 mr-2" />
+                              Start Review Session
+                            </Button>
+                          </div>
+                          <BrainIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
                         </div>
-                        <Brain className="w-12 h-12 text-purple-400" />
-                      </div>
-                    </Card>
+                      </Card>
+                    </motion.div>
                   ) : (
-                    <Card className="p-6 bg-green-50 border-0 mb-6">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-lg font-medium mb-2">All caught up!</h3>
-                          <p className="text-gray-600 mb-4">
-                            No cards due for review. Great job staying on top of your learning!
-                          </p>
-                          <Button
-                            onClick={() => setIsCreateDialogOpen(true)}
-                            variant="outline"
-                          >
-                            <Plus className="w-4 h-4 mr-2" />
-                            Add New Cards
-                          </Button>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.6 }}
+                    >
+                      <Card className="p-8 bg-white/95 backdrop-blur-sm border border-black/5 rounded-3xl mb-8 hover:shadow-xl transition-all duration-500">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            {stats?.totalCards === 0 ? (
+                              <>
+                                <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Start Your Learning Journey</h3>
+                                <p className="text-black/60 mb-6 font-light max-w-md">
+                                  Welcome to Neuros! Create your first learning card to begin using AI-powered spaced repetition for better knowledge retention.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                  <Button
+                                    onClick={() => setIsCreateDialogOpen(true)}
+                                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+                                  >
+                                    <PlusIcon className="w-4 h-4 mr-2" />
+                                    Create First Card
+                                  </Button>
+                                  <Button
+                                    onClick={() => setViewMode('settings')}
+                                    className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                    variant="outline"
+                                  >
+                                    <BeakerIcon className="w-4 h-4 mr-2" />
+                                    Learn About AI Features
+                                  </Button>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <h3 className="text-2xl font-serif font-light mb-3 text-black/90">All caught up!</h3>
+                                <p className="text-black/60 mb-6 font-light max-w-md">
+                                  No cards due for review. Great job staying on top of your learning!
+                                </p>
+                                <Button
+                                  onClick={() => setIsCreateDialogOpen(true)}
+                                  className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                  variant="outline"
+                                >
+                                  <PlusIcon className="w-4 h-4 mr-2" />
+                                  Add New Cards
+                                </Button>
+                              </>
+                            )}
+                          </div>
+                          {stats?.totalCards === 0 ? (
+                            <SparkleIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                          ) : (
+                            <RocketIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                          )}
                         </div>
-                        <Award className="w-12 h-12 text-green-400" />
-                      </div>
-                    </Card>
+                      </Card>
+                    </motion.div>
                   )}
 
                   {/* Due Cards Preview */}
                   {dueCards.length > 0 && (
-                    <div>
-                      <h3 className="text-lg font-medium mb-4">Cards Due Today</h3>
-                      <div className="space-y-3">
-                        {dueCards.slice(0, 5).map((card: any) => (
-                          <Card key={card.id} className="p-4 bg-white hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between">
-                              <div className="flex-1">
-                                <p className="font-medium text-gray-900 mb-1">
-                                  {card.cards.front}
-                                </p>
-                                <div className="flex items-center gap-3 text-xs text-gray-500">
-                                  <span>Mastery: {Math.round(card.mastery_level)}%</span>
-                                  <span>•</span>
-                                  <span>Reviews: {card.total_reviews}</span>
-                                  {card.cards.topics && (
-                                    <>
-                                      <span>•</span>
-                                      <span>{card.cards.topics.name}</span>
-                                    </>
-                                  )}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.7 }}
+                    >
+                      <h3 className="text-xl font-serif font-light mb-6 text-black/90">Cards Due Today</h3>
+                      <div className="space-y-4">
+                        {dueCards.slice(0, 5).map((card: any, index) => (
+                          <motion.div
+                            key={card.id}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+                          >
+                            <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group">
+                              <div className="flex items-center justify-between">
+                                <div className="flex-1">
+                                  <p className="font-light text-black/90 mb-2 text-lg">
+                                    {card.cards.front}
+                                  </p>
+                                  <div className="flex items-center gap-4 text-xs text-black/50 font-mono">
+                                    <span>Mastery: {Math.round(card.mastery_level)}%</span>
+                                    <span>•</span>
+                                    <span>Reviews: {card.total_reviews}</span>
+                                    {card.cards.topics && (
+                                      <>
+                                        <span>•</span>
+                                        <span>{card.cards.topics.name}</span>
+                                      </>
+                                    )}
+                                  </div>
                                 </div>
+                                <ChevronRightIcon className="w-5 h-5 text-black/30 group-hover:text-black/60 group-hover:translate-x-1 transition-all duration-300" />
                               </div>
-                              <ChevronRight className="w-5 h-5 text-gray-400" />
-                            </div>
-                          </Card>
+                            </Card>
+                          </motion.div>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   )}
                 </div>
 
                 {/* Sidebar */}
-                <div className="space-y-6">
-                  {/* AI Insights */}
-                  {aiInsights.length > 0 && (
-                    <Card className="p-5 bg-white">
-                      <div className="flex items-center mb-4">
-                        <Brain className="w-5 h-5 mr-2" />
-                        <h3 className="font-medium">AI Insights</h3>
+                <motion.div 
+                  className="space-y-8"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  {/* AI Insights / Onboarding */}
+                  {(aiInsights.length > 0 || stats?.totalCards === 0) && (
+                    <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                      <div className="flex items-center mb-6">
+                        <BrainIcon className="w-6 h-6 mr-3 text-purple-600/70" />
+                        <h3 className="font-serif font-light text-lg text-black/90">
+                          {stats?.totalCards === 0 ? 'Getting Started' : 'AI Insights'}
+                        </h3>
                       </div>
-                      <div className="space-y-3">
-                        {aiInsights.slice(0, 2).map((insight, index) => (
-                          <div key={index} className="p-3 bg-gray-50 rounded-lg">
-                            <div className="flex items-start gap-2">
-                              <div className={`w-2 h-2 rounded-full mt-1.5 ${
-                                insight.type === 'strength' ? 'bg-green-500' :
-                                insight.type === 'improvement' ? 'bg-yellow-500' :
-                                'bg-blue-500'
-                              }`} />
+                      <div className="space-y-4">
+                        {stats?.totalCards === 0 ? (
+                          <motion.div 
+                            className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.6 }}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="w-2.5 h-2.5 rounded-full mt-2 bg-blue-500" />
                               <div className="flex-1">
-                                <p className="text-sm font-medium text-gray-900 mb-1">
-                                  {insight.title}
+                                <p className="text-sm font-light text-black/90 mb-2">
+                                  Welcome to Neuros!
                                 </p>
-                                <p className="text-xs text-gray-600 mb-2">
-                                  {insight.description}
+                                <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
+                                  Create your first learning card to unlock AI-powered insights, spaced repetition, and personalized learning analytics.
                                 </p>
-                                {insight.action && (
-                                  <button className="text-xs font-medium text-blue-600 hover:underline">
-                                    {insight.action} →
-                                  </button>
-                                )}
+                                <button 
+                                  onClick={() => setIsCreateDialogOpen(true)}
+                                  className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                                >
+                                  Create your first card →
+                                </button>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          </motion.div>
+                        ) : (
+                          aiInsights.slice(0, 2).map((insight, index) => (
+                            <motion.div 
+                              key={index} 
+                              className="p-4 bg-gradient-to-r from-gray-50 to-gray-50/50 rounded-2xl"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                            >
+                              <div className="flex items-start gap-3">
+                                <div className={`w-2.5 h-2.5 rounded-full mt-2 ${
+                                  insight.type === 'strength' ? 'bg-green-500' :
+                                  insight.type === 'improvement' ? 'bg-yellow-500' :
+                                  insight.type === 'info' ? 'bg-blue-500' :
+                                  'bg-blue-500'
+                                }`} />
+                                <div className="flex-1">
+                                  <p className="text-sm font-light text-black/90 mb-2">
+                                    {insight.title}
+                                  </p>
+                                  <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
+                                    {insight.description}
+                                  </p>
+                                  {insight.action && (
+                                    <button 
+                                      onClick={() => insight.action === 'Create your first card' && setIsCreateDialogOpen(true)}
+                                      className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                                    >
+                                      {insight.action} →
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            </motion.div>
+                          ))
+                        )}
                       </div>
                     </Card>
                   )}
 
                   {/* Upcoming Reviews */}
-                  <Card className="p-5 bg-white">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-medium">Upcoming Reviews</h3>
-                      <Calendar className="w-4 h-4 text-gray-400" />
+                  <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="font-serif font-light text-lg text-black/90">Upcoming Reviews</h3>
+                      <SparkleIcon className="w-5 h-5 text-orange-600/70" />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, any]) => (
-                        <div key={date} className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">{date}</span>
-                          <span className="font-medium">{cards.length} cards</span>
+                        <div key={date} className="flex items-center justify-between text-sm p-3 bg-gray-50 rounded-2xl">
+                          <span className="text-black/60 font-light">{date}</span>
+                          <span className="font-light text-black/80 text-xs font-mono">{cards.length} cards</span>
                         </div>
                       ))}
                     </div>
                   </Card>
 
                   {/* Quick Actions */}
-                  <Card className="p-5 bg-white">
-                    <h3 className="font-medium mb-4">Quick Actions</h3>
-                    <div className="space-y-2">
+                  <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <h3 className="font-serif font-light text-lg text-black/90 mb-6">Quick Actions</h3>
+                    <div className="space-y-3">
                       <Button
                         variant="outline"
-                        size="sm"
-                        className="w-full justify-start"
+                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 hover:bg-black/5 rounded-2xl p-4 font-light transition-all duration-300"
                         onClick={() => setViewMode('browse')}
                       >
-                        <Search className="w-4 h-4 mr-2" />
+                        <SearchIcon className="w-4 h-4 mr-3 text-black/60" />
                         Browse All Cards
                       </Button>
                       <Button
                         variant="outline"
-                        size="sm"
-                        className="w-full justify-start"
+                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 hover:bg-black/5 rounded-2xl p-4 font-light transition-all duration-300"
                         onClick={() => setIsCreateDialogOpen(true)}
                       >
-                        <Plus className="w-4 h-4 mr-2" />
+                        <PlusIcon className="w-4 h-4 mr-3 text-black/60" />
                         Create New Card
                       </Button>
                       <Button
                         variant="outline"
-                        size="sm"
-                        className="w-full justify-start"
+                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 hover:bg-black/5 rounded-2xl p-4 font-light transition-all duration-300"
                         onClick={() => setViewMode('stats')}
                       >
-                        <BarChart3 className="w-4 h-4 mr-2" />
+                        <ChartIcon className="w-4 h-4 mr-3 text-black/60" />
                         View Statistics
                       </Button>
                     </div>
                   </Card>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
@@ -547,71 +719,90 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="mb-6">
-                <h2 className="text-2xl font-light mb-4">Your Cards</h2>
+              <motion.div 
+                className="mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl font-serif font-light mb-6 text-black/90">Your Cards</h2>
                 <div className="flex items-center gap-4">
                   <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/40" />
                     <input
                       type="text"
                       placeholder="Search cards..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-400"
+                      className="w-full pl-12 pr-6 py-4 border border-black/10 rounded-full bg-white focus:outline-none focus:border-black/20 focus:shadow-sm transition-all duration-300 font-light"
                     />
                   </div>
                   <Button
                     onClick={() => setIsCreateDialogOpen(true)}
-                    className="bg-black text-white hover:bg-gray-800"
+                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-4 font-light shadow-sm hover:shadow-md transition-all duration-300"
                   >
-                    <Plus className="w-4 h-4 mr-2" />
+                    <PlusIcon className="w-4 h-4 mr-2" />
                     New Card
                   </Button>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredCards.map((card) => (
-                  <Card key={card.id} className="p-4 bg-white hover:shadow-md transition-shadow">
-                    <div className="mb-3">
-                      {card.topics && (
-                        <Badge 
-                          variant="outline"
-                          style={{ 
-                            borderColor: card.topics.color,
-                            color: card.topics.color 
-                          }}
-                        >
-                          {card.topics.name}
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="font-medium text-gray-900 mb-2">{card.front}</p>
-                    <p className="text-sm text-gray-600 mb-3">{card.back}</p>
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      <span>{card.difficulty}</span>
-                      {card.user_cards?.[0] && (
-                        <span>Mastery: {Math.round(card.user_cards[0].mastery_level)}%</span>
-                      )}
-                    </div>
-                  </Card>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredCards.map((card, index) => (
+                  <motion.div
+                    key={card.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                      <div className="mb-4">
+                        {card.topics && (
+                          <Badge 
+                            variant="outline"
+                            className="rounded-full px-3 py-1 text-xs font-light border-black/20"
+                            style={{ 
+                              borderColor: card.topics.color + '40',
+                              color: card.topics.color,
+                              backgroundColor: card.topics.color + '10'
+                            }}
+                          >
+                            {card.topics.name}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="font-light text-black/90 mb-3 text-lg leading-relaxed">{card.front}</p>
+                      <p className="text-sm text-black/60 mb-4 font-light leading-relaxed">{card.back}</p>
+                      <div className="flex items-center justify-between text-xs text-black/50 font-mono">
+                        <span className="px-2 py-1 bg-gray-100 rounded-full">{card.difficulty}</span>
+                        {card.user_cards?.[0] && (
+                          <span>Mastery: {Math.round(card.user_cards[0].mastery_level)}%</span>
+                        )}
+                      </div>
+                    </Card>
+                  </motion.div>
                 ))}
               </div>
 
               {filteredCards.length === 0 && (
-                <div className="text-center py-12">
-                  <BookOpen className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p className="text-gray-500">
+                <motion.div 
+                  className="text-center py-16"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <BookIcon className="w-16 h-16 mx-auto mb-6 text-black/20" />
+                  <p className="text-black/60 font-light text-lg mb-6">
                     {searchQuery ? 'No cards found matching your search' : 'No cards yet'}
                   </p>
                   <Button
                     onClick={() => setIsCreateDialogOpen(true)}
-                    className="mt-4"
+                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
                     variant="outline"
                   >
                     Create Your First Card
                   </Button>
-                </div>
+                </motion.div>
               )}
             </motion.div>
           )}
@@ -624,79 +815,122 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="text-2xl font-light mb-6">Your Statistics</h2>
+              <motion.h2 
+                className="text-3xl font-serif font-light mb-8 text-black/90"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                Your Statistics
+              </motion.h2>
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <Card className="p-6 bg-white">
-                  <BarChart3 className="w-8 h-8 text-blue-500 mb-3" />
-                  <p className="text-3xl font-light mb-1">{studyStats?.total_reviews || 0}</p>
-                  <p className="text-sm text-gray-600">Total Reviews</p>
-                </Card>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                >
+                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <ChartIcon className="w-10 h-10 text-blue-600/70 mb-4" />
+                    <p className="text-4xl font-serif font-light mb-2 text-black/90">{studyStats?.total_reviews || 0}</p>
+                    <p className="text-sm text-black/60 font-light">Total Reviews</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-6 bg-white">
-                  <Clock className="w-8 h-8 text-green-500 mb-3" />
-                  <p className="text-3xl font-light mb-1">
-                    {Math.round((studyStats?.total_study_time_minutes || 0) / 60)}h
-                  </p>
-                  <p className="text-sm text-gray-600">Study Time</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <SparkleIcon className="w-10 h-10 text-green-600/70 mb-4" />
+                    <p className="text-4xl font-serif font-light mb-2 text-black/90">
+                      {Math.round((studyStats?.total_study_time_minutes || 0) / 60)}h
+                    </p>
+                    <p className="text-sm text-black/60 font-light">Study Time</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-6 bg-white">
-                  <Flame className="w-8 h-8 text-orange-500 mb-3" />
-                  <p className="text-3xl font-light mb-1">{studyStats?.current_streak_days || 0}</p>
-                  <p className="text-sm text-gray-600">Day Streak</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <RocketIcon className="w-10 h-10 text-orange-600/70 mb-4" />
+                    <p className="text-4xl font-serif font-light mb-2 text-black/90">{studyStats?.current_streak_days || 0}</p>
+                    <p className="text-sm text-black/60 font-light">Day Streak</p>
+                  </Card>
+                </motion.div>
 
-                <Card className="p-6 bg-white">
-                  <Target className="w-8 h-8 text-purple-500 mb-3" />
-                  <p className="text-3xl font-light mb-1">{studyStats?.average_accuracy || 0}%</p>
-                  <p className="text-sm text-gray-600">Accuracy</p>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <HeartIcon className="w-10 h-10 text-purple-600/70 mb-4" />
+                    <p className="text-4xl font-serif font-light mb-2 text-black/90">{studyStats?.average_accuracy || 0}%</p>
+                    <p className="text-sm text-black/60 font-light">Accuracy</p>
+                  </Card>
+                </motion.div>
               </div>
 
-              <Card className="p-6 bg-white">
-                <h3 className="text-lg font-medium mb-4">Card Distribution</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Mastered ({stats?.mastered || 0})</span>
-                      <span>{Math.round((stats?.mastered / stats?.totalCards) * 100) || 0}%</span>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                  <h3 className="text-xl font-serif font-light mb-6 text-black/90">Card Distribution</h3>
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-black/70 font-light">Mastered ({stats?.mastered || 0})</span>
+                        <span className="text-black/60 font-mono text-xs">{Math.round((stats?.mastered / stats?.totalCards) * 100) || 0}%</span>
+                      </div>
+                      <div className="h-4 bg-black/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(stats?.mastered / stats?.totalCards) * 100 || 0}%` }}
+                          transition={{ duration: 1, delay: 0.7 }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-green-500"
-                        style={{ width: `${(stats?.mastered / stats?.totalCards) * 100 || 0}%` }}
-                      />
+                    
+                    <div>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-black/70 font-light">Learning ({stats?.learning || 0})</span>
+                        <span className="text-black/60 font-mono text-xs">{Math.round((stats?.learning / stats?.totalCards) * 100) || 0}%</span>
+                      </div>
+                      <div className="h-4 bg-black/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(stats?.learning / stats?.totalCards) * 100 || 0}%` }}
+                          transition={{ duration: 1, delay: 0.8 }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-black/70 font-light">Difficult ({stats?.difficult || 0})</span>
+                        <span className="text-black/60 font-mono text-xs">{Math.round((stats?.difficult / stats?.totalCards) * 100) || 0}%</span>
+                      </div>
+                      <div className="h-4 bg-black/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-gradient-to-r from-red-400 to-pink-400 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(stats?.difficult / stats?.totalCards) * 100 || 0}%` }}
+                          transition={{ duration: 1, delay: 0.9 }}
+                        />
+                      </div>
                     </div>
                   </div>
-                  
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Learning ({stats?.learning || 0})</span>
-                      <span>{Math.round((stats?.learning / stats?.totalCards) * 100) || 0}%</span>
-                    </div>
-                    <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-yellow-500"
-                        style={{ width: `${(stats?.learning / stats?.totalCards) * 100 || 0}%` }}
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Difficult ({stats?.difficult || 0})</span>
-                      <span>{Math.round((stats?.difficult / stats?.totalCards) * 100) || 0}%</span>
-                    </div>
-                    <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-red-500"
-                        style={{ width: `${(stats?.difficult / stats?.totalCards) * 100 || 0}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Card>
+                </Card>
+              </motion.div>
             </motion.div>
           )}
 
@@ -708,10 +942,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="mb-6">
-                <h2 className="text-2xl font-light mb-2">AI Image Generator</h2>
-                <p className="text-gray-600">Create beautiful visuals for your learning cards using AI</p>
-              </div>
+              <motion.div 
+                className="mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl font-serif font-light mb-3 text-black/90">AI Image Generator</h2>
+                <p className="text-lg text-black/60 font-light">Create beautiful visuals for your learning cards using AI</p>
+              </motion.div>
               
               <ImageGenerator />
             </motion.div>
@@ -725,10 +964,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="mb-8">
-                <h2 className="text-2xl font-light mb-2">AI-Powered Features</h2>
-                <p className="text-gray-600">Configure intelligent learning features powered by advanced AI</p>
-              </div>
+              <motion.div 
+                className="mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl font-serif font-light mb-3 text-black/90">AI-Powered Features</h2>
+                <p className="text-lg text-black/60 font-light">Configure intelligent learning features powered by advanced AI</p>
+              </motion.div>
               
               <div className="max-w-3xl">
                 <AIFeaturesSettings 

@@ -1,0 +1,82 @@
+# Ignore patterns for Claude Code to reduce context usage
+
+# Build outputs
+.next/
+build/
+dist/
+out/
+.turbo/
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Lock files (these are huge)
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Conductor experiments
+.conductor/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Environment files (contain secrets)
+.env*.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Generated types that are huge
+types/generated/
+
+# Documentation backups
+CLAUDE_FULL.md
+*.backup.md
+
+# Large data files
+*.sql
+*.db
+*.sqlite
+
+# Media files
+*.mp4
+*.mov
+*.avi
+*.mp3
+*.wav
+
+# Archives
+*.zip
+*.tar.gz
+*.rar

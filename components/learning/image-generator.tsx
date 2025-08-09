@@ -3,13 +3,20 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Sparkles, Image as ImageIcon, Loader2, Download, 
-  RefreshCw, Palette, Grid3x3, Wand2, Save
-} from 'lucide-react'
+  SparkleIcon, 
+  ImageIcon, 
+  LoaderIcon, 
+  DownloadIcon, 
+  RefreshIcon, 
+  PaletteIcon, 
+  GridIcon, 
+  WandIcon, 
+  SaveIcon,
+  CloseIcon
+} from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { AppleCard } from '@/components/ui/apple-card'
 import { generateCardImage, generateTopicIllustration, batchGenerateCardImages } from '@/server/actions/images'
 import { useToast } from '@/hooks/use-toast'
 import Image from 'next/image'
@@ -37,25 +44,25 @@ export default function ImageGenerator({ cardId, topic }: { cardId?: string; top
     { 
       value: 'abstract', 
       label: 'Abstract', 
-      icon: Sparkles,
+      icon: SparkleIcon,
       description: 'Flowing shapes and vibrant colors'
     },
     { 
       value: 'minimal', 
       label: 'Minimal', 
-      icon: Grid3x3,
+      icon: GridIcon,
       description: 'Clean lines and simple geometry'
     },
     { 
       value: 'geometric', 
       label: 'Geometric', 
-      icon: Palette,
+      icon: PaletteIcon,
       description: 'Mathematical patterns and precision'
     },
     { 
       value: 'gradient', 
       label: 'Gradient', 
-      icon: Wand2,
+      icon: WandIcon,
       description: 'Smooth transitions and depth'
     }
   ]
@@ -129,152 +136,175 @@ export default function ImageGenerator({ cardId, topic }: { cardId?: string; top
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Generation Form */}
-      <AppleCard glassy elevated className="p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-            <ImageIcon className="w-5 h-5 text-white" />
+      <div className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-all duration-500">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center">
+            <ImageIcon className="w-6 h-6 text-black/70 stroke-[1.5]" />
           </div>
           <div>
-            <h3 className="text-xl font-medium">AI Image Generator</h3>
-            <p className="text-sm text-gray-600">Create beautiful visuals for your learning cards</p>
+            <h3 className="text-2xl font-serif font-light text-black/90">AI Image Generator</h3>
+            <p className="text-base font-light text-black/60">Create beautiful visuals for your learning cards</p>
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* Prompt Input */}
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-medium mb-3 text-black/80">
               What would you like to visualize?
             </label>
             <Textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="E.g., 'Neural networks connecting and processing information' or 'The concept of quantum entanglement'"
-              className="min-h-[80px]"
+              className="min-h-[100px] rounded-2xl border-black/10 font-light focus:border-black/20 focus:ring-1 focus:ring-black/10 transition-all duration-200"
             />
           </div>
 
           {/* Topic-specific fields */}
           {topic && (
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-medium mb-3 text-black/80">
                 Key concepts (comma-separated)
               </label>
               <Input
                 value={concepts}
                 onChange={(e) => setConcepts(e.target.value)}
                 placeholder="E.g., machine learning, deep learning, transformers"
+                className="rounded-2xl border-black/10 font-light focus:border-black/20 focus:ring-1 focus:ring-black/10 transition-all duration-200"
               />
             </div>
           )}
 
           {/* Style Selection */}
           <div>
-            <label className="block text-sm font-medium mb-3">
+            <label className="block text-sm font-medium mb-4 text-black/80">
               Choose a style
             </label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {styles.map((style) => (
-                <button
+                <motion.button
                   key={style.value}
                   onClick={() => setSelectedStyle(style.value)}
-                  className={`p-3 rounded-lg border-2 transition-all ${
+                  className={`p-4 rounded-2xl border transition-all duration-300 ${
                     selectedStyle === style.value
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-black/20 bg-black/5 shadow-md'
+                      : 'border-black/10 hover:border-black/15 hover:bg-black/2'
                   }`}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <style.icon className="w-6 h-6 mx-auto mb-2" />
-                  <div className="text-sm font-medium">{style.label}</div>
-                  <div className="text-xs text-gray-500 mt-1">{style.description}</div>
-                </button>
+                  <style.icon className="w-7 h-7 mx-auto mb-3 text-black/70 stroke-[1.5]" />
+                  <div className="text-sm font-medium text-black/90">{style.label}</div>
+                  <div className="text-xs text-black/50 mt-2 font-light leading-relaxed">{style.description}</div>
+                </motion.button>
               ))}
             </div>
           </div>
 
           {/* Generate Button */}
-          <Button 
-            onClick={handleGenerate}
-            disabled={isGenerating || !prompt.trim()}
-            className="w-full"
-            size="lg"
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {isGenerating ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Generating...
-              </>
-            ) : (
-              <>
-                <Sparkles className="w-4 h-4 mr-2" />
-                Generate Image
-              </>
-            )}
-          </Button>
+            <Button 
+              onClick={handleGenerate}
+              disabled={isGenerating || !prompt.trim()}
+              className="w-full bg-black hover:bg-black/90 text-white rounded-full py-6 text-base font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              {isGenerating ? (
+                <>
+                  <LoaderIcon className="w-5 h-5 mr-2 animate-spin stroke-[1.5]" />
+                  <span className="font-light">Generating...</span>
+                </>
+              ) : (
+                <>
+                  <SparkleIcon className="w-5 h-5 mr-2 stroke-[1.5]" />
+                  <span className="font-light">Generate Image</span>
+                </>
+              )}
+            </Button>
+          </motion.div>
         </div>
-      </AppleCard>
+      </div>
 
       {/* Generated Images Gallery */}
       {generatedImages.length > 0 && (
-        <AppleCard glassy className="p-6">
-          <h3 className="text-lg font-medium mb-4">Generated Images</h3>
+        <div className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-all duration-500">
+          <h3 className="text-2xl font-serif font-light text-black/90 mb-6">Generated Images</h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {generatedImages.map((image) => (
               <motion.div
                 key={image.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 className="relative group cursor-pointer"
                 onClick={() => setSelectedImage(image)}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.3 }}
               >
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                <div className="aspect-square rounded-2xl overflow-hidden bg-black/5 ring-1 ring-black/10">
                   <Image
                     src={image.url}
                     alt={image.prompt}
                     width={300}
                     height={300}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
                 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleSaveImage(image)
-                    }}
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-2xl flex items-center justify-center gap-3">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.1 }}
                   >
-                    <Download className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setPrompt(image.prompt)
-                      setSelectedStyle(image.style as ImageStyle)
-                    }}
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="rounded-full bg-white/20 backdrop-blur text-white border-white/30 hover:bg-white/30"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleSaveImage(image)
+                      }}
+                    >
+                      <DownloadIcon className="w-4 h-4 stroke-[1.5]" />
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.15 }}
                   >
-                    <RefreshCw className="w-4 h-4" />
-                  </Button>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="rounded-full bg-white/20 backdrop-blur text-white border-white/30 hover:bg-white/30"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setPrompt(image.prompt)
+                        setSelectedStyle(image.style as ImageStyle)
+                      }}
+                    >
+                      <RefreshIcon className="w-4 h-4 stroke-[1.5]" />
+                    </Button>
+                  </motion.div>
                 </div>
 
                 {/* Style badge */}
-                <div className="absolute top-2 left-2">
-                  <span className="px-2 py-1 bg-white/90 backdrop-blur text-xs font-medium rounded-full">
+                <div className="absolute top-3 left-3">
+                  <span className="px-3 py-1.5 bg-white/95 backdrop-blur text-xs font-medium text-black/70 rounded-full border border-black/10">
                     {image.style}
                   </span>
                 </div>
               </motion.div>
             ))}
           </div>
-        </AppleCard>
+        </div>
       )}
 
       {/* Image Preview Modal */}
@@ -284,55 +314,81 @@ export default function ImageGenerator({ cardId, topic }: { cardId?: string; top
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6"
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6"
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="max-w-4xl w-full bg-white rounded-xl overflow-hidden"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="max-w-5xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close button */}
+              <div className="absolute top-6 right-6 z-10">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSelectedImage(null)}
+                  className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-black/70 hover:bg-white/30 transition-all duration-200"
+                >
+                  <CloseIcon className="w-5 h-5 stroke-[1.5]" />
+                </motion.button>
+              </div>
+              
               <div className="aspect-square relative">
                 <Image
                   src={selectedImage.url}
                   alt={selectedImage.prompt}
                   width={1024}
                   height={1024}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain bg-black/2"
                 />
               </div>
               
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-medium mb-2">Image Details</h3>
-                    <p className="text-gray-600">{selectedImage.prompt}</p>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                      <span>Style: {selectedImage.style}</span>
-                      <span>Generated: {selectedImage.timestamp.toLocaleString()}</span>
+              <div className="p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-serif font-light text-black/90 mb-3">Image Details</h3>
+                    <p className="text-base font-light text-black/70 leading-relaxed mb-4">{selectedImage.prompt}</p>
+                    <div className="flex items-center gap-6 text-sm text-black/50 font-light">
+                      <span>Style: <span className="text-black/70">{selectedImage.style}</span></span>
+                      <span>Generated: <span className="text-black/70">{selectedImage.timestamp.toLocaleString()}</span></span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <Button onClick={() => handleSaveImage(selectedImage)}>
-                    <Download className="w-4 h-4 mr-2" />
-                    Download
-                  </Button>
-                  {cardId && (
-                    <Button variant="outline">
-                      <Save className="w-4 h-4 mr-2" />
-                      Use for Card
+                <div className="flex items-center gap-4">
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button 
+                      onClick={() => handleSaveImage(selectedImage)}
+                      className="bg-black hover:bg-black/90 text-white rounded-full px-6 py-3 font-light"
+                    >
+                      <DownloadIcon className="w-4 h-4 mr-2 stroke-[1.5]" />
+                      Download
                     </Button>
+                  </motion.div>
+                  {cardId && (
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button 
+                        variant="outline" 
+                        className="border-black/20 text-black/80 hover:bg-black/5 rounded-full px-6 py-3 font-light"
+                      >
+                        <SaveIcon className="w-4 h-4 mr-2 stroke-[1.5]" />
+                        Use for Card
+                      </Button>
+                    </motion.div>
                   )}
-                  <Button 
-                    variant="ghost"
-                    onClick={() => setSelectedImage(null)}
-                  >
-                    Close
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button 
+                      variant="ghost"
+                      onClick={() => setSelectedImage(null)}
+                      className="text-black/60 hover:text-black/80 hover:bg-black/5 rounded-full px-6 py-3 font-light"
+                    >
+                      Close
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>

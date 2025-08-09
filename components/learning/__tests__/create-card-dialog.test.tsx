@@ -10,10 +10,14 @@ vi.mock('@/server/actions/cards', () => ({
 
 vi.mock('@/server/actions/ai', () => ({
   generateCardsFromText: vi.fn(() => Promise.resolve({
-    cards: [
-      { id: '1', front: 'Q1', back: 'A1' },
-      { id: '2', front: 'Q2', back: 'A2' },
-    ]
+    success: true,
+    cards: Array.from({ length: 20 }, (_, i) => ({
+      id: `${i + 1}`,
+      front: `Question ${i + 1}`,
+      back: `Answer ${i + 1}`,
+      explanation: `Explanation ${i + 1}`
+    })),
+    tokensUsed: 500
   }))
 }))
 
@@ -34,14 +38,26 @@ describe('CreateCardDialog', () => {
       expect(screen.getByText('Create Learning Card')).toBeInTheDocument()
     })
 
-    it('allows switching between manual and AI modes', async () => {
+    it('defaults to AI mode and shows correct button text', () => {
+      render(<CreateCardDialog {...defaultProps} />)
+      
+      // Should default to AI mode
+      const aiButton = screen.getByText('AI Generate')
+      expect(aiButton).toHaveClass('bg-gradient-to-r')
+      
+      // Should show 20 cards button text
+      expect(screen.getByText('Generate 20 Cards with AI')).toBeInTheDocument()
+    })
+
+    it('allows switching to manual mode', async () => {
       const user = userEvent.setup()
       render(<CreateCardDialog {...defaultProps} />)
       
-      const aiButton = screen.getByText('AI Generate')
-      await user.click(aiButton)
+      const manualButton = screen.getByText('Manual Entry')
+      await user.click(manualButton)
       
-      expect(screen.getByText('Generate 5 Cards with AI')).toBeInTheDocument()
+      expect(manualButton).toHaveClass('bg-black')
+      expect(screen.getByPlaceholderText(/What is the question/)).toBeInTheDocument()
     })
 
     it('creates a card with manual input', async () => {
@@ -49,6 +65,10 @@ describe('CreateCardDialog', () => {
       const { createCard } = await import('@/server/actions/cards')
       
       render(<CreateCardDialog {...defaultProps} />)
+      
+      // Switch to manual mode first
+      const manualButton = screen.getByText('Manual Entry')
+      await user.click(manualButton)
       
       // Fill in the form
       const frontInput = screen.getByPlaceholderText(/What is the question/)
@@ -85,8 +105,13 @@ describe('CreateCardDialog', () => {
       expect(advancedButton).toHaveClass('bg-blue-50', 'border-blue-300')
     })
 
-    it('disables create button when fields are empty', () => {
+    it('disables create button when fields are empty in manual mode', async () => {
+      const user = userEvent.setup()
       render(<CreateCardDialog {...defaultProps} />)
+      
+      // Switch to manual mode
+      const manualButton = screen.getByText('Manual Entry')
+      await user.click(manualButton)
       
       const createButton = screen.getByRole('button', { name: /Create Card/i })
       expect(createButton).toBeDisabled()
@@ -94,22 +119,26 @@ describe('CreateCardDialog', () => {
   })
 
   describe('AI Card Generation', () => {
-    it('generates cards from AI input', async () => {
+    it('starts in AI mode by default', () => {
+      render(<CreateCardDialog {...defaultProps} />)
+      
+      // AI mode should be selected by default
+      const aiInput = screen.getByPlaceholderText(/Example: 'React hooks explained'/)
+      expect(aiInput).toBeInTheDocument()
+    })
+
+    it('generates 20 cards from AI input', async () => {
       const user = userEvent.setup()
       const { generateCardsFromText } = await import('@/server/actions/ai')
       
       render(<CreateCardDialog {...defaultProps} />)
       
-      // Switch to AI mode
-      const aiModeButton = screen.getByText('AI Generate')
-      await user.click(aiModeButton)
-      
-      // Enter text
+      // Enter text (already in AI mode)
       const aiInput = screen.getByPlaceholderText(/Example: 'React hooks explained'/)
       await user.type(aiInput, 'Explain JavaScript closures')
       
       // Generate
-      const generateButton = screen.getByRole('button', { name: /Generate 5 Cards with AI/i })
+      const generateButton = screen.getByRole('button', { name: /Generate 20 Cards with AI/i })
       await user.click(generateButton)
       
       await waitFor(() => {
@@ -117,27 +146,65 @@ describe('CreateCardDialog', () => {
           'Explain JavaScript closures',
           {
             difficulty: 'intermediate',
-            count: 5
+            count: 20
           }
         )
       })
       
-      // Check that generated cards are displayed
-      expect(screen.getByText('Generated Cards (2)')).toBeInTheDocument()
-      expect(screen.getByText('Q1')).toBeInTheDocument()
-      expect(screen.getByText('A1')).toBeInTheDocument()
+      expect(defaultProps.onCardCreated).toHaveBeenCalled()
     })
 
-    it('disables generate button when input is empty', async () => {
+    it('shows success message after generation', async () => {
       const user = userEvent.setup()
       render(<CreateCardDialog {...defaultProps} />)
       
-      // Switch to AI mode
-      const aiModeButton = screen.getByText('AI Generate')
-      await user.click(aiModeButton)
+      const aiInput = screen.getByPlaceholderText(/Example: 'React hooks explained'/)
+      await user.type(aiInput, 'Python basics')
       
-      const generateButton = screen.getByRole('button', { name: /Generate 5 Cards with AI/i })
+      const generateButton = screen.getByRole('button', { name: /Generate 20 Cards with AI/i })
+      await user.click(generateButton)
+      
+      await waitFor(() => {
+        expect(screen.getByText(/Successfully generated 20 cards/)).toBeInTheDocument()
+      })
+    })
+
+    it('disables generate button when input is empty', () => {
+      render(<CreateCardDialog {...defaultProps} />)
+      
+      const generateButton = screen.getByRole('button', { name: /Generate 20 Cards with AI/i })
       expect(generateButton).toBeDisabled()
+    })
+
+    it('shows loading state during generation', async () => {
+      const user = userEvent.setup()
+      const { generateCardsFromText } = await import('@/server/actions/ai')
+      
+      // Mock a delayed promise
+      let resolvePromise: (value: any) => void
+      const delayedPromise = new Promise((resolve) => {
+        resolvePromise = resolve
+      })
+      
+      vi.mocked(generateCardsFromText).mockReturnValue(delayedPromise)
+      
+      render(<CreateCardDialog {...defaultProps} />)
+      
+      const aiInput = screen.getByPlaceholderText(/Example: 'React hooks explained'/)
+      await user.type(aiInput, 'Test content')
+      
+      const generateButton = screen.getByRole('button', { name: /Generate 20 Cards with AI/i })
+      await user.click(generateButton)
+      
+      // Check loading state
+      expect(screen.getByText('Generating...')).toBeInTheDocument()
+      
+      // Resolve the promise
+      resolvePromise!({
+        success: true,
+        cards: [{ front: 'Test', back: 'Test', explanation: 'Test' }],
+        tokensUsed: 100
+      })
     })
   })
 

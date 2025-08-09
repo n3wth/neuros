@@ -1,0 +1,36 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean background -->
+  <rect width="32" height="32" fill="#FAFAF9" rx="8"/>
+  
+  <!-- Minimalist brain icon -->
+  <g transform="translate(16, 16)">
+    <!-- Brain outline - simplified for clarity at small sizes -->
+    <path d="M -7 -3 
+             C -7 -6, -5 -8, -2 -8
+             C -1 -8, 0 -7.5, 0 -7.5
+             C 0 -7.5, 1 -8, 2 -8
+             C 5 -8, 7 -6, 7 -3
+             C 7 -1, 6 1, 5 2
+             L 5 5
+             C 5 7, 3 8, 0 8
+             C -3 8, -5 7, -5 5
+             L -5 2
+             C -6 1, -7 -1, -7 -3
+             Z" 
+          fill="#FAFAF9" 
+          stroke="#1a1a1a" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- AI neural nodes - simple and bold -->
+    <circle cx="-2" cy="-1" r="2" fill="#4169E1"/>
+    <circle cx="2" cy="-1" r="2" fill="#4169E1"/>
+    <circle cx="0" cy="3" r="1.5" fill="#22C55E"/>
+    
+    <!-- Connection lines -->
+    <line x1="-2" y1="-1" x2="2" y2="-1" stroke="#4169E1" stroke-width="1" opacity="0.4"/>
+    <line x1="-2" y1="-1" x2="0" y2="3" stroke="#1a1a1a" stroke-width="1" opacity="0.3"/>
+    <line x1="2" y1="-1" x2="0" y2="3" stroke="#1a1a1a" stroke-width="1" opacity="0.3"/>
+  </g>
+</svg>

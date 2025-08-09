@@ -3,20 +3,21 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Brain,
-  ChevronRight,
-  ChevronLeft,
-  RotateCcw,
-  Check,
-  X,
-  Clock,
-  Zap,
-  Lightbulb,
-  Volume2,
-  Keyboard,
-  Eye,
-  EyeOff
-} from 'lucide-react'
+  BrainIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon,
+  RefreshIcon,
+  CheckCircleIcon,
+  CloseIcon,
+  ClockIcon,
+  ZapIcon,
+  LightbulbIcon,
+  VolumeIcon,
+  KeyboardIcon,
+  EyeIcon,
+  EyeOffIcon,
+  SparkleIcon
+} from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { submitReview } from '@/server/actions/reviews'
@@ -180,245 +181,360 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
 
   const getRatingColor = (rating: number) => {
     switch (rating) {
-      case 0: return 'bg-red-600 hover:bg-red-700'
-      case 1: return 'bg-orange-600 hover:bg-orange-700'
-      case 2: return 'bg-yellow-600 hover:bg-yellow-700'
-      case 3: return 'bg-blue-600 hover:bg-blue-700'
-      case 4: return 'bg-green-600 hover:bg-green-700'
-      case 5: return 'bg-emerald-600 hover:bg-emerald-700'
-      default: return 'bg-gray-600 hover:bg-gray-700'
+      case 0: return 'bg-red-500 hover:bg-red-600'
+      case 1: return 'bg-orange-500 hover:bg-orange-600'
+      case 2: return 'bg-yellow-500 hover:bg-yellow-600'
+      case 3: return 'bg-blue-500 hover:bg-blue-600'
+      case 4: return 'bg-green-500 hover:bg-green-600'
+      case 5: return 'bg-emerald-500 hover:bg-emerald-600'
+      default: return 'bg-black/60 hover:bg-black/70'
     }
   }
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[600px]">
-        <div className="text-center">
-          <Brain className="w-12 h-12 mx-auto mb-4 text-gray-400 animate-pulse" />
-          <p className="text-gray-600">Loading your cards...</p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] flex items-center justify-center">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <SparkleIcon className="w-12 h-12 mx-auto mb-6 text-black/60" />
+          </motion.div>
+          <h3 className="text-xl font-serif font-light mb-2">Preparing your learning session</h3>
+          <p className="text-base text-black/60 font-light">Gathering your cards...</p>
+        </motion.div>
       </div>
     )
   }
 
   if (cards.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-[600px]">
-        <div className="text-center">
-          <Check className="w-12 h-12 mx-auto mb-4 text-green-500" />
-          <h3 className="text-xl font-semibold mb-2">All caught up!</h3>
-          <p className="text-gray-600 mb-4">No cards due for review right now.</p>
-          <Button onClick={loadCards}>Check Again</Button>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] flex items-center justify-center">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <CheckCircleIcon className="w-16 h-16 mx-auto mb-6 text-green-600" />
+          </motion.div>
+          <h3 className="text-3xl font-serif font-light mb-3">All caught up!</h3>
+          <p className="text-lg text-black/60 font-light mb-8">No cards due for review right now.</p>
+          <Button 
+            onClick={loadCards}
+            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 transition-colors"
+          >
+            <RefreshIcon className="w-5 h-5 mr-2" />
+            Check Again
+          </Button>
+        </motion.div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Progress Bar */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-          <span>Progress: {currentIndex + 1} of {cards.length}</span>
-          <span>Mastery: {Math.round(currentCard?.mastery_level || 0)}%</span>
-        </div>
-        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-          <motion.div 
-            className="h-full bg-gradient-to-r from-blue-600 to-purple-600"
-            initial={{ width: 0 }}
-            animate={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] relative overflow-hidden">
+      {/* Background Pattern */}
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <defs>
+          <pattern id="dots-review" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.02)" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots-review)" />
+        
+        {/* Organic shapes */}
+        <motion.path
+          d="M 100 100 Q 400 50 600 200 T 900 300"
+          stroke="rgba(255, 107, 107, 0.03)"
+          strokeWidth="120"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, ease: "easeInOut" }}
+        />
+        <motion.circle
+          cx="150"
+          cy="700"
+          r="180"
+          fill="rgba(79, 70, 229, 0.015)"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        />
+      </svg>
 
-      {/* Stats Bar */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <Card className="p-4 bg-white border-gray-200">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Reviewed</span>
-            <span className="text-xl font-semibold">{stats.reviewed}</span>
+      <div className="relative z-10 max-w-4xl mx-auto px-8 py-12">
+        {/* Progress Bar */}
+        <motion.div 
+          className="mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex items-center justify-between text-sm text-black/60 font-light mb-3">
+            <span>Progress: {currentIndex + 1} of {cards.length}</span>
+            <span>Mastery: {Math.round(currentCard?.mastery_level || 0)}%</span>
           </div>
-        </Card>
-        <Card className="p-4 bg-white border-gray-200">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Correct</span>
-            <span className="text-xl font-semibold text-green-600">{stats.correct}</span>
+          <div className="h-1 bg-black/5 rounded-full overflow-hidden">
+            <motion.div 
+              className="h-full bg-gradient-to-r from-green-500 to-blue-500"
+              initial={{ width: 0 }}
+              animate={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            />
           </div>
-        </Card>
-        <Card className="p-4 bg-white border-gray-200">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Learning</span>
-            <span className="text-xl font-semibold text-orange-600">{stats.incorrect}</span>
-          </div>
-        </Card>
-      </div>
+        </motion.div>
 
-      {/* Card Display */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentCard?.id}
+        {/* Stats Bar */}
+        <motion.div 
+          className="grid grid-cols-3 gap-4 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <Card className="p-8 bg-white border-gray-200 min-h-[400px]">
-            {/* Topic Badge */}
-            {currentCard?.cards.topics && (
-              <div className="mb-6">
-                <span 
-                  className="inline-block px-3 py-1 text-xs font-medium rounded-full"
-                  style={{ 
-                    backgroundColor: `${currentCard.cards.topics.color}20`,
-                    color: currentCard.cards.topics.color
-                  }}
-                >
-                  {currentCard.cards.topics.name}
-                </span>
-              </div>
-            )}
-
-            {/* Question */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-medium mb-2">Question</h2>
-              <p className="text-lg text-gray-700">{currentCard?.cards.front}</p>
+          <Card className="p-6 bg-white border border-black/5 rounded-3xl shadow-sm hover:shadow-lg transition-shadow">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-black/60 font-light">Reviewed</span>
+              <span className="text-2xl font-serif font-light">{stats.reviewed}</span>
             </div>
-
-            {/* Answer */}
-            <AnimatePresence>
-              {showAnswer && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="border-t pt-6">
-                    <h3 className="text-xl font-medium mb-2 text-green-600">Answer</h3>
-                    <p className="text-lg text-gray-700 mb-4">{currentCard?.cards.back}</p>
-
-                    {/* Explanation */}
-                    {(currentCard?.cards.explanation || aiExplanation) && showExplanation && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="mt-4 p-4 bg-blue-50 rounded-lg"
-                      >
-                        <div className="flex items-center mb-2">
-                          <Lightbulb className="w-5 h-5 text-blue-600 mr-2" />
-                          <span className="font-medium text-blue-900">Explanation</span>
-                        </div>
-                        <p className="text-sm text-blue-800">
-                          {aiExplanation || currentCard?.cards.explanation}
-                        </p>
-                      </motion.div>
-                    )}
-
-                    {/* Rating Buttons */}
-                    <div className="mt-6">
-                      <p className="text-sm text-gray-600 mb-3">How difficult was this?</p>
-                      <div className="grid grid-cols-6 gap-2">
-                        <Button
-                          onClick={() => handleRate(0)}
-                          className={`${getRatingColor(0)} text-white`}
-                        >
-                          <div className="text-center">
-                            <X className="w-4 h-4 mx-auto mb-1" />
-                            <span className="text-xs">Forgot</span>
-                            <span className="text-xs opacity-60 block">(0)</span>
-                          </div>
-                        </Button>
-                        {[1, 2, 3, 4, 5].map(rating => (
-                          <Button
-                            key={rating}
-                            onClick={() => handleRate(rating)}
-                            className={`${getRatingColor(rating)} text-white`}
-                          >
-                            <div className="text-center">
-                              <span className="text-lg">{rating}</span>
-                              <span className="text-xs block">
-                                {rating === 1 && 'Hard'}
-                                {rating === 2 && 'Tough'}
-                                {rating === 3 && 'Good'}
-                                {rating === 4 && 'Easy'}
-                                {rating === 5 && 'Perfect'}
-                              </span>
-                            </div>
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Show Answer Button */}
-            {!showAnswer && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  onClick={handleShowAnswer}
-                  size="lg"
-                  className="bg-black text-white hover:bg-gray-800"
-                >
-                  Show Answer
-                  <Eye className="w-5 h-5 ml-2" />
-                </Button>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            {showAnswer && (
-              <div className="flex items-center justify-between mt-6 pt-6 border-t">
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={toggleExplanation}
-                    className="text-gray-600"
-                  >
-                    <Lightbulb className="w-4 h-4 mr-1" />
-                    {showExplanation ? 'Hide' : 'Show'} Explanation
-                  </Button>
-                  {!aiExplanation && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={getAIHelp}
-                      className="text-gray-600"
-                    >
-                      <Brain className="w-4 h-4 mr-1" />
-                      AI Help
-                    </Button>
-                  )}
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-gray-600"
-                >
-                  <Volume2 className="w-4 h-4 mr-1" />
-                  Read Aloud
-                </Button>
-              </div>
-            )}
+          </Card>
+          <Card className="p-6 bg-white border border-black/5 rounded-3xl shadow-sm hover:shadow-lg transition-shadow">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-black/60 font-light">Correct</span>
+              <span className="text-2xl font-serif font-light text-green-600">{stats.correct}</span>
+            </div>
+          </Card>
+          <Card className="p-6 bg-white border border-black/5 rounded-3xl shadow-sm hover:shadow-lg transition-shadow">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-black/60 font-light">Learning</span>
+              <span className="text-2xl font-serif font-light text-orange-600">{stats.incorrect}</span>
+            </div>
           </Card>
         </motion.div>
-      </AnimatePresence>
 
-      {/* Keyboard Shortcuts */}
-      <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-        <div className="flex items-center mb-2">
-          <Keyboard className="w-4 h-4 text-gray-600 mr-2" />
-          <span className="text-sm font-medium text-gray-700">Keyboard Shortcuts</span>
-        </div>
-        <div className="grid grid-cols-2 gap-2 text-xs text-gray-600">
-          <div><kbd className="px-2 py-1 bg-white rounded border">Space</kbd> Show Answer</div>
-          <div><kbd className="px-2 py-1 bg-white rounded border">0-5</kbd> Rate Difficulty</div>
-          <div><kbd className="px-2 py-1 bg-white rounded border">E</kbd> Toggle Explanation</div>
-          <div><kbd className="px-2 py-1 bg-white rounded border">H</kbd> AI Help</div>
-        </div>
+        {/* Card Display */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentCard?.id}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <Card className="p-10 bg-white border border-black/5 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 min-h-[500px]">
+              {/* Topic Badge */}
+              {currentCard?.cards.topics && (
+                <motion.div 
+                  className="mb-8"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <span 
+                    className="inline-block px-4 py-2 text-sm font-light rounded-full border"
+                    style={{ 
+                      backgroundColor: `${currentCard.cards.topics.color}08`,
+                      color: currentCard.cards.topics.color,
+                      borderColor: `${currentCard.cards.topics.color}20`
+                    }}
+                  >
+                    {currentCard.cards.topics.name}
+                  </span>
+                </motion.div>
+              )}
+
+              {/* Question */}
+              <motion.div 
+                className="mb-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <h2 className="text-2xl font-serif font-light mb-4 text-black/90">Question</h2>
+                <p className="text-xl text-black/80 font-light leading-relaxed">{currentCard?.cards.front}</p>
+              </motion.div>
+
+              {/* Answer */}
+              <AnimatePresence>
+                {showAnswer && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    <div className="border-t border-black/5 pt-8">
+                      <h3 className="text-2xl font-serif font-light mb-4 text-green-600">Answer</h3>
+                      <p className="text-xl text-black/80 font-light leading-relaxed mb-6">{currentCard?.cards.back}</p>
+
+                      {/* Explanation */}
+                      {(currentCard?.cards.explanation || aiExplanation) && showExplanation && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl border border-blue-100"
+                        >
+                          <div className="flex items-center mb-3">
+                            <LightbulbIcon className="w-6 h-6 text-blue-600 mr-3" />
+                            <span className="font-serif font-light text-lg text-blue-900">Explanation</span>
+                          </div>
+                          <p className="text-base text-blue-800 font-light leading-relaxed">
+                            {aiExplanation || currentCard?.cards.explanation}
+                          </p>
+                        </motion.div>
+                      )}
+
+                      {/* Rating Buttons */}
+                      <div className="mt-8">
+                        <p className="text-base text-black/70 font-light mb-4">How difficult was this?</p>
+                        <div className="grid grid-cols-6 gap-3">
+                          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                            <Button
+                              onClick={() => handleRate(0)}
+                              className="bg-red-600 hover:bg-red-700 text-white rounded-2xl p-4 h-auto transition-colors"
+                            >
+                              <div className="text-center">
+                                <CloseIcon className="w-5 h-5 mx-auto mb-2" />
+                                <span className="text-xs font-light">Forgot</span>
+                                <span className="text-xs opacity-75 block font-mono">(0)</span>
+                              </div>
+                            </Button>
+                          </motion.div>
+                          {[1, 2, 3, 4, 5].map(rating => (
+                            <motion.div key={rating} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                              <Button
+                                onClick={() => handleRate(rating)}
+                                className={`${getRatingColor(rating)} text-white rounded-2xl p-4 h-auto transition-colors`}
+                              >
+                                <div className="text-center">
+                                  <span className="text-xl font-light">{rating}</span>
+                                  <span className="text-xs font-light block mt-1">
+                                    {rating === 1 && 'Hard'}
+                                    {rating === 2 && 'Tough'}
+                                    {rating === 3 && 'Good'}
+                                    {rating === 4 && 'Easy'}
+                                    {rating === 5 && 'Perfect'}
+                                  </span>
+                                </div>
+                              </Button>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Show Answer Button */}
+              {!showAnswer && (
+                <motion.div 
+                  className="flex justify-center mt-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button
+                      onClick={handleShowAnswer}
+                      className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-4 text-lg transition-colors"
+                    >
+                      Show Answer
+                      <EyeIcon className="w-6 h-6 ml-3" />
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              )}
+
+              {/* Action Buttons */}
+              {showAnswer && (
+                <motion.div 
+                  className="flex items-center justify-between mt-8 pt-8 border-t border-black/5"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                >
+                  <div className="flex gap-3">
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button
+                        variant="outline"
+                        onClick={toggleExplanation}
+                        className="text-black/60 border-black/20 hover:bg-black/5 rounded-full px-4 py-2 transition-colors"
+                      >
+                        <LightbulbIcon className="w-4 h-4 mr-2" />
+                        {showExplanation ? 'Hide' : 'Show'} Explanation
+                      </Button>
+                    </motion.div>
+                    {!aiExplanation && (
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <Button
+                          variant="outline"
+                          onClick={getAIHelp}
+                          className="text-black/60 border-black/20 hover:bg-black/5 rounded-full px-4 py-2 transition-colors"
+                        >
+                          <BrainIcon className="w-4 h-4 mr-2" />
+                          AI Help
+                        </Button>
+                      </motion.div>
+                    )}
+                  </div>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button
+                      variant="outline"
+                      className="text-black/60 border-black/20 hover:bg-black/5 rounded-full px-4 py-2 transition-colors"
+                    >
+                      <VolumeIcon className="w-4 h-4 mr-2" />
+                      Read Aloud
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              )}
+            </Card>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Keyboard Shortcuts */}
+        <motion.div 
+          className="mt-8 p-6 bg-white/60 backdrop-blur-sm rounded-3xl border border-black/5"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className="flex items-center mb-4">
+            <KeyboardIcon className="w-5 h-5 text-black/60 mr-3" />
+            <span className="text-base font-serif font-light text-black/80">Keyboard Shortcuts</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-sm text-black/60">
+            <div className="flex items-center gap-2">
+              <kbd className="px-3 py-2 bg-white rounded-lg border border-black/10 font-mono text-xs">Space</kbd>
+              <span className="font-light">Show Answer</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-3 py-2 bg-white rounded-lg border border-black/10 font-mono text-xs">0-5</kbd>
+              <span className="font-light">Rate Difficulty</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-3 py-2 bg-white rounded-lg border border-black/10 font-mono text-xs">E</kbd>
+              <span className="font-light">Toggle Explanation</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-3 py-2 bg-white rounded-lg border border-black/10 font-mono text-xs">H</kbd>
+              <span className="font-light">AI Help</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   )

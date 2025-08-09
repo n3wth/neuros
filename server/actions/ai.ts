@@ -22,12 +22,12 @@ export async function generateCardsFromText(
   
   if (!user) throw new Error('Not authenticated')
 
-  const count = options?.count || 5
+  const count = options?.count || 20
   const difficulty = options?.difficulty || 'intermediate'
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4o", // Use gpt-4o which supports structured outputs
       messages: [
         {
           role: "system",
@@ -70,15 +70,29 @@ export async function generateCardsFromText(
     // Create cards in database
     const createdCards = []
     for (const card of response.cards) {
-      const created = await createCard({
-        front: card.front,
-        back: card.back,
-        explanation: card.explanation,
-        difficulty,
-        tags: card.tags || [],
-        topic_id: options?.topic
-      })
-      createdCards.push(created)
+      try {
+        const created = await createCard({
+          front: card.front,
+          back: card.back,
+          explanation: card.explanation,
+          difficulty,
+          tags: card.tags || [],
+          topic_id: options?.topic
+        })
+        createdCards.push(created)
+      } catch (cardError) {
+        console.error('Error creating card:', {
+          cardData: {
+            front: card.front,
+            back: card.back,
+            explanation: card.explanation,
+            difficulty,
+            tags: card.tags || []
+          },
+          error: cardError
+        })
+        throw cardError
+      }
     }
 
     // Log AI generation
@@ -96,8 +110,27 @@ export async function generateCardsFromText(
       tokensUsed: completion.usage?.total_tokens
     }
   } catch (error) {
-    console.error('AI generation error:', error)
-    throw new Error('Failed to generate cards')
+    console.error('AI generation error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      error: error
+    })
+    
+    // More specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes('API key')) {
+        throw new Error('OpenAI API key is invalid or missing')
+      }
+      if (error.message.includes('rate limit') || error.message.includes('quota')) {
+        throw new Error('OpenAI API rate limit or quota exceeded')
+      }
+      if (error.message.includes('network') || error.message.includes('timeout')) {
+        throw new Error('Network error connecting to OpenAI API')
+      }
+      throw new Error(`AI generation failed: ${error.message}`)
+    }
+    
+    throw new Error('Failed to generate cards: Unknown error')
   }
 }
 

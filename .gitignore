@@ -48,3 +48,10 @@ supabase-local-credentials.txt
 # editor
 .vscode/
 .idea/
+
+# conductor experiments
+.conductor/
+
+# backup files
+CLAUDE_FULL.md
+*.backup.md

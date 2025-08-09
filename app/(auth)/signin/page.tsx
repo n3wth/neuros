@@ -9,7 +9,7 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF9] flex">
       {/* Left Side - Value Proposition */}
-      <div className="hidden lg:flex lg:w-1/2 xl:w-3/5 bg-gradient-to-br from-[#FAFAF9] to-[#F5F5FF] relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 xl:w-3/5 bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] relative overflow-hidden">
         {/* Background Pattern */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
@@ -22,7 +22,7 @@ export default function SignInPage() {
           {/* Organic shapes */}
           <motion.path
             d="M 0 500 Q 250 300 500 500 T 1000 500"
-            stroke="rgba(79, 70, 229, 0.06)"
+            stroke="rgba(255, 107, 107, 0.05)"
             strokeWidth="100"
             fill="none"
             initial={{ pathLength: 0 }}
@@ -33,7 +33,7 @@ export default function SignInPage() {
             cx="200"
             cy="200"
             r="150"
-            fill="rgba(149, 231, 126, 0.03)"
+            fill="rgba(79, 70, 229, 0.03)"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -49,9 +49,9 @@ export default function SignInPage() {
           >
             {/* Logo */}
             <div className="mb-16">
-              <Link href="/" className="inline-flex items-center gap-3">
-                <SparkleIcon className="w-10 h-10 text-black/70" />
-                <span className="text-3xl font-serif font-light">Neuros</span>
+              <Link href="/" className="inline-flex items-center gap-3 group">
+                <SparkleIcon className="w-10 h-10 text-black/70 stroke-[1.5] group-hover:text-black transition-colors" />
+                <span className="text-3xl font-serif font-light text-black/90 group-hover:text-black transition-colors">Neuros</span>
               </Link>
             </div>
 
@@ -91,7 +91,7 @@ export default function SignInPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + index * 0.1 }}
                 >
-                  <feature.icon className="w-6 h-6 text-black/60 mt-1" />
+                  <feature.icon className="w-6 h-6 text-black/60 mt-1 stroke-[1.5]" />
                   <div>
                     <h3 className="font-medium text-black/80">{feature.title}</h3>
                     <p className="text-sm text-black/50">{feature.description}</p>
@@ -124,8 +124,8 @@ export default function SignInPage() {
           {/* Mobile Logo (shown only on mobile) */}
           <div className="text-center mb-12 lg:hidden">
             <Link href="/" className="inline-flex items-center gap-3 group">
-              <SparkleIcon className="w-8 h-8 text-black/70 group-hover:text-black transition-colors" />
-              <span className="text-2xl font-serif font-light">Neuros</span>
+              <SparkleIcon className="w-8 h-8 text-black/70 stroke-[1.5] group-hover:text-black transition-colors" />
+              <span className="text-2xl font-serif font-light text-black/90 group-hover:text-black transition-colors">Neuros</span>
             </Link>
           </div>
 
@@ -142,7 +142,8 @@ export default function SignInPage() {
             {/* Form */}
             <SignInForm />
 
-            {/* Divider */}
+            {/* Social Options - Temporarily disabled but kept for future implementation */}
+            {/* 
             <div className="relative my-8">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-black/10"></div>
@@ -152,7 +153,6 @@ export default function SignInPage() {
               </div>
             </div>
 
-            {/* Social Options */}
             <div className="space-y-3">
               <button className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors flex items-center justify-center gap-3">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -171,6 +171,7 @@ export default function SignInPage() {
                 GitHub
               </button>
             </div>
+            */}
 
             {/* Footer Links */}
             <div className="mt-8 space-y-4">

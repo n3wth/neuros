@@ -5,6 +5,22 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Neuros - AI-Powered Learning Platform",
   description: "Master any subject with AI-powered spaced repetition and personalized learning paths",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        url: "/favicon.ico",
+        sizes: "32x32",
+      },
+    ],
+    apple: {
+      url: "/favicon.svg",
+      type: "image/svg+xml",
+    },
+  },
 };
 
 export default function RootLayout({

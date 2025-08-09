@@ -65,7 +65,7 @@ export async function getUserCards() {
         name,
         color
       ),
-      user_cards!inner (
+      user_cards (
         ease_factor,
         interval_days,
         repetitions,
