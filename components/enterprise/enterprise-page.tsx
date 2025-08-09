@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
 import { ArrowRight } from 'lucide-react'
 import { BrainIcon, CodeIcon, ChartIcon, GlobeIcon, RocketIcon, SparkleIcon } from '@/components/icons/line-icons'
+import PlaceholderAvatar from '@/components/ui/placeholder-avatar'
 import Link from 'next/link'
 
 const features = [
@@ -316,7 +317,7 @@ export default function EnterprisePage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200" />
+                  <PlaceholderAvatar name={testimonial.author} size={48} />
                   <div>
                     <div className="font-medium">{testimonial.author}</div>
                     <div className="text-sm text-black/60">

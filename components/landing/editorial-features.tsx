@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { ArrowUpRight, TrendingUp, Clock } from 'lucide-react'
+import PlaceholderAvatar from '@/components/ui/placeholder-avatar'
 
 export default function EditorialFeatures() {
   const ref = useRef(null)
@@ -160,7 +161,7 @@ export default function EditorialFeatures() {
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-200 to-gray-300" />
+                  <PlaceholderAvatar name={articles[0].author} size={48} />
                   <div>
                     <p className="text-sm font-medium">{articles[0].author}</p>
                     <p className="text-xs text-black/50">{articles[0].authorTitle}</p>

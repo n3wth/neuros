@@ -78,14 +78,6 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
         />
       </div>
 
-      {/* Custom cursor follower */}
-      <motion.div
-        className="pointer-events-none absolute w-6 h-6 rounded-full border-2 border-black/20 z-50 hidden lg:block"
-        style={{
-          x: cursorX,
-          y: cursorY,
-        }}
-      />
 
       {/* Hero Content */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-8 lg:px-16 w-full pt-40 pb-24">
