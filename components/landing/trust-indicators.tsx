@@ -113,17 +113,10 @@ export default function TrustIndicators() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
+        <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-center">
+          <div className="flex items-center space-x-2">
             <IconSparkles className="w-6 h-6 text-black" />
             <span className="text-sm text-gray-600">© 2025 Neuros. All rights reserved.</span>
-          </div>
-          
-          <div className="flex items-center space-x-6">
-            <Link href="/twitter" className="text-sm text-gray-600 hover:text-black transition-colors">Twitter</Link>
-            <Link href="/github" className="text-sm text-gray-600 hover:text-black transition-colors">GitHub</Link>
-            <Link href="/discord" className="text-sm text-gray-600 hover:text-black transition-colors">Discord</Link>
-            <Link href="/linkedin" className="text-sm text-gray-600 hover:text-black transition-colors">LinkedIn</Link>
           </div>
         </div>
       </div>
