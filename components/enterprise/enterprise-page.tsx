@@ -3,37 +3,38 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { ArrowRight, Shield, Users, BarChart3, Zap, Globe, Check, Building } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { BrainIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon, RocketIcon, SparkleIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
 
 const features = [
   {
-    icon: Users,
+    icon: BrainIcon,
     title: "Team Management",
     description: "Centralized dashboard for tracking team progress, assigning content, and managing licenses"
   },
   {
-    icon: Shield,
+    icon: SparkleIcon,
     title: "Enterprise Security",
     description: "SOC 2 Type II certified, SSO/SAML, role-based access control, and data encryption"
   },
   {
-    icon: BarChart3,
+    icon: ChartIcon,
     title: "Advanced Analytics",
     description: "Real-time insights into learning patterns, skill gaps, and ROI metrics"
   },
   {
-    icon: Zap,
+    icon: RocketIcon,
     title: "AI Customization",
     description: "Train the AI on your company's knowledge base and terminology"
   },
   {
-    icon: Globe,
+    icon: GlobeIcon,
     title: "Global Deployment",
     description: "Multi-language support, regional data centers, and 99.9% uptime SLA"
   },
   {
-    icon: Globe,
+    icon: CodeIcon,
     title: "API Integration",
     description: "Seamless integration with your LMS, HR systems, and productivity tools"
   }
@@ -43,25 +44,25 @@ const useCases = [
   {
     title: "Employee Onboarding",
     description: "Reduce onboarding time by 50% with personalized learning paths",
-    icon: ArrowRight,
+    icon: RocketIcon,
     metrics: ["2 weeks faster", "87% retention", "4.8/5 satisfaction"]
   },
   {
     title: "Skills Development",
     description: "Upskill your workforce with AI-powered recommendations",
-    icon: BarChart3,
+    icon: ChartIcon,
     metrics: ["63% faster learning", "2.3x retention", "91% completion"]
   },
   {
     title: "Compliance Training",
     description: "Ensure 100% compliance with automated tracking and reporting",
-    icon: Check,
+    icon: SparkleIcon,
     metrics: ["100% compliance", "75% time saved", "0 violations"]
   },
   {
     title: "Leadership Development",
     description: "Build next-generation leaders with executive coaching paths",
-    icon: Users,
+    icon: BrainIcon,
     metrics: ["42% promotion rate", "89% engagement", "3.2x ROI"]
   }
 ]
@@ -135,7 +136,6 @@ export default function EnterprisePage() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF9]">
-
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.015]"
@@ -259,13 +259,11 @@ export default function EnterprisePage() {
       </section>
 
       {/* Use Cases */}
-      <div className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-3xl font-light text-center mb-12">
-            Proven Use Cases
-          </h2>
+      <section className="py-20 bg-white">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <h2 className="text-3xl font-serif font-light mb-16">Proven use cases</h2>
           
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {useCases.map((useCase, index) => (
               <motion.div
                 key={useCase.title}
@@ -273,69 +271,71 @@ export default function EnterprisePage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className="bg-[#FAFAF9] rounded-3xl p-8"
               >
-                <AppleCard glassy elevated className="p-6">
-                  <div className="flex items-start gap-4">
-                    <useCase.icon className="w-8 h-8 text-primary" />
-                    <div className="flex-1">
-                      <h3 className="text-xl font-medium mb-2">{useCase.title}</h3>
-                      <p className="text-gray-600 mb-4">{useCase.description}</p>
-                      <div className="flex gap-4">
-                        {useCase.metrics.map(metric => (
-                          <span key={metric} className="text-sm font-medium text-blue-600">
-                            {metric}
-                          </span>
-                        ))}
-                      </div>
+                <div className="flex items-start gap-4">
+                  <useCase.icon className="w-8 h-8 text-black/70 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-serif font-light mb-2">{useCase.title}</h3>
+                    <p className="text-black/60 mb-4">{useCase.description}</p>
+                    <div className="flex gap-4">
+                      {useCase.metrics.map(metric => (
+                        <span key={metric} className="text-sm font-medium text-blue-600">
+                          {metric}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </AppleCard>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Testimonials */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <h2 className="text-3xl font-light text-center mb-12">
-          Trusted by Industry Leaders
-        </h2>
-        
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.author}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <AppleCard glassy className="p-6 h-full flex flex-col">
+      <section className="py-20 bg-[#FAFAF9]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <h2 className="text-3xl font-serif font-light mb-16 text-center">
+            Trusted by industry leaders
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.author}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-3xl p-8 border border-black/5"
+              >
                 <div className="flex-1">
-                  <p className="text-gray-700 italic mb-6">"{testimonial.quote}"</p>
+                  <p className="text-black/70 italic mb-6 font-light leading-relaxed">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <testimonial.company className="w-8 h-8" />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200" />
                   <div>
                     <div className="font-medium">{testimonial.author}</div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-black/60">
                       {testimonial.role}, {testimonial.companyName}
                     </div>
                   </div>
                 </div>
-              </AppleCard>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Enterprise Plans */}
-      <div className="bg-gray-100 py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-light mb-4">Enterprise Plans</h2>
-            <p className="text-gray-600">Flexible pricing that scales with your organization</p>
+      <section className="py-20 bg-white">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-serif font-light mb-4">Enterprise plans</h2>
+            <p className="text-black/60">Flexible pricing that scales with your organization</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
@@ -346,105 +346,106 @@ export default function EnterprisePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className={`bg-white rounded-3xl p-8 border ${
+                  plan.featured ? 'ring-2 ring-blue-500 border-blue-200' : 'border-black/5'
+                }`}
               >
-                <AppleCard 
-                  glassy 
-                  elevated={plan.featured}
-                  className={`p-6 h-full ${plan.featured ? 'ring-2 ring-blue-500' : ''}`}
-                >
-                  {plan.featured && (
-                    <div className="text-center mb-2">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
-                        MOST POPULAR
-                      </span>
-                    </div>
-                  )}
-                  <div className="text-center mb-6">
-                    <h3 className="text-2xl font-medium mb-2">{plan.name}</h3>
-                    <div className="text-sm text-gray-600 mb-4">{plan.minUsers}</div>
-                    <div className="text-4xl font-semibold">
-                      {plan.price === "Custom" ? (
-                        plan.price
-                      ) : (
-                        <>
-                          {plan.price}
-                          <span className="text-lg font-normal text-gray-600">/user/month</span>
-                        </>
-                      )}
-                    </div>
+                {plan.featured && (
+                  <div className="text-center mb-2">
+                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+                      MOST POPULAR
+                    </span>
                   </div>
-                  
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map(feature => (
-                      <li key={feature} className="flex items-start gap-2">
-                        <IconCheck className="w-5 h-5 text-green-500 flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <Button 
-                    className="w-full" 
-                    variant={plan.featured ? "default" : "outline"}
-                  >
-                    {plan.price === "Custom" ? "Contact Sales" : "Get Started"}
-                  </Button>
-                </AppleCard>
+                )}
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-serif font-light mb-2">{plan.name}</h3>
+                  <div className="text-sm text-black/60 mb-4">{plan.minUsers}</div>
+                  <div className="text-4xl font-serif font-light">
+                    {plan.price === "Custom" ? (
+                      plan.price
+                    ) : (
+                      <>
+                        {plan.price}
+                        <span className="text-lg font-sans font-normal text-black/60">/user/month</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map(feature => (
+                    <li key={feature} className="flex items-start gap-2">
+                      <div className="w-5 h-5 text-green-500 flex-shrink-0">✓</div>
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <button 
+                  className={`w-full px-6 py-3 rounded-full font-medium transition-colors ${
+                    plan.featured 
+                      ? 'bg-black text-white hover:bg-black/90' 
+                      : 'border border-black/20 hover:bg-black/5'
+                  }`}
+                >
+                  {plan.price === "Custom" ? "Contact Sales" : "Get Started"}
+                </button>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Security & Compliance */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <IconLock className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-          <h2 className="text-3xl font-light mb-4">Enterprise Security & Compliance</h2>
-          <p className="text-gray-600">Your data is protected with industry-leading security</p>
+      <section className="py-20 bg-[#FAFAF9]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+          <div className="text-center mb-12">
+            <SparkleIcon className="w-12 h-12 mx-auto mb-4 text-black/70" />
+            <h2 className="text-3xl font-serif font-light mb-4">Enterprise security & compliance</h2>
+            <p className="text-black/60">Your data is protected with industry-leading security</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              "SOC 2 Type II", "ISO 27001", "GDPR Compliant", "HIPAA Ready",
+              "256-bit Encryption", "99.9% Uptime SLA", "24/7 Monitoring", "Regular Audits"
+            ].map((cert, index) => (
+              <motion.div
+                key={cert}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="flex items-center justify-center p-4 bg-white rounded-2xl border border-black/5"
+              >
+                <span className="text-sm font-medium">{cert}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            "SOC 2 Type II", "ISO 27001", "GDPR Compliant", "HIPAA Ready",
-            "256-bit Encryption", "99.9% Uptime SLA", "24/7 Monitoring", "Regular Audits"
-          ].map((cert, index) => (
-            <motion.div
-              key={cert}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm"
-            >
-              <span className="text-sm font-medium">{cert}</span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      </section>
 
       {/* CTA Section */}
-      <div className="py-16 bg-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Ready to Transform Your L&D?
+      <section className="py-20 bg-black text-white">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-16 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-light mb-4">
+            Ready to transform your L&D?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-white/60">
             Join 500+ companies achieving 3.2x ROI with AI-powered learning
           </p>
           <div className="flex items-center justify-center gap-4">
-            <Button size="lg" variant="secondary">
+            <button className="px-8 py-3 bg-white text-black rounded-full hover:bg-white/90 transition-colors">
               Schedule Demo
-            </Button>
-            <Button size="lg" variant="outline" className="bg-white/20 border-white/50 text-white hover:bg-white/30">
-              <IconHeadphones className="w-4 h-4 mr-2" />
+            </button>
+            <button className="px-8 py-3 border border-white/30 rounded-full hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+              <SparkleIcon className="w-4 h-4" />
               Talk to Sales
-            </Button>
+            </button>
           </div>
         </div>
-      </div>
+      </section>
       
-      {/* Footer */}
       <TrustIndicators />
     </div>
   )

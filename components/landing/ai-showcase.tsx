@@ -1,8 +1,9 @@
 'use client'
 
-import { motion, useInView, useMotionValue, useTransform } from 'framer-motion'
+import { motion, useInView, useMotionValue } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import { ArrowRight, Sparkles, Activity, BarChart3 } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { BrainIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
 
 export default function AIShowcase() {
   const ref = useRef(null)
@@ -17,7 +18,7 @@ export default function AIShowcase() {
       title: 'Memory that mirrors yours',
       subtitle: 'Intelligent Spacing',
       description: 'Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories, not temporary knowledge.',
-      icon: Activity,
+      icon: BrainIcon,
       color: '#FF6B6B',
       stats: {
         main: '87%',
@@ -30,7 +31,7 @@ export default function AIShowcase() {
       title: 'Difficulty that evolves',
       subtitle: 'Adaptive Challenge',
       description: 'Like a personal tutor that knows exactly when to push you harder and when to ease up. Every session calibrated to your current ability.',
-      icon: Sparkles,
+      icon: SparkleIcon,
       color: '#4ECDC4',
       stats: {
         main: '2.3×',
@@ -43,7 +44,7 @@ export default function AIShowcase() {
       title: 'Understanding, visualized',
       subtitle: 'Deep Analytics',
       description: 'See your learning patterns emerge. Discover your peak performance times, strongest subjects, and optimal review schedules.',
-      icon: BarChart3,
+      icon: ChartIcon,
       color: '#95E77E',
       stats: {
         main: '15min',
