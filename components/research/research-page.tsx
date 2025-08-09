@@ -215,7 +215,7 @@ export default function ResearchPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl font-serif font-light mb-4">Research partnerships</h2>
               <p className="text-lg text-black/60 font-light">
-                Collaborating with the world's leading institutions
+                Collaborating with the world&apos;s leading institutions
               </p>
             </div>
 

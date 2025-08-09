@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Brain, 
-  Zap, 
   Target, 
   TrendingUp, 
   Sparkles, 
@@ -23,7 +22,6 @@ import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { signOut } from '@/server/actions/auth'
-import Link from 'next/link'
 import LearningCard from './learning-card'
 import AIAssistant from './ai-assistant'
 
@@ -40,8 +38,8 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('morning')
   const [activeCardId, setActiveCardId] = useState<string | null>(null)
-  const [studyStreak, setStudyStreak] = useState(47)
-  const [todayProgress, setTodayProgress] = useState(65)
+  const studyStreak = 47
+  const todayProgress = 65
 
   useEffect(() => {
     const hour = new Date().getHours()
@@ -268,7 +266,7 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Today's Goal</h3>
+                    <h3 className="text-lg font-semibold text-white">Today&apos;s Goal</h3>
                     <p className="text-sm text-gray-400">Complete 20 cards to maintain your streak</p>
                   </div>
                   <div className="text-right">

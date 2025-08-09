@@ -1,28 +1,23 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   BrainIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
   RefreshIcon,
   CheckCircleIcon,
   CloseIcon,
-  ClockIcon,
-  ZapIcon,
   LightbulbIcon,
   VolumeIcon,
   KeyboardIcon,
   EyeIcon,
-  EyeOffIcon,
   SparkleIcon
 } from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { submitReview } from '@/server/actions/reviews'
 import { getDueCards } from '@/server/actions/cards'
-import { generateExplanation, generatePracticeQuestions } from '@/server/actions/ai'
+import { generateExplanation } from '@/server/actions/ai'
 
 interface ReviewCard {
   id: string
@@ -117,14 +112,14 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentCard, showAnswer, aiExplanation, startTime])
+  }, [currentCard, showAnswer, aiExplanation, startTime, handleShowAnswer, handleRate, toggleExplanation, getAIHelp])
 
-  const handleShowAnswer = () => {
+  const handleShowAnswer = useCallback(() => {
     setShowAnswer(true)
     setStartTime(Date.now())
-  }
+  }, [])
 
-  const handleRate = async (rating: number) => {
+  const handleRate = useCallback(async (rating: number) => {
     if (!currentCard) return
 
     const responseTime = Date.now() - startTime
@@ -159,13 +154,13 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     } catch (error) {
       console.error('Failed to submit review:', error)
     }
-  }
+  }, [currentCard, startTime, sessionId, cards.length, currentIndex])
 
-  const toggleExplanation = () => {
+  const toggleExplanation = useCallback(() => {
     setShowExplanation(!showExplanation)
-  }
+  }, [showExplanation])
 
-  const getAIHelp = async () => {
+  const getAIHelp = useCallback(async () => {
     if (!currentCard || aiExplanation) return
 
     try {
@@ -177,7 +172,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     } catch (error) {
       console.error('Failed to get AI explanation:', error)
     }
-  }
+  }, [currentCard, aiExplanation])
 
   const getRatingColor = (rating: number) => {
     switch (rating) {

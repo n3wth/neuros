@@ -20,7 +20,6 @@ import {
   Play,
   RefreshCw
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { signOut } from '@/server/actions/auth'
 import Link from 'next/link'
@@ -36,7 +35,6 @@ interface ProfessionalDashboardProps {
 
 export default function ProfessionalDashboard({ user }: ProfessionalDashboardProps) {
   const [selectedFilter, setSelectedFilter] = useState('due')
-  const [searchQuery, setSearchQuery] = useState('')
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false)
   const [currentTime, setCurrentTime] = useState(new Date())
 

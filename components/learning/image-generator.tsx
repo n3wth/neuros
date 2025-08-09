@@ -40,7 +40,7 @@ export default function ImageGenerator({ cardId, topic }: { cardId?: string; top
   const [selectedImage, setSelectedImage] = useState<GeneratedImage | null>(null)
   const { toast } = useToast()
 
-  const styles: { value: ImageStyle; label: string; icon: any; description: string }[] = [
+  const styles: { value: ImageStyle; label: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; description: string }[] = [
     { 
       value: 'abstract', 
       label: 'Abstract', 
