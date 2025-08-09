@@ -33,6 +33,7 @@ import Link from 'next/link'
 import CreateCardDialog from './create-card-dialog'
 import ReviewInterface from './review-interface'
 import ImageGenerator from './image-generator'
+import AIFeaturesSettings from './ai-features-settings'
 import { 
   getUserCards, 
   getDueCards, 
@@ -55,7 +56,7 @@ interface FullLearningDashboardProps {
   user: User
 }
 
-type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'images'
+type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'images' | 'settings'
 
 export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
@@ -233,6 +234,17 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 >
                   <ImageIcon className="w-4 h-4 inline mr-1" />
                   Images
+                </button>
+                <button
+                  onClick={() => setViewMode('settings')}
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    viewMode === 'settings' 
+                      ? 'bg-gray-100 text-black' 
+                      : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                  }`}
+                >
+                  <Settings className="w-4 h-4 inline mr-1" />
+                  AI Settings
                 </button>
               </nav>
             </div>
@@ -702,6 +714,30 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               </div>
               
               <ImageGenerator />
+            </motion.div>
+          )}
+
+          {viewMode === 'settings' && (
+            <motion.div
+              key="settings"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="mb-8">
+                <h2 className="text-2xl font-light mb-2">AI-Powered Features</h2>
+                <p className="text-gray-600">Configure intelligent learning features powered by advanced AI</p>
+              </div>
+              
+              <div className="max-w-3xl">
+                <AIFeaturesSettings 
+                  onFeatureClick={(feature) => {
+                    console.log('Feature clicked:', feature)
+                    // Future: Could open detailed settings for each feature
+                  }}
+                />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
