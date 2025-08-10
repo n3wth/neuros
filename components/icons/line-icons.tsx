@@ -202,12 +202,6 @@ export const VolumeIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export const KeyboardIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
-    <rect x="2" y="6" width="20" height="12" rx="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M10 14h.01M14 14h.01M18 14h.01" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)
 
 export const RefreshIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
@@ -295,5 +289,49 @@ export const LogOutIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" strokeLinecap="round" strokeLinejoin="round" />
     <polyline points="16,17 21,12 16,7" strokeLinecap="round" strokeLinejoin="round" />
     <line x1="21" y1="12" x2="9" y2="12" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const MusicIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M9 18V5l12-2v13" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="6" cy="18" r="3" />
+    <circle cx="18" cy="16" r="3" />
+  </svg>
+)
+
+export const WaveIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 6c2-2 4-2 6 0s4 2 6 0 4-2 6 0" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const VibrateIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <rect x="9" y="4" width="6" height="16" rx="1" ry="1" />
+    <path d="M5 12h1M18 12h1M6 8l-1-1M19 8l-1-1M6 16l-1 1M19 16l-1 1" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const HeadphonesIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+  </svg>
+)
+
+export const KeyboardIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+    <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M6 16h8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const TrophyIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M8 2h8v11a4 4 0 0 1-8 0V2z" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12 17v4M8 21h8" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )

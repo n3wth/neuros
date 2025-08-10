@@ -14,9 +14,9 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimize package imports for better bundling
     optimizePackageImports: ['@radix-ui/react-*', 'lucide-react', 'framer-motion'],
-    // Pre-compile frequently used packages
-    serverComponentsExternalPackages: [],
   },
+  // Pre-compile frequently used packages
+  serverExternalPackages: [],
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
