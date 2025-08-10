@@ -25,6 +25,8 @@ function SubmitButton() {
       type="submit" 
       className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
       disabled={pending}
+      aria-label={pending ? 'Signing in...' : 'Sign in to your account'}
+      aria-busy={pending}
     >
       {pending && (
         <SparkleIcon className="w-4 h-4 animate-spin" />
@@ -101,10 +103,12 @@ export function SignInForm() {
           type="email"
           placeholder="you@example.com"
           className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          aria-invalid={!!form.formState.errors.email}
+          aria-describedby={form.formState.errors.email ? 'email-error' : undefined}
           {...form.register('email')}
         />
         {form.formState.errors.email && (
-          <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>
+          <p id="email-error" role="alert" className="text-sm text-red-500">{form.formState.errors.email.message}</p>
         )}
       </div>
 
@@ -119,12 +123,16 @@ export function SignInForm() {
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            aria-invalid={!!form.formState.errors.password}
+            aria-describedby={form.formState.errors.password ? 'password-error' : undefined}
             {...form.register('password')}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-black/40 hover:text-black/60 transition-colors"
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-pressed={showPassword}
           >
             {showPassword ? (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +147,7 @@ export function SignInForm() {
           </button>
         </div>
         {form.formState.errors.password && (
-          <p className="text-sm text-red-500">{form.formState.errors.password.message}</p>
+          <p id="password-error" role="alert" className="text-sm text-red-500">{form.formState.errors.password.message}</p>
         )}
       </div>
 

@@ -86,17 +86,17 @@ export default function TrustIndicators() {
               <li><Link href="/research" className="text-sm text-gray-600 hover:text-black transition-colors">Research</Link></li>
               <li><Link href="/learn" className="text-sm text-gray-600 hover:text-black transition-colors">Start Learning</Link></li>
               <li><Link href="/ai-demo" className="text-sm text-gray-600 hover:text-black transition-colors">AI Demo</Link></li>
-              <li><a href="https://github.com/n3wth/supa-template" className="text-sm text-gray-600 hover:text-black transition-colors">GitHub</a></li>
+              <li><a href="https://github.com/neurosai" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-black transition-colors" aria-label="Neuros on GitHub">GitHub</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-sm font-medium mb-4">Connect</h4>
             <ul className="space-y-3">
-              <li><a href="https://twitter.com" className="text-sm text-gray-600 hover:text-black transition-colors">Twitter</a></li>
-              <li><a href="https://linkedin.com" className="text-sm text-gray-600 hover:text-black transition-colors">LinkedIn</a></li>
-              <li><a href="https://discord.com" className="text-sm text-gray-600 hover:text-black transition-colors">Discord</a></li>
-              <li><a href="mailto:hello@neuros.ai" className="text-sm text-gray-600 hover:text-black transition-colors">Email</a></li>
+              <li><a href="https://twitter.com/neurosai" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-black transition-colors" aria-label="Neuros on Twitter">Twitter</a></li>
+              <li><a href="https://linkedin.com/company/neurosai" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-black transition-colors" aria-label="Neuros on LinkedIn">LinkedIn</a></li>
+              <li><a href="https://discord.gg/neurosai" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-black transition-colors" aria-label="Join Neuros Discord">Discord</a></li>
+              <li><a href="mailto:hello@neuros.ai" className="text-sm text-gray-600 hover:text-black transition-colors" aria-label="Email Neuros">Email</a></li>
             </ul>
           </div>
           
