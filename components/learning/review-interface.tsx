@@ -10,11 +10,11 @@ import {
   LightbulbIcon,
   VolumeIcon,
   KeyboardIcon,
-  EyeIcon,
-  SparkleIcon
+  EyeIcon
 } from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import LoadingSkeleton from '@/components/ui/loading-skeleton'
 import { submitReview } from '@/server/actions/reviews'
 import { getDueCards } from '@/server/actions/cards'
 import { generateExplanation } from '@/server/actions/ai'
@@ -189,25 +189,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
   }
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] flex items-center justify-center">
-        <motion.div 
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          >
-            <SparkleIcon className="w-12 h-12 mx-auto mb-6 text-black/60" />
-          </motion.div>
-          <h3 className="text-xl font-serif font-light mb-2">Preparing your learning session</h3>
-          <p className="text-base text-black/60 font-light">Gathering your cards...</p>
-        </motion.div>
-      </div>
-    )
+    return <LoadingSkeleton type="review" message="Preparing your learning session..." showIcon={true} />
   }
 
   if (cards.length === 0) {

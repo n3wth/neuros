@@ -174,7 +174,7 @@ CREATE POLICY "Users can view public challenges"
 
 CREATE POLICY "Users can join challenges"
   ON challenge_participants FOR INSERT
-  USING (auth.uid() = user_id);
+  WITH CHECK (auth.uid() = user_id);
 
 CREATE POLICY "Users can view own challenge progress"
   ON challenge_participants FOR SELECT

@@ -239,3 +239,86 @@ export async function getCardStats() {
     dueCards: dueCards || 0
   }
 }
+
+// Get user completion state for smart messaging
+export async function getUserCompletionState() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) throw new Error('Not authenticated')
+
+  // Get total cards count
+  const { count: totalCards } = await supabase
+    .from('cards')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+
+  // If no cards, user is new
+  if (!totalCards || totalCards === 0) {
+    return {
+      type: 'new_user',
+      totalCards: 0,
+      dueCards: 0,
+      nextReviewTime: null,
+      completedToday: false
+    }
+  }
+
+  // Get due cards count
+  const { count: dueCards } = await supabase
+    .from('user_cards')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+    .lte('next_review_date', new Date().toISOString())
+
+  // Get today's review count to determine if user completed reviews today
+  const todayStart = new Date()
+  todayStart.setHours(0, 0, 0, 0)
+  
+  const { data: todayReviews } = await supabase
+    .from('reviews')
+    .select('id')
+    .eq('user_id', user.id)
+    .gte('created_at', todayStart.toISOString())
+
+  // Get next review time for cards not due yet
+  const { data: nextReview } = await supabase
+    .from('user_cards')
+    .select('next_review_date')
+    .eq('user_id', user.id)
+    .gt('next_review_date', new Date().toISOString())
+    .order('next_review_date', { ascending: true })
+    .limit(1)
+
+  const completedToday = (todayReviews?.length || 0) > 0
+  const hasDueCards = (dueCards || 0) > 0
+
+  if (hasDueCards) {
+    return {
+      type: 'has_due_cards',
+      totalCards: totalCards || 0,
+      dueCards: dueCards || 0,
+      nextReviewTime: null,
+      completedToday
+    }
+  }
+
+  if (completedToday) {
+    return {
+      type: 'completed_today',
+      totalCards: totalCards || 0,
+      dueCards: 0,
+      nextReviewTime: nextReview?.[0]?.next_review_date || null,
+      completedToday: true
+    }
+  }
+
+  // User has cards but none due and hasn't completed today
+  return {
+    type: 'no_cards_due',
+    totalCards: totalCards || 0,
+    dueCards: 0,
+    nextReviewTime: nextReview?.[0]?.next_review_date || null,
+    completedToday: false
+  }
+}

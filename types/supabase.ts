@@ -17,10 +17,10 @@ export type Database = {
     Functions: {
       graphql: {
         Args: {
-          operationName?: string
           query?: string
           variables?: Json
           extensions?: Json
+          operationName?: string
         }
         Returns: Json
       }
@@ -34,6 +34,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          description: string
+          id: string
+          metadata: Json | null
+          rarity: string | null
+          share_count: number | null
+          title: string
+          unlocked_at: string | null
+          user_id: string | null
+          viral_score: number | null
+        }
+        Insert: {
+          description: string
+          id?: string
+          metadata?: Json | null
+          rarity?: string | null
+          share_count?: number | null
+          title: string
+          unlocked_at?: string | null
+          user_id?: string | null
+          viral_score?: number | null
+        }
+        Update: {
+          description?: string
+          id?: string
+          metadata?: Json | null
+          rarity?: string | null
+          share_count?: number | null
+          title?: string
+          unlocked_at?: string | null
+          user_id?: string | null
+          viral_score?: number | null
+        }
+        Relationships: []
+      }
       ai_generations: {
         Row: {
           card_id: string | null
@@ -75,6 +111,68 @@ export type Database = {
           },
         ]
       }
+      ai_tutors: {
+        Row: {
+          context: Json
+          created_at: string | null
+          id: string
+          personality: Json
+          user_id: string | null
+        }
+        Insert: {
+          context: Json
+          created_at?: string | null
+          id?: string
+          personality: Json
+          user_id?: string | null
+        }
+        Update: {
+          context?: Json
+          created_at?: string | null
+          id?: string
+          personality?: Json
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      card_images: {
+        Row: {
+          card_id: string | null
+          created_at: string | null
+          id: string
+          image_url: string
+          prompt: string
+          style: string
+          user_id: string
+        }
+        Insert: {
+          card_id?: string | null
+          created_at?: string | null
+          id?: string
+          image_url: string
+          prompt: string
+          style: string
+          user_id: string
+        }
+        Update: {
+          card_id?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          prompt?: string
+          style?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "card_images_card_id_fkey"
+            columns: ["card_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cards: {
         Row: {
           back: string
@@ -83,6 +181,7 @@ export type Database = {
           explanation: string | null
           front: string
           id: string
+          image_url: string | null
           metadata: Json | null
           tags: string[] | null
           topic_id: string | null
@@ -96,6 +195,7 @@ export type Database = {
           explanation?: string | null
           front: string
           id?: string
+          image_url?: string | null
           metadata?: Json | null
           tags?: string[] | null
           topic_id?: string | null
@@ -109,6 +209,7 @@ export type Database = {
           explanation?: string | null
           front?: string
           id?: string
+          image_url?: string | null
           metadata?: Json | null
           tags?: string[] | null
           topic_id?: string | null
@@ -124,6 +225,206 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      challenge_participants: {
+        Row: {
+          challenge_id: string | null
+          completed_at: string | null
+          id: string
+          joined_at: string | null
+          progress: number | null
+          user_id: string | null
+        }
+        Insert: {
+          challenge_id?: string | null
+          completed_at?: string | null
+          id?: string
+          joined_at?: string | null
+          progress?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          challenge_id?: string | null
+          completed_at?: string | null
+          id?: string
+          joined_at?: string | null
+          progress?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_participants_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "viral_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      collaboration_sessions: {
+        Row: {
+          compatibility_score: number
+          created_at: string | null
+          ended_at: string | null
+          id: string
+          started_at: string | null
+          status: string | null
+          user1_id: string | null
+          user2_id: string | null
+        }
+        Insert: {
+          compatibility_score: number
+          created_at?: string | null
+          ended_at?: string | null
+          id?: string
+          started_at?: string | null
+          status?: string | null
+          user1_id?: string | null
+          user2_id?: string | null
+        }
+        Update: {
+          compatibility_score?: number
+          created_at?: string | null
+          ended_at?: string | null
+          id?: string
+          started_at?: string | null
+          status?: string | null
+          user1_id?: string | null
+          user2_id?: string | null
+        }
+        Relationships: []
+      }
+      knowledge_edges: {
+        Row: {
+          created_at: string | null
+          id: string
+          source_id: string | null
+          strength: number | null
+          target_id: string | null
+          type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          source_id?: string | null
+          strength?: number | null
+          target_id?: string | null
+          type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          source_id?: string | null
+          strength?: number | null
+          target_id?: string | null
+          type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_edges_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_edges_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_nodes: {
+        Row: {
+          created_at: string | null
+          id: string
+          label: string
+          mastery: number | null
+          metadata: Json | null
+          type: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          label: string
+          mastery?: number | null
+          metadata?: Json | null
+          type?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          label?: string
+          mastery?: number | null
+          metadata?: Json | null
+          type?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      learning_presence: {
+        Row: {
+          id: string
+          last_active: string | null
+          location: Json
+          metadata: Json | null
+          status: string | null
+          topic: string | null
+          user_id: string | null
+        }
+        Insert: {
+          id?: string
+          last_active?: string | null
+          location: Json
+          metadata?: Json | null
+          status?: string | null
+          topic?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          id?: string
+          last_active?: string | null
+          location?: Json
+          metadata?: Json | null
+          status?: string | null
+          topic?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      meta_learning_patterns: {
+        Row: {
+          id: string
+          meta_insights: Json
+          patterns: Json
+          predictions: Json
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          id?: string
+          meta_insights: Json
+          patterns: Json
+          predictions: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          id?: string
+          meta_insights?: Json
+          patterns?: Json
+          predictions?: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -149,6 +450,33 @@ export type Database = {
           id?: string
           updated_at?: string
           username?: string | null
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string | null
+          id: string
+          referral_code: string
+          referred_id: string | null
+          referrer_id: string | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          referral_code: string
+          referred_id?: string | null
+          referrer_id?: string | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          referral_code?: string
+          referred_id?: string | null
+          referrer_id?: string | null
+          status?: string | null
         }
         Relationships: []
       }
@@ -236,6 +564,65 @@ export type Database = {
         }
         Relationships: []
       }
+      system_evolution: {
+        Row: {
+          created_at: string | null
+          generation: number
+          id: string
+          improvements: string
+        }
+        Insert: {
+          created_at?: string | null
+          generation: number
+          id?: string
+          improvements: string
+        }
+        Update: {
+          created_at?: string | null
+          generation?: number
+          id?: string
+          improvements?: string
+        }
+        Relationships: []
+      }
+      topic_images: {
+        Row: {
+          concepts: string[] | null
+          created_at: string | null
+          id: string
+          image_url: string
+          topic: string
+          topic_id: string | null
+          user_id: string
+        }
+        Insert: {
+          concepts?: string[] | null
+          created_at?: string | null
+          id?: string
+          image_url: string
+          topic: string
+          topic_id?: string | null
+          user_id: string
+        }
+        Update: {
+          concepts?: string[] | null
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          topic?: string
+          topic_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_images_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       topics: {
         Row: {
           color: string | null
@@ -243,6 +630,7 @@ export type Database = {
           description: string | null
           icon: string | null
           id: string
+          image_url: string | null
           name: string
           updated_at: string | null
         }
@@ -252,6 +640,7 @@ export type Database = {
           description?: string | null
           icon?: string | null
           id?: string
+          image_url?: string | null
           name: string
           updated_at?: string | null
         }
@@ -261,8 +650,39 @@ export type Database = {
           description?: string | null
           icon?: string | null
           id?: string
+          image_url?: string | null
           name?: string
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      tutor_interventions: {
+        Row: {
+          context: Json
+          created_at: string | null
+          effectiveness_score: number | null
+          id: string
+          intervention: string
+          tutor_personality: Json
+          user_id: string | null
+        }
+        Insert: {
+          context: Json
+          created_at?: string | null
+          effectiveness_score?: number | null
+          id?: string
+          intervention: string
+          tutor_personality: Json
+          user_id?: string | null
+        }
+        Update: {
+          context?: Json
+          created_at?: string | null
+          effectiveness_score?: number | null
+          id?: string
+          intervention?: string
+          tutor_personality?: Json
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -381,6 +801,33 @@ export type Database = {
           },
         ]
       }
+      viral_challenges: {
+        Row: {
+          created_at: string | null
+          deadline: string
+          description: string
+          id: string
+          name: string
+          reward: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          deadline: string
+          description: string
+          id?: string
+          name: string
+          reward?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          deadline?: string
+          description?: string
+          id?: string
+          name?: string
+          reward?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -388,10 +835,10 @@ export type Database = {
     Functions: {
       calculate_next_review: {
         Args: {
+          rating: number
+          current_reps: number
           current_ease: number
           current_interval: number
-          current_reps: number
-          rating: number
         }
         Returns: Json
       }

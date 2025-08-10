@@ -31,7 +31,8 @@ import {
   getUserCards, 
   getDueCards, 
   getCardStats,
-  getUpcomingCards 
+  getUpcomingCards,
+  getUserCompletionState 
 } from '@/server/actions/cards'
 import { 
   startStudySession, 
@@ -43,19 +44,20 @@ import { generateLearningInsights } from '@/server/actions/ai'
 // import { analyzeMetaLearningPatterns, evolveSystemIntelligence } from '@/server/actions/meta-learning'
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
 import dynamic from 'next/dynamic'
+import LoadingSkeleton from '@/components/ui/loading-skeleton'
 
 // Lazy load heavy visualization components
 const KnowledgeGraph = dynamic(() => import('@/components/visualizations/knowledge-graph'), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-96" />
+  loading: () => <LoadingSkeleton type="card" message="Loading knowledge graph..." />
 })
 const GlobalLearningNetwork = dynamic(() => import('@/components/global/learning-network'), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-96" />
+  loading: () => <LoadingSkeleton type="card" message="Connecting to global learning network..." />
 })
 const ViralMechanisms = dynamic(() => import('@/components/sharing/viral-mechanisms'), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-96" />
+  loading: () => <LoadingSkeleton type="card" message="Loading impact mechanisms..." />
 })
 
 interface User {
@@ -79,6 +81,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   const [studyStats, setStudyStats] = useState<{ total_reviews: number; average_accuracy: number; total_study_time_minutes: number; current_streak_days: number } | null>(null)
   const [upcomingCards, setUpcomingCards] = useState<Record<string, Array<{ id: string }>>>({})
   const [aiInsights, setAiInsights] = useState<Array<{ type: string; title: string; description: string; action?: string }>>([])
+  const [completionState, setCompletionState] = useState<{ type: string; totalCards: number; dueCards: number; nextReviewTime: string | null; completedToday: boolean } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -96,13 +99,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         dueCardsData,
         cardStats,
         studyStatsData,
-        upcomingData
+        upcomingData,
+        userCompletionState
       ] = await Promise.all([
         getUserCards(),
         getDueCards(10),
         getCardStats(),
         getStudyStats(),
-        getUpcomingCards()
+        getUpcomingCards(),
+        getUserCompletionState()
       ])
 
       setCards(userCards.map(card => ({
@@ -142,6 +147,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         formattedUpcoming[date] = items.map(item => ({ id: item.cards.id }))
       })
       setUpcomingCards(formattedUpcoming)
+      setCompletionState(userCompletionState)
 
       // Generate AI insights if we have stats or show fallback for new users
       if (studyStatsData && cardStats && cardStats.totalCards > 0) {
@@ -218,6 +224,35 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
     return `Good evening, ${capitalizedName}`
   }
 
+  const formatSmartMessage = () => {
+    if (!completionState) return `You have ${stats?.dueCards || 0} cards ready for review`
+    
+    switch (completionState.type) {
+      case 'new_user':
+        return "Ready to start your learning journey? Let's create your first card!"
+      case 'completed_today':
+        return "Great job! You've completed all your reviews for today"
+      case 'has_due_cards':
+        const urgency = completionState.dueCards > 10 ? " Let's tackle them!" : ""
+        return `You have ${completionState.dueCards} cards ready for review${urgency}`
+      case 'no_cards_due':
+        if (completionState.nextReviewTime) {
+          const nextReview = new Date(completionState.nextReviewTime)
+          const now = new Date()
+          const hoursUntil = Math.ceil((nextReview.getTime() - now.getTime()) / (1000 * 60 * 60))
+          if (hoursUntil < 24) {
+            return `Your spaced repetition is working! Next review in ${hoursUntil} hours`
+          } else {
+            const daysUntil = Math.ceil(hoursUntil / 24)
+            return `Your spaced repetition is working! Next review in ${daysUntil} day${daysUntil > 1 ? 's' : ''}`
+          }
+        }
+        return "All caught up! Consider adding new cards to expand your knowledge"
+      default:
+        return `You have ${stats?.dueCards || 0} cards ready for review`
+    }
+  }
+
   const filteredCards = cards.filter(card => 
     searchQuery ? 
       card.front.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -226,14 +261,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   )
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5] flex items-center justify-center">
-        <div className="text-center">
-          <BrainIcon className="w-12 h-12 mx-auto mb-4 text-black/40 animate-pulse stroke-[1.5]" />
-          <p className="text-black/60 font-light">Loading your learning dashboard...</p>
-        </div>
-      </div>
-    )
+    return <LoadingSkeleton type="dashboard" message="Loading your learning dashboard..." />
   }
 
   if (error && !stats) {
@@ -420,7 +448,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               >
                 <h1 className="text-5xl font-serif font-light mb-3 text-black/90">{formatGreeting()}</h1>
                 <p className="text-lg text-black/60 font-light">
-                  You have {stats?.dueCards || 0} cards ready for review
+                  {formatSmartMessage()}
                 </p>
               </motion.div>
 
@@ -541,7 +569,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       <Card className="p-8 bg-white/95 backdrop-blur-sm border border-black/5 rounded-3xl mb-8 hover:shadow-xl transition-all duration-500">
                         <div className="flex items-start justify-between">
                           <div>
-                            {stats?.totalCards === 0 ? (
+                            {completionState?.type === 'new_user' ? (
                               <>
                                 <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Start Your Learning Journey</h3>
                                 <p className="text-black/60 mb-6 font-light max-w-md">
@@ -565,7 +593,73 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                   </Button>
                                 </div>
                               </>
+                            ) : completionState?.type === 'completed_today' ? (
+                              <>
+                                <motion.div
+                                  initial={{ scale: 0.9 }}
+                                  animate={{ scale: 1 }}
+                                  transition={{ 
+                                    type: "spring", 
+                                    stiffness: 200, 
+                                    damping: 10,
+                                    repeat: 2,
+                                    repeatType: "reverse",
+                                    repeatDelay: 0.3
+                                  }}
+                                >
+                                  <div className="flex items-center gap-2 mb-3">
+                                    <SparkleIcon className="w-8 h-8 text-green-500 animate-pulse" />
+                                    <h3 className="text-2xl font-serif font-light text-black/90">Congratulations!</h3>
+                                  </div>
+                                </motion.div>
+                                <p className="text-black/60 mb-6 font-light max-w-md">
+                                  You&apos;ve completed all your reviews for today! Your consistency is building lasting knowledge.
+                                  {completionState.nextReviewTime && (
+                                    <span className="block mt-2 text-sm text-black/50">
+                                      Next reviews: {new Date(completionState.nextReviewTime).toLocaleDateString()}
+                                    </span>
+                                  )}
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                  <Button
+                                    onClick={() => setIsCreateDialogOpen(true)}
+                                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+                                  >
+                                    <PlusIcon className="w-4 h-4 mr-2" />
+                                    Add New Cards
+                                  </Button>
+                                  <Button
+                                    onClick={() => setViewMode('stats')}
+                                    className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                    variant="outline"
+                                  >
+                                    <ChartIcon className="w-4 h-4 mr-2" />
+                                    View Progress
+                                  </Button>
+                                </div>
+                              </>
+                            ) : completionState?.type === 'no_cards_due' ? (
+                              <>
+                                <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Spaced Repetition Active!</h3>
+                                <p className="text-black/60 mb-6 font-light max-w-md">
+                                  Your learning schedule is optimized. No reviews needed right now - your brain is consolidating knowledge.
+                                  {completionState.nextReviewTime && (
+                                    <span className="block mt-2 text-sm text-black/50">
+                                      Next reviews: {new Date(completionState.nextReviewTime).toLocaleDateString()}
+                                    </span>
+                                  )}
+                                </p>
+                                <Button
+                                  onClick={() => setIsCreateDialogOpen(true)}
+                                  className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                  variant="outline"
+                                >
+                                  <PlusIcon className="w-4 h-4 mr-2" />
+                                  Add New Cards
+                                </Button>
+                              </>
                             ) : (
+                              // Fallback for unknown states
                               <>
                                 <h3 className="text-2xl font-serif font-light mb-3 text-black/90">All caught up!</h3>
                                 <p className="text-black/60 mb-6 font-light max-w-md">
@@ -582,8 +676,24 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                               </>
                             )}
                           </div>
-                          {stats?.totalCards === 0 ? (
+                          {completionState?.type === 'new_user' ? (
                             <SparkleIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                          ) : completionState?.type === 'completed_today' ? (
+                            <motion.div
+                              animate={{ 
+                                rotate: [0, 10, -10, 10, 0],
+                                scale: [1, 1.1, 1, 1.1, 1]
+                              }}
+                              transition={{ 
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatDelay: 3
+                              }}
+                            >
+                              <HeartIcon className="w-16 h-16 text-green-400 stroke-[1.5]" />
+                            </motion.div>
+                          ) : completionState?.type === 'no_cards_due' ? (
+                            <BrainIcon className="w-16 h-16 text-blue-400 stroke-[1.5]" />
                           ) : (
                             <RocketIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
                           )}
@@ -644,79 +754,104 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
                   {/* AI Insights / Onboarding */}
-                  {(aiInsights.length > 0 || stats?.totalCards === 0) && (
-                    <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                      <div className="flex items-center mb-6">
-                        <BrainIcon className="w-6 h-6 mr-3 text-purple-600/70" />
-                        <h3 className="font-serif font-light text-lg text-black/90">
-                          {stats?.totalCards === 0 ? 'Getting Started' : 'AI Insights'}
-                        </h3>
-                      </div>
-                      <div className="space-y-4">
-                        {stats?.totalCards === 0 ? (
+                  <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                    <div className="flex items-center mb-6">
+                      <BrainIcon className="w-6 h-6 mr-3 text-purple-600/70" />
+                      <h3 className="font-serif font-light text-lg text-black/90">
+                        {completionState?.type === 'new_user' ? 'Getting Started' : 
+                         completionState?.type === 'completed_today' ? 'Today&apos;s Achievement' :
+                         'AI Insights'}
+                      </h3>
+                    </div>
+                    <div className="space-y-4">
+                      {completionState?.type === 'new_user' ? (
+                        <motion.div 
+                          className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.6 }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="w-2.5 h-2.5 rounded-full mt-2 bg-blue-500" />
+                            <div className="flex-1">
+                              <p className="text-sm font-light text-black/90 mb-2">
+                                Welcome to Neuros!
+                              </p>
+                              <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
+                                Create your first learning card to unlock AI-powered insights, spaced repetition, and personalized learning analytics.
+                              </p>
+                              <button 
+                                onClick={() => setIsCreateDialogOpen(true)}
+                                className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                              >
+                                Create your first card →
+                              </button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ) : completionState?.type === 'completed_today' ? (
+                        <motion.div 
+                          className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.6 }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="w-2.5 h-2.5 rounded-full mt-2 bg-green-500" />
+                            <div className="flex-1">
+                              <p className="text-sm font-light text-black/90 mb-2">
+                                Consistency Champion!
+                              </p>
+                              <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
+                                You&apos;ve maintained your learning streak. Consistent daily practice is the key to long-term retention and mastery.
+                              </p>
+                              <button 
+                                onClick={() => setViewMode('stats')}
+                                className="text-xs font-light text-green-600 hover:text-green-700 hover:underline transition-colors"
+                              >
+                                View your progress →
+                              </button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ) : (
+                        aiInsights.slice(0, 2).map((insight, index) => (
                           <motion.div 
-                            className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100"
+                            key={index} 
+                            className="p-4 bg-gradient-to-r from-gray-50 to-gray-50/50 rounded-2xl"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.6 }}
+                            transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                           >
                             <div className="flex items-start gap-3">
-                              <div className="w-2.5 h-2.5 rounded-full mt-2 bg-blue-500" />
+                              <div className={`w-2.5 h-2.5 rounded-full mt-2 ${
+                                insight.type === 'strength' ? 'bg-green-500' :
+                                insight.type === 'improvement' ? 'bg-yellow-500' :
+                                insight.type === 'info' ? 'bg-blue-500' :
+                                'bg-blue-500'
+                              }`} />
                               <div className="flex-1">
                                 <p className="text-sm font-light text-black/90 mb-2">
-                                  Welcome to Neuros!
+                                  {insight.title}
                                 </p>
                                 <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
-                                  Create your first learning card to unlock AI-powered insights, spaced repetition, and personalized learning analytics.
+                                  {insight.description}
                                 </p>
-                                <button 
-                                  onClick={() => setIsCreateDialogOpen(true)}
-                                  className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
-                                >
-                                  Create your first card →
-                                </button>
+                                {insight.action && (
+                                  <button 
+                                    onClick={() => insight.action === 'Create your first card' && setIsCreateDialogOpen(true)}
+                                    className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                                  >
+                                    {insight.action} →
+                                  </button>
+                                )}
                               </div>
                             </div>
                           </motion.div>
-                        ) : (
-                          aiInsights.slice(0, 2).map((insight, index) => (
-                            <motion.div 
-                              key={index} 
-                              className="p-4 bg-gradient-to-r from-gray-50 to-gray-50/50 rounded-2xl"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                            >
-                              <div className="flex items-start gap-3">
-                                <div className={`w-2.5 h-2.5 rounded-full mt-2 ${
-                                  insight.type === 'strength' ? 'bg-green-500' :
-                                  insight.type === 'improvement' ? 'bg-yellow-500' :
-                                  insight.type === 'info' ? 'bg-blue-500' :
-                                  'bg-blue-500'
-                                }`} />
-                                <div className="flex-1">
-                                  <p className="text-sm font-light text-black/90 mb-2">
-                                    {insight.title}
-                                  </p>
-                                  <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
-                                    {insight.description}
-                                  </p>
-                                  {insight.action && (
-                                    <button 
-                                      onClick={() => insight.action === 'Create your first card' && setIsCreateDialogOpen(true)}
-                                      className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
-                                    >
-                                      {insight.action} →
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                            </motion.div>
-                          ))
-                        )}
-                      </div>
-                    </Card>
-                  )}
+                        ))
+                      )}
+                    </div>
+                  </Card>
 
                   {/* Upcoming Reviews */}
                   <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">

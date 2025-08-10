@@ -1,0 +1,25 @@
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Invalid next.config.ts options detected: 
+ ⚠     Unrecognized key(s) in object: 'serverComponentsExternalPackages' at "experimental"
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ⚠ `experimental.serverComponentsExternalPackages` has been moved to `serverExternalPackages`. Please update your next.config.ts file accordingly.
+   ▲ Next.js 15.4.2-canary.34
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+     · serverComponentsExternalPackages
+
+ ✓ Starting...
+ ✓ Ready in 1126ms
+ ✓ Compiled /middleware in 90ms (183 modules)
+ ○ Compiling /signin ...
+ ✓ Compiled /signin in 1495ms (1534 modules)
+ GET /signin 200 in 1824ms
+ ✓ Compiled in 271ms (1534 modules)
+ ✓ Compiled in 365ms (1640 modules)
+[?25h

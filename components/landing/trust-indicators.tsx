@@ -137,7 +137,14 @@ export default function TrustIndicators() {
                   transition={{ delay: 0.2 }}
                 />
               </div>
-              <span className="text-xs text-gray-400 font-light">Made with curiosity</span>
+              <a 
+                href="https://newth.ai" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs text-gray-400 font-light hover:text-gray-600 transition-colors"
+              >
+                Made with curiosity by Oliver Newth
+              </a>
             </div>
           </div>
         </div>

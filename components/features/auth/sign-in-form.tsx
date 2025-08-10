@@ -4,10 +4,11 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { signIn } from '@/server/actions/auth'
+import { signIn, signInAsDeveloper } from '@/server/actions/auth'
 import { useToast } from '@/hooks/use-toast'
 import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
+import { SparkleIcon } from '@/components/icons/line-icons'
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -22,10 +23,13 @@ function SubmitButton() {
   return (
     <button 
       type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors disabled:opacity-50" 
+      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
       disabled={pending}
     >
-      {pending ? 'Signing in...' : 'Sign in'}
+      {pending && (
+        <SparkleIcon className="w-4 h-4 animate-spin" />
+      )}
+      {pending ? 'Preparing your workspace...' : 'Sign in'}
     </button>
   )
 }
@@ -34,6 +38,8 @@ export function SignInForm() {
   const router = useRouter()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
+  const [isDevSigningIn, setIsDevSigningIn] = useState(false)
+  const isDevelopment = process.env.NODE_ENV === 'development'
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -55,6 +61,31 @@ export function SignInForm() {
     } else if (result?.success) {
       router.push('/dashboard')
       router.refresh()
+    }
+  }
+
+  async function handleDevSignIn() {
+    setIsDevSigningIn(true)
+    try {
+      const result = await signInAsDeveloper()
+      
+      if (result?.error) {
+        toast({
+          title: 'Error',
+          description: result.error,
+          variant: 'destructive',
+        })
+      } else if (result?.success) {
+        toast({
+          title: 'Development Mode',
+          description: result.message || 'Signed in as test user',
+          variant: 'default',
+        })
+        router.push('/dashboard')
+        router.refresh()
+      }
+    } finally {
+      setIsDevSigningIn(false)
     }
   }
 
@@ -125,6 +156,42 @@ export function SignInForm() {
 
       {/* Submit Button */}
       <SubmitButton />
+
+      {/* Development Bypass Button */}
+      {isDevelopment && (
+        <>
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-orange-200"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-[#FAFAF9] lg:bg-white px-4 text-orange-600 font-mono tracking-wider">
+                Development Only
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleDevSignIn}
+            disabled={isDevSigningIn}
+            className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full hover:from-orange-600 hover:to-amber-600 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+          >
+            {isDevSigningIn ? (
+              <SparkleIcon className="w-4 h-4 animate-spin" />
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            )}
+            {isDevSigningIn ? 'Setting up your test workspace...' : 'Quick Test Login'}
+          </button>
+
+          <p className="text-center text-xs text-orange-600/80 mt-2">
+            Signs in as test@neuros.dev with sample learning data
+          </p>
+        </>
+      )}
     </form>
   )
 }
