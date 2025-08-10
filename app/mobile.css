@@ -1,0 +1,269 @@
+/* Mobile-specific optimizations */
+
+/* Viewport and Safe Areas */
+@supports (padding: max(0px)) {
+  .safe-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  
+  .safe-left {
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+  
+  .safe-right {
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+/* Mobile Touch Targets */
+@media (pointer: coarse) {
+  button, 
+  a, 
+  [role="button"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Larger tap targets for rating buttons */
+  .rating-button {
+    min-height: 56px;
+    padding: 0.75rem;
+  }
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  button:hover,
+  a:hover,
+  .stat-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  nav a:hover::after {
+    width: 0;
+  }
+}
+
+/* Mobile-optimized scrolling */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y proximity;
+}
+
+.mobile-scroll-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Prevent iOS zoom on input focus */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile keyboard handling */
+.keyboard-open {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(0);
+}
+
+/* Swipe gestures feedback */
+.swipeable {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.swipe-left {
+  animation: swipeLeft 0.3s ease-out;
+}
+
+.swipe-right {
+  animation: swipeRight 0.3s ease-out;
+}
+
+@keyframes swipeLeft {
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes swipeRight {
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Mobile-optimized typography */
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  p, span { line-height: 1.6; }
+  
+  /* Better readability on small screens */
+  .mobile-readable {
+    font-size: 1rem;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* Pull-to-refresh indicator */
+.pull-to-refresh {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease;
+}
+
+.pull-to-refresh.pulling {
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.pull-to-refresh.refreshing {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translateX(-50%) rotate(540deg); }
+}
+
+/* Bottom navigation safe area */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 50;
+}
+
+/* Mobile card stack */
+@media (max-width: 640px) {
+  .card-stack {
+    padding: 0.5rem;
+  }
+  
+  .card-stack > * {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Full-width cards on mobile */
+  .mobile-card {
+    border-radius: 0;
+    margin: 0 -1rem;
+    padding: 1rem;
+  }
+}
+
+/* Haptic feedback animation */
+.haptic {
+  animation: haptic 0.1s ease;
+}
+
+@keyframes haptic {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+}
+
+/* Mobile performance optimizations */
+@media (max-width: 768px) {
+  /* Disable expensive animations on mobile */
+  .no-mobile-animation {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Use GPU acceleration for transforms */
+  .mobile-transform {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Optimize backdrop filters */
+  @supports not (backdrop-filter: blur(10px)) {
+    .backdrop-blur-sm {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  }
+}
+
+/* Touch gesture indicators */
+.touch-indicator {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0);
+  animation: touchRipple 0.6s ease-out;
+}
+
+@keyframes touchRipple {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* Mobile loading states */
+.skeleton-mobile {
+  background: linear-gradient(
+    90deg,
+    var(--muted) 25%,
+    var(--secondary) 50%,
+    var(--muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerMobile 1.5s infinite;
+}
+
+@keyframes shimmerMobile {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Landscape mode adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-nav {
+    padding: 0.25rem;
+  }
+  
+  .review-card {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+}

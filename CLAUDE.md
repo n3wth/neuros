@@ -5,8 +5,10 @@
 npm run dev          # Development
 npm run build        # Production build
 npm run test         # Tests
+npm run test:e2e     # E2E tests with Playwright
 npm run db:reset     # Apply migrations
 npm run db:types     # Generate types
+node scripts/generate-test-manifest.js  # Generate test coverage report
 ```
 
 ## Tech Stack
@@ -39,6 +41,48 @@ types/supabase.js       # Generated types
 3. Guard window usage: `if (typeof window === 'undefined')`
 4. Test with `npm run build` before deploy
 5. Use absolute paths for file operations
+
+## Testing Awareness
+
+### Automatic Test Discovery
+Run `node scripts/generate-test-manifest.js` to:
+- Discover all routes, components, and API endpoints
+- Identify untested areas
+- Generate priority testing targets
+- Create TEST_COVERAGE.md report
+
+### Test Files Location
+- E2E tests: `tests/` or `e2e/`
+- Component tests: Co-located with components (*.test.tsx)
+- API tests: `app/**/route.test.ts`
+
+### Testing Commands
+```bash
+# Generate test manifest (run this first!)
+node scripts/generate-test-manifest.js
+
+# View test coverage report
+cat TEST_COVERAGE.md
+
+# Run all tests
+npm test
+
+# Run E2E tests
+npx playwright test
+
+# Run specific test file
+npx playwright test tests/mobile.spec.ts
+
+# Debug tests with UI
+npx playwright test --ui
+```
+
+### Priority Testing Areas
+1. Authentication flows (/signin, /signup)
+2. Dashboard (/dashboard)
+3. API routes with POST methods
+4. Server actions with database operations
+5. Payment/billing components
 
 ## Environment Variables
 ```env

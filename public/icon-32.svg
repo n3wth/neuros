@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light mode background -->
+  <rect width="32" height="32" rx="5" fill="#FEFEFE"/>
+  <!-- Sparkle icon scaled to 32x32 -->
+  <path d="M16 2.67 Q15.73 11.33 14 14 Q11.33 15.73 2.67 16 Q11.33 16.27 14 18 Q15.73 20.67 16 29.33 Q16.27 20.67 18 18 Q20.67 16.27 29.33 16 Q20.67 15.73 18 14 Q16.27 11.33 16 2.67" 
+        fill="none" 
+        stroke="#36454F" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>

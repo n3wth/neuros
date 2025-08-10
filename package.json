@@ -5,6 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
+    "dev:port": "PORT=${PORT:-3000} next dev",
+    "dev:test1": "cp .env.test1 .env.local && PORT=3001 next dev",
+    "dev:test2": "cp .env.test2 .env.local && PORT=3002 next dev",
+    "dev:multi": "./scripts/multi-dev.sh",
+    "dev:persistent": "./scripts/persistent-dev.sh",
+    "dev:manager": "./scripts/dev-manager.sh",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

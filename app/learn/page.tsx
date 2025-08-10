@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import NeurosLearningDashboard from '@/components/learning/neuros-dashboard'
+import AdaptiveLearningInterface from '@/components/learning/adaptive-learning-interface'
 
 // Force dynamic rendering - this page uses cookies via Supabase
 export const dynamic = 'force-dynamic'
@@ -13,5 +13,5 @@ export default async function LearnPage() {
     redirect('/signin')
   }
 
-  return <NeurosLearningDashboard user={user} />
+  return <AdaptiveLearningInterface user={user} />
 }

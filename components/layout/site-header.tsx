@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { IconMenu2, IconX } from '@tabler/icons-react'
 
 const navigation = [
   { name: 'Explore', href: '/explore' },
@@ -17,6 +18,7 @@ const navigation = [
 export default function SiteHeader() {
   const pathname = usePathname()
   const [user, setUser] = useState<User | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const supabase = createClient()
   const { scrollY } = useScroll()
   
@@ -96,18 +98,13 @@ export default function SiteHeader() {
           </div>
 
           {/* Desktop Auth Buttons */}
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             {user ? (
               <Link 
                 href="/dashboard"
-                className="group relative px-6 py-2.5 overflow-hidden"
+                className="text-sm text-black/60 hover:text-black transition-colors px-4 py-2"
               >
-                <span className="relative z-10 text-sm font-medium">Dashboard</span>
-                <div className="absolute inset-0 bg-black rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-                <span className="absolute inset-0 flex items-center justify-center text-sm font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                  Dashboard
-                </span>
-                <div className="absolute inset-0 border border-black/20 rounded-full" />
+                Dashboard
               </Link>
             ) : (
               <>
@@ -132,8 +129,76 @@ export default function SiteHeader() {
             )}
           </div>
 
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-black/60 hover:text-black transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <IconX className="w-6 h-6" />
+            ) : (
+              <IconMenu2 className="w-6 h-6" />
+            )}
+          </button>
+
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-white/95 backdrop-blur-sm border-t border-black/5"
+          >
+            <div className="px-8 py-6 space-y-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block py-2 text-base text-black/60 hover:text-black transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              <div className="pt-4 border-t border-black/10 space-y-4">
+                {user ? (
+                  <Link 
+                    href="/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block py-2 text-base font-medium text-black"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <>
+                    <Link 
+                      href="/signin"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block py-2 text-base text-black/60"
+                    >
+                      Sign in
+                    </Link>
+                    <Link 
+                      href="/signup"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block w-full text-center py-3 bg-black text-white rounded-full text-base font-medium"
+                    >
+                      Get started
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   )
 }

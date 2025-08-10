@@ -1,0 +1,11 @@
+<svg width="144" height="144" viewBox="0 0 144 144" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light mode background -->
+  <rect width="144" height="144" rx="24" fill="#FEFEFE"/>
+  <!-- Sparkle icon scaled to 144x144 -->
+  <path d="M72 12 Q70.8 51 63 63 Q51 70.8 12 72 Q51 73.2 63 81 Q70.8 93 72 132 Q73.2 93 81 81 Q93 73.2 132 72 Q93 70.8 81 63 Q73.2 51 72 12" 
+        fill="none" 
+        stroke="#36454F" 
+        stroke-width="9" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>

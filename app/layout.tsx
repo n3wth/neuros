@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
+import { registerServiceWorker, setupInstallPrompt } from "./sw-register";
 import "./globals.css";
 import "./polish.css";
+import "./mobile.css";
 
 // Optimized font loading
 const inter = Inter({
@@ -27,24 +29,35 @@ const playfairDisplay = Playfair_Display({
   preload: false, // Only load when needed
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FEFEFE" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1a1a" },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Neuros - AI-Powered Learning Platform",
   description: "Master any subject with AI-powered spaced repetition and personalized learning paths",
+  applicationName: "Neuros",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Neuros",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  manifest: "/manifest.json",
   icons: {
     icon: [
-      {
-        url: "/favicon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        url: "/favicon.ico",
-        sizes: "32x32",
-      },
+      { url: "/favicon.ico", sizes: "32x32" },
     ],
-    apple: {
-      url: "/favicon.svg",
-      type: "image/svg+xml",
-    },
   },
 };
 
@@ -53,6 +66,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Register service worker for PWA functionality
+  if (typeof window !== 'undefined') {
+    registerServiceWorker()
+    setupInstallPrompt()
+  }
+
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}>
       <body className="antialiased font-sans">
