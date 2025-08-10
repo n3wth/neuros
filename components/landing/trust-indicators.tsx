@@ -115,7 +115,7 @@ export default function TrustIndicators() {
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <SparkleIcon className="w-5 h-5 text-black/70 stroke-[1.5]" />
+              <SparkleIcon className="w-5 h-5 text-gray-400 stroke-[1.5]" />
               <span className="text-sm text-gray-400">© 2025 Neuros</span>
             </div>
             

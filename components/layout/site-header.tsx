@@ -81,14 +81,15 @@ export default function SiteHeader() {
                   className="relative text-sm text-black/60 hover:text-black transition-colors group"
                 >
                   {item.name}
-                  {pathname === item.href && (
+                  {pathname === item.href ? (
                     <motion.div 
                       className="absolute -bottom-1 left-0 right-0 h-px bg-black"
                       layoutId="navbar-indicator"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
+                  ) : (
+                    <div className="absolute -bottom-1 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                   )}
-                  <div className="absolute -bottom-1 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 </Link>
               ))}
             </div>

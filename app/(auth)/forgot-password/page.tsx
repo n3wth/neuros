@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ForgotPasswordForm } from '@/components/features/auth/forgot-password-form'
-import { SparkleIcon, BrainIcon, ShieldIcon, LockIcon } from '@/components/icons/line-icons'
+import { BrainIcon, ShieldIcon, LockIcon } from '@/components/icons/line-icons'
+import { Logo } from '@/components/ui/logo'
 
 export default function ForgotPasswordPage() {
   return (
@@ -49,10 +50,7 @@ export default function ForgotPasswordPage() {
           >
             {/* Logo */}
             <div className="mb-16">
-              <Link href="/" className="inline-flex items-center gap-3 group">
-                <SparkleIcon className="w-10 h-10 text-black/70 stroke-[1.5] group-hover:text-black transition-colors" />
-                <span className="text-3xl font-serif font-light text-black/90 group-hover:text-black transition-colors">Neuros</span>
-              </Link>
+              <Logo size="lg" href="/" />
             </div>
 
             {/* Headline */}
@@ -121,10 +119,7 @@ export default function ForgotPasswordPage() {
         >
           {/* Mobile Logo (shown only on mobile) */}
           <div className="text-center mb-12 lg:hidden">
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <SparkleIcon className="w-8 h-8 text-black/70 stroke-[1.5] group-hover:text-black transition-colors" />
-              <span className="text-2xl font-serif font-light text-black/90 group-hover:text-black transition-colors">Neuros</span>
-            </Link>
+            <Logo size="md" href="/" />
           </div>
 
           {/* Form Card */}
