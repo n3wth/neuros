@@ -1,5 +1,5 @@
 {
-  "generated": "2025-08-10T22:22:27.375Z",
+  "generated": "2025-08-10T22:30:06.506Z",
   "project": {
     "name": "supa-template",
     "type": "next-app",
@@ -794,7 +794,7 @@
       "file": "components/ui/install-prompt.tsx",
       "type": "client",
       "isClientComponent": true,
-      "hasProps": false,
+      "hasProps": true,
       "hasState": true,
       "hasEffects": true,
       "testFile": null,

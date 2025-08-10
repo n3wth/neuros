@@ -6,9 +6,7 @@ import {
   BrainIcon,
   RefreshIcon,
   CheckCircleIcon,
-  CloseIcon,
   LightbulbIcon,
-  VolumeIcon,
   EyeIcon
 } from '@/components/icons/line-icons'
 import { ChevronUp as ChevronUpIcon, ChevronDown as ChevronDownIcon } from 'lucide-react'
@@ -58,7 +56,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
     incorrect: 0
   })
 
-  const { isMobile, isTouch, supportsVibration } = useMobile()
+  const { isMobile, isTouch } = useMobile()
   const containerRef = useRef<HTMLDivElement>(null)
   const startY = useRef<number>(0)
   const isPulling = useRef(false)
@@ -118,25 +116,6 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
     isPulling.current = false
   }, [loadCards])
 
-  // Handle card swipe
-  const handleDragEnd = useCallback(
-    (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      const shouldSwipeLeft = info.offset.x < -SWIPE_THRESHOLD || info.velocity.x < -SWIPE_VELOCITY
-      const shouldSwipeRight = info.offset.x > SWIPE_THRESHOLD || info.velocity.x > SWIPE_VELOCITY
-
-      if (shouldSwipeLeft) {
-        // Mark as difficult (rating 1)
-        vibrate([50, 30, 50])
-        handleRate(1)
-      } else if (shouldSwipeRight) {
-        // Mark as easy (rating 4)
-        vibrate(50)
-        handleRate(4)
-      }
-    },
-    []
-  )
-
   const handleShowAnswer = useCallback(() => {
     setShowAnswer(true)
     setStartTime(Date.now())
@@ -187,6 +166,25 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
       console.error('Failed to submit review:', error)
     }
   }, [currentCard, startTime, sessionId, cards.length, currentIndex, loadCards])
+
+  // Handle card swipe
+  const handleDragEnd = useCallback(
+    (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const shouldSwipeLeft = info.offset.x < -SWIPE_THRESHOLD || info.velocity.x < -SWIPE_VELOCITY
+      const shouldSwipeRight = info.offset.x > SWIPE_THRESHOLD || info.velocity.x > SWIPE_VELOCITY
+
+      if (shouldSwipeLeft) {
+        // Mark as difficult (rating 1)
+        vibrate([50, 30, 50])
+        handleRate(1)
+      } else if (shouldSwipeRight) {
+        // Mark as easy (rating 4)
+        vibrate(50)
+        handleRate(4)
+      }
+    },
+    [handleRate]
+  )
 
   const getAIHelp = useCallback(async () => {
     if (!currentCard || aiExplanation) return

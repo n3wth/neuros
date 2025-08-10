@@ -36,14 +36,24 @@ export function registerServiceWorker() {
 }
 
 // Install prompt handling
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
+}
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
+}
+
 export function setupInstallPrompt() {
   if (typeof window === 'undefined') return
 
-  let deferredPrompt: any = null
+  let deferredPrompt: BeforeInstallPromptEvent | null = null
 
-  window.addEventListener('beforeinstallprompt', (e) => {
+  window.addEventListener('beforeinstallprompt', (e: Event) => {
     e.preventDefault()
-    deferredPrompt = e
+    deferredPrompt = e as BeforeInstallPromptEvent
 
     // Show custom install button
     const installButton = document.getElementById('install-app-button')
@@ -62,7 +72,7 @@ export function setupInstallPrompt() {
 
   // iOS install instructions
   const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
-  const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator as any).standalone
+  const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator as { standalone?: boolean }).standalone
 
   if (isIOS && !isInStandaloneMode) {
     // Show iOS install instructions

@@ -1,26 +1,33 @@
-# Neuros - AI-Powered Learning Platform
+# AI Coding & MCP Experimentation Project
 
 <div align="center">
 
-![Neuros Banner](https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=400&fit=crop&q=80)
-
-**Intelligent Learning, Personalized Growth**
+**A playground for testing AI-powered development tools and MCP integrations**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.4-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-green?logo=supabase)](https://supabase.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-orange?logo=openai)](https://openai.com/)
-
-[**Live Demo**](https://neuros.vercel.app) • [**Documentation**](#documentation) • [**Features**](#features)
 
 </div>
 
 ---
 
-## What is Neuros?
+## About This Project
 
-Neuros is a next-generation learning platform that harnesses the power of AI to create personalized, adaptive learning experiences. Whether you're a student, professional, or lifelong learner, Neuros transforms any content into interactive learning cards, provides intelligent insights, and adapts to your unique learning style.
+This is Oliver Newth's experimental playground for testing and evaluating AI-powered coding tools and newer Model Context Protocol (MCP) integrations. The project serves as a testbed for exploring how various AI assistants and MCP servers can accelerate development workflows.
+
+**Author**: [Oliver Newth](https://newth.ai) • [GitHub: @n3wth](https://github.com/n3wth)
+
+### MCP Servers Being Tested
+
+- **Sequential Thinking** - Complex problem-solving workflows with iterative reasoning
+- **Playwright** - Browser automation and E2E testing capabilities  
+- **Context7** - Technical documentation retrieval with up-to-date library references
+- **Exa** - Advanced web search and research capabilities
+- **Qdrant** - Personal knowledge graph for storing and retrieving contextual information
+- **GitHub** - Repository management and code operations
+- **21st.dev** - UI component generation and refinement
 
 ### Key Highlights
 
