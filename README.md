@@ -81,7 +81,7 @@ This is Oliver Newth's experimental playground for testing and evaluating AI-pow
 
 ---
 
-## 🛠️ Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -89,7 +89,7 @@ This is Oliver Newth's experimental playground for testing and evaluating AI-pow
 - **npm/yarn/pnpm**
 - **Supabase CLI** (`npm i -g supabase`)
 
-### 1️⃣ Clone & Install
+### Clone & Install
 
 ```bash
 git clone https://github.com/n3wth/neuros.git
@@ -97,7 +97,7 @@ cd neuros
 npm install
 ```
 
-### 2️⃣ Environment Setup
+### Environment Setup
 
 Create `.env.local`:
 
@@ -111,7 +111,7 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 OPENAI_API_KEY=your_openai_api_key
 ```
 
-### 3️⃣ Database Setup
+### Database Setup
 
 ```bash
 # Start local Supabase
@@ -124,13 +124,13 @@ npm run db:reset
 npm run db:types
 ```
 
-### 4️⃣ Launch Development Server
+### Launch Development Server
 
 ```bash
 npm run dev
 ```
 
-🎉 **Open [http://localhost:3000](http://localhost:3000)** - Your learning journey begins!
+**Open [http://localhost:3000](http://localhost:3000)** - Your learning journey begins!
 
 ---
 
@@ -138,28 +138,28 @@ npm run dev
 
 ```
 neuros/
-├── 🎨 app/                    # Next.js App Router
+├── app/                    # Next.js App Router
 │   ├── (auth)/               # Authentication routes
 │   ├── (dashboard)/          # Protected learning dashboard  
 │   └── (public)/             # Marketing & landing pages
-├── 🧩 components/            
+├── components/            
 │   ├── ui/                   # Reusable UI components
 │   ├── features/             # Feature-specific components
 │   ├── learning/             # Core learning functionality
 │   └── landing/              # Marketing components
-├── 🔧 server/
+├── server/
 │   ├── actions/              # Server Actions (AI, Auth, CRUD)
 │   └── queries/              # Database queries
-├── 🗄️ supabase/
+├── supabase/
 │   ├── migrations/           # Database schema
 │   └── config.toml           # Supabase configuration
-├── 📝 types/                 # TypeScript definitions
-└── 🎭 styles/                # Global styles & themes
+├── types/                 # TypeScript definitions
+└── styles/                # Global styles & themes
 ```
 
 ---
 
-## 🎛️ Available Commands
+## Available Commands
 
 ### Development
 ```bash
@@ -189,7 +189,7 @@ npm run test:coverage   # Test coverage report
 
 ---
 
-## 🧪 Technology Stack
+## Technology Stack
 
 ### Core Framework
 - **[Next.js 15.4](https://nextjs.org/)** - React framework with App Router
@@ -219,7 +219,7 @@ npm run test:coverage   # Test coverage report
 
 ---
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 Neuros follows Apple's design principles with a focus on:
 
@@ -246,17 +246,17 @@ Neuros follows Apple's design principles with a focus on:
 
 ---
 
-## 🔐 Security & Privacy
+## Security & Privacy
 
-- **🛡️ Row Level Security**: Database-level access control
-- **🔐 JWT Authentication**: Secure, stateless authentication
-- **🌐 HTTPS Everywhere**: All communications encrypted
-- **📊 Privacy by Design**: Minimal data collection, maximum protection
-- **🔒 SOC 2 Compliant**: Enterprise security standards
+- **Row Level Security**: Database-level access control
+- **JWT Authentication**: Secure, stateless authentication
+- **HTTPS Everywhere**: All communications encrypted
+- **Privacy by Design**: Minimal data collection, maximum protection
+- **SOC 2 Compliant**: Enterprise security standards
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 ### Deploy to Vercel (Recommended)
 
@@ -293,7 +293,7 @@ NEXT_PUBLIC_ANALYTICS_ID=your_analytics_id
 
 ---
 
-## 📈 Performance
+## Performance
 
 - **Lighthouse Score**: 95+ across all metrics
 - **Core Web Vitals**: Excellent ratings
@@ -302,7 +302,7 @@ NEXT_PUBLIC_ANALYTICS_ID=your_analytics_id
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Here's how to get started:
 
@@ -323,34 +323,34 @@ We welcome contributions! Here's how to get started:
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### Getting Started
-- [🚀 Quick Start Guide](#quick-start)
-- [⚙️ Configuration](docs/configuration.md)
-- [🏗️ Architecture Overview](docs/architecture.md)
+- [Quick Start Guide](#quick-start)
+- [Configuration](docs/configuration.md)
+- [Architecture Overview](docs/architecture.md)
 
 ### Development  
-- [🛠️ Development Setup](docs/development.md)
-- [🧪 Testing Guide](docs/testing.md)
-- [🎨 UI Components](docs/components.md)
+- [Development Setup](docs/development.md)
+- [Testing Guide](docs/testing.md)
+- [UI Components](docs/components.md)
 
 ### Deployment & Operations
-- [🚀 Deployment Guide](docs/deployment.md)
-- [📊 Monitoring](docs/monitoring.md)
-- [🔐 Security](docs/security.md)
+- [Deployment Guide](docs/deployment.md)
+- [Monitoring](docs/monitoring.md)
+- [Security](docs/security.md)
 
 ---
 
-## 📊 Roadmap
+## Roadmap
 
-### 🎯 Current Focus (Q1 2024)
+### Current Focus (Q1 2024)
 - [ ] **Mobile App**: Native iOS/Android applications
 - [ ] **Collaborative Learning**: Study groups and shared decks
 - [ ] **Advanced Analytics**: ML-powered learning insights
 - [ ] **Plugin System**: Third-party integrations
 
-### 🚀 Coming Soon (Q2 2024)  
+### Coming Soon (Q2 2024)  
 - [ ] **Voice Learning**: Audio-based learning modes
 - [ ] **AR/VR Support**: Immersive learning experiences
 - [ ] **Enterprise Features**: SSO, team management, analytics
@@ -358,22 +358,22 @@ We welcome contributions! Here's how to get started:
 
 ---
 
-## 💬 Community & Support
+## Community & Support
 
 ### Get Help
-- **📖 Documentation**: Comprehensive guides and API reference
-- **💬 Discord**: Join our community chat
-- **🐛 Issues**: Report bugs or request features
-- **📧 Email**: hello@neuros.app for direct support
+- **Documentation**: Comprehensive guides and API reference
+- **Discord**: Join our community chat
+- **Issues**: Report bugs or request features
+- **Email**: hello@neuros.app for direct support
 
 ### Stay Updated
-- **⭐ Star** this repository for updates
-- **🐦 Follow** [@neuros_app](https://twitter.com/neuros_app) on Twitter  
-- **📧 Subscribe** to our newsletter for product updates
+- **Star** this repository for updates
+- **Follow** [@neuros_app](https://twitter.com/neuros_app) on Twitter  
+- **Subscribe** to our newsletter for product updates
 
 ---
 
-## 📄 License
+## License
 
 **MIT License** - feel free to use Neuros for personal and commercial projects.
 
@@ -381,9 +381,9 @@ See [LICENSE](LICENSE) for full details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Built with ❤️ using amazing open-source tools:
+Built using amazing open-source tools:
 
 - **Next.js Team** - For the incredible React framework
 - **Supabase** - For the backend-as-a-service platform  
@@ -397,8 +397,8 @@ Built with ❤️ using amazing open-source tools:
 
 **Ready to revolutionize your learning?**
 
-[🚀 **Get Started**](https://neuros.vercel.app) • [⭐ **Star on GitHub**](https://github.com/n3wth/neuros) • [💬 **Join Community**](https://discord.gg/neuros)
+[**Get Started**](https://neuros.vercel.app) • [**Star on GitHub**](https://github.com/n3wth/neuros) • [**Join Community**](https://discord.gg/neuros)
 
-Made with 🧠 and ☕ by the Neuros team
+Made by the Neuros team
 
 </div>

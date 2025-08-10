@@ -34,6 +34,7 @@ types/supabase.js       # Generated types
 - Migration-first DB development
 - Custom line-art icons (no emojis)
 - Editorial design aesthetic
+- No emojis in code, commits, or documentation (user preference)
 
 ## Critical Rules
 1. ALWAYS use migrations for DB changes
