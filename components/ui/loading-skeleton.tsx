@@ -6,14 +6,12 @@ import { BrainIcon, SparkleIcon } from '@/components/icons/line-icons'
 interface LoadingSkeletonProps {
   type?: 'card' | 'dashboard' | 'stats' | 'list' | 'review'
   message?: string
-  showIcon?: boolean
   className?: string
 }
 
 export function LoadingSkeleton({ 
   type = 'card', 
   message, 
-  showIcon = true,
   className = '' 
 }: LoadingSkeletonProps) {
   const prefersReducedMotion = typeof window !== 'undefined' 
@@ -37,7 +35,7 @@ export function LoadingSkeleton({
   if (type === 'card') {
     return (
       <div className={`p-6 bg-white rounded-3xl border border-black/5 ${className}`}>
-        {message && showIcon && (
+        {message && (
           <div className="flex items-center mb-4 text-center justify-center">
             <motion.div
               animate={!prefersReducedMotion ? { rotate: [0, 360] } : {}}
@@ -192,23 +190,21 @@ export function LoadingSkeleton({
       <div className={`min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] flex items-center justify-center ${className}`}>
         <div className="max-w-2xl w-full mx-auto px-8">
           <div className="p-10 bg-white border border-black/5 rounded-3xl shadow-lg">
-            {showIcon && (
-              <div className="flex items-center justify-center mb-8">
-                <motion.div
-                  animate={!prefersReducedMotion ? {
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1]
-                  } : {}}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                >
-                  <BrainIcon className="w-8 h-8 text-purple-500/70" />
-                </motion.div>
-              </div>
-            )}
+            <div className="flex items-center justify-center mb-8">
+              <motion.div
+                animate={!prefersReducedMotion ? {
+                  rotate: [0, 360],
+                  scale: [1, 1.1, 1]
+                } : {}}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
+                <BrainIcon className="w-8 h-8 text-purple-500/70" />
+              </motion.div>
+            </div>
             
             <motion.div 
               className="h-6 rounded-full mb-8 w-1/3"
