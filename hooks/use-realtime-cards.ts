@@ -243,35 +243,77 @@ export function useRealtimeStats(userId?: string) {
 export function useRealtimePresence(sessionId?: string) {
   const [activeUsers, setActiveUsers] = useState<any[]>([])
   const supabase = createClient()
+  
+  // Track subscription state to prevent race conditions
+  const presenceChannelRef = useRef<RealtimeChannel | null>(null)
+  const cleanupInProgressRef = useRef(false)
 
   useEffect(() => {
     if (!sessionId) return
 
-    const presenceChannel = supabase.channel(`study-session-${sessionId}`)
-    
-    presenceChannel
-      .on('presence', { event: 'sync' }, () => {
-        const state = presenceChannel.presenceState()
-        const users = Object.keys(state).flatMap(key => state[key])
-        setActiveUsers(users)
-      })
-      .on('presence', { event: 'join' }, ({ key, newPresences }) => {
-        console.log('User joined:', newPresences)
-      })
-      .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
-        console.log('User left:', leftPresences)
-      })
-      .subscribe(async (status) => {
-        if (status === 'SUBSCRIBED') {
-          await presenceChannel.track({
-            online_at: new Date().toISOString(),
-            user_id: sessionId
-          })
-        }
-      })
+    // Prevent creating new subscriptions while cleanup is in progress
+    if (cleanupInProgressRef.current) {
+      return
+    }
+
+    const setupSubscription = async () => {
+      cleanupInProgressRef.current = true
+      
+      // Clean up existing subscription before creating new one
+      if (presenceChannelRef.current) {
+        await presenceChannelRef.current.unsubscribe()
+        presenceChannelRef.current = null
+      }
+
+      // Create presence channel with unique identifier to prevent conflicts
+      const channelId = `study-session-${sessionId}-${Date.now()}`
+      const presenceChannel = supabase.channel(channelId)
+      
+      presenceChannel
+        .on('presence', { event: 'sync' }, () => {
+          // Only update state if this is still the current channel
+          if (presenceChannelRef.current === presenceChannel) {
+            const state = presenceChannel.presenceState()
+            const users = Object.keys(state).flatMap(key => state[key])
+            setActiveUsers(users)
+          }
+        })
+        .on('presence', { event: 'join' }, ({ key, newPresences }) => {
+          console.log('User joined:', newPresences)
+        })
+        .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
+          console.log('User left:', leftPresences)
+        })
+        .subscribe(async (status) => {
+          // Only track presence if this is still the current channel
+          if (status === 'SUBSCRIBED' && presenceChannelRef.current === presenceChannel) {
+            await presenceChannel.track({
+              online_at: new Date().toISOString(),
+              user_id: sessionId
+            })
+          }
+        })
+
+      // Store reference to prevent duplicate subscriptions
+      presenceChannelRef.current = presenceChannel
+      cleanupInProgressRef.current = false
+    }
+
+    setupSubscription()
 
     return () => {
-      presenceChannel.unsubscribe()
+      cleanupInProgressRef.current = true
+      
+      const cleanup = async () => {
+        if (presenceChannelRef.current) {
+          await presenceChannelRef.current.unsubscribe()
+          presenceChannelRef.current = null
+        }
+        setActiveUsers([])
+        cleanupInProgressRef.current = false
+      }
+      
+      cleanup()
     }
   }, [sessionId])
 
