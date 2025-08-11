@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useState, useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { ArrowRight, Search, Users, Clock } from 'lucide-react'
+import { ArrowRight, Search, Users, Clock, X } from 'lucide-react'
 import { BrainIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
 
@@ -95,6 +95,7 @@ const curated = [
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [filteredCategories, setFilteredCategories] = useState(categories)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -142,24 +143,62 @@ export default function ExplorePage() {
                 type="text"
                 placeholder="Search topics, concepts, or skills..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && searchQuery.trim()) {
-                    // Filter categories based on search
+                onChange={(e) => {
+                  const query = e.target.value
+                  setSearchQuery(query)
+                  
+                  // Filter categories in real-time
+                  if (query.trim()) {
                     const filtered = categories.filter(cat => 
-                      cat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      cat.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      cat.featured.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()))
+                      cat.name.toLowerCase().includes(query.toLowerCase()) ||
+                      cat.description.toLowerCase().includes(query.toLowerCase()) ||
+                      cat.featured.some(f => f.toLowerCase().includes(query.toLowerCase()))
                     )
-                    if (filtered.length > 0) {
-                      setSelectedCategory(filtered[0].id)
-                    }
+                    setFilteredCategories(filtered)
+                  } else {
+                    setFilteredCategories(categories)
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim() && filteredCategories.length > 0) {
+                    // Select first result on Enter
+                    setSelectedCategory(filteredCategories[0].id)
+                    // Scroll to categories section
+                    ref.current?.scrollIntoView({ behavior: 'smooth' })
                   }
                 }}
                 className="w-full px-6 py-4 pr-12 bg-white border border-black/10 rounded-2xl focus:outline-none focus:border-black/30 transition-colors text-base"
               />
-              <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-black/30" />
+              {searchQuery ? (
+                <button
+                  onClick={() => {
+                    setSearchQuery('')
+                    setFilteredCategories(categories)
+                  }}
+                  className="absolute right-5 top-1/2 -translate-y-1/2 p-1 hover:bg-black/5 rounded-lg transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X className="w-5 h-5 text-black/40 hover:text-black/60" />
+                </button>
+              ) : (
+                <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-black/30" />
+              )}
             </div>
+            
+            {/* Search Results Indicator */}
+            {searchQuery && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 text-sm text-black/60"
+              >
+                {filteredCategories.length > 0 ? (
+                  <span>Found {filteredCategories.length} {filteredCategories.length === 1 ? 'category' : 'categories'} matching &quot;{searchQuery}&quot;</span>
+                ) : (
+                  <span>No categories found for &quot;{searchQuery}&quot;. Try different keywords.</span>
+                )}
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>
@@ -175,7 +214,7 @@ export default function ExplorePage() {
             <h2 className="text-3xl font-serif font-light mb-12">Browse by domain</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {categories.map((category, index) => (
+              {filteredCategories.map((category, index) => (
                 <motion.div
                   key={category.id}
                   initial={{ opacity: 0, y: 30 }}
