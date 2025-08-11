@@ -136,18 +136,18 @@ export default function EnterprisePage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC]">
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.015]"
+        <div className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
-                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 50%)`
           }}
         />
 
         <motion.div 
-          className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10"
+          className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -173,12 +173,12 @@ export default function EnterprisePage() {
             <div className="flex flex-wrap gap-6">
               <button 
                 onClick={() => window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Demo Request'}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white rounded-full hover:bg-black/90 transition-colors">
+                className="inline-flex items-center gap-3 px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors">
                 <span className="text-lg">Schedule a demo</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
               
-              <Link href="#testimonials" className="group inline-flex items-center gap-3 px-8 py-4">
+              <Link href="#testimonials" className="group inline-flex items-center gap-3 px-6 py-3">
                 <span className="text-lg text-black/70 hover:text-black transition-colors">
                   View testimonials
                 </span>
@@ -202,7 +202,7 @@ export default function EnterprisePage() {
 
       {/* Key Metrics */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             ref={ref}
             initial={{ opacity: 0, y: 20 }}
@@ -234,7 +234,7 @@ export default function EnterprisePage() {
 
       {/* Features Grid */}
       <section className="py-20 bg-[#FAFAF9]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -263,7 +263,7 @@ export default function EnterprisePage() {
 
       {/* Use Cases */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-3xl font-serif font-light mb-16">Proven use cases</h2>
           
           <div className="grid md:grid-cols-2 gap-8">
@@ -298,7 +298,7 @@ export default function EnterprisePage() {
 
       {/* Testimonials */}
       <section id="testimonials" className="py-20 bg-[#FAFAF9]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-3xl font-serif font-light mb-16 text-center">
             Trusted by industry leaders
           </h2>
@@ -335,7 +335,7 @@ export default function EnterprisePage() {
 
       {/* Enterprise Plans */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-serif font-light mb-4">Enterprise plans</h2>
             <p className="text-black/60">Flexible pricing that scales with your organization</p>
@@ -408,7 +408,7 @@ export default function EnterprisePage() {
 
       {/* Security & Compliance */}
       <section className="py-20 bg-[#FAFAF9]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <SparkleIcon className="w-12 h-12 mx-auto mb-4 text-black/70" />
             <h2 className="text-3xl font-serif font-light mb-4">Enterprise security & compliance</h2>
@@ -447,12 +447,12 @@ export default function EnterprisePage() {
           <div className="flex items-center justify-center gap-4">
             <button 
               onClick={() => window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Demo Request'}
-              className="px-8 py-3 bg-white text-black rounded-full hover:bg-white/90 transition-colors">
+              className="px-6 py-3 bg-white text-black rounded-full hover:bg-white/90 transition-colors">
               Schedule Demo
             </button>
             <button 
               onClick={() => window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Sales Inquiry'}
-              className="px-8 py-3 border border-white/30 rounded-full hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+              className="px-6 py-3 border border-white/30 rounded-full hover:bg-white/10 transition-colors inline-flex items-center gap-2">
               <SparkleIcon className="w-4 h-4" />
               Talk to Sales
             </button>

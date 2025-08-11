@@ -67,18 +67,18 @@ export default function ResearchPage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC]">
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.015]"
+        <div className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
-                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 50%)`
           }}
         />
 
         <motion.div 
-          className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10"
+          className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -123,7 +123,7 @@ export default function ResearchPage() {
 
       {/* Key Insights */}
       <section className="py-20 bg-white pattern-grid">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             ref={ref}
             initial={{ opacity: 0, y: 20 }}
@@ -153,7 +153,7 @@ export default function ResearchPage() {
 
       {/* Research Papers */}
       <section id="papers" className="py-20 bg-[#FAFAF9]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -179,7 +179,7 @@ export default function ResearchPage() {
                         <TrendingUp className="w-4 h-4 text-green-600" />
                         <span className="text-sm font-medium">{paper.citations} citations</span>
                       </div>
-                      <div className="px-3 py-1 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full">
+                      <div className="px-3 py-1 bg-blue-50 rounded-full">
                         <span className="text-xs font-medium">Impact: {paper.impact}</span>
                       </div>
                     </div>
@@ -222,7 +222,7 @@ export default function ResearchPage() {
 
       {/* Collaborations */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}

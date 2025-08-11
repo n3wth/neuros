@@ -47,7 +47,7 @@ export default function TrustIndicators() {
         <div className="mt-20 pt-8 border-t border-black/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-black/40">
-              © 2024 Neuros. All rights reserved.
+              © {new Date().getFullYear()} Neuros. All rights reserved.
             </p>
             <p className="text-xs text-black/40">
               A project by <a href="https://newth.ai" className="underline hover:text-black/60" target="_blank" rel="noopener noreferrer">newth.ai</a>

@@ -69,12 +69,12 @@ export default function AIShowcase() {
   }, [mouseX, mouseY])
 
   return (
-    <section ref={ref} className="py-32 bg-gradient-to-b from-white via-[#FAFAF9] to-white relative overflow-hidden">
-      {/* Additional subtle gradient orbs */}
-      <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-br from-purple-100/20 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-transparent rounded-full blur-3xl" />
+    <section ref={ref} className="py-32 bg-white relative overflow-hidden">
+      {/* Subtle background accent */}
+      <div className="absolute top-20 left-1/4 w-96 h-96 bg-black/[0.01] rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-black/[0.01] rounded-full blur-3xl" />
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div 
           className="max-w-4xl mb-20"
@@ -122,7 +122,7 @@ export default function AIShowcase() {
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    background: `radial-gradient(circle at top left, ${feature.color}10 0%, transparent 50%)`,
+                    backgroundColor: `${feature.color}05`,
                   }}
                 />
 

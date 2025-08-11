@@ -25,16 +25,16 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
   }, [words.length])
 
   return (
-    <section ref={ref} className="relative min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC] overflow-hidden">
-      {/* Unified background pattern */}
-      <div className="absolute inset-0 opacity-[0.015]">
+    <section ref={ref} className="relative min-h-screen bg-[#FAFAF9] overflow-hidden">
+      {/* Clean background */}
+      <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
-                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
+          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 50%)`
         }} />
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 w-full pt-32 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-16">
         <div className="space-y-12">
           {/* Refined announcement */}
           <motion.div 
