@@ -161,7 +161,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
                   ]}
                   className="text-[clamp(4rem,10vw,9rem)] leading-[0.85]"
                   interval={2800}
-                  colors={['#000000', '#4169E1', '#32CD32', '#FF6B6B', '#9B59B6']}
+                  colors={['#000000', '#4f46e5', '#22c55e', '#ff6b6b', '#a855f7']}
                 />
                 <motion.span 
                   className="absolute -bottom-3 left-0 w-full h-[2px] bg-gradient-to-r from-black to-black/30 origin-left"
