@@ -142,10 +142,12 @@ export async function submitReview(
 
   revalidatePath('/dashboard')
   
+  const newMasteryLevel = Math.max(0, Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)))
+  
   return {
     success: true,
     nextReviewDate: sm2Result.nextReviewDate,
-    mastery: Math.max(0, Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)))
+    mastery: newMasteryLevel
   }
 }
 
