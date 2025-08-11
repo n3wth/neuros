@@ -402,8 +402,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               {studyStats && studyStats.current_streak_days > 0 && (
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full border border-black/10">
                   <RocketIcon className="w-4 h-4 text-black/70 stroke-[1.5]" />
-                  <span className="text-sm font-light text-black/70">
-                    {studyStats.current_streak_days} day streak
+                  <span className="text-sm font-light text-black/70 whitespace-nowrap">
+                    {studyStats.current_streak_days === 1 ? '1 day' : `${studyStats.current_streak_days} days`}
                   </span>
                 </div>
               )}
