@@ -154,7 +154,7 @@ export default function PricingPage() {
           </div>
 
           <h1 className="text-[clamp(3rem,6vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-8">
-            Simple pricing.
+            Simple pricing.{' '}
             <span className="block text-black/60 mt-2">Powerful results.</span>
           </h1>
 

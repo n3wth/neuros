@@ -1,1 +1,11 @@
-<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light mode background -->
+  <rect width="24" height="24" rx="4" fill="#FEFEFE"/>
+  <!-- Sparkle icon -->
+  <path d="M12 2 Q11.8 8.5 10.5 10.5 Q8.5 11.8 2 12 Q8.5 12.2 10.5 13.5 Q11.8 15.5 12 22 Q12.2 15.5 13.5 13.5 Q15.5 12.2 22 12 Q15.5 11.8 13.5 10.5 Q12.2 8.5 12 2" 
+        fill="none" 
+        stroke="#36454F" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>

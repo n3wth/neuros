@@ -81,24 +81,29 @@ export default function SiteHeader() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="relative text-sm text-black/60 hover:text-black transition-colors group"
-                >
-                  {item.name}
-                  {pathname === item.href ? (
-                    <motion.div 
-                      className="absolute -bottom-1 left-0 right-0 h-px bg-black"
-                      layoutId="navbar-indicator"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  ) : (
-                    <div className="absolute -bottom-1 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-                  )}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`relative text-sm transition-colors ${
+                      isActive ? 'text-black' : 'text-black/60 hover:text-black group'
+                    }`}
+                  >
+                    {item.name}
+                    {isActive ? (
+                      <motion.div 
+                        className="absolute -bottom-1 left-0 right-0 h-px bg-black"
+                        layoutId="navbar-indicator"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    ) : (
+                      <div className="absolute -bottom-1 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                    )}
+                  </Link>
+                )
+              })}
             </div>
           </div>
 

@@ -2,8 +2,8 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { Shield, Lock, Globe, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
-import { SparkleIcon, ShieldIcon, GlobeIcon, LockIcon } from '@/components/icons/line-icons'
 
 export default function TrustIndicators() {
   const ref = useRef(null)
@@ -15,76 +15,71 @@ export default function TrustIndicators() {
   ]
 
   const security = [
-    { icon: ShieldIcon, title: 'SOC 2 Type II', description: 'Certified security controls' },
-    { icon: LockIcon, title: 'End-to-end encryption', description: 'Your data stays private' },
-    { icon: GlobeIcon, title: 'GDPR compliant', description: 'Global privacy standards' },
-    { icon: ShieldIcon, title: 'ISO 27001', description: 'Information security certified' }
+    { icon: Shield, title: 'SOC 2 Type II', description: 'Certified security' },
+    { icon: Lock, title: 'End-to-end encryption', description: 'Data privacy' },
+    { icon: Globe, title: 'GDPR compliant', description: 'Global standards' },
+    { icon: CheckCircle, title: 'ISO 27001', description: 'Info security' }
   ]
 
   return (
-    <footer ref={ref} className="bg-white border-t border-gray-200">
-      {/* Trust Section */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <footer ref={ref} className="bg-white border-t border-black/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <p className="text-sm text-gray-600 mb-8">Trusted by learners at</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {companies.map((company, index) => (
-              <motion.span
+          <p className="text-xs font-mono text-black/60 tracking-widest uppercase mb-8">
+            Trusted by 50,000+ learners
+          </p>
+          
+          {/* Simple company logos list */}
+          <div className="flex flex-wrap justify-center gap-8 mb-16">
+            {companies.map((company) => (
+              <motion.div
                 key={company}
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="text-lg font-light text-gray-600 hover:text-gray-900 transition-colors"
+                transition={{ duration: 0.5, delay: Math.random() * 0.3 }}
+                className="text-sm font-light text-black/40 hover:text-black/60 transition-colors"
               >
                 {company}
-              </motion.span>
+              </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Security Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 py-12 border-t border-b border-gray-100"
-        >
+        {/* Security badges - simplified grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {security.map((item, index) => {
             const Icon = item.icon
             return (
-              <div key={index} className="text-center">
-                <Icon className="w-8 h-8 mx-auto mb-3 text-black/40 stroke-[1.5]" />
-                <p className="text-sm font-medium text-gray-900">{item.title}</p>
-                <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-              </div>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center"
+              >
+                <Icon className="w-6 h-6 mx-auto mb-3 text-black/30" />
+                <h3 className="text-sm font-medium text-black/80 mb-1">{item.title}</h3>
+                <p className="text-xs text-black/50">{item.description}</p>
+              </motion.div>
             )
           })}
-        </motion.div>
-      </div>
-
-      {/* Footer Links - Simplified */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
-          <Link href="/explore" className="text-gray-600 hover:text-black transition-colors">Explore</Link>
-          <Link href="/research" className="text-gray-600 hover:text-black transition-colors">Research</Link>
-          <Link href="/dashboard" className="text-gray-600 hover:text-black transition-colors">Dashboard</Link>
-          <span className="text-gray-300">|</span>
-          <Link href="/signin" className="text-gray-600 hover:text-black transition-colors">Sign In</Link>
-          <a href="https://twitter.com" className="text-gray-600 hover:text-black transition-colors">Twitter</a>
-          <a href="mailto:hello@neuros.ai" className="text-gray-600 hover:text-black transition-colors">Contact</a>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <SparkleIcon className="w-5 h-5 text-gray-400 stroke-[1.5]" />
-              <span className="text-sm text-gray-400">Neuros © 2025</span>
+        {/* Simple footer */}
+        <div className="mt-20 pt-8 border-t border-black/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-black/40">
+              © 2024 Neuros. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <Link href="/privacy" className="text-xs text-black/40 hover:text-black/60">Privacy</Link>
+              <Link href="/terms" className="text-xs text-black/40 hover:text-black/60">Terms</Link>
+              <Link href="/security" className="text-xs text-black/40 hover:text-black/60">Security</Link>
             </div>
             
             <div className="text-xs text-gray-400 font-light">

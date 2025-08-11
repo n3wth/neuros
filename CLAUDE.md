@@ -43,6 +43,63 @@ types/supabase.js       # Generated types
 4. Test with `npm run build` before deploy
 5. Use absolute paths for file operations
 
+## Git Worktrees for Parallel Development
+
+### Setup and Best Practices
+Git worktrees enable parallel development on multiple issues/features simultaneously. The project uses `.worktrees/` directory (gitignored) for all worktrees.
+
+### When to Use Worktrees
+- Working on multiple GitHub issues in parallel
+- Testing different approaches without branch switching
+- Reviewing PRs while continuing development
+- Running multiple dev servers for testing interactions
+- Keeping main branch stable while experimenting
+
+### Quick Setup
+```bash
+# Create worktree for an issue
+git worktree add .worktrees/issue-X -b fix-issue-X origin/main
+
+# List all worktrees
+git worktree list
+
+# Remove worktree when done
+git worktree remove .worktrees/issue-X
+```
+
+### Working in Worktrees
+```bash
+# Navigate to worktree
+cd .worktrees/issue-5
+
+# Install dependencies
+npm install
+
+# Copy env file
+cp ../../.env.local .
+
+# Make changes and test
+npm run dev
+
+# Commit and push
+git add .
+git commit -m "fix: description - Fixes #5"
+git push -u origin fix-issue-5
+```
+
+### Parallel Development Workflow
+1. Create worktrees for each issue: `.worktrees/issue-N`
+2. Work on fixes simultaneously in different terminals
+3. Each worktree has its own branch tracking an issue
+4. Push all branches and create PRs
+5. Clean up worktrees after PRs are merged
+
+### Important Notes
+- `.worktrees/` is gitignored - never commit worktree directories
+- Each worktree needs its own `node_modules` and `.env.local`
+- Use different ports when running multiple dev servers
+- Always create worktrees from latest main: `origin/main`
+
 ## Deployment Tracking
 
 ### Deployment Status File

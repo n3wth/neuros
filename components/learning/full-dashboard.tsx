@@ -9,7 +9,6 @@ import {
   BookIcon, 
   RocketIcon, 
   BeakerIcon,
-  PaletteIcon,
   HeartIcon,
   PlusIcon,
   PlayIcon,
@@ -25,7 +24,6 @@ import { signOut } from '@/server/actions/auth'
 import Link from 'next/link'
 import CreateCardDialog from './create-card-dialog'
 import ReviewInterface from './review-interface'
-import ImageGenerator from './image-generator'
 import AIFeaturesSettings from './ai-features-settings'
 import { 
   getUserCards, 
@@ -69,7 +67,7 @@ interface FullLearningDashboardProps {
   user: User
 }
 
-type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'images' | 'settings' | 'knowledge' | 'network' | 'viral'
+type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
 
 export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
@@ -299,20 +297,20 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               <nav className="hidden md:flex items-center space-x-1">
                 <button
                   onClick={() => setViewMode('overview')}
-                  className={`px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
                     viewMode === 'overview' 
                       ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   Overview
                 </button>
                 <button
                   onClick={() => setViewMode('review')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
                     viewMode === 'review' 
                       ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <BrainIcon className="w-5 h-5 stroke-[2]" />
@@ -320,10 +318,10 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </button>
                 <button
                   onClick={() => setViewMode('browse')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
                     viewMode === 'browse' 
                       ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <BookIcon className="w-5 h-5 stroke-[2]" />
@@ -331,32 +329,21 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </button>
                 <button
                   onClick={() => setViewMode('stats')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
                     viewMode === 'stats' 
                       ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <ChartIcon className="w-5 h-5 stroke-[2]" />
                   Stats
                 </button>
                 <button
-                  onClick={() => setViewMode('images')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
-                    viewMode === 'images' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
-                  }`}
-                >
-                  <PaletteIcon className="w-5 h-5 stroke-[2]" />
-                  Images
-                </button>
-                <button
                   onClick={() => setViewMode('settings')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
                     viewMode === 'settings' 
                       ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <BeakerIcon className="w-5 h-5 stroke-[2]" />
@@ -364,10 +351,10 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </button>
                 <button
                   onClick={() => setViewMode('knowledge')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-1 ${
                     viewMode === 'knowledge' 
                       ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <SparkleIcon className="w-5 h-5 stroke-[2]" />
@@ -375,10 +362,10 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </button>
                 <button
                   onClick={() => setViewMode('network')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-1 ${
                     viewMode === 'network' 
                       ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <HeartIcon className="w-5 h-5 stroke-[2]" />
@@ -386,10 +373,10 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </button>
                 <button
                   onClick={() => setViewMode('viral')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-green-500/20 focus:ring-offset-1 ${
                     viewMode === 'viral' 
                       ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
+                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
                   <RocketIcon className="w-5 h-5 stroke-[2]" />
@@ -400,17 +387,17 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
 
             <div className="flex items-center space-x-3">
               {studyStats && studyStats.current_streak_days > 0 && (
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full border border-black/10">
-                  <RocketIcon className="w-4 h-4 text-black/70 stroke-[1.5]" />
-                  <span className="text-sm font-light text-black/70">
-                    {studyStats.current_streak_days} day streak
+                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-white/90 rounded-full border border-black/10 hover:border-black/20 transition-all duration-300">
+                  <RocketIcon className="w-4 h-4 text-black/70 hover:text-black/80 stroke-[1.5] transition-colors duration-300" />
+                  <span className="text-sm font-light text-black/70 hover:text-black/80 whitespace-nowrap transition-colors duration-300">
+                    {studyStats.current_streak_days === 1 ? '1 day' : `${studyStats.current_streak_days} days`}
                   </span>
                 </div>
               )}
               
               <Button
                 onClick={() => setIsCreateDialogOpen(true)}
-                className="bg-black text-white hover:bg-black/90 rounded-full px-6 font-light shadow-sm hover:shadow-md transition-all duration-300"
+                className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-6 font-light shadow-sm hover:shadow-md focus:shadow-md focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
               >
                 <PlusIcon className="w-4 h-4 mr-2 stroke-[1.5]" />
                 New Card
@@ -418,10 +405,11 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
 
               <button
                 onClick={async () => await signOut()}
-                className="p-2.5 hover:bg-black/5 rounded-full transition-all duration-300 group"
+                className="p-2.5 hover:bg-black/5 focus:bg-black/5 rounded-full transition-all duration-300 group focus:ring-2 focus:ring-black/20 focus:ring-offset-1"
                 title="Sign out"
+                aria-label="Sign out"
               >
-                <LogOutIcon className="w-4 h-4 text-black/60 group-hover:text-black/80 stroke-[1.5]" />
+                <LogOutIcon className="w-4 h-4 text-black/60 group-hover:text-black/90 group-focus:text-black/90 stroke-[1.5] transition-colors duration-300" />
               </button>
             </div>
           </div>
@@ -530,7 +518,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </motion.div>
               </div>
 
-              <div className="grid lg:grid-cols-3 gap-8">
+              <div className="grid lg:grid-cols-3 gap-8 items-start">
                 {/* Main Action Area */}
                 <div className="lg:col-span-2">
                   {/* Start Review Card */}
@@ -550,7 +538,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                             </p>
                             <Button
                               onClick={handleStartReview}
-                              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+                              className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                             >
                               <PlayIcon className="w-4 h-4 mr-2" />
                               Start Review Session
@@ -578,14 +566,14 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 <div className="flex flex-col sm:flex-row gap-3">
                                   <Button
                                     onClick={() => setIsCreateDialogOpen(true)}
-                                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+                                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                   >
                                     <PlusIcon className="w-4 h-4 mr-2" />
                                     Create First Card
                                   </Button>
                                   <Button
                                     onClick={() => setViewMode('settings')}
-                                    className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                    className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                     variant="outline"
                                   >
                                     <BeakerIcon className="w-4 h-4 mr-2" />
@@ -623,14 +611,14 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 <div className="flex flex-col sm:flex-row gap-3">
                                   <Button
                                     onClick={() => setIsCreateDialogOpen(true)}
-                                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+                                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                   >
                                     <PlusIcon className="w-4 h-4 mr-2" />
                                     Add New Cards
                                   </Button>
                                   <Button
                                     onClick={() => setViewMode('stats')}
-                                    className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                    className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                     variant="outline"
                                   >
                                     <ChartIcon className="w-4 h-4 mr-2" />
@@ -651,7 +639,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 </p>
                                 <Button
                                   onClick={() => setIsCreateDialogOpen(true)}
-                                  className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                  className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                   variant="outline"
                                 >
                                   <PlusIcon className="w-4 h-4 mr-2" />
@@ -667,7 +655,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 </p>
                                 <Button
                                   onClick={() => setIsCreateDialogOpen(true)}
-                                  className="border-black/20 text-black hover:bg-black/5 rounded-full px-8 py-3 font-light transition-all duration-300"
+                                  className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                   variant="outline"
                                 >
                                   <PlusIcon className="w-4 h-4 mr-2" />
@@ -875,7 +863,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="space-y-3">
                       <Button
                         variant="outline"
-                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 hover:bg-black/5 rounded-2xl p-4 font-light transition-all duration-300"
+                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 focus:border-black/20 hover:bg-black/5 focus:bg-black/5 rounded-2xl p-4 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                         onClick={() => setViewMode('browse')}
                       >
                         <SearchIcon className="w-4 h-4 mr-3 text-black/60" />
@@ -883,7 +871,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       </Button>
                       <Button
                         variant="outline"
-                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 hover:bg-black/5 rounded-2xl p-4 font-light transition-all duration-300"
+                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 focus:border-black/20 hover:bg-black/5 focus:bg-black/5 rounded-2xl p-4 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                         onClick={() => setIsCreateDialogOpen(true)}
                       >
                         <PlusIcon className="w-4 h-4 mr-3 text-black/60" />
@@ -891,7 +879,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       </Button>
                       <Button
                         variant="outline"
-                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 hover:bg-black/5 rounded-2xl p-4 font-light transition-all duration-300"
+                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 focus:border-black/20 hover:bg-black/5 focus:bg-black/5 rounded-2xl p-4 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                         onClick={() => setViewMode('stats')}
                       >
                         <ChartIcon className="w-4 h-4 mr-3 text-black/60" />
@@ -948,12 +936,13 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       placeholder="Search cards..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-12 pr-6 py-4 border border-black/10 rounded-full bg-white focus:outline-none focus:border-black/20 focus:shadow-sm transition-all duration-300 font-light"
+                      className="w-full pl-12 pr-6 py-4 border border-black/10 rounded-full bg-white focus:outline-none focus:border-black/30 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 focus:shadow-sm transition-all duration-300 font-light"
+                      aria-label="Search your learning cards"
                     />
                   </div>
                   <Button
                     onClick={() => setIsCreateDialogOpen(true)}
-                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-4 font-light shadow-sm hover:shadow-md transition-all duration-300"
+                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-4 font-light shadow-sm hover:shadow-md focus:shadow-md focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                   >
                     <PlusIcon className="w-4 h-4 mr-2" />
                     New Card
@@ -1011,8 +1000,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   </p>
                   <Button
                     onClick={() => setIsCreateDialogOpen(true)}
-                    className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
-                    variant="outline"
+                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                   >
                     Create Your First Card
                   </Button>
@@ -1148,27 +1136,6 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             </motion.div>
           )}
 
-          {viewMode === 'images' && (
-            <motion.div
-              key="images"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div 
-                className="mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-serif font-light mb-3 text-black/90">AI Image Generator</h2>
-                <p className="text-lg text-black/60 font-light">Create beautiful visuals for your learning cards using AI</p>
-              </motion.div>
-              
-              <ImageGenerator />
-            </motion.div>
-          )}
 
           {viewMode === 'settings' && (
             <motion.div

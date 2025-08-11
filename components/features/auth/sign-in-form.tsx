@@ -100,7 +100,8 @@ export function SignInForm() {
           id="email"
           type="email"
           placeholder="you@example.com"
-          className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          autoComplete="email"
+          className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
           {...form.register('email')}
         />
         {form.formState.errors.email && (
@@ -118,7 +119,8 @@ export function SignInForm() {
             id="password"
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
-            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            autoComplete="current-password"
+            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
             {...form.register('password')}
           />
           <button

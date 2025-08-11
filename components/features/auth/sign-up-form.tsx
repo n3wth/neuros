@@ -73,7 +73,7 @@ export function SignUpForm() {
         title: 'Success',
         description: 'Account created successfully! Please check your email to verify your account.',
       })
-      router.push('/signin')
+      router.push('/dashboard')
     }
   }
 

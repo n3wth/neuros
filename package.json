@@ -4,10 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "next dev -H 0.0.0.0 -p 3001",
+    "dev:80": "sudo next dev -H 0.0.0.0 -p 80",
+    "proxy:80": "sudo node proxy-80.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test --config=playwright-background.config.js",
     "db:reset": "supabase db reset",
     "db:types": "supabase gen types --local > types/supabase.ts",
     "prepare": "husky"
@@ -54,12 +62,14 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "^10.1.5",
+    "http-proxy": "^1.18.1",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^3.1.4"
+    "vitest": "^3.1.4",
+    "@playwright/test": "^1.54.2"
   }
 }
