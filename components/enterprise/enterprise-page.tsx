@@ -171,14 +171,16 @@ export default function EnterprisePage() {
             </p>
 
             <div className="flex flex-wrap gap-6">
-              <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white rounded-full hover:bg-black/90 transition-colors">
+              <button 
+                onClick={() => window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Demo Request'}
+                className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white rounded-full hover:bg-black/90 transition-colors">
                 <span className="text-lg">Schedule a demo</span>
                 <ArrowRight className="w-5 h-5" />
-              </Link>
+              </button>
               
-              <Link href="/case-studies" className="group inline-flex items-center gap-3 px-8 py-4">
+              <Link href="#testimonials" className="group inline-flex items-center gap-3 px-8 py-4">
                 <span className="text-lg text-black/70 hover:text-black transition-colors">
-                  View case studies
+                  View testimonials
                 </span>
               </Link>
             </div>
@@ -295,7 +297,7 @@ export default function EnterprisePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-[#FAFAF9]">
+      <section id="testimonials" className="py-20 bg-[#FAFAF9]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <h2 className="text-3xl font-serif font-light mb-16 text-center">
             Trusted by industry leaders
@@ -383,6 +385,13 @@ export default function EnterprisePage() {
                 </ul>
                 
                 <button 
+                  onClick={() => {
+                    if (plan.price === "Custom") {
+                      window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Plan Inquiry';
+                    } else {
+                      window.location.href = '/signup';
+                    }
+                  }}
                   className={`w-full px-6 py-3 rounded-full font-medium transition-colors ${
                     plan.featured 
                       ? 'bg-black text-white hover:bg-black/90' 
@@ -436,10 +445,14 @@ export default function EnterprisePage() {
             Join 500+ companies achieving 3.2x ROI with AI-powered learning
           </p>
           <div className="flex items-center justify-center gap-4">
-            <button className="px-8 py-3 bg-white text-black rounded-full hover:bg-white/90 transition-colors">
+            <button 
+              onClick={() => window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Demo Request'}
+              className="px-8 py-3 bg-white text-black rounded-full hover:bg-white/90 transition-colors">
               Schedule Demo
             </button>
-            <button className="px-8 py-3 border border-white/30 rounded-full hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+            <button 
+              onClick={() => window.location.href = 'mailto:hello@neuros.ai?subject=Enterprise Sales Inquiry'}
+              className="px-8 py-3 border border-white/30 rounded-full hover:bg-white/10 transition-colors inline-flex items-center gap-2">
               <SparkleIcon className="w-4 h-4" />
               Talk to Sales
             </button>

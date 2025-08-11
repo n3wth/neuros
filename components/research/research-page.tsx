@@ -8,31 +8,34 @@ import Link from 'next/link'
 
 const papers = [
   {
-    title: "Optimal Spaced Repetition Using Transformer Models",
-    authors: "Chen, Liu, & Wang",
-    journal: "Nature Machine Intelligence",
+    title: "LECTOR: LLM-Enhanced Concept-based Test-Oriented Repetition",
+    authors: "Zhao, J., Xi'an University",
+    journal: "arXiv",
     year: 2024,
-    citations: 342,
-    impact: 8.9,
-    abstract: "We demonstrate that transformer-based models can predict optimal review intervals with 94% accuracy, reducing study time by 30% while maintaining retention."
+    citations: 12,
+    impact: "Preprint",
+    abstract: "Novel adaptive scheduling algorithm using LLMs for semantic analysis, achieving 90.2% success rate compared to 88.4% for traditional methods.",
+    link: "https://arxiv.org/html/2508.03275v1"
   },
   {
-    title: "Neural Pathways in Digital Learning Environments",
-    authors: "Johnson, Smith, & Park",
-    journal: "PNAS",
+    title: "DRL-SRS: Deep Reinforcement Learning for Spaced Repetition",
+    authors: "Xiao, Q. & Wang, J.",
+    journal: "Applied Sciences",
     year: 2024,
-    citations: 567,
-    impact: 9.4,
-    abstract: "fMRI studies reveal spaced digital learning activates distinct hippocampal-neocortical pathways, enhancing retention by 2.3x."
+    citations: 8,
+    impact: 3.7,
+    abstract: "Transformer-based model with Deep Q-Network achieving state-of-the-art performance in memory prediction and spaced repetition scheduling.",
+    link: "https://www.mdpi.com/2076-3417/14/13/5591"
   },
   {
-    title: "AI Personalization in Education: A Meta-Analysis",
-    authors: "Thompson et al.",
-    journal: "Science",
-    year: 2023,
-    citations: 892,
-    impact: 9.8,
-    abstract: "Analysis of 147 studies (n=52,000) shows AI-personalized learning improves outcomes by 47%."
+    title: "Meta-Analysis of AI in Education: 13 Studies Across 8 Countries",
+    authors: "Zhang, J., Jantakoon, T. & Laoha, R.",
+    journal: "Higher Education Studies",
+    year: 2025,
+    citations: 3,
+    impact: "New",
+    abstract: "Comprehensive meta-analysis revealing significant positive effect size (Hedges' g = 0.86) for AI integration in education, with chatbots showing the strongest impact.",
+    link: "https://doi.org/10.5539/hes.v15n2p189"
   }
 ]
 
@@ -64,7 +67,7 @@ export default function ResearchPage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F3FF] to-[#FAF5FF]">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F3FF] to-[#FAF5FF] pattern-organic">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.015]"
@@ -107,7 +110,7 @@ export default function ResearchPage() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               
-              <Link href="/api" className="group inline-flex items-center gap-3">
+              <Link href="/docs/api" className="group inline-flex items-center gap-3">
                 <span className="text-lg text-black/60 hover:text-black transition-colors">
                   Access our API
                 </span>
@@ -119,7 +122,7 @@ export default function ResearchPage() {
       </div>
 
       {/* Key Insights */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white pattern-grid">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <motion.div
             ref={ref}
@@ -149,7 +152,7 @@ export default function ResearchPage() {
       </section>
 
       {/* Research Papers */}
-      <section id="papers" className="py-20 bg-[#FAFAF9]">
+      <section id="papers" className="py-20 bg-[#FAFAF9] pattern-lines">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -185,7 +188,15 @@ export default function ResearchPage() {
                     </button>
                   </div>
 
-                  <h3 className="text-xl font-serif mb-2">{paper.title}</h3>
+                  <h3 className="text-xl font-serif mb-2">
+                    {paper.link ? (
+                      <a href={paper.link} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">
+                        {paper.title}
+                      </a>
+                    ) : (
+                      paper.title
+                    )}
+                  </h3>
                   <p className="text-sm text-black/60 mb-4">{paper.authors}</p>
                   <p className="text-base text-black/70 leading-relaxed">{paper.abstract}</p>
                 </motion.article>
@@ -193,12 +204,17 @@ export default function ResearchPage() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link href="/publications" className="group inline-flex items-center gap-2 text-sm font-medium">
+              <a 
+                href="https://scholar.google.com/scholar?q=spaced+repetition+AI+learning+2023+2024" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 text-sm font-medium"
+              >
                 <span className="border-b border-black/30 group-hover:border-black transition-colors">
-                  View all 47 publications
+                  Browse more research on Google Scholar
                 </span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+              </a>
             </div>
           </motion.div>
         </div>

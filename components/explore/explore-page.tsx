@@ -99,7 +99,7 @@ export default function ExplorePage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F0FDF4] to-[#F5FFF7]">
+    <div className="min-h-screen bg-gradient-to-br from-[#F0FDF4] to-[#F5FFF7] pattern-paper">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         {/* Background Pattern */}
@@ -143,6 +143,19 @@ export default function ExplorePage() {
                 placeholder="Search topics, concepts, or skills..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    // Filter categories based on search
+                    const filtered = categories.filter(cat => 
+                      cat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      cat.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      cat.featured.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()))
+                    )
+                    if (filtered.length > 0) {
+                      setSelectedCategory(filtered[0].id)
+                    }
+                  }
+                }}
                 className="w-full px-6 py-4 pr-12 bg-white border border-black/10 rounded-2xl focus:outline-none focus:border-black/30 transition-colors text-base"
               />
               <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-black/30" />
@@ -152,7 +165,7 @@ export default function ExplorePage() {
       </div>
 
       {/* Categories Grid */}
-      <section ref={ref} className="py-20 bg-white">
+      <section ref={ref} className="py-20 bg-white pattern-dots">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -5,9 +5,10 @@ import OpenAI from 'openai'
 import { createCard } from './cards'
 import { checkMultipleRateLimits } from '@/lib/rate-limit-server'
 import { RateLimitExceededError } from '@/lib/rate-limit'
+import { env } from '@/lib/env'
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: env.OPENAI_API_KEY
 })
 
 // Generate flashcards from text using AI

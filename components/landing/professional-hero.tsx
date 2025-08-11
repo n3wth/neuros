@@ -40,7 +40,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
     <motion.section 
       ref={heroRef}
       style={{ opacity }}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5]"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] pattern-mesh"
     >
       {/* Background Pattern - matching auth pages */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
