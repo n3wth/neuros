@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Shield, Lock, Globe, CheckCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export default function TrustIndicators() {
   const ref = useRef(null)
@@ -76,9 +77,21 @@ export default function TrustIndicators() {
               © 2024 Neuros. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <a href="/privacy" className="text-xs text-black/40 hover:text-black/60">Privacy</a>
-              <a href="/terms" className="text-xs text-black/40 hover:text-black/60">Terms</a>
-              <a href="/security" className="text-xs text-black/40 hover:text-black/60">Security</a>
+              <Link href="/privacy" className="text-xs text-black/40 hover:text-black/60">Privacy</Link>
+              <Link href="/terms" className="text-xs text-black/40 hover:text-black/60">Terms</Link>
+              <Link href="/security" className="text-xs text-black/40 hover:text-black/60">Security</Link>
+            </div>
+            
+            <div className="text-xs text-gray-400 font-light">
+              A pet project by{' '}
+              <a
+                href="https://newth.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 font-light hover:text-gray-600 transition-colors"
+              >
+                Oliver Newth
+              </a>
             </div>
           </div>
         </div>
