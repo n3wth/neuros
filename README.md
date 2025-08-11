@@ -1,10 +1,6 @@
-# Neuros - AI-Powered Learning Platform
-
-<div align="center">
+# neuros - experimental project for testing ai dev tools and mcp integrations
 
 **An experimental learning platform with AI-powered flashcard generation and spaced repetition**
-
-</div>
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.4-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
