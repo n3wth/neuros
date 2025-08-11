@@ -2,15 +2,20 @@
 
 ## Current Status
 
+### PR #36: fix-8-mastery-level-negative  
+- **Status**: ✅ READY (in review)
+- **Branch**: `fix-8-mastery-level-negative`
+- **Latest Commit**: `63d8419` (fix: prevent mastery level from going negative)
+- **Issue**: Fixes #8 - mastery level bounds checking
+- **Last Updated**: 2025-08-11 UTC
+
 ### PR #32: enhance-explore-patterns
-- **Status**: ✅ **READY** (mock client deployed)
-- **Deployment ID**: `dpl_Ho8wdFvktqSGZVuoCspEQoLDGreV`
-- **Latest Commit**: `f8e49bf` (fix: improve TypeScript types for mock Supabase client)
+- **Status**: ✅ READY  
+- **Deployment ID**: `dpl_FsLRzwHdnqYZ289gsChmqDcga2L6`
 - **Preview URL**: https://neuros-git-enhance-explore-patterns-newth.vercel.app
-- **Direct URL**: https://neuros-2ex68dt9u-newth.vercel.app
 - **Branch Alias**: neuros-git-enhance-explore-patterns-newth.vercel.app
-- **Fix Applied**: Mock Supabase client that returns null/empty data instead of making HTTP requests
-- **Last Updated**: 2025-01-11 01:25 UTC
+- **Last Updated**: 2025-01-11 01:05 UTC
+- **Commit**: `139a7f7` (fix: handle missing Supabase environment variables gracefully)
 
 ### Production (main branch)
 - **Status**: ✅ READY
@@ -25,13 +30,12 @@
 - **Team**: Oliver Newth
 
 ## Recent Key Changes
-- ✅ **MERGED PR #32**: Refined background patterns (2-6x smaller for subtle detail)
-- ✅ **MERGED PR #34**: Fixed SVG background aspect ratios to prevent stretching
-- ✅ Added mock Supabase client for preview deployments (now with real env vars in Vercel)
+- ✅ **PR #36**: Fixed mastery level calculation to prevent negative values
+- ✅ Fixed 500 errors in preview deployments (Supabase env var handling)
 - ✅ Added GitHub Actions permissions for PR comments
 - ✅ Made all public pages dynamic to prevent build failures
+- ✅ Refined background patterns to be 2-6x smaller for subtle detail
 - ✅ Added TextMorph component with particle effects
-- ❌ PR #26, #27 have merge conflicts (need rebase)
 
 ## Quick Commands
 ```bash

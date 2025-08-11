@@ -225,7 +225,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] relative overflow-hidden">
       {/* Background Pattern */}
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
         <defs>
           <pattern id="dots-review" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
             <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.02)" />
