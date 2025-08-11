@@ -1,0 +1,74 @@
+# Page snapshot
+
+```yaml
+- navigation:
+  - link "Neuros":
+    - /url: /
+  - link "Explore":
+    - /url: /explore
+  - link "Research":
+    - /url: /research
+  - link "Enterprise":
+    - /url: /enterprise
+  - link "Pricing":
+    - /url: /pricing
+  - link "Sign in":
+    - /url: /signin
+  - link "Get started":
+    - /url: /signup
+    - text: Get started
+    - img
+- paragraph: Introducing GPT-5
+- heading "Remember everything. No more forgetting." [level=1]
+- paragraph: We built a learning system that works like your brain does—making connections, finding patterns, and storing memories exactly when they're about to fade.
+- link "Get started":
+  - /url: /signup
+- img
+- heading "Intelligent Spacing" [level=3]
+- paragraph: Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories.
+- text: 87% retention after 30 days
+- img
+- heading "AI Generation" [level=3]
+- paragraph: Transform any content into perfect study materials with GPT-5. From PDFs to lectures—we make it stick.
+- text: 2.3× faster mastery
+- img
+- heading "Deep Analytics" [level=3]
+- paragraph: See your learning patterns emerge. Discover your peak performance times and optimal review schedules.
+- text: 15min daily commitment
+- blockquote: “I've tried every learning app out there. This is the first one that actually made me remember things months later. The science behind it is solid.”
+- text: DR Dr. Sarah Chen Neuroscientist, Stanford
+- paragraph: The Science
+- heading "Not just another learning app." [level=2]
+- paragraph: We didn't build features. We built a cognitive architecture that understands how human memory actually works—then amplified it with AI.
+- img
+- paragraph: Intelligent Spacing
+- heading "Memory that mirrors yours" [level=3]
+- paragraph: Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories, not temporary knowledge.
+- text: 87%
+- paragraph: retention after 30 days
+- paragraph: vs 23% traditional
+- img
+- paragraph: Adaptive Challenge
+- heading "Difficulty that evolves" [level=3]
+- paragraph: Like a personal tutor that knows exactly when to push you harder and when to ease up. Every session calibrated to your current ability.
+- text: 2.3×
+- paragraph: faster mastery
+- paragraph: personalized pacing
+- img
+- paragraph: Deep Analytics
+- heading "Understanding, visualized" [level=3]
+- paragraph: See your learning patterns emerge. Discover your peak performance times, strongest subjects, and optimal review schedules.
+- text: 15min
+- paragraph: daily optimal
+- paragraph: science-backed duration
+- contentinfo:
+  - paragraph: Trusted by 50,000+ learners
+  - text: Google Microsoft Meta Amazon Apple Stanford MIT Harvard Berkeley Oxford
+  - paragraph: © 2025 Neuros. All rights reserved.
+  - paragraph:
+    - text: A project by
+    - link "newth.ai":
+      - /url: https://newth.ai
+- region "Notifications alt+T"
+- alert
+```

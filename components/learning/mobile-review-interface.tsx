@@ -229,7 +229,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
 
   if (cards.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] flex items-center justify-center p-4 safe-top safe-bottom">
+      <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center p-4 safe-top safe-bottom">
         <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -254,7 +254,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
   return (
     <div 
       ref={containerRef}
-      className="min-h-screen bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] relative overflow-hidden mobile-scroll"
+      className="min-h-screen bg-[#FAFAF9] relative overflow-hidden mobile-scroll"
     >
       {/* Pull to refresh indicator */}
       <div className="pull-to-refresh">
@@ -270,7 +270,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
           </div>
           <div className="h-1 bg-black/5 rounded-full overflow-hidden">
             <motion.div 
-              className="h-full bg-gradient-to-r from-green-500 to-blue-500"
+              className="h-full bg-black/30"
               initial={{ width: 0 }}
               animate={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -356,7 +356,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100"
+                          className="mt-4 p-4 bg-blue-50 rounded-2xl border border-blue-100"
                         >
                           <div className="flex items-center mb-2">
                             <LightbulbIcon className="w-5 h-5 text-blue-600 mr-2" />

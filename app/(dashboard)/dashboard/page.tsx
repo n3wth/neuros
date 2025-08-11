@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   } catch (error) {
     console.error('Dashboard page error:', error)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-serif font-light mb-4">Something went wrong</h1>
           <p className="text-black/60">Please try refreshing the page or contact support.</p>

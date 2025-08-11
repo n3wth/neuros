@@ -264,7 +264,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
 
   if (error && !stats) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-8">
           <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center">
             <RefreshIcon className="w-8 h-8 text-red-500 stroke-[1.5]" />
@@ -284,7 +284,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5]">
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Header */}
       <header className="bg-white/70 backdrop-blur-md border-b border-black/5 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -353,7 +353,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   onClick={() => setViewMode('knowledge')}
                   className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-1 ${
                     viewMode === 'knowledge' 
-                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white' 
+                      ? 'bg-purple-600 text-white' 
                       : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
@@ -364,7 +364,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   onClick={() => setViewMode('network')}
                   className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-1 ${
                     viewMode === 'network' 
-                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white' 
+                      ? 'bg-blue-600 text-white' 
                       : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
@@ -375,7 +375,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   onClick={() => setViewMode('viral')}
                   className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-green-500/20 focus:ring-offset-1 ${
                     viewMode === 'viral' 
-                      ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white' 
+                      ? 'bg-green-600 text-white' 
                       : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
@@ -754,7 +754,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="space-y-4">
                       {completionState?.type === 'new_user' ? (
                         <motion.div 
-                          className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100"
+                          className="p-4 bg-blue-50 rounded-2xl border border-blue-100"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: 0.6 }}
@@ -779,7 +779,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                         </motion.div>
                       ) : completionState?.type === 'completed_today' ? (
                         <motion.div 
-                          className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100"
+                          className="p-4 bg-green-50 rounded-2xl border border-green-100"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: 0.6 }}
@@ -806,7 +806,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                         aiInsights.slice(0, 2).map((insight, index) => (
                           <motion.div 
                             key={index} 
-                            className="p-4 bg-gradient-to-r from-gray-50 to-gray-50/50 rounded-2xl"
+                            className="p-4 bg-gray-50 rounded-2xl"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
@@ -1093,7 +1093,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       </div>
                       <div className="h-4 bg-black/5 rounded-full overflow-hidden">
                         <motion.div 
-                          className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+                          className="h-full bg-green-500 rounded-full"
                           initial={{ width: 0 }}
                           animate={{ width: `${stats && stats.totalCards > 0 ? (stats.mastered / stats.totalCards) * 100 : 0}%` }}
                           transition={{ duration: 1, delay: 0.7 }}
@@ -1108,7 +1108,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       </div>
                       <div className="h-4 bg-black/5 rounded-full overflow-hidden">
                         <motion.div 
-                          className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+                          className="h-full bg-orange-400 rounded-full"
                           initial={{ width: 0 }}
                           animate={{ width: `${stats && stats.totalCards > 0 ? (stats.learning / stats.totalCards) * 100 : 0}%` }}
                           transition={{ duration: 1, delay: 0.8 }}
@@ -1123,7 +1123,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       </div>
                       <div className="h-4 bg-black/5 rounded-full overflow-hidden">
                         <motion.div 
-                          className="h-full bg-gradient-to-r from-red-400 to-pink-400 rounded-full"
+                          className="h-full bg-red-400 rounded-full"
                           initial={{ width: 0 }}
                           animate={{ width: `${stats && stats.totalCards > 0 ? (stats.difficult / stats.totalCards) * 100 : 0}%` }}
                           transition={{ duration: 1, delay: 0.9 }}

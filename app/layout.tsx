@@ -59,6 +59,29 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "32x32" },
     ],
   },
+  openGraph: {
+    title: "Neuros - AI-Powered Learning Platform",
+    description: "Master any subject with AI-powered spaced repetition and personalized learning paths",
+    url: "https://neuros.newth.ai",
+    siteName: "Neuros",
+    images: [
+      {
+        url: "https://neuros.newth.ai/cover.jpg",
+        width: 1280,
+        height: 640,
+        alt: "Neuros - AI-Powered Learning Platform",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Neuros - AI-Powered Learning Platform",
+    description: "Master any subject with AI-powered spaced repetition and personalized learning paths",
+    images: ["https://neuros.newth.ai/cover.jpg"],
+    creator: "@olivernewth",
+  },
 };
 
 export default function RootLayout({

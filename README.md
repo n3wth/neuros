@@ -1,4 +1,4 @@
-![Neuros - AI-Powered Learning Platform](./public/cover.jpg)
+![Neuros - AI-Powered Learning Platform](https://raw.githubusercontent.com/n3wth/neuros/main/public/cover.jpg)
 
 # neuros - experimental project for testing ai dev tools and mcp integrations
 
