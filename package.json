@@ -18,7 +18,13 @@
     "test:e2e": "playwright test --config=playwright-background.config.js",
     "db:reset": "supabase db reset",
     "db:types": "supabase gen types --local > types/supabase.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "ai:start": "./start-ai-company.sh",
+    "ai:quality": "node scripts/ai-quality-monitor.js",
+    "ai:quality:fix": "node scripts/ai-quality-monitor.js --fix",
+    "ai:optimize": "python3 scripts/self-learning-optimizer.py",
+    "ai:deploy": "tsx scripts/ai-deployment-manager.ts",
+    "ai:deploy:check": "tsx scripts/ai-deployment-manager.ts --check"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
