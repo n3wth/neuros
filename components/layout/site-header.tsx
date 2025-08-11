@@ -35,17 +35,22 @@ export default function SiteHeader() {
   )
 
   useEffect(() => {
-    // Check for logged in user
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user)
-    })
+    // Only try to get user if Supabase is properly configured
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://placeholder.supabase.co') {
+      // Check for logged in user
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        setUser(user)
+      }).catch(err => {
+        console.warn('Failed to get user:', err)
+      })
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
+      // Listen for auth changes
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null)
+      })
 
-    return () => subscription.unsubscribe()
+      return () => subscription.unsubscribe()
+    }
   }, [supabase.auth])
 
   return (

@@ -43,6 +43,23 @@ types/supabase.js       # Generated types
 4. Test with `npm run build` before deploy
 5. Use absolute paths for file operations
 
+## Deployment Tracking
+
+### Deployment Status File
+- **Location**: `DEPLOYMENT_INFO.md` (root directory)
+- **Purpose**: Track current deployment status, URLs, and recent changes
+- **Usage**: Always check this file first for current preview/production URLs
+- **Update**: Keep updated after successful deployments
+
+### Quick Deployment Check
+```bash
+# Always read deployment info first
+cat DEPLOYMENT_INFO.md
+
+# Then verify with Vercel MCP if needed
+mcp__vercel__list_deployments("prj_tilPD4LXD0M7zeZOZowY48lH9VMR", "team_PV0n17OmGsIdCREzzoy8wVp7")
+```
+
 ## Testing Awareness
 
 ### Automatic Test Discovery

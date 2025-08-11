@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import PricingPage from '@/components/pricing/pricing-page'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Pricing - Neuros Learning',
   description: 'Choose the perfect plan for your learning journey.',
