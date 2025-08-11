@@ -2,8 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import Link from 'next/link'
-import { SparkleIcon, ShieldIcon, GlobeIcon, LockIcon } from '@/components/icons/line-icons'
+import { Shield, Lock, Globe, CheckCircle } from 'lucide-react'
 
 export default function TrustIndicators() {
   const ref = useRef(null)
@@ -15,136 +14,72 @@ export default function TrustIndicators() {
   ]
 
   const security = [
-    { icon: ShieldIcon, title: 'SOC 2 Type II', description: 'Certified security controls' },
-    { icon: LockIcon, title: 'End-to-end encryption', description: 'Your data stays private' },
-    { icon: GlobeIcon, title: 'GDPR compliant', description: 'Global privacy standards' },
-    { icon: ShieldIcon, title: 'ISO 27001', description: 'Information security certified' }
+    { icon: Shield, title: 'SOC 2 Type II', description: 'Certified security' },
+    { icon: Lock, title: 'End-to-end encryption', description: 'Data privacy' },
+    { icon: Globe, title: 'GDPR compliant', description: 'Global standards' },
+    { icon: CheckCircle, title: 'ISO 27001', description: 'Info security' }
   ]
 
   return (
-    <footer ref={ref} className="bg-white border-t border-gray-200">
-      {/* Trust Section */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 overflow-hidden">
-        {/* Background gradient orb */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-100/30 via-pink-100/30 to-blue-100/30 rounded-full blur-3xl" />
-        </div>
-        
+    <footer ref={ref} className="bg-white border-t border-black/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.div 
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100/50 mb-8"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.6, type: "spring" }}
-          >
-            <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-pulse" />
-            <p className="text-xs font-medium text-gray-700 tracking-wide uppercase">Trusted by 50,000+ learners</p>
-          </motion.div>
+          <p className="text-xs font-mono text-black/60 tracking-widest uppercase mb-8">
+            Trusted by 50,000+ learners
+          </p>
           
-          <div className="relative">
-            {/* Scrolling logos container */}
-            <div className="flex items-center justify-center gap-x-16 gap-y-8 flex-wrap">
-              {companies.map((company, index) => (
-                <motion.div
-                  key={company}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  className="group relative"
-                >
-                  <motion.span
-                    className="relative text-2xl font-light text-gray-400 hover:text-gray-900 transition-all duration-300 cursor-default"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    {company}
-                    <motion.span 
-                      className="absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-purple-400 to-pink-400 origin-left"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.span>
-                  {/* Decorative dot */}
-                  {index % 3 === 0 && (
-                    <motion.div 
-                      className="absolute -top-1 -right-1 w-1 h-1 rounded-full bg-purple-400"
-                      animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                    />
-                  )}
-                </motion.div>
-              ))}
-            </div>
+          {/* Simple company logos list */}
+          <div className="flex flex-wrap justify-center gap-8 mb-16">
+            {companies.map((company) => (
+              <motion.div
+                key={company}
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: Math.random() * 0.3 }}
+                className="text-sm font-light text-black/40 hover:text-black/60 transition-colors"
+              >
+                {company}
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Security Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 py-16 rounded-2xl bg-gradient-to-br from-gray-50/50 to-white border border-gray-100/50 backdrop-blur-sm"
-        >
+        {/* Security badges - simplified grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {security.map((item, index) => {
             const Icon = item.icon
             return (
-              <div 
-                key={index} 
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <Icon className="w-10 h-10 mx-auto mb-3 text-black/50 stroke-[1.5]" />
-                <p className="text-sm font-medium text-gray-900">{item.title}</p>
-                <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-              </div>
+                <Icon className="w-6 h-6 mx-auto mb-3 text-black/30" />
+                <h3 className="text-sm font-medium text-black/80 mb-1">{item.title}</h3>
+                <p className="text-xs text-black/50">{item.description}</p>
+              </motion.div>
             )
           })}
-        </motion.div>
-      </div>
-
-      {/* Footer Links - Simplified */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
-          <Link href="/explore" className="text-gray-600 hover:text-black transition-colors">Explore</Link>
-          <Link href="/research" className="text-gray-600 hover:text-black transition-colors">Research</Link>
-          <Link href="/dashboard" className="text-gray-600 hover:text-black transition-colors">Dashboard</Link>
-          <span className="text-gray-300">|</span>
-          <Link href="/signin" className="text-gray-600 hover:text-black transition-colors">Sign In</Link>
-          <a href="https://twitter.com" className="text-gray-600 hover:text-black transition-colors">Twitter</a>
-          <a href="mailto:hello@neuros.ai" className="text-gray-600 hover:text-black transition-colors">Contact</a>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <SparkleIcon className="w-5 h-5 text-gray-400 stroke-[1.5]" />
-              <span className="text-sm text-gray-400">Neuros © 2025</span>
+        {/* Simple footer */}
+        <div className="mt-20 pt-8 border-t border-black/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-black/40">
+              © 2024 Neuros. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <a href="/privacy" className="text-xs text-black/40 hover:text-black/60">Privacy</a>
+              <a href="/terms" className="text-xs text-black/40 hover:text-black/60">Terms</a>
+              <a href="/security" className="text-xs text-black/40 hover:text-black/60">Security</a>
             </div>
-            
-            <a 
-              href="https://newth.ai" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs text-gray-400 font-light hover:text-gray-600 transition-colors group"
-            >
-              Made with{' '}
-              <motion.span 
-                className="inline-block italic font-serif text-gray-500"
-                whileHover={{ 
-                  rotate: [-2, 2, -1, 1, 0],
-                  transition: { duration: 0.3 }
-                }}
-              >
-                curiosity
-              </motion.span>
-              {' '}by Oliver Newth
-            </a>
           </div>
         </div>
       </div>
