@@ -13,7 +13,6 @@ interface ProfessionalHeroProps {
 
 export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroProps) {
   const [activeWord, setActiveWord] = useState(0)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 400], [1, 0])
@@ -30,13 +29,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
   ]
 
   // Mouse tracking for gradient effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  // Mouse tracking effect removed - was unused
 
   // Word cycling
   useEffect(() => {
