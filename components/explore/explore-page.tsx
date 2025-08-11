@@ -122,19 +122,19 @@ export default function ExplorePage() {
   }, [searchQuery])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC]">
+    <div className="min-h-screen bg-[#FAFAF9]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         {/* Unified Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.015]"
+        <div className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
-                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 50%)`
           }}
         />
 
         <motion.div 
-          className="max-w-[1400px] mx-auto px-8 lg:px-16 relative z-10"
+          className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -231,7 +231,7 @@ export default function ExplorePage() {
 
       {/* Categories Grid */}
       <section ref={ref} className="py-20 bg-white pattern-dots">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -259,7 +259,7 @@ export default function ExplorePage() {
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="text-2xl font-serif font-light">{category.name}</h3>
                       {category.trending && (
-                        <span className="px-2 py-1 bg-gradient-to-r from-yellow-100 to-orange-100 text-xs rounded-full">
+                        <span className="px-2 py-1 bg-yellow-100 text-xs rounded-full">
                           Trending
                         </span>
                       )}
@@ -305,7 +305,7 @@ export default function ExplorePage() {
 
       {/* Curated Paths */}
       <section className="py-20 bg-[#FAFAF9]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}

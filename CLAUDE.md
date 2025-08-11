@@ -27,6 +27,16 @@ node scripts/generate-test-manifest.js
 npm run test:report     # Generate and view test coverage report
 ```
 
+### Browser Testing Commands
+```bash
+npm run browser:clean   # Fix browser lock issues (use before MCP Playwright)
+npm run browser:setup   # Clean browser + ensure dev server running
+
+# Quick browser fix workflow:
+# 1. Run: npm run browser:clean
+# 2. Use MCP Playwright tools normally
+```
+
 ### Database Management
 ```bash
 npm run db:start        # Start local Supabase
@@ -165,6 +175,23 @@ Husky runs on commit (currently with some checks disabled for rapid deployment):
 
 Re-enable in `.husky/pre-commit` when stabilized.
 
+## Browser Testing Best Practices
+
+### MCP Playwright Workflow
+1. **Always run first**: `npm run browser:clean` (fixes 90% of browser issues)
+2. Use MCP Playwright tools normally
+3. If you get browser lock errors, repeat step 1
+
+### Parallel Testing Options
+- **MCP Playwright**: Single browser session with tabs (sequential)
+- **E2E Tests**: `npm run test:e2e` (true parallel with multiple workers)
+- **Manual Testing**: Use `npm run browser:setup` for consistent dev environment
+
+### Common Browser Issues & Fixes
+- **"Browser is already in use"**: Run `npm run browser:clean`
+- **Dev server not running**: Run `npm run browser:setup`
+- **Stuck browser processes**: Browser helper automatically kills them
+
 ## Common Development Tasks
 
 ### Adding a New Feature
@@ -176,6 +203,7 @@ Re-enable in `.husky/pre-commit` when stabilized.
 6. Test with `npm run build` and `npm run test:e2e`
 
 ### Debugging Issues
+- **Browser testing**: Run `npm run browser:clean` first
 - Check browser console for client-side errors
 - Check terminal for Server Component errors
 - Use `npm run dev:debug` for Node.js debugging

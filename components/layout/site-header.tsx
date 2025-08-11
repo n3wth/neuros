@@ -61,7 +61,7 @@ export default function SiteHeader() {
         borderBottom: useTransform(headerBorder, (value) => `1px solid ${value}`)
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center gap-12">
             {/* Pure Typography Logo */}
@@ -156,7 +156,7 @@ export default function SiteHeader() {
             transition={{ duration: 0.2 }}
             className="md:hidden bg-white/95 backdrop-blur-sm border-t border-black/5"
           >
-            <div className="px-8 py-6 space-y-4">
+            <div className="px-6 py-6 space-y-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
