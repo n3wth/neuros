@@ -24,26 +24,63 @@ export default function TrustIndicators() {
   return (
     <footer ref={ref} className="bg-white border-t border-gray-200">
       {/* Trust Section */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 overflow-hidden">
+        {/* Background gradient orb */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-100/30 via-pink-100/30 to-blue-100/30 rounded-full blur-3xl" />
+        </div>
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <p className="text-sm text-gray-600 mb-8">Trusted by learners at</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {companies.map((company, index) => (
-              <motion.span
-                key={company}
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="text-lg font-light text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                {company}
-              </motion.span>
-            ))}
+          <motion.div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100/50 mb-8"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.6, type: "spring" }}
+          >
+            <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-pulse" />
+            <p className="text-xs font-medium text-gray-700 tracking-wide uppercase">Trusted by 50,000+ learners</p>
+          </motion.div>
+          
+          <div className="relative">
+            {/* Scrolling logos container */}
+            <div className="flex items-center justify-center gap-x-16 gap-y-8 flex-wrap">
+              {companies.map((company, index) => (
+                <motion.div
+                  key={company}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="group relative"
+                >
+                  <motion.span
+                    className="relative text-2xl font-light text-gray-400 hover:text-gray-900 transition-all duration-300 cursor-default"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    {company}
+                    <motion.span 
+                      className="absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-purple-400 to-pink-400 origin-left"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.span>
+                  {/* Decorative dot */}
+                  {index % 3 === 0 && (
+                    <motion.div 
+                      className="absolute -top-1 -right-1 w-1 h-1 rounded-full bg-purple-400"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -52,13 +89,16 @@ export default function TrustIndicators() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 py-12 border-t border-b border-gray-100"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 py-16 rounded-2xl bg-gradient-to-br from-gray-50/50 to-white border border-gray-100/50 backdrop-blur-sm"
         >
           {security.map((item, index) => {
             const Icon = item.icon
             return (
-              <div key={index} className="text-center">
-                <Icon className="w-8 h-8 mx-auto mb-3 text-black/40 stroke-[1.5]" />
+              <div 
+                key={index} 
+                className="text-center"
+              >
+                <Icon className="w-10 h-10 mx-auto mb-3 text-black/50 stroke-[1.5]" />
                 <p className="text-sm font-medium text-gray-900">{item.title}</p>
                 <p className="text-xs text-gray-500 mt-1">{item.description}</p>
               </div>

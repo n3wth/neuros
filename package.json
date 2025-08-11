@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "next dev -H 0.0.0.0 -p 3001",
+    "dev:80": "sudo next dev -H 0.0.0.0 -p 80",
+    "proxy:80": "sudo node proxy-80.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -54,6 +57,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "^10.1.5",
+    "http-proxy": "^1.18.1",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.0",

@@ -41,16 +41,16 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
     <motion.section 
       ref={heroRef}
       style={{ opacity }}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] pattern-mesh"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5]"
     >
-      {/* Background Pattern - matching auth pages */}
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      {/* Background Pattern - subtle organic shapes only */}
+      <svg className="absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <pattern id="dots-hero" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.02)" />
-          </pattern>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="rgba(168, 85, 247, 0.02)" />
+            <stop offset="100%" stopColor="rgba(236, 72, 153, 0.02)" />
+          </linearGradient>
         </defs>
-        <rect width="100%" height="100%" fill="url(#dots-hero)" />
         
         {/* Organic shapes */}
         <motion.path
@@ -161,7 +161,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
                   ]}
                   className="text-[clamp(4rem,10vw,9rem)] leading-[0.85]"
                   interval={2800}
-                  colors={['#000000', '#4169E1', '#32CD32', '#FF6B6B', '#9B59B6']}
+                  colors={['#1F2937', '#3B3649', '#4A4458', '#5B5266', '#2A2537']}
                 />
                 <motion.span 
                   className="absolute -bottom-3 left-0 w-full h-[2px] bg-gradient-to-r from-black to-black/30 origin-left"
@@ -253,7 +253,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  className="stat-card relative p-8 rounded-3xl bg-white border border-black/5 overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300 ease-out"
+                  className="stat-card relative p-8 rounded-3xl bg-white/95 backdrop-blur-sm border border-black/5 overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300 ease-out"
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                   whileHover={{ y: -3, scale: 1.02 }}
@@ -286,39 +286,78 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
           {/* Bottom section with refined trust indicators */}
           <motion.div 
-            className="mt-32 pt-16 border-t border-black/5"
+            className="mt-32 pt-16 border-t border-black/5 relative"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center flex-shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                </div>
+              <motion.div 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+              >
+                <motion.div 
+                  className="w-10 h-10 rounded-full bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center flex-shrink-0"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <motion.div 
+                    className="w-2 h-2 rounded-full bg-green-500"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </motion.div>
                 <div>
                   <div className="text-2xl font-serif font-light text-black mb-1">50,000+</div>
                   <div className="text-xs text-black/40 uppercase tracking-wider">Active Learners</div>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center flex-shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-blue-500" />
-                </div>
+              </motion.div>
+              <motion.div 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 1.3 }}
+              >
+                <motion.div 
+                  className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center flex-shrink-0"
+                  whileHover={{ scale: 1.1, rotate: -5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <motion.div 
+                    className="w-2 h-2 rounded-full bg-blue-500"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, delay: 0.7, repeat: Infinity }}
+                  />
+                </motion.div>
                 <div>
                   <div className="text-2xl font-serif font-light text-black mb-1">Stanford, MIT</div>
                   <div className="text-xs text-black/40 uppercase tracking-wider">Trusted By Top Institutions</div>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center flex-shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-purple-500" />
-                </div>
+              </motion.div>
+              <motion.div 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+              >
+                <motion.div 
+                  className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center flex-shrink-0"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <motion.div 
+                    className="w-2 h-2 rounded-full bg-purple-500"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, delay: 1.4, repeat: Infinity }}
+                  />
+                </motion.div>
                 <div>
                   <div className="text-2xl font-serif font-light text-black mb-1">92%</div>
                   <div className="text-xs text-black/40 uppercase tracking-wider">Retention Rate</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
@@ -329,69 +368,6 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           position={{ top: '12rem', right: '8rem' }}
         />
 
-        {/* Cute floating elements */}
-        <motion.div className="absolute top-32 right-48 hidden xl:block">
-          <motion.div
-            className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100/60 to-purple-100/60 border border-purple-200/30"
-            animate={{
-              y: [0, -25, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </motion.div>
-        
-        <motion.div className="absolute bottom-48 left-32 hidden xl:block">
-          <motion.div
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-100/70 to-orange-100/70 backdrop-blur-sm border border-yellow-200/30"
-            animate={{
-              y: [0, 35, 0],
-              x: [0, -25, 0],
-              rotate: [0, -360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </motion.div>
-        
-        <motion.div className="absolute top-64 left-[60%] hidden xl:block">
-          <motion.div
-            className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-100/60 to-indigo-100/60 backdrop-blur-sm border border-blue-200/30"
-            animate={{
-              y: [0, -20, 0],
-              x: [0, 20, 0],
-              scale: [1, 0.9, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </motion.div>
-        
-        <motion.div className="absolute top-96 left-[40%] hidden xl:block">
-          <motion.div
-            className="w-10 h-10 rounded-full bg-gradient-to-br from-green-100/60 to-emerald-100/60 backdrop-blur-sm border border-green-200/30"
-            animate={{
-              y: [0, 15, 0],
-              x: [0, -10, 0],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </motion.div>
       </div>
     </motion.section>
   )
