@@ -9,7 +9,6 @@ import {
   BookIcon, 
   RocketIcon, 
   BeakerIcon,
-  PaletteIcon,
   HeartIcon,
   PlusIcon,
   PlayIcon,
@@ -25,7 +24,6 @@ import { signOut } from '@/server/actions/auth'
 import Link from 'next/link'
 import CreateCardDialog from './create-card-dialog'
 import ReviewInterface from './review-interface'
-import ImageGenerator from './image-generator'
 import AIFeaturesSettings from './ai-features-settings'
 import { 
   getUserCards, 
@@ -69,7 +67,7 @@ interface FullLearningDashboardProps {
   user: User
 }
 
-type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'images' | 'settings' | 'knowledge' | 'network' | 'viral'
+type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
 
 export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
@@ -339,17 +337,6 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 >
                   <ChartIcon className="w-5 h-5 stroke-[2]" />
                   Stats
-                </button>
-                <button
-                  onClick={() => setViewMode('images')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 ${
-                    viewMode === 'images' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/3'
-                  }`}
-                >
-                  <PaletteIcon className="w-5 h-5 stroke-[2]" />
-                  Images
                 </button>
                 <button
                   onClick={() => setViewMode('settings')}
@@ -1148,27 +1135,6 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             </motion.div>
           )}
 
-          {viewMode === 'images' && (
-            <motion.div
-              key="images"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div 
-                className="mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-serif font-light mb-3 text-black/90">AI Image Generator</h2>
-                <p className="text-lg text-black/60 font-light">Create beautiful visuals for your learning cards using AI</p>
-              </motion.div>
-              
-              <ImageGenerator />
-            </motion.div>
-          )}
 
           {viewMode === 'settings' && (
             <motion.div
