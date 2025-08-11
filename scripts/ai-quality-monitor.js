@@ -60,9 +60,7 @@ class QualityMonitor {
     this.metrics.complexity.set(filePath, complexity)
     
     // Check test coverage
-    const hasTe
-
-sts = await this.hasTests(filePath)
+    const hasTests = await this.hasTests(filePath)
     this.metrics.testCoverage.set(filePath, hasTests)
     
     // Analyze performance patterns

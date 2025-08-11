@@ -20,11 +20,22 @@
     "db:types": "supabase gen types --local > types/supabase.ts",
     "prepare": "husky",
     "ai:start": "./start-ai-company.sh",
+    "ai:start:enhanced": "./start-enhanced-ai-company.sh",
+    "ai:interactive": "./start-enhanced-ai-company.sh --interactive",
     "ai:quality": "node scripts/ai-quality-monitor.js",
     "ai:quality:fix": "node scripts/ai-quality-monitor.js --fix",
     "ai:optimize": "python3 scripts/self-learning-optimizer.py",
+    "ai:optimize:enhanced": "python3 scripts/enhanced-learning-optimizer.py",
+    "ai:optimize:continuous": "python3 scripts/enhanced-learning-optimizer.py --continuous",
     "ai:deploy": "tsx scripts/ai-deployment-manager.ts",
-    "ai:deploy:check": "tsx scripts/ai-deployment-manager.ts --check"
+    "ai:deploy:enhanced": "tsx scripts/enhanced-deployment-manager.ts",
+    "ai:deploy:predict": "tsx scripts/enhanced-deployment-manager.ts --predict",
+    "ai:deploy:canary": "tsx scripts/enhanced-deployment-manager.ts --deploy --strategy=canary",
+    "ai:deploy:blue-green": "tsx scripts/enhanced-deployment-manager.ts --deploy --strategy=blue-green",
+    "ai:security": "tsx scripts/ai-security-hardening.ts",
+    "ai:health": "tsx scripts/ai-system-health-monitor.ts",
+    "ai:health:report": "tsx scripts/ai-system-health-monitor.ts --report",
+    "ai:rollback": "tsx scripts/enhanced-deployment-manager.ts --rollback"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
