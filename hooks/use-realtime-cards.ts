@@ -68,7 +68,7 @@ export function useRealtimeCards(userId?: string) {
             filter: `user_id=eq.${userId}`
           },
           (payload) => {
-            console.log('Card change received:', payload)
+            // Card change received - payload logged for debugging
             
             if (payload.eventType === 'INSERT') {
               setCards(prev => [payload.new as Card, ...prev])
@@ -115,7 +115,7 @@ export function useRealtimeCards(userId?: string) {
             filter: `user_id=eq.${userId}`
           },
           (payload) => {
-            console.log('Review update received:', payload)
+            // Review update received - payload processed
             setUpdates(prev => [...prev, {
               type: 'review_submitted',
               payload: payload.new
@@ -199,7 +199,7 @@ export function useRealtimeStats(userId?: string) {
             filter: `user_id=eq.${userId}`
           },
           async (payload) => {
-            console.log('Stats update received:', payload)
+            // Stats update received - fetching fresh data
             
             // Fetch fresh stats
             const { data, error } = await supabase
@@ -279,10 +279,10 @@ export function useRealtimePresence(sessionId?: string) {
           }
         })
         .on('presence', { event: 'join' }, ({ key, newPresences }) => {
-          console.log('User joined:', newPresences)
+          // User joined presence channel
         })
         .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
-          console.log('User left:', leftPresences)
+          // User left presence channel
         })
         .subscribe(async (status) => {
           // Only track presence if this is still the current channel
