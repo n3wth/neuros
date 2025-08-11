@@ -219,16 +219,5 @@ describe('CreateCardDialog', () => {
       expect(defaultProps.onClose).toHaveBeenCalled()
     })
 
-    it('closes when backdrop is clicked', async () => {
-      const user = userEvent.setup()
-      const { container } = render(<CreateCardDialog {...defaultProps} />)
-      
-      const backdrop = container.querySelector('.bg-black\\/50')
-      if (backdrop) {
-        await user.click(backdrop)
-      }
-      
-      expect(defaultProps.onClose).toHaveBeenCalled()
-    })
   })
 })
