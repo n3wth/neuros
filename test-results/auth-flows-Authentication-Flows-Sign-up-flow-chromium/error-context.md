@@ -1,0 +1,100 @@
+# Page snapshot
+
+```yaml
+- navigation:
+  - link "Neuros":
+    - /url: /
+  - link "Explore":
+    - /url: /explore
+  - link "Research":
+    - /url: /research
+  - link "Enterprise":
+    - /url: /enterprise
+  - link "Pricing":
+    - /url: /pricing
+  - link "Sign in":
+    - /url: /signin
+  - link "Get started":
+    - /url: /signup
+    - text: Get started
+    - img
+- img
+- paragraph: Introducing Neuros
+- heading "Remember everything." [level=1]
+- paragraph: We built a learning system that works like your brain does—making connections, finding patterns, and storing memories exactly when they're about to fade.
+- paragraph: No more forgetting. No more re-learning. Just pure, permanent knowledge.
+- link "Begin your journey":
+  - /url: /signup
+  - text: Begin your journey
+  - img
+- button "Watch demo — 2 min"
+- text: 87% Better recall after 30 days
+- img
+- text: 2.3× Faster learning velocity
+- img
+- text: 15min Daily commitment needed
+- img
+- text: 50,000+ Active Learners Stanford, MIT Trusted By Top Institutions 92% Retention Rate
+- img
+- text: ∞
+- paragraph: The Science
+- heading "Not just another learning app." [level=2]
+- paragraph: We didn't build features. We built a cognitive architecture that understands how human memory actually works—then amplified it with AI.
+- img
+- paragraph: Intelligent Spacing
+- heading "Memory that mirrors yours" [level=3]
+- paragraph: Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories, not temporary knowledge.
+- text: 87%
+- paragraph: retention after 30 days
+- paragraph: vs 23% traditional
+- img
+- paragraph: Adaptive Challenge
+- heading "Difficulty that evolves" [level=3]
+- paragraph: Like a personal tutor that knows exactly when to push you harder and when to ease up. Every session calibrated to your current ability.
+- text: 2.3×
+- paragraph: faster mastery
+- paragraph: personalized pacing
+- img
+- paragraph: Deep Analytics
+- heading "Understanding, visualized" [level=3]
+- paragraph: See your learning patterns emerge. Discover your peak performance times, strongest subjects, and optimal review schedules.
+- text: 15min
+- paragraph: daily optimal
+- paragraph: science-backed duration
+- paragraph: Ready to experience learning that actually sticks?
+- button "See it in action"
+- contentinfo:
+  - paragraph: Trusted by learners at
+  - text: Google Microsoft Meta Amazon Apple Stanford MIT Harvard Berkeley Oxford
+  - img
+  - paragraph: SOC 2 Type II
+  - paragraph: Certified security controls
+  - img
+  - paragraph: End-to-end encryption
+  - paragraph: Your data stays private
+  - img
+  - paragraph: GDPR compliant
+  - paragraph: Global privacy standards
+  - img
+  - paragraph: ISO 27001
+  - paragraph: Information security certified
+  - link "Explore":
+    - /url: /explore
+  - link "Research":
+    - /url: /research
+  - link "Dashboard":
+    - /url: /dashboard
+  - text: "|"
+  - link "Sign In":
+    - /url: /signin
+  - link "Twitter":
+    - /url: https://twitter.com
+  - link "Contact":
+    - /url: mailto:hello@neuros.ai
+  - img
+  - text: Neuros © 2025
+  - link "Made with curiosity by Oliver Newth":
+    - /url: https://newth.ai
+- region "Notifications alt+T"
+- alert
+```
