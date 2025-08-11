@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react'
 interface LoadingSkeletonProps {
   type?: 'card' | 'dashboard' | 'stats' | 'list' | 'review'
   message?: string
-  showIcon?: boolean
   className?: string
 }
 
