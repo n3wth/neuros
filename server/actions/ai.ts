@@ -11,6 +11,43 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY
 })
 
+// Retry utility with exponential backoff
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  baseDelay: number = 1000
+): Promise<T> {
+  let lastError: Error
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error('Unknown error')
+      
+      // Don't retry on authentication or configuration errors
+      if (lastError.message.includes('Not authenticated') || 
+          lastError.message.includes('API key') ||
+          lastError.message.includes('configuration')) {
+        throw lastError
+      }
+      
+      // Don't retry on the last attempt
+      if (attempt === maxRetries) {
+        throw lastError
+      }
+      
+      // Calculate delay with exponential backoff and jitter
+      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000
+      console.log(`AI request failed (attempt ${attempt + 1}/${maxRetries + 1}), retrying in ${delay}ms:`, lastError.message)
+      
+      await new Promise(resolve => setTimeout(resolve, delay))
+    }
+  }
+  
+  throw lastError!
+}
+
 // Generate flashcards from text using AI
 export async function generateCardsFromText(
   text: string,
@@ -40,40 +77,42 @@ export async function generateCardsFromText(
   const difficulty = options?.difficulty || 'intermediate'
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o", // Use gpt-4o which supports structured outputs
-      messages: [
-        {
-          role: "system",
-          content: `You are an expert educator creating flashcards for spaced repetition learning. 
-          Create ${count} flashcards from the provided text. 
-          Each flashcard should:
-          - Test a single, specific concept
-          - Have a clear, concise question (front)
-          - Have a precise answer (back)
-          - Include a brief explanation for deeper understanding
-          - Be appropriate for ${difficulty} level learners
-          
-          Return JSON in this exact format:
+    const completion = await retryWithBackoff(() => 
+      openai.chat.completions.create({
+        model: "gpt-4o", // Use gpt-4o which supports structured outputs
+        messages: [
           {
-            "cards": [
-              {
-                "front": "Question or prompt",
-                "back": "Answer",
-                "explanation": "Brief explanation of why this is the answer",
-                "tags": ["tag1", "tag2"]
-              }
-            ]
-          }`
-        },
-        {
-          role: "user",
-          content: text
-        }
-      ],
-      temperature: 0.7,
-      response_format: { type: "json_object" }
-    })
+            role: "system",
+            content: `You are an expert educator creating flashcards for spaced repetition learning. 
+            Create ${count} flashcards from the provided text. 
+            Each flashcard should:
+            - Test a single, specific concept
+            - Have a clear, concise question (front)
+            - Have a precise answer (back)
+            - Include a brief explanation for deeper understanding
+            - Be appropriate for ${difficulty} level learners
+            
+            Return JSON in this exact format:
+            {
+              "cards": [
+                {
+                  "front": "Question or prompt",
+                  "back": "Answer",
+                  "explanation": "Brief explanation of why this is the answer",
+                  "tags": ["tag1", "tag2"]
+                }
+              ]
+            }`
+          },
+          {
+            role: "user",
+            content: text
+          }
+        ],
+        temperature: 0.7,
+        response_format: { type: "json_object" }
+      })
+    )
 
     const response = JSON.parse(completion.choices[0].message.content || '{}')
     
@@ -345,40 +384,42 @@ export async function generateLearningPath(
   }
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `Create a structured learning path for someone at ${currentLevel} level.
-          Include prerequisites, core concepts, practical exercises, and milestones.
-          ${goals ? `Learning goals: ${goals}` : ''}
-          Return JSON in this format:
+    const completion = await retryWithBackoff(() =>
+      openai.chat.completions.create({
+        model: "gpt-4",
+        messages: [
           {
-            "path": {
-              "title": "Learning path title",
-              "duration": "Estimated time",
-              "prerequisites": ["prerequisite1", "prerequisite2"],
-              "modules": [
-                {
-                  "title": "Module title",
-                  "concepts": ["concept1", "concept2"],
-                  "exercises": ["exercise1", "exercise2"],
-                  "milestone": "What learner will achieve"
-                }
-              ],
-              "resources": ["resource1", "resource2"]
-            }
-          }`
-        },
-        {
-          role: "user",
-          content: topic
-        }
-      ],
-      temperature: 0.7,
-      response_format: { type: "json_object" }
-    })
+            role: "system",
+            content: `Create a structured learning path for someone at ${currentLevel} level.
+            Include prerequisites, core concepts, practical exercises, and milestones.
+            ${goals ? `Learning goals: ${goals}` : ''}
+            Return JSON in this format:
+            {
+              "path": {
+                "title": "Learning path title",
+                "duration": "Estimated time",
+                "prerequisites": ["prerequisite1", "prerequisite2"],
+                "modules": [
+                  {
+                    "title": "Module title",
+                    "concepts": ["concept1", "concept2"],
+                    "exercises": ["exercise1", "exercise2"],
+                    "milestone": "What learner will achieve"
+                  }
+                ],
+                "resources": ["resource1", "resource2"]
+              }
+            }`
+          },
+          {
+            role: "user",
+            content: topic
+          }
+        ],
+        temperature: 0.7,
+        response_format: { type: "json_object" }
+      })
+    )
 
     const response = JSON.parse(completion.choices[0].message.content || '{}')
 
