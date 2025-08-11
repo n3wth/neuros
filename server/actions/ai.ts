@@ -7,9 +7,9 @@ import { checkMultipleRateLimits } from '@/lib/rate-limit-server'
 import { RateLimitExceededError } from '@/lib/rate-limit'
 import { env } from '@/lib/env'
 
-const openai = new OpenAI({
+const openai = env.OPENAI_API_KEY ? new OpenAI({
   apiKey: env.OPENAI_API_KEY
-})
+}) : null
 
 // Generate flashcards from text using AI
 export async function generateCardsFromText(
@@ -24,6 +24,7 @@ export async function generateCardsFromText(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+  if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits (both specific and global)
   const rateLimitResult = await checkMultipleRateLimits(user.id, ['CARD_GENERATION', 'GLOBAL_AI'])
@@ -164,6 +165,7 @@ export async function generateExplanation(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+  if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
   const rateLimitResult = await checkMultipleRateLimits(user.id, ['EXPLANATION', 'GLOBAL_AI'])
@@ -246,6 +248,7 @@ export async function generatePracticeQuestions(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+  if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
   const rateLimitResult = await checkMultipleRateLimits(user.id, ['PRACTICE_QUESTIONS', 'GLOBAL_AI'])
@@ -332,6 +335,7 @@ export async function generateLearningPath(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+  if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
   const rateLimitResult = await checkMultipleRateLimits(user.id, ['LEARNING_PATH', 'GLOBAL_AI'])
@@ -423,6 +427,7 @@ export async function generateLearningInsights(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+  if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
   const rateLimitResult = await checkMultipleRateLimits(user.id, ['INSIGHTS', 'GLOBAL_AI'])
