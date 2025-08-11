@@ -136,13 +136,13 @@ export default function EnterprisePage() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FFF7ED] to-[#FFFBF5]">
+    <div className="min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.015]"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
-                           radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 50%)`
+            backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
+                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
           }}
         />
 

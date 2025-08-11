@@ -25,12 +25,12 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
   }, [words.length])
 
   return (
-    <section ref={ref} className="relative min-h-screen bg-[#FAFAF9] overflow-hidden">
-      {/* Subtle geometric pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
+    <section ref={ref} className="relative min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC] overflow-hidden">
+      {/* Unified background pattern */}
+      <div className="absolute inset-0 opacity-[0.015]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, #000 1px, transparent 1px), radial-gradient(circle at 75% 75%, #000 1px, transparent 1px)`,
-          backgroundSize: '100px 100px'
+          backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
+                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
         }} />
       </div>
 

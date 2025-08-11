@@ -123,14 +123,14 @@ export default function ExplorePage() {
   }, [searchQuery])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F0FDF4] to-[#F5FFF7] pattern-paper">
+    <div className="min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#F8FAFC]">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.02]"
+        {/* Unified Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.015]"
           style={{
-            backgroundImage: `repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 1px, transparent 15px),
-                           repeating-linear-gradient(-45deg, #000 0, #000 1px, transparent 1px, transparent 15px)`
+            backgroundImage: `repeating-linear-gradient(45deg, rgba(79, 70, 229, 0.08) 0, rgba(79, 70, 229, 0.08) 1px, transparent 1px, transparent 20px),
+                           repeating-linear-gradient(-45deg, rgba(34, 197, 94, 0.06) 0, rgba(34, 197, 94, 0.06) 1px, transparent 1px, transparent 20px)`
           }}
         />
 
