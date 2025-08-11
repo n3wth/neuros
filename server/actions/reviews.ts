@@ -280,7 +280,10 @@ async function updateUserStats(userId: string) {
       average_accuracy: Math.round(accuracy)
     })
 
-  if (error) console.error('Error updating user stats:', error)
+  if (error) {
+    console.error('Error updating user stats:', error);
+    throw new Error('Failed to update user statistics');
+  }
 }
 
 // Calculate study streak
