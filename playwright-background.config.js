@@ -2,6 +2,9 @@
 // This configuration helps prevent browser windows from taking over your screen
 
 module.exports = {
+  // Directory containing end-to-end tests
+  testDir: 'e2e',
+
   // Run in headless mode by default
   use: {
     headless: true, // Set to false only when you need to debug visually

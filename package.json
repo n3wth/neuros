@@ -10,7 +10,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test --config=playwright-background.config.js",
     "db:reset": "supabase db reset",
     "db:types": "supabase gen types --local > types/supabase.ts",
     "prepare": "husky"
@@ -64,6 +69,7 @@
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^3.1.4"
+    "vitest": "^3.1.4",
+    "@playwright/test": "^1.54.2"
   }
 }
