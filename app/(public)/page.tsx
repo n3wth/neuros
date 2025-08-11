@@ -1,7 +1,9 @@
 import { createClient } from '@/lib/supabase/server'
-import ProfessionalHero from '@/components/landing/professional-hero'
-import AIShowcase from '@/components/landing/ai-showcase'
-import TrustIndicators from '@/components/landing/trust-indicators'
+import ModernHero from '@/components/landing/modern-hero'
+import CapabilitiesShowcase from '@/components/landing/capabilities-showcase'
+import SocialProof from '@/components/landing/social-proof'
+import InteractiveDemo from '@/components/landing/interactive-demo'
+import CallToAction from '@/components/landing/call-to-action'
 
 // Force dynamic rendering - this page uses cookies via Supabase
 export const dynamic = 'force-dynamic'
@@ -11,10 +13,12 @@ export default async function Home() {
   const { data: { user } } = await supabase.auth.getUser()
   
   return (
-    <div className="min-h-screen bg-[#FAFAF9]">
-      <ProfessionalHero isAuthenticated={!!user} />
-      <AIShowcase />
-      <TrustIndicators />
+    <div className="min-h-screen bg-white">
+      <ModernHero isAuthenticated={!!user} />
+      <CapabilitiesShowcase />
+      <InteractiveDemo />
+      <SocialProof />
+      <CallToAction isAuthenticated={!!user} />
     </div>
   )
 }
