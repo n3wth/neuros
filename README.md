@@ -1,3 +1,5 @@
+![Neuros - AI-Powered Learning Platform](./public/cover.jpg)
+
 # neuros - experimental project for testing ai dev tools and mcp integrations
 
 **An experimental learning platform with AI-powered flashcard generation and spaced repetition**
@@ -166,29 +168,19 @@ npm run typecheck       # TypeScript checking
 
 ### Database
 ```bash
-<<<<<<< HEAD
 npm run db:start        # Start local Supabase
 npm run db:stop         # Stop local Supabase
-=======
->>>>>>> origin/main
 npm run db:reset        # Reset & apply migrations
 npm run db:types        # Generate TypeScript types
 ```
 
 ### Testing
 ```bash
-<<<<<<< HEAD
-npm run test            # Run unit tests
-npm run test:ui         # Interactive test UI
-npm run test:e2e        # End-to-end tests
-npm run test:coverage   # Coverage report
-=======
 npm run test            # Run unit tests once
 npm run test:watch      # Run unit tests in watch mode
 npm run test:ui         # Interactive test UI
 npm run test:coverage   # Coverage report
 npm run test:e2e        # End-to-end tests
->>>>>>> origin/main
 ```
 
 ---
@@ -232,8 +224,6 @@ npm run build
 npm run start
 ```
 
-<<<<<<< HEAD
-=======
 ---
 
 ## Additional Documentation
@@ -243,7 +233,6 @@ npm run start
 - [Testing Coverage](TEST_COVERAGE.md)
 - [Rate Limiting Summary](RATE_LIMITING_SUMMARY.md)
 
->>>>>>> origin/main
 ---
 
 ## Contributing
@@ -270,8 +259,4 @@ MIT License - See [LICENSE](LICENSE) for details
 
 An experimental project for testing AI-powered development workflows
 
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> origin/main
