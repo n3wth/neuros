@@ -8,8 +8,7 @@
     "enabled": true,
     "autoAlias": true,
     "silent": true,
-    "autoJobCancelation": true,
-    "deploymentProtection": false
+    "autoJobCancelation": true
   },
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
@@ -25,11 +24,5 @@
     "app/**/*.tsx": {
       "maxDuration": 10
     }
-  },
-  "analytics": {
-    "enable": true
-  },
-  "speedInsights": {
-    "enable": true
   }
 }
