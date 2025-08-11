@@ -5,7 +5,6 @@ import { useState, useRef, useEffect } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
 import { ArrowRight, Search, Users, Clock, X } from 'lucide-react'
 import { ZapIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon } from '@/components/icons/line-icons'
-import Link from 'next/link'
 
 const categories = [
   {
@@ -312,19 +311,13 @@ export default function ExplorePage() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="flex items-end justify-between mb-12">
+            <div className="mb-12">
               <div>
                 <h2 className="text-3xl font-serif font-light mb-4">Curated learning paths</h2>
                 <p className="text-lg text-black/60 font-light">
                   Structured journeys designed by experts in the field
                 </p>
               </div>
-              <Link href="/paths" className="group flex items-center gap-2 text-sm font-medium">
-                <span className="border-b border-black/30 group-hover:border-black transition-colors">
-                  View all paths
-                </span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8">

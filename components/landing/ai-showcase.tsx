@@ -2,7 +2,6 @@
 
 import { motion, useInView, useMotionValue } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import { ArrowRight } from 'lucide-react'
 import { ClockIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
 
 export default function AIShowcase() {
@@ -168,36 +167,11 @@ export default function AIShowcase() {
                   </div>
                 </div>
 
-                {/* Hover indicator */}
-                <motion.div
-                  className="absolute bottom-8 right-8 w-10 h-10 rounded-full border border-black/10 flex items-center justify-center"
-                  animate={hoveredCard === feature.id ? { scale: 1.1 } : { scale: 1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                >
-                  <ArrowRight className="w-4 h-4 text-black/30" />
-                </motion.div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div 
-          className="mt-24 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <p className="text-lg text-black/50 font-light mb-8">
-            Ready to experience learning that actually sticks?
-          </p>
-          <button className="group inline-flex items-center gap-4 px-8 py-4 bg-black text-white rounded-full hover:bg-black/90 transition-colors">
-            <span className="text-base font-medium">See it in action</span>
-            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-              <ArrowRight className="w-4 h-4" />
-            </div>
-          </button>
-        </motion.div>
       </div>
     </section>
   )

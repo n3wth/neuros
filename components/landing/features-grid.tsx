@@ -9,9 +9,6 @@ import {
   BookOpen, 
   Users, 
   Shield, 
-  Palette, 
-  Rocket,
-  Heart,
   Target,
   TrendingUp,
   Code
@@ -77,26 +74,6 @@ export default function FeaturesGrid() {
     }
   ]
 
-  const upcomingFeatures = [
-    {
-      title: "AR Learning Spaces",
-      description: "Spatial computing integration for immersive 3D learning",
-      icon: Palette,
-      status: "Q1 2026"
-    },
-    {
-      title: "Voice-First Mode",
-      description: "Learn while commuting with conversational AI",
-      icon: Rocket,
-      status: "Q2 2026"
-    },
-    {
-      title: "Biometric Optimization",
-      description: "Adapt to your energy levels and cognitive load",
-      icon: Heart,
-      status: "Q3 2026"
-    }
-  ]
 
   return (
     <section className="relative py-24 px-4">
@@ -181,40 +158,6 @@ export default function FeaturesGrid() {
           })}
         </div>
 
-        {/* Coming Soon Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 backdrop-blur-xl rounded-3xl p-8 border border-white/10"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-white mb-2">Coming Soon</h3>
-            <p className="text-gray-400">Features we&rsquo;re building based on your feedback</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {upcomingFeatures.map((feature, index) => {
-              const Icon = feature.icon
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur flex items-center justify-center mx-auto mb-3">
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="text-white font-medium mb-1">{feature.title}</h4>
-                  <p className="text-gray-400 text-sm mb-2">{feature.description}</p>
-                  <span className="text-xs text-blue-400">{feature.status}</span>
-                </motion.div>
-              )
-            })}
-          </div>
-        </motion.div>
 
         {/* Technical Specs */}
         <motion.div
