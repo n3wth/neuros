@@ -9,7 +9,7 @@ export default function TrustIndicators() {
 
   const companies = [
     'Google', 'Microsoft', 'Meta', 'Amazon', 'Apple', 
-    'Stanford', 'MIT', 'Harvard', 'Berkeley', 'Oxford'
+    'Built with', 'modern web', 'technologies'
   ]
 
 

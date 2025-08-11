@@ -2,7 +2,7 @@
 
 # Neuros - Enterprise Learning Intelligence Platform
 
-**The AI-powered learning platform trusted by Fortune 500 companies to accelerate employee knowledge retention by 3x**
+**An AI-powered learning platform that uses spaced repetition to help you remember information better**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.4-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
@@ -39,7 +39,7 @@
 
 ## About
 
-Neuros is the leading enterprise learning intelligence platform, combining advanced AI with proven cognitive science to deliver measurable learning outcomes. Trusted by over 500 companies worldwide, Neuros has facilitated over 10 million learning sessions and maintains a 94% knowledge retention rate.
+Neuros is a learning platform that uses AI to help you remember information better through spaced repetition and active recall techniques.
 
 **Live Demo**: [https://neuros.newth.ai](https://neuros.newth.ai)
 

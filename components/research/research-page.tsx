@@ -41,24 +41,24 @@ const papers = [
 
 const insights = [
   {
-    stat: "94%",
-    label: "Prediction accuracy",
-    description: "Our AI predicts forgetting curves with near-perfect precision"
+    stat: "Built",
+    label: "with research",
+    description: "Our features are inspired by cognitive science principles"
   },
   {
-    stat: "2.3×",
-    label: "Better retention",
-    description: "Compared to traditional spaced repetition methods"
+    stat: "Open",
+    label: "source algorithms",
+    description: "Using established spaced repetition methods"
   },
   {
-    stat: "30%",
-    label: "Less time",
-    description: "Required to achieve the same learning outcomes"
+    stat: "Modern",
+    label: "web technologies",
+    description: "Built with Next.js, TypeScript, and Supabase"
   },
   {
-    stat: "87%",
-    label: "Sleep boost",
-    description: "Retention improvement when sessions align with sleep cycles"
+    stat: "Simple",
+    label: "and effective",
+    description: "Focus on helping you learn and remember better"
   }
 ]
 

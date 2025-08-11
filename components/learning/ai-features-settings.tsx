@@ -162,8 +162,8 @@ export default function AIFeaturesSettings({ className, onFeatureClick }: AIFeat
       <FeatureCard
         title="SM-2 Spaced Repetition Algorithm"
         algorithm="SuperMemo 2.0 (1987) • Forgetting Curve Optimization"
-        description="Scientifically proven algorithm that calculates optimal review intervals based on your performance, ensuring information moves from short-term to long-term memory."
-        research="Research shows SM-2 delivers 2x faster learning compared to traditional methods. The algorithm adjusts ease factors (2.5 default) based on your 0-5 quality ratings."
+        description="Algorithm that calculates review intervals based on your performance, helping move information from short-term to long-term memory."
+        research="The SM-2 algorithm adjusts ease factors based on your 0-5 quality ratings to determine when to show cards again."
         stats={{
           primary: { value: "200%", label: "Faster Acquisition" },
           secondary: { value: "50%", label: "Better Retention" }
@@ -177,7 +177,7 @@ export default function AIFeaturesSettings({ className, onFeatureClick }: AIFeat
         title="Zone of Proximal Development"
         algorithm="Vygotsky's ZPD Theory • Item Response Theory"
         description="Dynamically adjusts content difficulty to keep you in the optimal learning zone - challenging enough to grow, but not so hard you get frustrated."
-        research="Maintains 80% target success rate based on educational psychology research. Uses IRT (Item Response Theory) to calibrate question difficulty to your ability level."
+        research="Uses Item Response Theory concepts to calibrate question difficulty based on your performance history."
         stats={{
           primary: { value: "80%", label: "Target Success" },
           secondary: { value: "35%", label: "Faster Progress" }
@@ -199,7 +199,7 @@ export default function AIFeaturesSettings({ className, onFeatureClick }: AIFeat
         title="Predictive Learning Analytics"
         algorithm="Machine Learning • Engagement Tracking"
         description="Advanced analytics track persistence, consistency, and engagement patterns to predict success and identify when you need support."
-        research="Studies show 65% accuracy in predicting at-risk learners. Students with high consistency achieve 65% better performance outcomes."
+        research="Tracks learning patterns to identify areas that may need more attention. Consistent practice leads to better outcomes."
         stats={{
           primary: { value: "65%", label: "Prediction Accuracy" },
           secondary: { value: "92%", label: "Retention Rate" }
