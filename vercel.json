@@ -1,28 +1,12 @@
 {
-  "git": {
-    "deploymentEnabled": {
-      "main": true
-    }
-  },
-  "github": {
-    "enabled": true,
-    "autoAlias": true,
-    "silent": true,
-    "autoJobCancelation": true
-  },
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "public": false,
-  "regions": ["iad1"],
-  "functions": {
-    "app/api/**/*": {
-      "maxDuration": 10
-    },
-    "app/**/*.tsx": {
-      "maxDuration": 10
+  "git": {
+    "deploymentEnabled": {
+      "main": true
     }
   }
 }
