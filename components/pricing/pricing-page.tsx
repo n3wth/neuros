@@ -5,7 +5,7 @@ import { useState, useRef } from 'react'
 import React from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
 import { ArrowRight } from 'lucide-react'
-import { SparkleIcon, BrainIcon, RocketIcon, GlobeIcon } from '@/components/icons/line-icons'
+import { SparkleIcon, TrendingIcon, RocketIcon, GlobeIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
 
 const plans = [
@@ -368,7 +368,7 @@ export default function PricingPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: BrainIcon, value: '2.5M+', label: 'Active Learners' },
+              { icon: TrendingIcon, value: '2.5M+', label: 'Active Learners' },
               { icon: GlobeIcon, value: '180+', label: 'Countries' },
               { icon: SparkleIcon, value: '4.9/5', label: 'Average Rating' },
               { icon: RocketIcon, value: '47M+', label: 'Cards Reviewed' }

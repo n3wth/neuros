@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ForgotPasswordForm } from '@/components/features/auth/forgot-password-form'
-import { BrainIcon, ShieldIcon, LockIcon } from '@/components/icons/line-icons'
+import { ZapIcon, ShieldIcon, LockIcon } from '@/components/icons/line-icons'
 import { Logo } from '@/components/ui/logo'
 
 export default function ForgotPasswordPage() {
@@ -77,7 +77,7 @@ export default function ForgotPasswordPage() {
                   description: 'We never store your passwords in plain text'
                 },
                 {
-                  icon: BrainIcon,
+                  icon: ZapIcon,
                   title: 'Quick Recovery',
                   description: 'Get back to learning in just a few clicks'
                 }

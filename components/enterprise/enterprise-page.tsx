@@ -4,13 +4,13 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
 import { ArrowRight } from 'lucide-react'
-import { BrainIcon, CodeIcon, ChartIcon, GlobeIcon, RocketIcon, SparkleIcon } from '@/components/icons/line-icons'
+import { TrophyIcon, CodeIcon, ChartIcon, GlobeIcon, RocketIcon, SparkleIcon, TrendingIcon } from '@/components/icons/line-icons'
 import PlaceholderAvatar from '@/components/ui/placeholder-avatar'
 import Link from 'next/link'
 
 const features = [
   {
-    icon: BrainIcon,
+    icon: TrophyIcon,
     title: "Team Management",
     description: "Centralized dashboard for tracking team progress, assigning content, and managing licenses"
   },
@@ -63,7 +63,7 @@ const useCases = [
   {
     title: "Leadership Development",
     description: "Build next-generation leaders with executive coaching paths",
-    icon: BrainIcon,
+    icon: TrendingIcon,
     metrics: ["42% promotion rate", "89% engagement", "3.2x ROI"]
   }
 ]

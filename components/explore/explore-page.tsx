@@ -4,14 +4,14 @@ import { motion, useInView } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
 import { ArrowRight, Search, Users, Clock, X } from 'lucide-react'
-import { BrainIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon } from '@/components/icons/line-icons'
+import { ZapIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
 
 const categories = [
   {
     id: 'ai-ml',
     name: 'Artificial Intelligence',
-    icon: BrainIcon,
+    icon: ZapIcon,
     color: '#FF6B6B',
     count: '2,340 cards',
     trending: true,

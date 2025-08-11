@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   SparkleIcon, 
-  BrainIcon, 
+  LightbulbIcon, 
   ChartIcon, 
   BookIcon, 
   RocketIcon, 
@@ -313,7 +313,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
                   }`}
                 >
-                  <BrainIcon className="w-5 h-5 stroke-[2]" />
+                  <LightbulbIcon className="w-5 h-5 stroke-[2]" />
                   Review
                 </button>
                 <button
@@ -544,7 +544,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                               Start Review Session
                             </Button>
                           </div>
-                          <BrainIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                          <LightbulbIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
                         </div>
                       </Card>
                     </motion.div>
@@ -681,7 +681,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                               <HeartIcon className="w-16 h-16 text-green-400 stroke-[1.5]" />
                             </motion.div>
                           ) : completionState?.type === 'no_cards_due' ? (
-                            <BrainIcon className="w-16 h-16 text-blue-400 stroke-[1.5]" />
+                            <LightbulbIcon className="w-16 h-16 text-blue-400 stroke-[1.5]" />
                           ) : (
                             <RocketIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
                           )}
@@ -744,7 +744,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   {/* AI Insights / Onboarding */}
                   <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
                     <div className="flex items-center mb-6">
-                      <BrainIcon className="w-6 h-6 mr-3 text-purple-600/70" />
+                      <LightbulbIcon className="w-6 h-6 mr-3 text-purple-600/70" />
                       <h3 className="font-serif font-light text-lg text-black/90">
                         {completionState?.type === 'new_user' ? 'Getting Started' : 
                          completionState?.type === 'completed_today' ? 'Today&apos;s Achievement' :

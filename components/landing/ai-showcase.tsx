@@ -3,7 +3,7 @@
 import { motion, useInView, useMotionValue } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { BrainIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
+import { ClockIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
 
 export default function AIShowcase() {
   const ref = useRef(null)
@@ -18,7 +18,7 @@ export default function AIShowcase() {
       title: 'Memory that mirrors yours',
       subtitle: 'Intelligent Spacing',
       description: 'Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories, not temporary knowledge.',
-      icon: BrainIcon,
+      icon: ClockIcon,
       color: '#FF6B6B',
       stats: {
         main: '87%',

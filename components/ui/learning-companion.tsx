@@ -2,13 +2,13 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { SparkleIcon, BrainIcon, HeartIcon } from '@/components/icons/line-icons'
+import { SparkleIcon, LightbulbIcon, HeartIcon } from '@/components/icons/line-icons'
 
 const tips = [
-  { icon: BrainIcon, text: "Did you know? Your brain remembers better when you study in short bursts!" },
+  { icon: LightbulbIcon, text: "Did you know? Your brain remembers better when you study in short bursts!" },
   { icon: SparkleIcon, text: "Tip: Review your cards just before sleeping for better retention" },
   { icon: HeartIcon, text: "Take a break! A rested mind learns faster" },
-  { icon: BrainIcon, text: "Fun fact: Teaching others helps you learn 90% better!" },
+  { icon: LightbulbIcon, text: "Fun fact: Teaching others helps you learn 90% better!" },
   { icon: SparkleIcon, text: "Try the Feynman technique: Explain concepts in simple terms" },
 ]
 

@@ -3,11 +3,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  BrainIcon,
+  LightbulbIcon,
   RefreshIcon,
   CheckCircleIcon,
   CloseIcon,
-  LightbulbIcon,
   VolumeIcon,
   KeyboardIcon,
   EyeIcon
@@ -463,7 +462,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                           onClick={getAIHelp}
                           className="text-black/60 border-black/20 hover:bg-black/5 rounded-full px-4 py-2 transition-colors"
                         >
-                          <BrainIcon className="w-4 h-4 mr-2" />
+                          <LightbulbIcon className="w-4 h-4 mr-2" />
                           AI Help
                         </Button>
                       </motion.div>

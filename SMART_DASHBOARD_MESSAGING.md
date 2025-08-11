@@ -90,7 +90,7 @@ SELECT next_review_date FROM user_cards WHERE user_id = ? AND next_review_date >
 ### Contextual Icons
 - **SparkleIcon**: New user journey
 - **HeartIcon**: Celebration/completed state
-- **BrainIcon**: Spaced repetition active
+- **LightbulbIcon**: Spaced repetition active
 - **RocketIcon**: Default/caught up state
 
 ## User Experience Improvements

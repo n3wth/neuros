@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { SignInForm } from '@/components/features/auth/sign-in-form'
-import { BrainIcon, ChartIcon, RocketIcon } from '@/components/icons/line-icons'
+import { LightbulbIcon, ChartIcon, RocketIcon } from '@/components/icons/line-icons'
 import { Logo } from '@/components/ui/logo'
 
 export default function SignInPage() {
@@ -67,7 +67,7 @@ export default function SignInPage() {
             <div className="space-y-6">
               {[
                 {
-                  icon: BrainIcon,
+                  icon: LightbulbIcon,
                   title: 'Smart Memory',
                   description: 'AI-powered spaced repetition that adapts to you'
                 },

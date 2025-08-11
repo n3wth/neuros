@@ -1,7 +1,7 @@
 'use client'
 
 import { 
-  BrainIcon, 
+  LightbulbIcon, 
   TrendingIcon, 
   ChartIcon, 
   InfoIcon,
@@ -168,7 +168,7 @@ export default function AIFeaturesSettings({ className, onFeatureClick }: AIFeat
           primary: { value: "200%", label: "Faster Acquisition" },
           secondary: { value: "50%", label: "Better Retention" }
         }}
-        icon={<BrainIcon className="h-7 w-7 text-black/70" />}
+        icon={<LightbulbIcon className="h-7 w-7 text-black/70" />}
         onClick={() => handleFeatureClick('spacing')}
         expanded={expandedCard === 'spacing'}
       />
@@ -282,7 +282,7 @@ export function AIFeaturesSettingsWithIcons({ className, onFeatureClick }: AIFea
       <div className="absolute -right-16 top-8 z-10">
         <div className="relative animate-pulse">
           <div className="w-24 h-24 bg-gradient-to-br from-stone-900 to-gray-800 rounded-full flex items-center justify-center shadow-2xl">
-            <BrainIcon className="w-12 h-12 text-white" />
+            <LightbulbIcon className="w-12 h-12 text-white" />
           </div>
           <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-black/10">
             <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full animate-spin-slow" />

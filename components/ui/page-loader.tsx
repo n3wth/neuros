@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { BrainIcon, SparkleIcon } from '@/components/icons/line-icons'
+import { LightbulbIcon, SparkleIcon } from '@/components/icons/line-icons'
 
 interface EnhancedLoaderProps {
   isVisible?: boolean
@@ -149,7 +149,7 @@ export function EnhancedLoader({
                   ease: "easeInOut",
                 }}
               >
-                <BrainIcon className="w-16 h-16 text-black/60 stroke-[1.5]" />
+                <LightbulbIcon className="w-16 h-16 text-black/60 stroke-[1.5]" />
               </motion.div>
 
               {/* Neuron Connection Lines */}

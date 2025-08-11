@@ -4,7 +4,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { BrainIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
+import { ClockIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
 
 interface ProfessionalHeroProps {
   isAuthenticated: boolean
@@ -106,7 +106,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           <div className="grid lg:grid-cols-3 gap-8 mt-12">
             {[
               {
-                icon: BrainIcon,
+                icon: ClockIcon,
                 title: 'Intelligent Spacing',
                 description: 'Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories.',
                 color: '#FF6B6B',

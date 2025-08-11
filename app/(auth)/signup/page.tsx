@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { SignUpForm } from '@/components/features/auth/sign-up-form'
-import { BrainIcon, RocketIcon, HeartIcon } from '@/components/icons/line-icons'
+import { SparkleIcon, RocketIcon, HeartIcon } from '@/components/icons/line-icons'
 import { Logo } from '@/components/ui/logo'
 
 export default function SignUpPage() {
@@ -87,7 +87,7 @@ export default function SignUpPage() {
               <h3 className="text-lg font-medium text-black/80">How it works</h3>
               {[
                 {
-                  icon: BrainIcon,
+                  icon: SparkleIcon,
                   title: 'AI creates your cards',
                   description: 'Upload notes or topics, our AI generates perfect flashcards'
                 },

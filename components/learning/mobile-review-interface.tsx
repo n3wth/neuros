@@ -3,10 +3,9 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useTransform, PanInfo } from 'framer-motion'
 import { 
-  BrainIcon,
+  LightbulbIcon,
   RefreshIcon,
   CheckCircleIcon,
-  LightbulbIcon,
   EyeIcon
 } from '@/components/icons/line-icons'
 import { ChevronUp as ChevronUpIcon, ChevronDown as ChevronDownIcon } from 'lucide-react'
@@ -436,7 +435,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
                 onClick={getAIHelp}
                 className="flex-1 text-black/60 border-black/20 rounded-full py-3"
               >
-                <BrainIcon className="w-4 h-4 mr-1" />
+                <LightbulbIcon className="w-4 h-4 mr-1" />
                 AI Help
               </Button>
             )}

@@ -6,7 +6,7 @@ import EnhancedLoader from '@/components/ui/page-loader'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { SparkleIcon, BrainIcon } from '@/components/icons/line-icons'
+import { SparkleIcon, LightbulbIcon } from '@/components/icons/line-icons'
 
 export default function LoadingDemo() {
   const [showLoader, setShowLoader] = useState(false)
@@ -45,7 +45,7 @@ export default function LoadingDemo() {
         >
           <Card className="p-8 bg-white rounded-3xl border border-black/5">
             <div className="flex items-center mb-6">
-              <BrainIcon className="w-6 h-6 mr-3 text-blue-600" />
+              <LightbulbIcon className="w-6 h-6 mr-3 text-blue-600" />
               <h2 className="text-2xl font-serif font-light text-black/90">Enhanced Loading Screens</h2>
             </div>
             <p className="text-black/60 font-light mb-8">
