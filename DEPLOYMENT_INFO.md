@@ -2,6 +2,13 @@
 
 ## Current Status
 
+### PR #36: fix-8-mastery-level-negative  
+- **Status**: ✅ READY (in review)
+- **Branch**: `fix-8-mastery-level-negative`
+- **Latest Commit**: `63d8419` (fix: prevent mastery level from going negative)
+- **Issue**: Fixes #8 - mastery level bounds checking
+- **Last Updated**: 2025-08-11 UTC
+
 ### PR #32: enhance-explore-patterns
 - **Status**: ✅ READY  
 - **Deployment ID**: `dpl_FsLRzwHdnqYZ289gsChmqDcga2L6`
@@ -23,6 +30,7 @@
 - **Team**: Oliver Newth
 
 ## Recent Key Changes
+- ✅ **PR #36**: Fixed mastery level calculation to prevent negative values
 - ✅ Fixed 500 errors in preview deployments (Supabase env var handling)
 - ✅ Added GitHub Actions permissions for PR comments
 - ✅ Made all public pages dynamic to prevent build failures
