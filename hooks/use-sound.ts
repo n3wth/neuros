@@ -190,8 +190,7 @@ export function useNavigationSound() {
     
     soundSystem.playSound('navigation', {
       pan: panMap[direction],
-      pitch: pitchMap[direction],
-      haptic: 'light'
+      pitch: pitchMap[direction]
     })
   }, [])
 

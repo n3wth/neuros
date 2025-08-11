@@ -141,6 +141,7 @@ supabase/
 - Editorial design aesthetic with clean typography
 - Use shadcn/ui components from `components/ui/`
 - Responsive design with mobile-first approach
+- **CRITICAL**: NO GRADIENT BACKGROUNDS - User hates gradients, use solid colors only
 
 ## Environment Variables
 

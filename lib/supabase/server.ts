@@ -15,7 +15,7 @@ const createMockClient = (): ReturnType<typeof createServerClient<Database>> => 
       update: () => ({ data: null, error: null }),
       delete: () => ({ data: null, error: null })
     })
-  } as ReturnType<typeof createServerClient<Database>>
+  } as unknown as ReturnType<typeof createServerClient<Database>>
 }
 
 export const createClient = async () => {

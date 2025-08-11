@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type ReactElement } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
 import { Slider } from '@/components/ui/slider'
@@ -56,7 +56,7 @@ export default function SoundSettings({ className }: SoundSettingsProps) {
     setTimeout(() => playNotification(), 500)
   }
 
-  const ambientOptions: { type: AmbientType; label: string; icon: JSX.Element }[] = [
+  const ambientOptions: { type: AmbientType; label: string; icon: ReactElement }[] = [
     { type: 'rain', label: 'Rain', icon: <WaveIcon className="h-4 w-4" /> },
     { type: 'waves', label: 'Ocean', icon: <WaveIcon className="h-4 w-4" /> },
     { type: 'forest', label: 'Forest', icon: <MusicIcon className="h-4 w-4" /> },

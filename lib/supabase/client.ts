@@ -14,7 +14,7 @@ const createMockClient = (): ReturnType<typeof createBrowserClient<Database>> =>
       update: () => ({ data: null, error: null }),
       delete: () => ({ data: null, error: null })
     })
-  } as ReturnType<typeof createBrowserClient<Database>>
+  } as unknown as ReturnType<typeof createBrowserClient<Database>>
 }
 
 export const createClient = () => {

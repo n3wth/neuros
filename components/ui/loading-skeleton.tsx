@@ -7,6 +7,7 @@ interface LoadingSkeletonProps {
   type?: 'card' | 'dashboard' | 'stats' | 'list' | 'review'
   message?: string
   className?: string
+  showIcon?: boolean
 }
 
 export function LoadingSkeleton({ 

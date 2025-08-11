@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card'
 import { 
   DownloadIcon,
   CloseIcon,
-  ShareIcon
+  SaveIcon
 } from '@/components/icons/line-icons'
 
 interface BeforeInstallPromptEvent extends Event {
@@ -114,7 +114,7 @@ export default function InstallPrompt() {
                       onClick={handleDismiss}
                       className="bg-black text-white hover:bg-black/90 rounded-full px-4 py-1 text-xs"
                     >
-                      <ShareIcon className="w-3 h-3 mr-1" />
+                      <SaveIcon className="w-3 h-3 mr-1" />
                       Got it
                     </Button>
                   ) : (

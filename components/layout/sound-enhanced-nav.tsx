@@ -33,19 +33,13 @@ export default function SoundEnhancedNav({ items, className }: SoundEnhancedNavP
 
   return (
     <nav className={cn("flex items-center gap-8", className)}>
-      {items.map((item, index) => {
-        const position = item.position || (
-          index < items.length / 3 ? 'left' : 
-          index > items.length * 2/3 ? 'right' : 
-          'center'
-        )
-        
+      {items.map((item) => {
         return (
           <Link
             key={item.name}
             href={item.href}
-            onMouseEnter={() => handleNavHover(position)}
-            onMouseDown={() => handleNavClick(position)}
+            onMouseEnter={() => handleNavHover()}
+            onMouseDown={() => handleNavClick()}
             className="relative text-sm text-black/60 hover:text-black transition-colors group"
           >
             {item.name}
@@ -71,6 +65,14 @@ export default function SoundEnhancedNav({ items, className }: SoundEnhancedNavP
 export function SoundEnhancedKeyboardNav({ items, className }: SoundEnhancedNavProps) {
   const pathname = usePathname()
   const { playClick, playHover } = useSound()
+  
+  const handleNavClick = () => {
+    playClick()
+  }
+
+  const handleNavHover = () => {
+    playHover()
+  }
   const { playNavigationSound } = useNavigationSound()
   
   const handleKeyboardNavigation = (e: React.KeyboardEvent, position: 'left' | 'center' | 'right' = 'center') => {
@@ -102,8 +104,8 @@ export function SoundEnhancedKeyboardNav({ items, className }: SoundEnhancedNavP
           <Link
             key={item.name}
             href={item.href}
-            onMouseEnter={() => handleNavHover(position)}
-            onMouseDown={() => handleNavClick(position)}
+            onMouseEnter={() => handleNavHover()}
+            onMouseDown={() => handleNavClick()}
             onKeyDown={(e) => handleKeyboardNavigation(e, position)}
             onFocus={() => playHover()}
             className="relative text-sm text-black/60 hover:text-black transition-colors group focus:outline-none focus:text-black"

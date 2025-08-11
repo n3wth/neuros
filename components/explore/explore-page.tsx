@@ -97,7 +97,7 @@ export default function ExplorePage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [filteredCategories, setFilteredCategories] = useState(categories)
   const [isSearching, setIsSearching] = useState(false)
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   // Debounced search effect
