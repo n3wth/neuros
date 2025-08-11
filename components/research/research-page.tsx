@@ -152,7 +152,7 @@ export default function ResearchPage() {
       </section>
 
       {/* Research Papers */}
-      <section id="papers" className="py-20 bg-[#FAFAF9] pattern-lines">
+      <section id="papers" className="py-20 bg-[#FAFAF9]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
