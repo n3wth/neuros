@@ -114,7 +114,7 @@ export async function submitReview(
       last_review_date: new Date().toISOString(),
       total_reviews: (userCard.total_reviews || 0) + 1,
       correct_reviews: rating >= 3 ? (userCard.correct_reviews || 0) + 1 : (userCard.correct_reviews || 0),
-      mastery_level: Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)),
+      mastery_level: Math.max(0, Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10))),
       average_response_time: userCard.average_response_time 
         ? Math.round((userCard.average_response_time + responseTime) / 2)
         : responseTime
@@ -145,7 +145,7 @@ export async function submitReview(
   return {
     success: true,
     nextReviewDate: sm2Result.nextReviewDate,
-    mastery: Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10))
+    mastery: Math.max(0, Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)))
   }
 }
 
