@@ -87,24 +87,17 @@ export default function TrustIndicators() {
               <span className="text-sm text-gray-400">Neuros © 2025</span>
             </div>
             
-            <a 
-              href="https://newth.ai" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs text-gray-400 font-light hover:text-gray-600 transition-colors group"
-            >
-              Made with{' '}
-              <motion.span 
-                className="inline-block italic font-serif text-gray-500"
-                whileHover={{ 
-                  rotate: [-2, 2, -1, 1, 0],
-                  transition: { duration: 0.3 }
-                }}
+            <div className="text-xs text-gray-400 font-light">
+              A pet project by{' '}
+              <a
+                href="https://newth.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 font-light hover:text-gray-600 transition-colors"
               >
-                curiosity
-              </motion.span>
-              {' '}by Oliver Newth
-            </a>
+                Oliver Newth
+              </a>
+            </div>
           </div>
         </div>
       </div>
