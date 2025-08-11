@@ -50,7 +50,7 @@ export default function TrustIndicators() {
               © 2024 Neuros. All rights reserved.
             </p>
             <p className="text-xs text-black/40">
-              a project by <a href="https://newth.ai" className="underline hover:text-black/60" target="_blank" rel="noopener noreferrer">newth.ai</a>
+              A project by <a href="https://newth.ai" className="underline hover:text-black/60" target="_blank" rel="noopener noreferrer">newth.ai</a>
             </p>
           </div>
         </div>
