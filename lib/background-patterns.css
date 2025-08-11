@@ -19,7 +19,7 @@
       transparent 2deg, 
       transparent 3deg, 
       rgba(0, 0, 0, 0.01) 4deg);
-  background-size: 100px 100px;
+  background-size: 20px 20px;
 }
 
 /* Subtle gradient mesh */
@@ -38,9 +38,9 @@
   background-image: repeating-linear-gradient(
     45deg,
     transparent,
-    transparent 35px,
-    rgba(0, 0, 0, 0.01) 35px,
-    rgba(0, 0, 0, 0.01) 70px
+    transparent 10px,
+    rgba(0, 0, 0, 0.008) 10px,
+    rgba(0, 0, 0, 0.008) 11px
   );
 }
 
@@ -48,7 +48,7 @@
 .pattern-dots {
   background-image: 
     radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 16px 16px;
 }
 
 /* Graph paper pattern */
@@ -56,7 +56,7 @@
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.01) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.01) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-size: 20px 20px;
 }
 
 /* Soft radial gradient */
@@ -74,18 +74,18 @@
     repeating-radial-gradient(
       circle at 0 0,
       transparent 0,
-      rgba(0, 0, 0, 0.01) 10px,
-      transparent 20px,
-      transparent 30px,
-      rgba(0, 0, 0, 0.01) 40px
+      rgba(0, 0, 0, 0.008) 5px,
+      transparent 10px,
+      transparent 15px,
+      rgba(0, 0, 0, 0.008) 20px
     ),
     repeating-radial-gradient(
       circle at 100% 100%,
       transparent 0,
-      rgba(0, 0, 0, 0.01) 10px,
-      transparent 20px,
-      transparent 30px,
-      rgba(0, 0, 0, 0.01) 40px
+      rgba(0, 0, 0, 0.008) 5px,
+      transparent 10px,
+      transparent 15px,
+      rgba(0, 0, 0, 0.008) 20px
     );
 }
 
@@ -95,16 +95,16 @@
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 50px,
-      rgba(70, 130, 180, 0.01) 50px,
-      rgba(70, 130, 180, 0.01) 100px
+      transparent 20px,
+      rgba(70, 130, 180, 0.008) 20px,
+      rgba(70, 130, 180, 0.008) 21px
     ),
     repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 50px,
-      rgba(166, 124, 82, 0.01) 50px,
-      rgba(166, 124, 82, 0.01) 100px
+      transparent 20px,
+      rgba(166, 124, 82, 0.008) 20px,
+      rgba(166, 124, 82, 0.008) 21px
     );
 }
 
@@ -123,16 +123,16 @@
     repeating-linear-gradient(
       45deg,
       transparent,
-      transparent 25px,
-      rgba(245, 241, 235, 0.5) 25px,
-      rgba(245, 241, 235, 0.5) 26px
+      transparent 12px,
+      rgba(245, 241, 235, 0.3) 12px,
+      rgba(245, 241, 235, 0.3) 12.5px
     ),
     repeating-linear-gradient(
       -45deg,
       transparent,
-      transparent 25px,
-      rgba(245, 241, 235, 0.3) 25px,
-      rgba(245, 241, 235, 0.3) 26px
+      transparent 12px,
+      rgba(245, 241, 235, 0.2) 12px,
+      rgba(245, 241, 235, 0.2) 12.5px
     );
 }
 
@@ -199,9 +199,9 @@
   background-image: repeating-linear-gradient(
     45deg,
     transparent,
-    transparent 35px,
-    rgba(255, 255, 255, 0.01) 35px,
-    rgba(255, 255, 255, 0.01) 70px
+    transparent 10px,
+    rgba(255, 255, 255, 0.008) 10px,
+    rgba(255, 255, 255, 0.008) 11px
   );
 }
 
