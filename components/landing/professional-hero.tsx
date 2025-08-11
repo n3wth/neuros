@@ -41,20 +41,16 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
     <motion.section 
       ref={heroRef}
       style={{ opacity }}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] pattern-mesh pattern-noise"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5]"
     >
-      {/* Background Pattern - matching auth pages */}
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      {/* Background Pattern - subtle organic shapes only */}
+      <svg className="absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <pattern id="dots-hero" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.5" fill="rgba(0,0,0,0.015)" />
-          </pattern>
-          <pattern id="cross-hero" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 30 0 L 30 60 M 0 30 L 60 30" stroke="rgba(0,0,0,0.008)" strokeWidth="0.5" />
-          </pattern>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="rgba(168, 85, 247, 0.02)" />
+            <stop offset="100%" stopColor="rgba(236, 72, 153, 0.02)" />
+          </linearGradient>
         </defs>
-        <rect width="100%" height="100%" fill="url(#dots-hero)" />
-        <rect width="100%" height="100%" fill="url(#cross-hero)" />
         
         {/* Organic shapes */}
         <motion.path
@@ -226,32 +222,19 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
                 </motion.div>
                 
                 <motion.button 
-                  className="relative flex items-center gap-2 text-sm text-black/40 hover:text-black/60 transition-all duration-200 ease-out group"
+                  className="flex items-center gap-2 text-sm text-black/40 hover:text-black/60 transition-all duration-200 ease-out group"
                   whileHover={{ x: 4 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <motion.div 
-                    className="relative w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-all duration-200"
+                    className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-all duration-200"
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <motion.div 
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400/0 to-pink-400/0 group-hover:from-purple-400/10 group-hover:to-pink-400/10 transition-all duration-300"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    />
                     <div className="w-0 h-0 border-l-[6px] border-l-black/40 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent group-hover:border-l-black/60 transition-colors duration-200" />
                   </motion.div>
                   <span className="transition-colors duration-200">Watch demo — 2 min</span>
-                  <motion.span 
-                    className="absolute -right-2 -top-2 px-1.5 py-0.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[9px] font-bold rounded-full"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 2, type: "spring" }}
-                  >
-                    NEW
-                  </motion.span>
                 </motion.button>
               </div>
             </motion.div>
@@ -270,7 +253,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  className="stat-card relative p-8 rounded-3xl bg-white/95 backdrop-blur-sm border border-black/5 overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300 ease-out pattern-dots"
+                  className="stat-card relative p-8 rounded-3xl bg-white/95 backdrop-blur-sm border border-black/5 overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300 ease-out"
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                   whileHover={{ y: -3, scale: 1.02 }}
@@ -308,8 +291,6 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            {/* Subtle grid overlay */}
-            <div className="absolute inset-0 pattern-grid opacity-30" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <motion.div 
                 className="flex items-start gap-3"

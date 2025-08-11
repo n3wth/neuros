@@ -70,13 +70,7 @@ export default function AIShowcase() {
   }, [mouseX, mouseY])
 
   return (
-    <section ref={ref} className="py-32 bg-gradient-to-b from-white via-[#FAFAF9] to-white relative overflow-hidden pattern-dots">
-      {/* Subtle background texture */}
-      <div className="absolute inset-0 opacity-[0.015]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M18 17v-1h-1v1h-2v1h2v2h1v-2h2v-1h-2zm0-15V0h-1v2h-2v1h2v2h1V3h2V2h-2zM3 17v-1H2v1H0v1h2v2h1v-2h2v-1H3zM3 2V0H2v2H0v1h2v2h1V3h2V2H3z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+    <section ref={ref} className="py-32 bg-gradient-to-b from-white via-[#FAFAF9] to-white relative overflow-hidden">
       {/* Additional subtle gradient orbs */}
       <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-br from-purple-100/20 to-transparent rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-transparent rounded-full blur-3xl" />

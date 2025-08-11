@@ -2,7 +2,42 @@
 
 This guide helps you set up `neuros.local` as your local development domain.
 
-## Quick Setup
+## Quick Setup (Port 80 - Clean URLs)
+
+### Option 1: Using Proxy (Recommended)
+1. **Add to hosts file** (one-time setup):
+   ```bash
+   sudo sh -c 'echo "127.0.0.1       neuros.local" >> /etc/hosts'
+   ```
+
+2. **Start dev server** (Terminal 1):
+   ```bash
+   npm run dev:local
+   ```
+
+3. **Start proxy** (Terminal 2 - requires sudo):
+   ```bash
+   npm run proxy:80
+   ```
+
+4. **Access the site**:
+   Open your browser and navigate to: `http://neuros.local` (no port!)
+
+### Option 2: Port Forwarding with pfctl
+1. **Enable port forwarding**:
+   ```bash
+   ./setup-port-80.sh enable
+   ```
+
+2. **Start dev server**:
+   ```bash
+   npm run dev:local
+   ```
+
+3. **Access the site**:
+   Open your browser and navigate to: `http://neuros.local`
+
+## Standard Setup (Port 3001)
 
 1. **Run the setup script** (requires sudo password):
    ```bash
@@ -43,6 +78,8 @@ This runs `next dev -H 0.0.0.0 -p 3001`
 
 - `npm run dev` - Standard development server (localhost:3000)
 - `npm run dev:local` - Development server accessible via neuros.local:3001
+- `npm run dev:80` - Development server on port 80 (requires sudo)
+- `npm run proxy:80` - Proxy server to forward port 80 to 3001 (requires sudo)
 
 ## Troubleshooting
 
