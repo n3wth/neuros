@@ -1,0 +1,39 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    jq \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    openai \
+    anthropic \
+    github3.py \
+    schedule \
+    redis \
+    psycopg2-binary \
+    requests \
+    pydantic \
+    langchain \
+    chromadb \
+    tiktoken
+
+# Copy agent scripts
+COPY scripts/product_manager.py /app/
+COPY scripts/agent_base.py /app/
+COPY scripts/utils.py /app/
+
+# Create data directory
+RUN mkdir -p /data /logs
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV AGENT_ROLE=product_manager
+
+# Run the agent
+CMD ["python", "-u", "product_manager.py"]

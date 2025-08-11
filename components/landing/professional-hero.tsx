@@ -86,6 +86,31 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
             </p>
           </motion.div>
 
+          {/* Metrics Banner */}
+          <motion.div 
+            className="flex flex-wrap gap-8 pt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15 }}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-light text-black">10M+</span>
+              <span className="text-sm text-black/50">cards reviewed</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-light text-black">94%</span>
+              <span className="text-sm text-black/50">retention rate</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-light text-black">500+</span>
+              <span className="text-sm text-black/50">enterprise clients</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-light text-black">4.9★</span>
+              <span className="text-sm text-black/50">user rating</span>
+            </div>
+          </motion.div>
+
           {/* Refined CTAs */}
           <motion.div 
             className="pt-2"

@@ -1,0 +1,278 @@
+version: '3.9'
+
+services:
+  # Main Neuros Application
+  neuros-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: neuros-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - neuros-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.neuros.rule=Host(`neuros.newth.ai`)"
+      - "traefik.http.routers.neuros.tls=true"
+      - "traefik.http.routers.neuros.tls.certresolver=letsencrypt"
+
+  # AI Product Manager Agent
+  ai-product-manager:
+    build:
+      context: ./docker/agents
+      dockerfile: Dockerfile.product-manager
+    container_name: ai-product-manager
+    restart: always
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PROJECT_PATH=/workspace
+      - REPO_URL=https://github.com/n3wth/neuros
+    volumes:
+      - ./:/workspace
+      - ./docker/agents/data:/data
+    networks:
+      - neuros-network
+    depends_on:
+      - redis
+      - postgres
+
+  # AI Developer Agent
+  ai-developer:
+    build:
+      context: ./docker/agents
+      dockerfile: Dockerfile.developer
+    container_name: ai-developer
+    restart: always
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - AUTO_FIX_ISSUES=true
+      - AUTO_IMPLEMENT_FEATURES=true
+    volumes:
+      - ./:/workspace
+      - ./docker/agents/logs:/logs
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - neuros-network
+    depends_on:
+      - redis
+      - postgres
+
+  # AI QA Engineer Agent
+  ai-qa-engineer:
+    build:
+      context: ./docker/agents
+      dockerfile: Dockerfile.qa
+    container_name: ai-qa-engineer
+    restart: always
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AUTO_RUN_TESTS=true
+      - AUTO_FIX_TESTS=true
+      - COVERAGE_THRESHOLD=80
+    volumes:
+      - ./:/workspace
+      - ./test-results:/test-results
+    networks:
+      - neuros-network
+    depends_on:
+      - neuros-app
+
+  # AI Designer Agent
+  ai-designer:
+    build:
+      context: ./docker/agents
+      dockerfile: Dockerfile.designer
+    container_name: ai-designer
+    restart: always
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - AUTO_IMPROVE_UI=true
+      - DESIGN_SYSTEM_PATH=/workspace/components
+    volumes:
+      - ./:/workspace
+      - ./docker/agents/designs:/designs
+    networks:
+      - neuros-network
+
+  # GitHub Actions Runner (Self-hosted)
+  github-runner:
+    image: myoung34/github-runner:latest
+    container_name: github-runner
+    restart: always
+    environment:
+      - REPO_URL=https://github.com/n3wth/neuros
+      - RUNNER_TOKEN=${GITHUB_RUNNER_TOKEN}
+      - RUNNER_NAME=docker-runner
+      - RUNNER_WORKDIR=/tmp/runner/work
+      - LABELS=self-hosted,docker,production
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./runner-data:/tmp/runner
+    networks:
+      - neuros-network
+
+  # Code Analysis & Improvement Service
+  code-analyzer:
+    build:
+      context: ./docker/services
+      dockerfile: Dockerfile.analyzer
+    container_name: code-analyzer
+    restart: always
+    environment:
+      - SONARQUBE_URL=http://sonarqube:9000
+      - ANALYZE_INTERVAL=3600
+    volumes:
+      - ./:/workspace:ro
+      - ./docker/reports:/reports
+    networks:
+      - neuros-network
+    depends_on:
+      - sonarqube
+
+  # SonarQube for Code Quality
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    networks:
+      - neuros-network
+    depends_on:
+      - postgres
+
+  # PostgreSQL for Agents & Analytics
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=neuros_ai
+      - POSTGRES_USER=neuros
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - neuros-network
+
+  # Redis for Task Queue
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - neuros-network
+
+  # Prometheus for Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: always
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - neuros-network
+
+  # Grafana for Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_INSTALL_PLUGINS=redis-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/monitoring/dashboards:/etc/grafana/provisioning/dashboards
+    networks:
+      - neuros-network
+    depends_on:
+      - prometheus
+
+  # Traefik Reverse Proxy
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik
+    restart: always
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=admin@newth.ai"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - neuros-network
+
+  # Automated Deployment Service
+  auto-deployer:
+    build:
+      context: ./docker/services
+      dockerfile: Dockerfile.deployer
+    container_name: auto-deployer
+    restart: always
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - DEPLOY_ON_MERGE=true
+      - PRODUCTION_URL=https://neuros.newth.ai
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workspace
+    networks:
+      - neuros-network
+
+networks:
+  neuros-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  prometheus_data:
+  grafana_data:

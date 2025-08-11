@@ -10,9 +10,10 @@ import { IconMenu2, IconX } from '@tabler/icons-react'
 
 const navigation = [
   { name: 'Explore', href: '/explore' },
-  { name: 'Research', href: '/research' },
   { name: 'Enterprise', href: '/enterprise' },
   { name: 'Pricing', href: '/pricing' },
+  { name: 'API', href: '/api-docs' },
+  { name: 'Status', href: '/status' },
 ]
 
 export default function SiteHeader() {
