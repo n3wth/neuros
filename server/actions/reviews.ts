@@ -66,12 +66,15 @@ export async function submitReview(
   if (!user) throw new Error('Not authenticated')
 
   // Get current user_card data
-  let { data: userCard, error: fetchError } = await supabase
+  let userCard
+  const { data: tempUserCard, error: fetchError } = await supabase
     .from('user_cards')
     .select('*')
     .eq('user_id', user.id)
     .eq('card_id', cardId)
     .single()
+
+  userCard = tempUserCard
 
   if (fetchError) {
     // If user_card doesn't exist, create it
