@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -34,8 +34,8 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
         }} />
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 w-full pt-32 pb-32">
-        <div className="space-y-20">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 w-full pt-32 pb-16">
+        <div className="space-y-12">
           {/* Refined announcement */}
           <motion.div 
             className="flex items-center gap-4"
@@ -51,14 +51,29 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
           {/* Editorial hero text */}
           <motion.div 
-            className="max-w-5xl space-y-12"
+            className="max-w-5xl space-y-6"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em]">
-              <span className="block text-black mb-4">
-                {words[activeWord]} everything.
+              <span className="block mb-4 relative inline-block">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={words[activeWord]}
+                    initial={{ opacity: 0, y: 30, scale: 0.95, filter: "blur(8px)" }}
+                    animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -30, scale: 1.05, filter: "blur(8px)" }}
+                    transition={{ 
+                      duration: 1.2,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
+                    className="block text-black"
+                  >
+                    {words[activeWord]}
+                  </motion.span>
+                </AnimatePresence>
+                <span className="text-black"> everything.</span>
               </span>
               <span className="block text-black/60 mt-4">
                 No more forgetting.
@@ -73,26 +88,22 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
           {/* Refined CTAs */}
           <motion.div 
-            className="flex flex-col sm:flex-row items-start gap-6 pt-8"
+            className="pt-2"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Link 
               href={isAuthenticated ? "/dashboard" : "/signup"}
-              className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 hover:bg-black/90 transition-colors duration-200"
+              className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/90 transition-all duration-300 shadow-sm hover:shadow-md"
             >
-              <span className="text-base font-medium">Begin your journey</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <span className="text-sm font-medium">Get started</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            
-            <button className="inline-flex items-center text-black/60 hover:text-black transition-colors text-base">
-              Watch demo — 2 min
-            </button>
           </motion.div>
 
           {/* Refined features */}
-          <div className="grid lg:grid-cols-3 gap-12 mt-24">
+          <div className="grid lg:grid-cols-3 gap-8 mt-12">
             {[
               {
                 icon: BrainIcon,
@@ -155,7 +166,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
           {/* Clean testimonial */}
           <motion.div 
-            className="mt-24 pt-16 border-t border-black/10"
+            className="mt-16 pt-12 border-t border-black/10"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
