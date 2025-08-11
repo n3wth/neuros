@@ -144,19 +144,17 @@ npm run typecheck       # TypeScript checking
 
 ### Database
 ```bash
-npm run db:start        # Start local Supabase
-npm run db:stop         # Stop local Supabase
 npm run db:reset        # Reset & apply migrations
 npm run db:types        # Generate TypeScript types
-npm run db:push         # Deploy migrations to production
 ```
 
 ### Testing
 ```bash
-npm run test            # Run unit tests
+npm run test            # Run unit tests once
+npm run test:watch      # Run unit tests in watch mode
 npm run test:ui         # Interactive test UI
-npm run test:e2e        # End-to-end tests
 npm run test:coverage   # Coverage report
+npm run test:e2e        # End-to-end tests
 ```
 
 ---
