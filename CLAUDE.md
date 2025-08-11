@@ -13,7 +13,7 @@ npm run lint            # Run ESLint
 npm run typecheck       # TypeScript type checking
 ```
 
-### Testing
+### Testing Commands
 ```bash
 npm run test            # Run Vitest unit tests
 npm run test:ui         # Interactive Vitest UI

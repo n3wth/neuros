@@ -1,9 +1,9 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import TrustIndicators from '@/components/landing/trust-indicators'
-import { ArrowRight, Search, Users, Clock } from 'lucide-react'
+import { ArrowRight, Search, Users, Clock, X } from 'lucide-react'
 import { BrainIcon, CodeIcon, BeakerIcon, ChartIcon, PaletteIcon, GlobeIcon } from '@/components/icons/line-icons'
 import Link from 'next/link'
 
@@ -95,11 +95,35 @@ const curated = [
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [filteredCategories, setFilteredCategories] = useState(categories)
+  const [isSearching, setIsSearching] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
+  // Debounced search effect
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredCategories(categories)
+      setIsSearching(false)
+      return
+    }
+
+    setIsSearching(true)
+    const timeoutId = setTimeout(() => {
+      const filtered = categories.filter(cat => 
+        cat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cat.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cat.featured.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+      setFilteredCategories(filtered)
+      setIsSearching(false)
+    }, 300)
+
+    return () => clearTimeout(timeoutId)
+  }, [searchQuery])
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F0FDF4] to-[#F5FFF7]">
+    <div className="min-h-screen bg-gradient-to-br from-[#F0FDF4] to-[#F5FFF7] pattern-paper">
       {/* Hero Section */}
       <div className="pt-32 pb-20 relative overflow-hidden">
         {/* Background Pattern */}
@@ -126,7 +150,7 @@ export default function ExplorePage() {
 
           {/* Headline */}
           <h1 className="text-[clamp(3rem,6vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-8">
-            Knowledge,
+            Knowledge,{' '}
             <span className="block text-black/60 mt-2">curated by experts.</span>
           </h1>
 
@@ -142,17 +166,72 @@ export default function ExplorePage() {
                 type="text"
                 placeholder="Search topics, concepts, or skills..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim() && filteredCategories.length > 0) {
+                    // Select first result on Enter
+                    setSelectedCategory(filteredCategories[0].id)
+                    // Scroll to categories section
+                    ref.current?.scrollIntoView({ behavior: 'smooth' })
+                  }
+                  if (e.key === 'Escape') {
+                    // Clear search on Escape
+                    setSearchQuery('')
+                    setFilteredCategories(categories)
+                    setSelectedCategory(null)
+                  }
+                }}
                 className="w-full px-6 py-4 pr-12 bg-white border border-black/10 rounded-2xl focus:outline-none focus:border-black/30 transition-colors text-base"
               />
-              <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-black/30" />
+              {searchQuery ? (
+                <button
+                  onClick={() => {
+                    setSearchQuery('')
+                    setFilteredCategories(categories)
+                    setSelectedCategory(null)
+                  }}
+                  className="absolute right-5 top-1/2 -translate-y-1/2 p-1 hover:bg-black/5 rounded-lg transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X className="w-5 h-5 text-black/40 hover:text-black/60" />
+                </button>
+              ) : isSearching ? (
+                <motion.div
+                  className="absolute right-5 top-1/2 -translate-y-1/2"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <Search className="w-5 h-5 text-black/40" />
+                </motion.div>
+              ) : (
+                <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-black/30" />
+              )}
             </div>
+            
+            {/* Search Results Indicator */}
+            {searchQuery && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 text-sm text-black/60"
+              >
+                {isSearching ? (
+                  <span>Searching...</span>
+                ) : filteredCategories.length > 0 ? (
+                  <span>Found {filteredCategories.length} {filteredCategories.length === 1 ? 'category' : 'categories'} matching &quot;{searchQuery}&quot;</span>
+                ) : (
+                  <span>No categories found for &quot;{searchQuery}&quot;. Try different keywords.</span>
+                )}
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>
 
       {/* Categories Grid */}
-      <section ref={ref} className="py-20 bg-white">
+      <section ref={ref} className="py-20 bg-white pattern-dots">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -162,7 +241,7 @@ export default function ExplorePage() {
             <h2 className="text-3xl font-serif font-light mb-12">Browse by domain</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {categories.map((category, index) => (
+              {filteredCategories.map((category, index) => (
                 <motion.div
                   key={category.id}
                   initial={{ opacity: 0, y: 30 }}

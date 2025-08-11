@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+.gitmodules
+
+# Development
+.worktrees
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+e2e-results
+test-results
+playwright-report
+
+# Build outputs (built on Vercel)
+.next
+out
+dist
+build
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Documentation
+*.md
+!README.md
+docs
+
+# Scripts
+scripts/parallel-dev.sh
+setup-*.sh
+start-*.sh
+test-*.sh
+proxy-*.js
+add-hosts-entry.sh

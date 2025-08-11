@@ -7,7 +7,7 @@ const envSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, 'Service role key is required').optional(),
   
   // OpenAI (optional but validated if present)
-  OPENAI_API_KEY: z.string().min(1, 'OpenAI API key is required').optional(),
+  OPENAI_API_KEY: z.string().min(1).optional(),
   
   // Node environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),

@@ -114,7 +114,7 @@ export async function submitReview(
       last_review_date: new Date().toISOString(),
       total_reviews: (userCard.total_reviews || 0) + 1,
       correct_reviews: rating >= 3 ? (userCard.correct_reviews || 0) + 1 : (userCard.correct_reviews || 0),
-      mastery_level: Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)),
+      mastery_level: Math.max(0, Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10))),
       average_response_time: userCard.average_response_time 
         ? Math.round((userCard.average_response_time + responseTime) / 2)
         : responseTime
@@ -142,10 +142,12 @@ export async function submitReview(
 
   revalidatePath('/dashboard')
   
+  const newMasteryLevel = Math.max(0, Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10)))
+  
   return {
     success: true,
     nextReviewDate: sm2Result.nextReviewDate,
-    mastery: Math.min(100, (userCard.mastery_level || 0) + (rating >= 3 ? 5 : -10))
+    mastery: newMasteryLevel
   }
 }
 
@@ -280,7 +282,10 @@ async function updateUserStats(userId: string) {
       average_accuracy: Math.round(accuracy)
     })
 
-  if (error) console.error('Error updating user stats:', error)
+  if (error) {
+    console.error('Error updating user stats:', error);
+    throw new Error('Failed to update user statistics');
+  }
 }
 
 // Calculate study streak

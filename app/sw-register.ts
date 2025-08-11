@@ -41,11 +41,6 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
-}
-
 export function setupInstallPrompt() {
   if (typeof window === 'undefined') return
 
@@ -71,8 +66,8 @@ export function setupInstallPrompt() {
   })
 
   // iOS install instructions
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
-  const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator as { standalone?: boolean }).standalone
+  const isIOS = typeof window !== 'undefined' ? /iPhone|iPad|iPod/i.test(navigator.userAgent) : false
+  const isInStandaloneMode = typeof window !== 'undefined' && ('standalone' in window.navigator) && (window.navigator as { standalone?: boolean }).standalone
 
   if (isIOS && !isInStandaloneMode) {
     // Show iOS install instructions

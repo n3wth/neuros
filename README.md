@@ -4,18 +4,46 @@
 
 **An experimental learning platform with AI-powered flashcard generation and spaced repetition**
 
+</div>
+
 [![Next.js](https://img.shields.io/badge/Next.js-15.4-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-green?logo=supabase)](https://supabase.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
 
-</div>
+---
+
+## Table of Contents
+
+- [About](#about)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Setup](#environment-setup)
+  - [Database Setup](#database-setup)
+  - [Run Development Server](#run-development-server)
+- [Project Structure](#project-structure)
+- [Available Commands](#available-commands)
+  - [Development](#development)
+  - [Database](#database)
+  - [Testing](#testing)
+- [Features](#features)
+  - [Implemented](#implemented)
+  - [In Development](#in-development)
+- [Deployment](#deployment)
+  - [Deploy to Vercel](#deploy-to-vercel)
+  - [Manual Deployment](#manual-deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## About
 
-Neuros is an experimental project by [Oliver Newth](https://github.com/n3wth) for testing AI-powered development tools and Model Context Protocol (MCP) integrations. It demonstrates a functional learning platform with AI-generated flashcards and spaced repetition algorithms.
+Neuros is an experimental project by [Oliver Newth](https://github.com/n3wth) for testing AI-powered development tools and Model Context Protocol (MCP) integrations. Started on January 8, 2025, it demonstrates a functional learning platform with AI-generated flashcards and spaced repetition algorithms.
+
+**Live Demo**: [https://neuros.newth.ai](https://neuros.newth.ai)
 
 ### What It Does
 
@@ -26,7 +54,7 @@ Neuros is an experimental project by [Oliver Newth](https://github.com/n3wth) fo
 - **Modern UI**: Clean, responsive interface built with Tailwind CSS v4
 
 ### MCP Servers Tested
-
+ origin/main
 This project serves as a testbed for various MCP integrations:
 - Sequential Thinking - Complex problem-solving workflows
 - Playwright - Browser automation and testing
@@ -142,19 +170,29 @@ npm run typecheck       # TypeScript checking
 
 ### Database
 ```bash
+<<<<<<< HEAD
 npm run db:start        # Start local Supabase
 npm run db:stop         # Stop local Supabase
+=======
+>>>>>>> origin/main
 npm run db:reset        # Reset & apply migrations
 npm run db:types        # Generate TypeScript types
-npm run db:push         # Deploy migrations to production
 ```
 
 ### Testing
 ```bash
+<<<<<<< HEAD
 npm run test            # Run unit tests
 npm run test:ui         # Interactive test UI
 npm run test:e2e        # End-to-end tests
 npm run test:coverage   # Coverage report
+=======
+npm run test            # Run unit tests once
+npm run test:watch      # Run unit tests in watch mode
+npm run test:ui         # Interactive test UI
+npm run test:coverage   # Coverage report
+npm run test:e2e        # End-to-end tests
+>>>>>>> origin/main
 ```
 
 ---
@@ -198,6 +236,18 @@ npm run build
 npm run start
 ```
 
+<<<<<<< HEAD
+=======
+---
+
+## Additional Documentation
+
+- [Deployment Guide](DEPLOYMENT.md)
+- [Playwright Setup](PLAYWRIGHT_SETUP.md)
+- [Testing Coverage](TEST_COVERAGE.md)
+- [Rate Limiting Summary](RATE_LIMITING_SUMMARY.md)
+
+>>>>>>> origin/main
 ---
 
 ## Contributing
@@ -224,4 +274,8 @@ MIT License - See [LICENSE](LICENSE) for details
 
 An experimental project for testing AI-powered development workflows
 
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> origin/main

@@ -37,7 +37,7 @@ A next-generation AI-powered spaced repetition learning platform built with Next
 3. **user_cards**: User-specific card data and progress
 4. **reviews**: Individual review history with ratings
 5. **study_sessions**: Session tracking and analytics
-6. **study_stats**: Aggregated performance metrics
+6. **user_stats**: Aggregated performance metrics
 7. **goals**: Learning objectives and milestones
 
 ### Authentication & Security
