@@ -226,19 +226,32 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
                 </motion.div>
                 
                 <motion.button 
-                  className="flex items-center gap-2 text-sm text-black/40 hover:text-black/60 transition-all duration-200 ease-out group"
+                  className="relative flex items-center gap-2 text-sm text-black/40 hover:text-black/60 transition-all duration-200 ease-out group"
                   whileHover={{ x: 4 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <motion.div 
-                    className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-all duration-200"
+                    className="relative w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-all duration-200"
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
+                    <motion.div 
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400/0 to-pink-400/0 group-hover:from-purple-400/10 group-hover:to-pink-400/10 transition-all duration-300"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    />
                     <div className="w-0 h-0 border-l-[6px] border-l-black/40 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent group-hover:border-l-black/60 transition-colors duration-200" />
                   </motion.div>
                   <span className="transition-colors duration-200">Watch demo — 2 min</span>
+                  <motion.span 
+                    className="absolute -right-2 -top-2 px-1.5 py-0.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[9px] font-bold rounded-full"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 2, type: "spring" }}
+                  >
+                    NEW
+                  </motion.span>
                 </motion.button>
               </div>
             </motion.div>
@@ -374,10 +387,10 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           position={{ top: '12rem', right: '8rem' }}
         />
 
-        {/* Cute floating elements */}
+        {/* Cute floating elements with blur trails */}
         <motion.div className="absolute top-32 right-48 hidden xl:block">
           <motion.div
-            className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100/60 to-purple-100/60 border border-purple-200/30"
+            className="relative w-20 h-20"
             animate={{
               y: [0, -25, 0],
               rotate: [0, 180, 360],
@@ -388,7 +401,14 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               repeat: Infinity,
               ease: "easeInOut"
             }}
-          />
+          >
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-100/60 to-purple-100/60 border border-purple-200/30" />
+            <motion.div 
+              className="absolute inset-2 rounded-full bg-gradient-to-br from-pink-200/40 to-purple-200/40 blur-md"
+              animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+          </motion.div>
         </motion.div>
         
         <motion.div className="absolute bottom-48 left-32 hidden xl:block">
