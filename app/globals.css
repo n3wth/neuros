@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../lib/background-patterns.css";
 
 @custom-variant dark (&:is(.dark *));
 

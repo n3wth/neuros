@@ -2,9 +2,10 @@
 
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
+import { env } from '@/lib/env'
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: env.OPENAI_API_KEY
 })
 
 // Generate abstract learning-themed images for cards

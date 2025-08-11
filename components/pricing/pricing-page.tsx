@@ -165,20 +165,29 @@ export default function PricingPage() {
             </p>
 
             {/* Billing Toggle */}
-            <div className="flex items-center gap-6">
+            <div className="inline-flex items-center gap-2 p-1 bg-white border border-black/10 rounded-full">
               <button
                 onClick={() => setIsAnnual(false)}
-                className={`text-lg transition-colors ${!isAnnual ? 'text-black font-medium' : 'text-black/40'}`}
+                className={`px-6 py-2 rounded-full transition-all ${
+                  !isAnnual 
+                    ? 'bg-black text-white' 
+                    : 'text-black/60 hover:text-black'
+                }`}
               >
                 Monthly
               </button>
-              <div className="h-6 w-px bg-black/20" />
               <button
                 onClick={() => setIsAnnual(true)}
-                className={`text-lg transition-colors ${isAnnual ? 'text-black font-medium' : 'text-black/40'}`}
+                className={`px-6 py-2 rounded-full transition-all flex items-center gap-2 ${
+                  isAnnual 
+                    ? 'bg-black text-white' 
+                    : 'text-black/60 hover:text-black'
+                }`}
               >
                 Annual
-                <span className="ml-2 px-3 py-1 text-sm bg-green-50 text-green-700 rounded-full">
+                <span className={`px-2 py-0.5 text-xs rounded-full ${
+                  isAnnual ? 'bg-white/20 text-white' : 'bg-green-50 text-green-700'
+                }`}>
                   Save 20%
                 </span>
               </button>
@@ -406,7 +415,7 @@ export default function PricingPage() {
               <Link href="/enterprise">
                 <button className="px-8 py-3 border border-black/20 rounded-full hover:bg-white transition-colors inline-flex items-center gap-2">
                   <RocketIcon className="w-4 h-4" />
-                  Enterprise Solutions
+                  Learn about Teams
                 </button>
               </Link>
             </div>

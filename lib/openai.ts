@@ -1,11 +1,12 @@
 import OpenAI from 'openai'
+import { env } from '@/lib/env'
 
-if (!process.env.OPENAI_API_KEY) {
+if (!env.OPENAI_API_KEY) {
   throw new Error('Missing OPENAI_API_KEY environment variable')
 }
 
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: env.OPENAI_API_KEY,
 })
 
 // Default configuration for different use cases

@@ -37,9 +37,9 @@ export default function TrustIndicators() {
               <motion.span
                 key={company}
                 initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 0.4 } : {}}
+                animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="text-lg font-light text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-lg font-light text-gray-600 hover:text-gray-900 transition-colors"
               >
                 {company}
               </motion.span>
@@ -67,48 +67,16 @@ export default function TrustIndicators() {
         </motion.div>
       </div>
 
-      {/* Footer Links */}
+      {/* Footer Links - Simplified */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div>
-            <h4 className="text-sm font-medium mb-4">Product</h4>
-            <ul className="space-y-3">
-              <li><Link href="/explore" className="text-sm text-gray-600 hover:text-black transition-colors">Explore</Link></li>
-              <li><Link href="/pricing" className="text-sm text-gray-600 hover:text-black transition-colors">Pricing</Link></li>
-              <li><Link href="/enterprise" className="text-sm text-gray-600 hover:text-black transition-colors">Enterprise</Link></li>
-              <li><Link href="/dashboard" className="text-sm text-gray-600 hover:text-black transition-colors">Dashboard</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-sm font-medium mb-4">Learn</h4>
-            <ul className="space-y-3">
-              <li><Link href="/research" className="text-sm text-gray-600 hover:text-black transition-colors">Research</Link></li>
-              <li><Link href="/learn" className="text-sm text-gray-600 hover:text-black transition-colors">Start Learning</Link></li>
-              <li><Link href="/ai-demo" className="text-sm text-gray-600 hover:text-black transition-colors">AI Demo</Link></li>
-              <li><a href="https://github.com/n3wth/supa-template" className="text-sm text-gray-600 hover:text-black transition-colors">GitHub</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-sm font-medium mb-4">Connect</h4>
-            <ul className="space-y-3">
-              <li><a href="https://twitter.com" className="text-sm text-gray-600 hover:text-black transition-colors">Twitter</a></li>
-              <li><a href="https://linkedin.com" className="text-sm text-gray-600 hover:text-black transition-colors">LinkedIn</a></li>
-              <li><a href="https://discord.com" className="text-sm text-gray-600 hover:text-black transition-colors">Discord</a></li>
-              <li><a href="mailto:hello@neuros.ai" className="text-sm text-gray-600 hover:text-black transition-colors">Email</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-sm font-medium mb-4">Account</h4>
-            <ul className="space-y-3">
-              <li><Link href="/signin" className="text-sm text-gray-600 hover:text-black transition-colors">Sign In</Link></li>
-              <li><Link href="/signup" className="text-sm text-gray-600 hover:text-black transition-colors">Sign Up</Link></li>
-              <li><Link href="/dashboard" className="text-sm text-gray-600 hover:text-black transition-colors">Dashboard</Link></li>
-              <li><a href="#" className="text-sm text-gray-400 cursor-not-allowed">Settings</a></li>
-            </ul>
-          </div>
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
+          <Link href="/explore" className="text-gray-600 hover:text-black transition-colors">Explore</Link>
+          <Link href="/research" className="text-gray-600 hover:text-black transition-colors">Research</Link>
+          <Link href="/dashboard" className="text-gray-600 hover:text-black transition-colors">Dashboard</Link>
+          <span className="text-gray-300">|</span>
+          <Link href="/signin" className="text-gray-600 hover:text-black transition-colors">Sign In</Link>
+          <a href="https://twitter.com" className="text-gray-600 hover:text-black transition-colors">Twitter</a>
+          <a href="mailto:hello@neuros.ai" className="text-gray-600 hover:text-black transition-colors">Contact</a>
         </div>
 
         {/* Bottom Bar */}
@@ -116,36 +84,27 @@ export default function TrustIndicators() {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
               <SparkleIcon className="w-5 h-5 text-gray-400 stroke-[1.5]" />
-              <span className="text-sm text-gray-400">© 2025 Neuros</span>
+              <span className="text-sm text-gray-400">Neuros © 2025</span>
             </div>
             
-            {/* Cute detail: animated dots that respond to hover */}
-            <div className="flex items-center gap-4">
-              <div className="flex gap-1 group">
-                <motion.div 
-                  className="w-2 h-2 rounded-full bg-black/10 group-hover:bg-blue-400 transition-colors"
-                  whileHover={{ scale: 1.2 }}
-                />
-                <motion.div 
-                  className="w-2 h-2 rounded-full bg-black/10 group-hover:bg-green-400 transition-colors"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ delay: 0.1 }}
-                />
-                <motion.div 
-                  className="w-2 h-2 rounded-full bg-black/10 group-hover:bg-purple-400 transition-colors"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ delay: 0.2 }}
-                />
-              </div>
-              <a 
-                href="https://newth.ai" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xs text-gray-400 font-light hover:text-gray-600 transition-colors"
+            <a 
+              href="https://newth.ai" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xs text-gray-400 font-light hover:text-gray-600 transition-colors group"
+            >
+              Made with{' '}
+              <motion.span 
+                className="inline-block italic font-serif text-gray-500"
+                whileHover={{ 
+                  rotate: [-2, 2, -1, 1, 0],
+                  transition: { duration: 0.3 }
+                }}
               >
-                Made with curiosity by Oliver Newth
-              </a>
-            </div>
+                curiosity
+              </motion.span>
+              {' '}by Oliver Newth
+            </a>
           </div>
         </div>
       </div>
