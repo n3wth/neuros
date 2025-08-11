@@ -94,23 +94,14 @@ export default function TrustIndicators() {
           {security.map((item, index) => {
             const Icon = item.icon
             return (
-              <motion.div 
+              <div 
                 key={index} 
-                className="text-center group cursor-pointer"
-                whileHover={{ y: -5 }}
-                transition={{ type: "spring", stiffness: 400 }}
+                className="text-center"
               >
-                <motion.div 
-                  className="relative inline-block"
-                  whileHover={{ rotate: [0, -10, 10, 0] }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
-                  <Icon className="relative w-10 h-10 mx-auto mb-3 text-black/50 group-hover:text-black/70 stroke-[1.5] transition-colors duration-300" />
-                </motion.div>
-                <p className="text-sm font-medium text-gray-900 group-hover:text-black transition-colors">{item.title}</p>
-                <p className="text-xs text-gray-500 mt-1 group-hover:text-gray-600 transition-colors">{item.description}</p>
-              </motion.div>
+                <Icon className="w-10 h-10 mx-auto mb-3 text-black/50 stroke-[1.5]" />
+                <p className="text-sm font-medium text-gray-900">{item.title}</p>
+                <p className="text-xs text-gray-500 mt-1">{item.description}</p>
+              </div>
             )
           })}
         </motion.div>
