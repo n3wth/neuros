@@ -1,20 +1,35 @@
 {
   "git": {
     "deploymentEnabled": {
-      "main": true,
-      "master": false,
-      "production": false
+      "main": true
     }
   },
   "github": {
     "enabled": true,
-    "autoAlias": false,
+    "autoAlias": true,
     "silent": true,
-    "autoJobCancelation": true
+    "autoJobCancelation": true,
+    "deploymentProtection": false
   },
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "public": false,
+  "regions": ["iad1"],
+  "functions": {
+    "app/api/**/*": {
+      "maxDuration": 10
+    },
+    "app/**/*.tsx": {
+      "maxDuration": 10
+    }
+  },
+  "analytics": {
+    "enable": true
+  },
+  "speedInsights": {
+    "enable": true
+  }
 }
