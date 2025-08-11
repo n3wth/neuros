@@ -55,3 +55,6 @@ supabase-local-credentials.txt
 # backup files
 CLAUDE_FULL.md
 *.backup.md
+
+# git worktrees
+.worktrees/
