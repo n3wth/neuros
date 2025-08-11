@@ -13,6 +13,32 @@
 
 ---
 
+## Table of Contents
+
+- [About](#about)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Setup](#environment-setup)
+  - [Database Setup](#database-setup)
+  - [Run Development Server](#run-development-server)
+- [Project Structure](#project-structure)
+- [Available Commands](#available-commands)
+  - [Development](#development)
+  - [Database](#database)
+  - [Testing](#testing)
+- [Features](#features)
+  - [Implemented](#implemented)
+  - [In Development](#in-development)
+- [Deployment](#deployment)
+  - [Deploy to Vercel](#deploy-to-vercel)
+  - [Manual Deployment](#manual-deployment)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
 ## About
 
 Neuros is an experimental project by [Oliver Newth](https://github.com/n3wth) for testing AI-powered development tools and Model Context Protocol (MCP) integrations. Started on January 8, 2025, it demonstrates a functional learning platform with AI-generated flashcards and spaced repetition algorithms.
@@ -197,6 +223,15 @@ npm run build
 # Start production server
 npm run start
 ```
+
+---
+
+## Additional Documentation
+
+- [Deployment Guide](DEPLOYMENT.md)
+- [Playwright Setup](PLAYWRIGHT_SETUP.md)
+- [Testing Coverage](TEST_COVERAGE.md)
+- [Rate Limiting Summary](RATE_LIMITING_SUMMARY.md)
 
 ---
 
