@@ -21,6 +21,7 @@
   - [Environment Setup](#environment-setup)
   - [Database Setup](#database-setup)
   - [Run Development Server](#run-development-server)
+- [Documentation](#documentation)
 - [Project Structure](#project-structure)
 - [Available Commands](#available-commands)
   - [Development](#development)
@@ -132,6 +133,20 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
+## Documentation
+
+All project documentation is organized in the `docs/` folder:
+
+- **Setup Guides** (`docs/setup/`) - Local development, OAuth configuration, testing setup
+- **Deployment** (`docs/deployment/`) - Production deployment guides
+- **Development** (`docs/development/`) - Architecture, AI systems, testing patterns
+- **Analysis** (`docs/analysis/`) - UX audits and improvement proposals
+- **Refactoring** (`docs/refactoring/`) - Code refactoring and migration guides
+
+See [`docs/README.md`](docs/README.md) for the complete documentation index.
+
+---
+
 ## Project Structure
 
 ```
@@ -145,6 +160,12 @@ neuros/
 │   ├── features/          # Feature-specific components
 │   ├── learning/          # Learning functionality
 │   └── landing/           # Landing page components
+├── docs/                   # Project documentation
+│   ├── setup/             # Setup guides
+│   ├── deployment/        # Deployment guides
+│   ├── development/       # Development docs
+│   ├── analysis/          # Analysis & audits
+│   └── refactoring/       # Refactoring guides
 ├── server/
 │   ├── actions/           # Server Actions
 │   └── queries/           # Database queries
