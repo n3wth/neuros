@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   CloseIcon, 
@@ -35,6 +35,28 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
   const [isCreating, setIsCreating] = useState(false)
   const [generatedCards, setGeneratedCards] = useState<Array<{ front: string; back: string }>>([])
   const [successMessage, setSuccessMessage] = useState('')
+  const [showQuickStart, setShowQuickStart] = useState(true)
+
+  // Check for suggested prompts from the dashboard
+  useEffect(() => {
+    if (isOpen && typeof window !== 'undefined') {
+      const suggestedPrompt = window.localStorage.getItem('suggested-prompt')
+      if (suggestedPrompt) {
+        setAiInput(suggestedPrompt)
+        setMode('ai')
+        window.localStorage.removeItem('suggested-prompt')
+        setShowQuickStart(false)
+      }
+    }
+  }, [isOpen])
+
+  const quickStartTemplates = [
+    { icon: <BookIcon className="w-4 h-4" />, text: 'Spanish vocabulary: common greetings and phrases' },
+    { icon: <CodeIcon className="w-4 h-4" />, text: 'JavaScript fundamentals: variables, functions, and arrays' },
+    { icon: <BeakerIcon className="w-4 h-4" />, text: 'Human biology: major organ systems and their functions' },
+    { icon: <LightbulbIcon className="w-4 h-4" />, text: 'World history: key events of the 20th century' },
+    { icon: <ClockIcon className="w-4 h-4" />, text: 'Time management techniques for productivity' }
+  ]
 
   const handleManualCreate = async () => {
     if (!front || !back) return
@@ -256,13 +278,45 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.3 }}
                 >
+                  {/* Quick Start Templates */}
+                  {showQuickStart && !aiInput && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.4 }}
+                      className="mb-6"
+                    >
+                      <p className="text-sm text-black/60 font-light mb-3">Quick start templates:</p>
+                      <div className="space-y-2">
+                        {quickStartTemplates.map((template, index) => (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              setAiInput(template.text)
+                              setShowQuickStart(false)
+                            }}
+                            className="w-full flex items-center gap-3 p-3 rounded-2xl border border-black/10 hover:border-black/20 hover:bg-black/3 transition-all duration-200 text-left"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center text-black/60">
+                              {template.icon}
+                            </div>
+                            <span className="text-sm text-black/70 font-light">{template.text}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
                   <div>
                     <label className="block text-lg font-serif font-light text-black/90 mb-3">
                       Paste your content or describe what you want to learn
                     </label>
                     <textarea
                       value={aiInput}
-                      onChange={(e) => setAiInput(e.target.value)}
+                      onChange={(e) => {
+                        setAiInput(e.target.value)
+                        if (e.target.value) setShowQuickStart(false)
+                      }}
                       placeholder="Example: 'React hooks explained' or paste an article..."
                       className="w-full p-4 border border-black/10 rounded-3xl focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
                       rows={6}

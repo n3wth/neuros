@@ -11,11 +11,11 @@ import { RealtimeChannel } from '@supabase/supabase-js'
 interface SessionParticipant {
   id: string
   user_id: string
-  nickname: string
-  score: number
-  cards_reviewed: number
-  correct_answers: number
-  is_active: boolean
+  nickname: string | null
+  score: number | null
+  cards_reviewed: number | null
+  correct_answers: number | null
+  is_active: boolean | null
 }
 
 interface CollaborativeSession {
@@ -23,8 +23,8 @@ interface CollaborativeSession {
   name: string
   session_code: string
   host_id: string
-  is_active: boolean
-  max_participants: number
+  is_active: boolean | null
+  max_participants: number | null
 }
 
 export function CollaborativeSession({ topicId }: { topicId?: string }) {
@@ -149,9 +149,9 @@ export function CollaborativeSession({ topicId }: { topicId?: string }) {
     if (!participant) return
 
     const updates = {
-      cards_reviewed: participant.cards_reviewed + 1,
-      correct_answers: correct ? participant.correct_answers + 1 : participant.correct_answers,
-      score: participant.score + (correct ? 10 : 0)
+      cards_reviewed: (participant.cards_reviewed || 0) + 1,
+      correct_answers: correct ? (participant.correct_answers || 0) + 1 : (participant.correct_answers || 0),
+      score: (participant.score || 0) + (correct ? 10 : 0)
     }
 
     await supabase
@@ -248,11 +248,11 @@ export function CollaborativeSession({ topicId }: { topicId?: string }) {
               >
                 <div className="flex items-center gap-3">
                   {index === 0 && <Trophy className="h-4 w-4 text-yellow-500" />}
-                  <span className="font-medium">{participant.nickname}</span>
+                  <span className="font-medium">{participant.nickname || 'Anonymous'}</span>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
-                  <span>{participant.correct_answers}/{participant.cards_reviewed}</span>
-                  <span className="font-bold">{participant.score} pts</span>
+                  <span>{participant.correct_answers || 0}/{participant.cards_reviewed || 0}</span>
+                  <span className="font-bold">{participant.score || 0} pts</span>
                 </div>
               </div>
             ))}

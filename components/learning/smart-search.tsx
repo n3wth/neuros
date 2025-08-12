@@ -55,7 +55,7 @@ export function SmartSearch() {
         }
       )
 
-      if (embeddingError || !embeddingData.embedding) {
+      if (embeddingError || !embeddingData?.embedding) {
         console.error('Error generating embedding:', embeddingError)
         return
       }
@@ -63,7 +63,7 @@ export function SmartSearch() {
       // Search for similar cards using the embedding
       const { data, error } = await supabase
         .rpc('search_similar_cards', {
-          p_embedding: embeddingData.embedding,
+          p_embedding: embeddingData?.embedding,
           p_user_id: user.id,
           p_limit: 20
         })

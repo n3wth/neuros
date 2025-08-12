@@ -20,10 +20,10 @@ interface Achievement {
 }
 
 interface StudyStreak {
-  current_streak: number
-  longest_streak: number
-  last_study_date: string
-  total_study_days: number
+  current_streak: number | null
+  longest_streak: number | null
+  last_study_date: string | null
+  total_study_days: number | null
 }
 
 const getCategoryIcon = (category?: string) => {
@@ -66,11 +66,18 @@ export function AchievementsDisplay() {
     if (!user) return
 
     // Check if we have the new achievements table structure
-    const { data: columns } = await supabase
-      .rpc('get_table_columns', { table_name: 'achievements' })
-      .select('column_name')
-
-    const hasNameColumn = columns?.some((col: { column_name: string }) => col.column_name === 'name')
+    // For now, we'll check by attempting to query and handling the error
+    let hasNameColumn = false
+    
+    try {
+      await supabase
+        .from('achievements')
+        .select('name')
+        .limit(1)
+      hasNameColumn = true
+    } catch {
+      hasNameColumn = false
+    }
 
     if (hasNameColumn) {
       // New structure with categories
@@ -93,7 +100,7 @@ export function AchievementsDisplay() {
           ...a,
           unlocked: achievementsMap.has(a.id),
           progress: achievementsMap.get(a.id)?.progress || 0,
-          unlockedAt: achievementsMap.get(a.id)?.unlocked_at
+          unlockedAt: achievementsMap.get(a.id)?.unlocked_at || undefined
         }))
 
         setAchievements(enrichedAchievements)
@@ -147,15 +154,15 @@ export function AchievementsDisplay() {
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-2xl font-bold">{streak.current_streak}</p>
+                <p className="text-2xl font-bold">{streak.current_streak || 0}</p>
                 <p className="text-sm text-muted-foreground">Current Streak</p>
               </div>
               <div>
-                <p className="text-2xl font-bold">{streak.longest_streak}</p>
+                <p className="text-2xl font-bold">{streak.longest_streak || 0}</p>
                 <p className="text-sm text-muted-foreground">Longest Streak</p>
               </div>
               <div>
-                <p className="text-2xl font-bold">{streak.total_study_days}</p>
+                <p className="text-2xl font-bold">{streak.total_study_days || 0}</p>
                 <p className="text-sm text-muted-foreground">Total Days</p>
               </div>
               <div>

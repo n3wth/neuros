@@ -66,6 +66,7 @@ const categories = [
 
 const curated = [
   {
+    id: 'ai-engineer-path',
     title: 'The AI Engineer Path',
     author: 'Sarah Chen',
     duration: '12 weeks',
@@ -74,6 +75,7 @@ const curated = [
     description: 'From ML basics to deploying production models'
   },
   {
+    id: 'modern-full-stack',
     title: 'Modern Full-Stack',
     author: 'Alex Rivera',
     duration: '8 weeks',
@@ -82,6 +84,7 @@ const curated = [
     description: 'Next.js, TypeScript, and the modern web stack'
   },
   {
+    id: 'quantum-fundamentals',
     title: 'Quantum Fundamentals',
     author: 'Dr. James Liu',
     duration: '10 weeks',
@@ -247,7 +250,10 @@ export default function ExplorePage() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group relative bg-white border border-black/5 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 cursor-pointer"
-                  onClick={() => setSelectedCategory(category.id)}
+                  onClick={() => {
+                    setSelectedCategory(category.id)
+                    window.location.href = `/explore/${category.id}`
+                  }}
                   onMouseEnter={() => setSelectedCategory(category.id)}
                   onMouseLeave={() => setSelectedCategory(null)}
                 >
@@ -327,7 +333,8 @@ export default function ExplorePage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-shadow"
+                  className="bg-white rounded-3xl p-8 border border-black/5 hover:shadow-lg transition-shadow cursor-pointer"
+                  onClick={() => window.location.href = `/explore/paths/${path.id}`}
                 >
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-2">

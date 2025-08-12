@@ -162,7 +162,8 @@ export async function createCard(
     const { data: card, error } = await supabase
       .from('cards')
       .insert({
-        deck_id: validated.deck_id,
+        user_id: userId,
+      topic_id: validated.topic_id,
         front: validated.front,
         back: validated.back,
         tags: validated.tags,
@@ -251,7 +252,8 @@ export async function generateCards(
     // 7. Save cards to database
     const supabase = await createClient()
     const cardsToInsert = cards.map((card: any) => ({
-      deck_id: validated.deck_id,
+      user_id: userId,
+      topic_id: validated.topic_id,
       front: card.front,
       back: card.back,
       ease_factor: 2.5,

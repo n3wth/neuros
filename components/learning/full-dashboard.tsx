@@ -44,6 +44,7 @@ import {
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
 import dynamic from 'next/dynamic'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
+import SuggestedPrompts from './suggested-prompts'
 
 // Lazy load heavy visualization components
 const KnowledgeGraph = dynamic(() => import('@/components/visualizations/knowledge-graph'), {
@@ -416,7 +417,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </p>
               </motion.div>
 
-              {/* Stats Cards */}
+              {/* Stats Cards - Hide for new users */}
+              {completionState?.type !== 'new_user' && (
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -488,6 +490,28 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   </Card>
                 </motion.div>
               </div>
+              )}
+
+              {/* New User Onboarding Experience */}
+              {completionState?.type === 'new_user' && stats?.totalCards === 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="mb-12"
+                >
+                  <SuggestedPrompts 
+                    onSelectPrompt={(prompt) => {
+                      setIsCreateDialogOpen(true)
+                      // Store the prompt to pass to dialog (we'll implement this next)
+                      if (typeof window !== 'undefined') {
+                        window.localStorage.setItem('suggested-prompt', prompt)
+                      }
+                    }}
+                    variant="grid"
+                  />
+                </motion.div>
+              )}
 
               <div className="grid lg:grid-cols-3 gap-8 items-start">
                 {/* Main Action Area */}
@@ -654,8 +678,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     </motion.div>
                   )}
 
-                  {/* Enhanced Due Cards Preview */}
-                  {dueCards.length > 0 && (
+                  {/* Enhanced Due Cards Preview - Hide for new users with no cards */}
+                  {dueCards.length > 0 && completionState?.type !== 'new_user' && (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -864,7 +888,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     </div>
                   </Card>
 
-                  {/* Upcoming Reviews - Editorial Style with Animation */}
+                  {/* Upcoming Reviews - Hide for new users */}
+                  {completionState?.type !== 'new_user' && (
                   <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
                     <motion.div 
                       className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-transparent"
@@ -928,6 +953,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       ))}
                     </div>
                   </Card>
+                  )}
                 </motion.div>
               </div>
             </motion.div>
