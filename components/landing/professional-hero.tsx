@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -12,7 +12,6 @@ interface ProfessionalHeroProps {
 
 export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroProps) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [activeWord, setActiveWord] = useState(0)
   
   const words = ['Remember', 'Master', 'Understand', 'Internalize']
@@ -25,7 +24,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
   }, [words.length])
 
   return (
-    <section ref={ref} className="relative min-h-screen bg-[#FAFAF9] overflow-hidden">
+    <section ref={ref} className="relative bg-[#FAFAF9]">
       {/* Clean background */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
@@ -34,13 +33,13 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
         }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-24 lg:pt-32 pb-16 lg:pb-24">
         <div className="space-y-12">
           {/* Refined announcement */}
           <motion.div 
             className="flex items-center gap-4"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             <div className="h-px w-12 bg-black/30" />
@@ -51,12 +50,12 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
           {/* Editorial hero text */}
           <motion.div 
-            className="max-w-5xl space-y-6"
+            className="space-y-6"
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em]">
+            <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] max-w-5xl">
               <span className="block mb-4 relative inline-block">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -80,7 +79,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               </span>
             </h1>
             
-            <p className="text-xl leading-[1.6] text-black/60 font-light max-w-3xl">
+            <p className="text-lg sm:text-xl leading-[1.6] text-black/60 font-light max-w-3xl">
               We built a learning system that works like your brain does—making connections, 
               finding patterns, and storing memories exactly when they&apos;re about to fade.
             </p>
@@ -91,7 +90,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           <motion.div 
             className="pt-2"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Link 
@@ -104,38 +103,38 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
           </motion.div>
 
           {/* Refined features */}
-          <div className="grid lg:grid-cols-3 gap-8 mt-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-12">
             {[
               {
                 icon: ClockIcon,
                 title: 'Intelligent Spacing',
                 description: 'Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories.',
                 color: '#FF6B6B',
-                stats: { main: '87%', label: 'retention after 30 days' }
+                stats: { main: 'Smart', label: 'scheduling' }
               },
               {
                 icon: SparkleIcon,
                 title: 'AI Generation',
                 description: 'Generate study materials from your content using AI. Import PDFs, documents, and notes to create learning cards.',
                 color: '#4ECDC4',
-                stats: { main: '2.3×', label: 'faster mastery' }
+                stats: { main: 'AI', label: 'powered' }
               },
               {
                 icon: ChartIcon,
                 title: 'Deep Analytics',
                 description: 'See your learning patterns emerge. Discover your peak performance times and optimal review schedules.',
                 color: '#95E77E',
-                stats: { main: '15min', label: 'daily commitment' }
+                stats: { main: 'Track', label: 'progress' }
               },
             ].map((feature, index) => (
               <motion.div
                 key={index}
                 className="group relative"
                 initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
               >
-                <div className="bg-white border border-black/5 rounded-3xl p-8 h-full hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-white border border-black/5 rounded-3xl p-6 lg:p-8 h-full hover:shadow-lg transition-shadow duration-300 flex flex-col">
                   <div 
                     className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
                     style={{ backgroundColor: `${feature.color}20` }}
@@ -150,13 +149,13 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
                     {feature.title}
                   </h3>
                   
-                  <p className="text-base leading-relaxed text-black/60 font-light mb-8">
+                  <p className="text-base leading-relaxed text-black/60 font-light flex-grow">
                     {feature.description}
                   </p>
 
-                  <div className="pt-6 border-t border-black/5">
+                  <div className="pt-6 mt-auto border-t border-black/5">
                     <div className="flex items-baseline gap-3">
-                      <span className="text-3xl font-serif font-light">{feature.stats.main}</span>
+                      <span className="text-2xl font-serif font-light">{feature.stats.main}</span>
                       <span className="text-sm text-black/60">{feature.stats.label}</span>
                     </div>
                   </div>

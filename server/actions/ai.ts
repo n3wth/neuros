@@ -483,7 +483,7 @@ export async function generateLearningInsights(
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4o-mini",  // Use gpt-4o-mini which supports JSON mode
       messages: [
         {
           role: "system",

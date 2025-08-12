@@ -15,7 +15,8 @@ import {
   ChevronRightIcon,
   SearchIcon,
   LogOutIcon,
-  RefreshIcon
+  RefreshIcon,
+  ClockIcon
 } from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -37,7 +38,7 @@ import {
   endStudySession,
   getStudyStats 
 } from '@/server/actions/reviews'
-import { generateLearningInsights } from '@/server/actions/ai'
+// import { generateLearningInsights } from '@/server/actions/ai' // Temporarily disabled due to rate limiting
 // Meta-learning imports for future use
 // import { analyzeMetaLearningPatterns, evolveSystemIntelligence } from '@/server/actions/meta-learning'
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
@@ -147,40 +148,18 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
       setUpcomingCards(formattedUpcoming)
       setCompletionState(userCompletionState)
 
-      // Generate AI insights if we have stats or show fallback for new users
-      if (studyStatsData && cardStats && cardStats.totalCards > 0) {
-        try {
-          const insights = await generateLearningInsights({
-            totalCards: cardStats.totalCards,
-            mastered: cardStats.mastered,
-            struggling: cardStats.difficult,
-            averageAccuracy: studyStatsData.average_accuracy || 0,
-            studyTimeMinutes: studyStatsData.total_study_time_minutes || 0
-          })
-          setAiInsights(insights.insights || [])
-        } catch (error) {
-          console.error('Failed to get AI insights:', error)
-          // Set fallback insights for better UX when API fails
-          setAiInsights([
-            {
-              type: 'info',
-              title: 'Welcome to Neuros!',
-              description: 'Start creating cards to receive personalized learning insights powered by AI.',
-              action: 'Create your first card'
-            }
-          ])
+      // Skip AI insights for now to avoid rate limiting issues
+      // In production, this should use caching or be loaded on-demand
+      setAiInsights([
+        {
+          type: 'info',
+          title: 'AI Insights',
+          description: cardStats && cardStats.totalCards > 0 
+            ? `You're making progress! ${cardStats.mastered} cards mastered out of ${cardStats.totalCards}.`
+            : 'Start creating cards to track your learning progress.',
+          action: cardStats && cardStats.totalCards > 0 ? undefined : 'Create your first card'
         }
-      } else {
-        // Set welcome insights for new users
-        setAiInsights([
-          {
-            type: 'info',
-            title: 'Welcome to Neuros!',
-            description: 'Start creating cards to receive personalized learning insights powered by AI.',
-            action: 'Create your first card'
-          }
-        ])
-      }
+      ])
     } catch (error) {
       console.error('Failed to load dashboard data:', error)
       setError('Failed to load dashboard data. Please try refreshing the page.')
@@ -286,130 +265,92 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   return (
     <div className="min-h-screen bg-[#FAFAF9]">
       {/* Header */}
-      <header className="bg-white/70 backdrop-blur-md border-b border-black/5 sticky top-0 z-40">
+      <header className="bg-white/95 backdrop-blur-lg border-b border-black/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">
-              <Link href="/" className="flex items-center group p-2 rounded-xl hover:bg-black/5 transition-all duration-300">
-                <SparkleIcon className="w-8 h-8 text-black/70 stroke-[2] group-hover:text-black group-hover:rotate-12 transition-all duration-300" />
+              <Link href="/" className="flex items-center group">
+                <SparkleIcon className="w-7 h-7 text-black stroke-[1.5] group-hover:rotate-12 transition-transform duration-300" />
               </Link>
               
               <nav className="hidden md:flex items-center space-x-1">
                 <button
                   onClick={() => setViewMode('overview')}
-                  className={`px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
+                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
                     viewMode === 'overview' 
                       ? 'bg-black text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
+                      : 'text-black/60 hover:text-black hover:bg-black/5'
                   }`}
                 >
                   Overview
                 </button>
                 <button
                   onClick={() => setViewMode('review')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
+                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
                     viewMode === 'review' 
                       ? 'bg-black text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
+                      : 'text-black/60 hover:text-black hover:bg-black/5'
                   }`}
                 >
-                  <LightbulbIcon className="w-5 h-5 stroke-[2]" />
                   Review
                 </button>
                 <button
                   onClick={() => setViewMode('browse')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
+                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
                     viewMode === 'browse' 
                       ? 'bg-black text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
+                      : 'text-black/60 hover:text-black hover:bg-black/5'
                   }`}
                 >
-                  <BookIcon className="w-5 h-5 stroke-[2]" />
                   Browse
                 </button>
                 <button
                   onClick={() => setViewMode('stats')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
+                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
                     viewMode === 'stats' 
                       ? 'bg-black text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
+                      : 'text-black/60 hover:text-black hover:bg-black/5'
                   }`}
                 >
-                  <ChartIcon className="w-5 h-5 stroke-[2]" />
                   Stats
                 </button>
                 <button
                   onClick={() => setViewMode('settings')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 ${
+                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
                     viewMode === 'settings' 
                       ? 'bg-black text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
+                      : 'text-black/60 hover:text-black hover:bg-black/5'
                   }`}
                 >
-                  <BeakerIcon className="w-5 h-5 stroke-[2]" />
                   AI
-                </button>
-                <button
-                  onClick={() => setViewMode('knowledge')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-1 ${
-                    viewMode === 'knowledge' 
-                      ? 'bg-purple-600 text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
-                  }`}
-                >
-                  <SparkleIcon className="w-5 h-5 stroke-[2]" />
-                  Knowledge
-                </button>
-                <button
-                  onClick={() => setViewMode('network')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-1 ${
-                    viewMode === 'network' 
-                      ? 'bg-blue-600 text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
-                  }`}
-                >
-                  <HeartIcon className="w-5 h-5 stroke-[2]" />
-                  Network
-                </button>
-                <button
-                  onClick={() => setViewMode('viral')}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-light rounded-full transition-all duration-300 focus:ring-2 focus:ring-green-500/20 focus:ring-offset-1 ${
-                    viewMode === 'viral' 
-                      ? 'bg-green-600 text-white' 
-                      : 'text-black/70 hover:text-black hover:bg-black/5 focus:text-black focus:bg-black/5'
-                  }`}
-                >
-                  <RocketIcon className="w-5 h-5 stroke-[2]" />
-                  Impact
                 </button>
               </nav>
             </div>
 
             <div className="flex items-center space-x-3">
               {studyStats && studyStats.current_streak_days > 0 && (
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-white/90 rounded-full border border-black/10 hover:border-black/20 transition-all duration-300">
-                  <RocketIcon className="w-4 h-4 text-black/70 hover:text-black/80 stroke-[1.5] transition-colors duration-300" />
-                  <span className="text-sm font-light text-black/70 hover:text-black/80 whitespace-nowrap transition-colors duration-300">
-                    {studyStats.current_streak_days === 1 ? '1 day' : `${studyStats.current_streak_days} days`}
+                <div className="flex items-center gap-1.5 px-3 py-1.5">
+                  <span className="text-sm text-black/60">
+                    <SparkleIcon className="h-4 w-4 inline mr-1" />
+                {studyStats.current_streak_days} day{studyStats.current_streak_days !== 1 ? 's' : ''}
                   </span>
                 </div>
               )}
               
               <Button
                 onClick={() => setIsCreateDialogOpen(true)}
-                className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-6 font-light shadow-sm hover:shadow-md focus:shadow-md focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                className="bg-black text-white hover:bg-black/90 rounded-full px-5 py-2 text-sm shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <PlusIcon className="w-4 h-4 mr-2 stroke-[1.5]" />
-                New Card
+                <PlusIcon className="w-4 h-4 mr-2" />
+                Create Cards
               </Button>
 
               <button
                 onClick={async () => await signOut()}
-                className="p-2.5 hover:bg-black/5 focus:bg-black/5 rounded-full transition-all duration-300 group focus:ring-2 focus:ring-black/20 focus:ring-offset-1"
+                className="p-2 hover:bg-black/5 rounded-full transition-colors duration-200"
                 title="Sign out"
-                aria-label="Sign out"
               >
-                <LogOutIcon className="w-4 h-4 text-black/60 group-hover:text-black/90 group-focus:text-black/90 stroke-[1.5] transition-colors duration-300" />
+                <LogOutIcon className="w-4 h-4 text-black/60 hover:text-black stroke-[1.5]" />
               </button>
             </div>
           </div>
@@ -427,33 +368,40 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Greeting */}
+              {/* Greeting with Editorial Style */}
               <motion.div 
-                className="mb-12"
-                initial={{ opacity: 0, y: 20 }}
+                className="mb-16"
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <h1 className="text-5xl font-serif font-light mb-3 text-black/90">{formatGreeting()}</h1>
-                <p className="text-lg text-black/60 font-light">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-px w-12 bg-black/30" />
+                  <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+                    {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                  </p>
+                </div>
+                <h1 className="text-[clamp(3rem,5vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-4 text-black">
+                  {formatGreeting()}
+                </h1>
+                <p className="text-xl sm:text-2xl text-black/60 font-light leading-relaxed max-w-3xl">
                   {formatSmartMessage()}
                 </p>
               </motion.div>
 
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12">
+              {/* Stats Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
-                    <div className="flex items-center justify-between mb-3">
-                      <BookIcon className="w-7 h-7 text-black/70 stroke-[2]" />
-                      <span className="text-xs text-black/40 font-mono">Total</span>
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+                    <div className="mb-4">
+                      <BookIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black/90">{stats?.totalCards || 0}</p>
-                    <p className="text-xs text-black/50 font-light">cards</p>
+                    <p className="text-3xl font-serif font-light text-black mb-1">{stats?.totalCards || 0}</p>
+                    <p className="text-sm text-black/50">total cards</p>
                   </Card>
                 </motion.div>
 
@@ -462,13 +410,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
-                    <div className="flex items-center justify-between mb-3">
-                      <RocketIcon className="w-7 h-7 text-black/70 stroke-[2]" />
-                      <span className="text-xs text-black/40 font-mono">Mastered</span>
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+                    <div className="mb-4">
+                      <SparkleIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black/90">{stats?.mastered || 0}</p>
-                    <p className="text-xs text-black/50 font-light">cards</p>
+                    <p className="text-3xl font-serif font-light text-black mb-1">{stats?.mastered || 0}</p>
+                    <p className="text-sm text-black/50">mastered</p>
                   </Card>
                 </motion.div>
 
@@ -477,13 +424,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
-                    <div className="flex items-center justify-between mb-3">
-                      <SparkleIcon className="w-7 h-7 text-black/70 stroke-[2]" />
-                      <span className="text-xs text-black/40 font-mono">Due</span>
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+                    <div className="mb-4">
+                      <ClockIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black/90">{stats?.dueCards || 0}</p>
-                    <p className="text-xs text-black/50 font-light">today</p>
+                    <p className="text-3xl font-serif font-light text-black mb-1">{stats?.dueCards || 0}</p>
+                    <p className="text-sm text-black/50">due today</p>
                   </Card>
                 </motion.div>
 
@@ -492,13 +438,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
-                    <div className="flex items-center justify-between mb-3">
-                      <ChartIcon className="w-7 h-7 text-black/70 stroke-[2]" />
-                      <span className="text-xs text-black/40 font-mono">Accuracy</span>
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+                    <div className="mb-4">
+                      <ChartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black/90">{studyStats?.average_accuracy || 0}%</p>
-                    <p className="text-xs text-black/50 font-light">average</p>
+                    <p className="text-3xl font-serif font-light text-black mb-1">{studyStats?.average_accuracy || 0}%</p>
+                    <p className="text-sm text-black/50">accuracy</p>
                   </Card>
                 </motion.div>
 
@@ -507,13 +452,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm rounded-3xl border border-black/5 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-500">
-                    <div className="flex items-center justify-between mb-3">
-                      <HeartIcon className="w-7 h-7 text-black/70 stroke-[2]" />
-                      <span className="text-xs text-black/40 font-mono">Reviews</span>
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+                    <div className="mb-4">
+                      <RocketIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black/90">{studyStats?.total_reviews || 0}</p>
-                    <p className="text-xs text-black/50 font-light">total</p>
+                    <p className="text-3xl font-serif font-light text-black mb-1">{studyStats?.current_streak_days || 0}</p>
+                    <p className="text-sm text-black/50">day streak</p>
                   </Card>
                 </motion.div>
               </div>
@@ -528,23 +472,23 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                      <Card className="p-8 bg-white/95 backdrop-blur-sm border border-black/5 rounded-3xl mb-8 hover:shadow-xl transition-all duration-500">
+                      <Card className="bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-lg transition-all duration-300">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Ready to review</h3>
-                            <p className="text-black/60 mb-6 font-light max-w-md">
+                            <h3 className="text-2xl font-serif font-light mb-3 text-black">Ready to review</h3>
+                            <p className="text-black/60 mb-6 max-w-md">
                               {stats.dueCards} cards are due for review. 
                               Estimated time: {Math.ceil(stats.dueCards * 0.5)} minutes
                             </p>
                             <Button
                               onClick={handleStartReview}
-                              className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 text-sm transition-all duration-300"
                             >
                               <PlayIcon className="w-4 h-4 mr-2" />
                               Start Review Session
                             </Button>
                           </div>
-                          <LightbulbIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                          <LightbulbIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
                         </div>
                       </Card>
                     </motion.div>
@@ -554,7 +498,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                      <Card className="p-8 bg-white/95 backdrop-blur-sm border border-black/5 rounded-3xl mb-8 hover:shadow-xl transition-all duration-500">
+                      <Card className="bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-lg transition-all duration-300">
                         <div className="flex items-start justify-between">
                           <div>
                             {completionState?.type === 'new_user' ? (
@@ -690,15 +634,23 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     </motion.div>
                   )}
 
-                  {/* Due Cards Preview */}
+                  {/* Enhanced Due Cards Preview */}
                   {dueCards.length > 0 && (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.7 }}
                     >
-                      <h3 className="text-xl font-serif font-light mb-6 text-black/90">Cards Due Today</h3>
-                      <div className="space-y-4">
+                      <div className="flex items-center justify-between mb-8">
+                        <div>
+                          <h3 className="text-2xl font-serif font-light text-black">Due Today</h3>
+                          <p className="text-sm text-black/50 font-light mt-1">Your spaced repetition schedule</p>
+                        </div>
+                        <span className="text-xs font-mono text-black/40 tracking-[0.2em] uppercase">
+                          {dueCards.length} {dueCards.length === 1 ? 'card' : 'cards'}
+                        </span>
+                      </div>
+                      <div className="space-y-3">
                         {dueCards.slice(0, 5).map((card, index) => (
                           <motion.div
                             key={card.id}
@@ -706,30 +658,51 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
                           >
-                            <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group">
+                            <Card className="relative bg-white rounded-2xl border border-black/5 p-6 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-0.5 transition-all duration-500 cursor-pointer group overflow-hidden">
+                              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500 opacity-60" />
                               <div className="flex items-center justify-between">
-                                <div className="flex-1">
-                                  <p className="font-light text-black/90 mb-2 text-lg">
+                                <div className="flex-1 pl-3">
+                                  <p className="font-light text-black text-lg mb-3 leading-relaxed">
                                     {card.cards.front}
                                   </p>
-                                  <div className="flex items-center gap-4 text-xs text-black/50 font-mono">
-                                    <span>Mastery: {Math.round(card.mastery_level)}%</span>
-                                    <span>•</span>
-                                    <span>Reviews: {card.total_reviews}</span>
+                                  <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-20 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                        <div 
+                                          className="h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full"
+                                          style={{ width: `${card.mastery_level}%` }}
+                                        />
+                                      </div>
+                                      <span className="text-xs text-black/40 font-mono">{Math.round(card.mastery_level)}%</span>
+                                    </div>
                                     {card.cards.topics && (
-                                      <>
-                                        <span>•</span>
-                                        <span>{card.cards.topics.name}</span>
-                                      </>
+                                      <span className="text-xs px-2 py-1 bg-gray-50 rounded-full text-black/60">
+                                        {card.cards.topics.name}
+                                      </span>
                                     )}
+                                    <span className="text-xs text-black/40">
+                                      {card.total_reviews} reviews
+                                    </span>
                                   </div>
                                 </div>
-                                <ChevronRightIcon className="w-5 h-5 text-black/30 group-hover:text-black/60 group-hover:translate-x-1 transition-all duration-300" />
+                                <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-300">
+                                  <ChevronRightIcon className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
+                                </div>
                               </div>
                             </Card>
                           </motion.div>
                         ))}
                       </div>
+                      {dueCards.length > 5 && (
+                        <motion.p 
+                          className="text-center mt-6 text-sm text-black/40 font-light"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 1.3 }}
+                        >
+                          +{dueCards.length - 5} more cards waiting
+                        </motion.p>
+                      )}
                     </motion.div>
                   )}
                 </div>
@@ -741,15 +714,18 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  {/* AI Insights / Onboarding */}
-                  <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                    <div className="flex items-center mb-6">
-                      <LightbulbIcon className="w-6 h-6 mr-3 text-purple-600/70" />
-                      <h3 className="font-serif font-light text-lg text-black/90">
+                  {/* AI Insights / Onboarding - Editorial Style */}
+                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500/20 to-transparent" />
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-xl font-serif font-light text-black">
                         {completionState?.type === 'new_user' ? 'Getting Started' : 
-                         completionState?.type === 'completed_today' ? 'Today&apos;s Achievement' :
+                         completionState?.type === 'completed_today' ? 'Today\'s Achievement' :
                          'AI Insights'}
                       </h3>
+                      <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                        <LightbulbIcon className="w-5 h-5 text-purple-600 stroke-[1.5]" />
+                      </div>
                     </div>
                     <div className="space-y-4">
                       {completionState?.type === 'new_user' ? (
@@ -841,50 +817,68 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     </div>
                   </Card>
 
-                  {/* Upcoming Reviews */}
-                  <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+                  {/* Upcoming Reviews - Editorial Style */}
+                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500/20 to-transparent" />
                     <div className="flex items-center justify-between mb-6">
-                      <h3 className="font-serif font-light text-lg text-black/90">Upcoming Reviews</h3>
-                      <SparkleIcon className="w-5 h-5 text-orange-600/70" />
+                      <h3 className="text-xl font-serif font-light text-black">Upcoming</h3>
+                      <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
+                        <SparkleIcon className="w-5 h-5 text-orange-600 stroke-[1.5]" />
+                      </div>
                     </div>
                     <div className="space-y-3">
                       {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, Array<{ id: string }>]) => (
-                        <div key={date} className="flex items-center justify-between text-sm p-3 bg-gray-50 rounded-2xl">
-                          <span className="text-black/60 font-light">{date}</span>
-                          <span className="font-light text-black/80 text-xs font-mono">{cards.length} cards</span>
+                        <div key={date} className="group flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 transition-all duration-300 cursor-pointer">
+                          <div>
+                            <span className="text-base text-black font-light">{date}</span>
+                            <span className="block text-xs text-black/40 mt-1">Scheduled review</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-mono text-black/60">{cards.length}</span>
+                            <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-black group-hover:text-white flex items-center justify-center transition-all duration-300">
+                              <ChevronRightIcon className="w-4 h-4 stroke-[1.5]" />
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
                   </Card>
 
-                  {/* Quick Actions */}
-                  <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                    <h3 className="font-serif font-light text-lg text-black/90 mb-6">Quick Actions</h3>
-                    <div className="space-y-3">
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 focus:border-black/20 hover:bg-black/5 focus:bg-black/5 rounded-2xl p-4 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                  {/* Quick Actions - Editorial Style */}
+                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black/10 to-transparent" />
+                    <h3 className="text-xl font-serif font-light text-black mb-6">Quick Actions</h3>
+                    <div className="space-y-2">
+                      <button
+                        className="group w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black hover:text-white transition-all duration-300"
                         onClick={() => setViewMode('browse')}
                       >
-                        <SearchIcon className="w-4 h-4 mr-3 text-black/60" />
-                        Browse All Cards
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 focus:border-black/20 hover:bg-black/5 focus:bg-black/5 rounded-2xl p-4 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                        <div className="flex items-center gap-3">
+                          <SearchIcon className="w-5 h-5 stroke-[1.5] text-black/60 group-hover:text-white" />
+                          <span className="text-base font-light">Browse Cards</span>
+                        </div>
+                        <ChevronRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </button>
+                      <button
+                        className="group w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black hover:text-white transition-all duration-300"
                         onClick={() => setIsCreateDialogOpen(true)}
                       >
-                        <PlusIcon className="w-4 h-4 mr-3 text-black/60" />
-                        Create New Card
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start bg-transparent border-black/10 hover:border-black/20 focus:border-black/20 hover:bg-black/5 focus:bg-black/5 rounded-2xl p-4 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                        <div className="flex items-center gap-3">
+                          <PlusIcon className="w-5 h-5 stroke-[1.5] text-black/60 group-hover:text-white" />
+                          <span className="text-base font-light">Create New</span>
+                        </div>
+                        <ChevronRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </button>
+                      <button
+                        className="group w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black hover:text-white transition-all duration-300"
                         onClick={() => setViewMode('stats')}
                       >
-                        <ChartIcon className="w-4 h-4 mr-3 text-black/60" />
-                        View Statistics
-                      </Button>
+                        <div className="flex items-center gap-3">
+                          <ChartIcon className="w-5 h-5 stroke-[1.5] text-black/60 group-hover:text-white" />
+                          <span className="text-base font-light">View Stats</span>
+                        </div>
+                        <ChevronRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </button>
                     </div>
                   </Card>
                 </motion.div>
