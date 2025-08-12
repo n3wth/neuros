@@ -98,6 +98,7 @@ export function ResetPasswordForm() {
             id="password"
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
+            autoComplete="new-password"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
             {...form.register('password')}
           />
@@ -176,6 +177,7 @@ export function ResetPasswordForm() {
             id="confirmPassword"
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder="••••••••"
+            autoComplete="new-password"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
             {...form.register('confirmPassword')}
           />
