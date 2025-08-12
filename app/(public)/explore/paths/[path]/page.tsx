@@ -13,15 +13,16 @@ const validPaths = [
 export async function generateMetadata({
   params
 }: {
-  params: { path: string }
+  params: Promise<{ path: string }>
 }): Promise<Metadata> {
+  const { path } = await params
   const pathNames: Record<string, string> = {
     'ai-engineer-path': 'The AI Engineer Path',
     'modern-full-stack': 'Modern Full-Stack',
     'quantum-fundamentals': 'Quantum Fundamentals'
   }
   
-  const name = pathNames[params.path] || 'Learning Path'
+  const name = pathNames[path] || 'Learning Path'
   
   return {
     title: `${name} - Neuros Learning`,
@@ -29,14 +30,15 @@ export async function generateMetadata({
   }
 }
 
-export default function PathPage({
+export default async function PathPage({
   params
 }: {
-  params: { path: string }
+  params: Promise<{ path: string }>
 }) {
-  if (!validPaths.includes(params.path)) {
+  const { path } = await params
+  if (!validPaths.includes(path)) {
     notFound()
   }
   
-  return <PathDetailPage pathId={params.path} />
+  return <PathDetailPage pathId={path} />
 }

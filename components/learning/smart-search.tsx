@@ -10,6 +10,7 @@ import { Search, Brain, FileText, Sparkles } from 'lucide-react'
 
 interface SearchResult {
   id: string
+  card_id?: string
   front: string
   back: string
   similarity?: number
@@ -69,7 +70,10 @@ export function SmartSearch() {
         })
 
       if (!error && data) {
-        setResults(data)
+        setResults(data.map((item: { card_id?: string; id: string; front: string; back: string; rank?: number }) => ({
+          id: item.card_id || item.id,
+          ...item
+        })))
       }
     } catch (error) {
       console.error('Semantic search error:', error)
@@ -88,7 +92,8 @@ export function SmartSearch() {
     }
   }
 
-  const generateSimilarCards = async (cardId: string) => {
+  const generateSimilarCards = async (cardIdOrResult: string | SearchResult) => {
+    const cardId = typeof cardIdOrResult === 'string' ? cardIdOrResult : (cardIdOrResult.card_id || cardIdOrResult.id)
     setLoading(true)
     
     try {
@@ -204,7 +209,7 @@ export function SmartSearch() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => generateSimilarCards(result.id)}
+                          onClick={() => generateSimilarCards(result)}
                         >
                           <Sparkles className="mr-2 h-3 w-3" />
                           Generate Similar

@@ -1,7 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { CheckCircleIcon, SparkleIcon, RocketIcon } from '@/components/icons/line-icons'
+import { motion, AnimatePresence } from 'framer-motion'
+import { CheckCircleIcon, SparkleIcon, RocketIcon, ArrowRight } from '@/components/icons/line-icons'
 
 interface ProgressIndicatorProps {
   currentCards: number
@@ -29,71 +29,111 @@ export default function ProgressIndicator({
   if (variant === 'minimal') {
     return (
       <motion.div 
-        className="flex items-center gap-3 px-4 py-2 bg-black/5 rounded-full"
-        initial={{ opacity: 0, scale: 0.9 }}
+        className="flex items-center gap-3 px-4 py-2 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm"
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        whileHover={{ scale: 1.02 }}
       >
-        <div className="flex items-center gap-2">
-          <div className="relative w-24 h-2 bg-black/10 rounded-full overflow-hidden">
+        <div className="flex items-center gap-3">
+          <div className="relative w-28 h-1.5 bg-black/5 rounded-full overflow-hidden">
             <motion.div 
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+              className="absolute top-0 left-0 h-full rounded-full"
+              style={{
+                background: isComplete 
+                  ? 'linear-gradient(90deg, #10b981, #059669)'
+                  : 'linear-gradient(90deg, #000000, #404040)'
+              }}
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
           </div>
-          <span className="text-xs font-mono text-black/60">
+          <span className="text-xs font-mono text-black/50">
             {currentCards}/{targetCards}
           </span>
         </div>
-        {isComplete && (
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 500, damping: 15 }}
-          >
-            <CheckCircleIcon className="w-4 h-4 text-green-500" />
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {isComplete && (
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0, rotate: 180 }}
+              transition={{ type: "spring", stiffness: 500, damping: 15 }}
+            >
+              <CheckCircleIcon className="w-4 h-4 text-green-600" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     )
   }
 
   return (
     <motion.div 
-      className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-100"
-      initial={{ opacity: 0, y: 20 }}
+      className="relative bg-white rounded-3xl border border-black/5 p-8 overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-lg font-light text-black/90">Your Learning Journey</h3>
-          <p className="text-sm text-black/60 mt-1">
-            {isComplete 
-              ? "Amazing! You've unlocked all features!" 
-              : nextMilestone 
-                ? `${nextMilestone.cards - currentCards} more cards to ${nextMilestone.label}`
-                : "Keep creating cards to build your knowledge base"
-            }
-          </p>
-        </div>
-        {nextMilestone && (
-          <div className="w-10 h-10 rounded-xl bg-white/80 flex items-center justify-center text-purple-600">
-            {nextMilestone.icon}
-          </div>
-        )}
-      </div>
+      {/* Subtle background accent */}
+      <motion.div
+        className="absolute top-0 right-0 w-64 h-64 opacity-[0.03]"
+        animate={{
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <div className="w-full h-full bg-gradient-to-br from-black to-gray-400 rounded-full blur-3xl" />
+      </motion.div>
 
-      {/* Progress Bar */}
-      <div className="relative h-3 bg-white/60 rounded-full overflow-hidden mb-6">
-        <motion.div 
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        />
+      <div className="relative">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="h-px w-12 bg-black/30" />
+              <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+                Progress Tracker
+              </p>
+            </div>
+            <h3 className="text-2xl font-serif font-light text-black mb-2">Your Learning Journey</h3>
+            <p className="text-black/60 font-light">
+              {isComplete 
+                ? "Incredible! You've unlocked the full experience." 
+                : nextMilestone 
+                  ? `Create ${nextMilestone.cards - currentCards} more ${nextMilestone.cards - currentCards === 1 ? 'card' : 'cards'} to ${nextMilestone.label.toLowerCase()}`
+                  : "Build your knowledge base, one card at a time"
+              }
+            </p>
+          </div>
+          {nextMilestone && (
+            <motion.div 
+              className="w-14 h-14 rounded-2xl bg-black/5 flex items-center justify-center"
+              animate={{ rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+            >
+              {nextMilestone.icon}
+            </motion.div>
+          )}
+        </div>
+
+        {/* Elegant Progress Bar */}
+        <div className="relative h-2 bg-black/5 rounded-full overflow-hidden mb-8">
+          <motion.div 
+            className="absolute top-0 left-0 h-full rounded-full"
+            style={{
+              background: isComplete 
+                ? 'linear-gradient(90deg, #10b981, #059669)'
+                : 'linear-gradient(90deg, #000000, #404040)'
+            }}
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          />
         
         {/* Milestone Markers */}
         {milestones.map((milestone, index) => {
@@ -123,60 +163,97 @@ export default function ProgressIndicator({
         })}
       </div>
 
-      {/* Milestones List */}
-      <div className="grid grid-cols-3 gap-3">
-        {milestones.map((milestone, index) => {
-          const isPassed = currentCards >= milestone.cards
-          const isCurrent = index === currentMilestone
-          
-          return (
-            <motion.div
-              key={index}
-              className={`p-3 rounded-xl text-center transition-all duration-300 ${
-                isPassed 
-                  ? 'bg-gradient-to-br from-purple-100 to-pink-100 border border-purple-200' 
-                  : isCurrent
-                    ? 'bg-white/80 border border-purple-200'
-                    : 'bg-white/40 border border-transparent'
-              }`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.1 }}
-            >
-              <div className={`w-8 h-8 mx-auto mb-2 rounded-lg flex items-center justify-center ${
-                isPassed ? 'text-purple-600' : 'text-black/40'
-              }`}>
-                {milestone.icon}
-              </div>
-              <p className={`text-xs font-light ${
-                isPassed ? 'text-purple-700' : 'text-black/60'
-              }`}>
-                {milestone.label}
-              </p>
-              <p className={`text-xs font-mono mt-1 ${
-                isPassed ? 'text-purple-600' : 'text-black/40'
-              }`}>
-                {milestone.cards} {milestone.cards === 1 ? 'card' : 'cards'}
-              </p>
-            </motion.div>
-          )
-        })}
-      </div>
+        {/* Refined Milestones */}
+        <div className="grid grid-cols-3 gap-4">
+          {milestones.map((milestone, index) => {
+            const isPassed = currentCards >= milestone.cards
+            const isCurrent = index === currentMilestone
+            
+            return (
+              <motion.div
+                key={index}
+                className={`relative p-6 rounded-2xl text-center transition-all duration-500 ${
+                  isPassed 
+                    ? 'bg-black text-white' 
+                    : isCurrent
+                      ? 'bg-white border-2 border-black/20'
+                      : 'bg-white border border-black/5'
+                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  delay: 0.3 + index * 0.1,
+                  duration: 0.6,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                whileHover={{ y: -2, transition: { duration: 0.2 } }}
+              >
+                <motion.div 
+                  className={`w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center ${
+                    isPassed ? 'bg-white/10' : 'bg-black/5'
+                  }`}
+                  animate={isPassed ? { scale: [1, 1.1, 1] } : {}}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <div className={isPassed ? 'text-white' : 'text-black/60'}>
+                    {milestone.icon}
+                  </div>
+                </motion.div>
+                <p className={`text-sm font-light mb-1 ${
+                  isPassed ? 'text-white' : 'text-black/80'
+                }`}>
+                  {milestone.label}
+                </p>
+                <p className={`text-xs font-mono ${
+                  isPassed ? 'text-white/60' : 'text-black/40'
+                }`}>
+                  {milestone.cards} {milestone.cards === 1 ? 'card' : 'cards'}
+                </p>
+                {isPassed && (
+                  <motion.div 
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                  >
+                    <CheckCircleIcon className="w-3 h-3 text-white" />
+                  </motion.div>
+                )}
+              </motion.div>
+            )
+          })}
+        </div>
 
-      {/* Rewards Preview */}
-      {currentCards < targetCards && (
-        <motion.div 
-          className="mt-4 p-3 bg-white/60 rounded-xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          <p className="text-xs text-black/60 font-light">
-            <span className="font-medium">Unlock at {targetCards} cards:</span> Analytics dashboard, 
-            spaced repetition insights, and AI-powered learning recommendations
-          </p>
-        </motion.div>
-      )}
+        {/* Elegant Rewards Preview */}
+        <AnimatePresence>
+          {currentCards < targetCards && (
+            <motion.div 
+              className="mt-8 p-6 bg-black/[0.02] rounded-2xl border border-black/5"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-light text-black/80 mb-1">
+                    Unlock at {targetCards} cards
+                  </p>
+                  <p className="text-xs text-black/60 font-light">
+                    Analytics dashboard • Spaced repetition insights • AI recommendations
+                  </p>
+                </div>
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <ArrowRight className="w-5 h-5 text-black/30" />
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   )
 }

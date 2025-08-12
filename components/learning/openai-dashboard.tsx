@@ -26,7 +26,7 @@ import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { signOut } from '@/server/actions/auth'
 import CreateCardDialog from './create-card-dialog'
-import ReviewInterface from './review-interface'
+import ImmersiveReviewInterface from './immersive-review-interface'
 import { 
   getUserCards, 
   getDueCards, 
@@ -196,13 +196,8 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
 
   if (viewMode === 'review' && currentSessionId) {
     return (
-      <ReviewInterface
+      <ImmersiveReviewInterface
         sessionId={currentSessionId}
-        onComplete={() => {
-          setCurrentSessionId(null)
-          setViewMode('overview')
-          loadDashboardData()
-        }}
       />
     )
   }

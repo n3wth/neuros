@@ -16,8 +16,9 @@ const validCategories = [
 export async function generateMetadata({
   params
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }): Promise<Metadata> {
+  const { category } = await params
   const categoryNames: Record<string, string> = {
     'ai-ml': 'Artificial Intelligence',
     'programming': 'Programming',
@@ -27,7 +28,7 @@ export async function generateMetadata({
     'languages': 'Languages'
   }
   
-  const name = categoryNames[params.category] || 'Category'
+  const name = categoryNames[category] || 'Category'
   
   return {
     title: `${name} - Neuros Learning`,
@@ -35,14 +36,15 @@ export async function generateMetadata({
   }
 }
 
-export default function CategoryDetailPage({
+export default async function CategoryDetailPage({
   params
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }) {
-  if (!validCategories.includes(params.category)) {
+  const { category } = await params
+  if (!validCategories.includes(category)) {
     notFound()
   }
   
-  return <CategoryPage category={params.category} />
+  return <CategoryPage category={category} />
 }

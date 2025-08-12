@@ -24,7 +24,7 @@ import { Badge } from '@/components/ui/badge'
 import { signOut } from '@/server/actions/auth'
 import Link from 'next/link'
 import CreateCardDialog from './create-card-dialog'
-import ReviewInterface from './review-interface'
+import ImmersiveReviewInterface from './immersive-review-interface'
 import AIFeaturesSettings from './ai-features-settings'
 import { 
   getUserCards, 
@@ -995,7 +995,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       End Session
                     </Button>
                   </div>
-                  <ReviewInterface sessionId={currentSessionId} />
+                  <ImmersiveReviewInterface sessionId={currentSessionId} />
                 </>
               ) : (
                 <div className="max-w-2xl mx-auto text-center py-20">

@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimize package imports for better bundling
     optimizePackageImports: ['@radix-ui/react-*', 'lucide-react', 'framer-motion'],
+    // Turbopack configuration
+    turbo: {
+      resolveAlias: {
+        // Ensure proper module resolution for Turbopack
+        '@': './src',
+      },
+    },
   },
   // Pre-compile frequently used packages
   serverExternalPackages: [],
@@ -23,6 +30,17 @@ const nextConfig: NextConfig = {
   },
   // Compression
   compress: true,
+  // Webpack configuration to handle manifest files
+  webpack: (config, { isServer }) => {
+    // Ignore temporary manifest files during development
+    if (!isServer) {
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: /\.tmp\./,
+      };
+    }
+    return config;
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);

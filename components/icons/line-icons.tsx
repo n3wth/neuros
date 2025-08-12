@@ -147,6 +147,12 @@ export const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
+export const ArrowRight = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <path d="M5 12h14M14 7l5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
 export const CloseIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
     <path d="M18 6l-12 12M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
