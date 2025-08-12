@@ -352,13 +352,13 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </div>
               )}
               
-              <Button
+              <button
                 onClick={() => setIsCreateDialogOpen(true)}
-                className="bg-black text-white hover:bg-black/90 px-4 py-2 text-sm transition-all duration-200"
+                className="flex items-center justify-center h-9 w-9 bg-black text-white rounded-full hover:bg-black/80 transition-colors duration-200"
+                title="Create Cards"
               >
-                <PlusIcon className="w-4 h-4 mr-1.5" />
-                Create Cards
-              </Button>
+                <PlusIcon className="w-4 h-4" />
+              </button>
 
               <button
                 onClick={async () => await signOut()}
@@ -730,28 +730,27 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
                   {/* AI Insights / Onboarding - Editorial Style */}
-                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500/20 to-transparent" />
+                  <Card className="bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-xl font-serif font-light text-black">
                         {completionState?.type === 'new_user' ? 'Getting Started' : 
                          completionState?.type === 'completed_today' ? 'Today\'s Achievement' :
                          'AI Insights'}
                       </h3>
-                      <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <LightbulbIcon className="w-5 h-5 text-purple-600 stroke-[1.5]" />
+                      <div className="w-10 h-10 rounded-xl bg-black/5 flex items-center justify-center">
+                        <LightbulbIcon className="w-5 h-5 text-black/60 stroke-[1.5]" />
                       </div>
                     </div>
                     <div className="space-y-4">
                       {completionState?.type === 'new_user' ? (
                         <motion.div 
-                          className="p-4 bg-blue-50 rounded-2xl border border-blue-100"
+                          className="p-4 bg-black/5 rounded-2xl border border-black/10"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: 0.6 }}
                         >
                           <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-full mt-2 bg-blue-500" />
+                            <div className="w-2.5 h-2.5 rounded-full mt-2 bg-black" />
                             <div className="flex-1">
                               <p className="text-sm font-light text-black/90 mb-2">
                                 Welcome to Neuros!
@@ -770,7 +769,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                         </motion.div>
                       ) : completionState?.type === 'completed_today' ? (
                         <motion.div 
-                          className="p-4 bg-green-50 rounded-2xl border border-green-100"
+                          className="p-4 bg-black/5 rounded-2xl border border-black/10"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: 0.6 }}
@@ -858,50 +857,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       ))}
                     </div>
                   </Card>
-
-                  {/* Quick Actions - Editorial Style */}
-                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black/10 to-transparent" />
-                    <h3 className="text-xl font-serif font-light text-black mb-6">Quick Actions</h3>
-                    <div className="space-y-2">
-                      <button
-                        className="group w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black hover:text-white transition-all duration-300"
-                        onClick={() => setViewMode('browse')}
-                      >
-                        <div className="flex items-center gap-3">
-                          <SearchIcon className="w-5 h-5 stroke-[1.5] text-black/60 group-hover:text-white" />
-                          <span className="text-base font-light">Browse Cards</span>
-                        </div>
-                        <ChevronRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </button>
-                      <button
-                        className="group w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black hover:text-white transition-all duration-300"
-                        onClick={() => setIsCreateDialogOpen(true)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <PlusIcon className="w-5 h-5 stroke-[1.5] text-black/60 group-hover:text-white" />
-                          <span className="text-base font-light">Create New</span>
-                        </div>
-                        <ChevronRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </button>
-                      <button
-                        className="group w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black hover:text-white transition-all duration-300"
-                        onClick={() => setViewMode('stats')}
-                      >
-                        <div className="flex items-center gap-3">
-                          <ChartIcon className="w-5 h-5 stroke-[1.5] text-black/60 group-hover:text-white" />
-                          <span className="text-base font-light">View Stats</span>
-                        </div>
-                        <ChevronRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </button>
-                    </div>
-                  </Card>
                 </motion.div>
               </div>
             </motion.div>
           )}
 
-          {viewMode === 'review' && currentSessionId && (
+          {viewMode === 'review' && (
             <motion.div
               key="review"
               initial={{ opacity: 0, y: 20 }}
@@ -909,16 +870,37 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-light">Review Session</h2>
-                <Button
-                  variant="outline"
-                  onClick={handleEndReview}
-                >
-                  End Session
-                </Button>
-              </div>
-              <ReviewInterface sessionId={currentSessionId} />
+              {currentSessionId ? (
+                <>
+                  <div className="mb-6 flex items-center justify-between">
+                    <h2 className="text-2xl font-light">Review Session</h2>
+                    <Button
+                      variant="outline"
+                      onClick={handleEndReview}
+                    >
+                      End Session
+                    </Button>
+                  </div>
+                  <ReviewInterface sessionId={currentSessionId} />
+                </>
+              ) : (
+                <div className="max-w-2xl mx-auto text-center py-20">
+                  <BookIcon className="w-16 h-16 mx-auto mb-6 text-black/20" />
+                  <h2 className="text-2xl font-serif mb-4">Ready to Review?</h2>
+                  <p className="text-black/60 mb-8">You have {dueCards.length} cards ready for review.</p>
+                  {dueCards.length > 0 ? (
+                    <Button
+                      onClick={handleStartReview}
+                      className="bg-black text-white hover:bg-black/90"
+                    >
+                      <PlayIcon className="w-4 h-4 mr-2" />
+                      Start Review Session
+                    </Button>
+                  ) : (
+                    <p className="text-black/40">No cards due for review. Check back later!</p>
+                  )}
+                </div>
+              )}
             </motion.div>
           )}
 
