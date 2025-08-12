@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     passWithNoTests: true,
+    include: ['__tests__/**/*.test.ts'],
   },
   resolve: {
     alias: {
