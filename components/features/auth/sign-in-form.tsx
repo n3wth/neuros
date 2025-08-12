@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { signIn, signInAsDeveloper } from '@/server/actions/auth'
 import { useToast } from '@/hooks/use-toast'
-import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 
@@ -17,19 +16,17 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-function SubmitButton() {
-  const { pending } = useFormStatus()
-  
+function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   return (
-    <button 
-      type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
-      disabled={pending}
+    <button
+      type="submit"
+      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      disabled={isSubmitting}
     >
-      {pending && (
+      {isSubmitting && (
         <SparkleIcon className="w-4 h-4 animate-spin" />
       )}
-      {pending ? 'Preparing your workspace...' : 'Sign in'}
+      {isSubmitting ? 'Preparing your workspace...' : 'Sign in'}
     </button>
   )
 }
@@ -89,8 +86,10 @@ export function SignInForm() {
     }
   }
 
+  const isSubmitting = form.formState.isSubmitting
+
   return (
-    <form action={() => form.handleSubmit(onSubmit)()} className="space-y-5">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
       {/* Email Field */}
       <div className="space-y-2">
         <label htmlFor="email" className="text-sm font-medium text-black/80">
@@ -102,6 +101,7 @@ export function SignInForm() {
           placeholder="you@example.com"
           autoComplete="email"
           className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
+          disabled={isSubmitting}
           {...form.register('email')}
         />
         {form.formState.errors.email && (
@@ -121,6 +121,7 @@ export function SignInForm() {
             placeholder="••••••••"
             autoComplete="current-password"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
+            disabled={isSubmitting}
             {...form.register('password')}
           />
           <button
@@ -148,16 +149,17 @@ export function SignInForm() {
       {/* Remember Me & Forgot Password */}
       <div className="flex items-center justify-between">
         <label className="flex items-center gap-2 cursor-pointer">
-          <input 
-            type="checkbox" 
+          <input
+            type="checkbox"
             className="w-4 h-4 rounded border-black/20 text-black focus:ring-black/20"
+            disabled={isSubmitting}
           />
           <span className="text-sm text-black/60">Remember me</span>
         </label>
       </div>
 
       {/* Submit Button */}
-      <SubmitButton />
+      <SubmitButton isSubmitting={isSubmitting} />
 
       {/* Development Bypass Button */}
       {isDevelopment && (
@@ -176,7 +178,7 @@ export function SignInForm() {
           <button
             type="button"
             onClick={handleDevSignIn}
-            disabled={isDevSigningIn}
+            disabled={isDevSigningIn || isSubmitting}
             className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full hover:from-orange-600 hover:to-amber-600 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
           >
             {isDevSigningIn ? (
