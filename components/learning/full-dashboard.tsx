@@ -45,6 +45,7 @@ import {
 import dynamic from 'next/dynamic'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
 import SuggestedPrompts from './suggested-prompts'
+import ProgressIndicator from './progress-indicator'
 
 // Lazy load heavy visualization components
 const KnowledgeGraph = dynamic(() => import('@/components/visualizations/knowledge-graph'), {
@@ -353,6 +354,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             </div>
 
             <div className="flex items-center space-x-2 md:space-x-3">
+              {/* Progress Indicator for users with few cards */}
+              {stats && stats.totalCards > 0 && stats.totalCards < 10 && (
+                <ProgressIndicator 
+                  currentCards={stats.totalCards}
+                  targetCards={10}
+                  variant="minimal"
+                />
+              )}
+              
               {studyStats && studyStats.current_streak_days > 0 && (
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5">
                   <HeartIcon className="h-4 w-4 text-black/60" />
@@ -500,10 +510,17 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   transition={{ duration: 0.8 }}
                   className="mb-12"
                 >
+                  <div className="mb-8">
+                    <ProgressIndicator 
+                      currentCards={stats?.totalCards || 0}
+                      targetCards={3}
+                      variant="detailed"
+                    />
+                  </div>
                   <SuggestedPrompts 
                     onSelectPrompt={(prompt) => {
                       setIsCreateDialogOpen(true)
-                      // Store the prompt to pass to dialog (we'll implement this next)
+                      // Store the prompt to pass to dialog
                       if (typeof window !== 'undefined') {
                         window.localStorage.setItem('suggested-prompt', prompt)
                       }
