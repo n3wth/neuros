@@ -17,10 +17,10 @@ export type Database = {
     Functions: {
       graphql: {
         Args: {
-          variables?: Json
-          operationName?: string
           query?: string
           extensions?: Json
+          variables?: Json
+          operationName?: string
         }
         Returns: Json
       }
@@ -175,42 +175,57 @@ export type Database = {
       }
       cards: {
         Row: {
+          attachment_urls: string[] | null
           back: string
+          back_embedding: string | null
           created_at: string | null
           difficulty: string | null
           explanation: string | null
           front: string
+          front_embedding: string | null
+          has_attachments: boolean | null
           id: string
           image_url: string | null
           metadata: Json | null
+          search_vector: unknown | null
           tags: string[] | null
           topic_id: string | null
           updated_at: string | null
           user_id: string
         }
         Insert: {
+          attachment_urls?: string[] | null
           back: string
+          back_embedding?: string | null
           created_at?: string | null
           difficulty?: string | null
           explanation?: string | null
           front: string
+          front_embedding?: string | null
+          has_attachments?: boolean | null
           id?: string
           image_url?: string | null
           metadata?: Json | null
+          search_vector?: unknown | null
           tags?: string[] | null
           topic_id?: string | null
           updated_at?: string | null
           user_id: string
         }
         Update: {
+          attachment_urls?: string[] | null
           back?: string
+          back_embedding?: string | null
           created_at?: string | null
           difficulty?: string | null
           explanation?: string | null
           front?: string
+          front_embedding?: string | null
+          has_attachments?: boolean | null
           id?: string
           image_url?: string | null
           metadata?: Json | null
+          search_vector?: unknown | null
           tags?: string[] | null
           topic_id?: string | null
           updated_at?: string | null
@@ -293,6 +308,103 @@ export type Database = {
           user2_id?: string | null
         }
         Relationships: []
+      }
+      collaborative_participants: {
+        Row: {
+          cards_reviewed: number | null
+          correct_answers: number | null
+          id: string
+          is_active: boolean | null
+          joined_at: string | null
+          left_at: string | null
+          nickname: string | null
+          score: number | null
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          cards_reviewed?: number | null
+          correct_answers?: number | null
+          id?: string
+          is_active?: boolean | null
+          joined_at?: string | null
+          left_at?: string | null
+          nickname?: string | null
+          score?: number | null
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          cards_reviewed?: number | null
+          correct_answers?: number | null
+          id?: string
+          is_active?: boolean | null
+          joined_at?: string | null
+          left_at?: string | null
+          nickname?: string | null
+          score?: number | null
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collaborative_participants_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "collaborative_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      collaborative_sessions: {
+        Row: {
+          created_at: string | null
+          ended_at: string | null
+          host_id: string
+          id: string
+          is_active: boolean | null
+          max_participants: number | null
+          name: string
+          session_code: string
+          settings: Json | null
+          started_at: string | null
+          topic_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          ended_at?: string | null
+          host_id: string
+          id?: string
+          is_active?: boolean | null
+          max_participants?: number | null
+          name: string
+          session_code?: string
+          settings?: Json | null
+          started_at?: string | null
+          topic_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          ended_at?: string | null
+          host_id?: string
+          id?: string
+          is_active?: boolean | null
+          max_participants?: number | null
+          name?: string
+          session_code?: string
+          settings?: Json | null
+          started_at?: string | null
+          topic_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collaborative_sessions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       knowledge_edges: {
         Row: {
@@ -564,6 +676,39 @@ export type Database = {
         }
         Relationships: []
       }
+      study_streaks: {
+        Row: {
+          current_streak: number | null
+          id: string
+          last_study_date: string | null
+          longest_streak: number | null
+          streak_start_date: string | null
+          total_study_days: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          current_streak?: number | null
+          id?: string
+          last_study_date?: string | null
+          longest_streak?: number | null
+          streak_start_date?: string | null
+          total_study_days?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          current_streak?: number | null
+          id?: string
+          last_study_date?: string | null
+          longest_streak?: number | null
+          streak_start_date?: string | null
+          total_study_days?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       system_evolution: {
         Row: {
           created_at: string | null
@@ -616,6 +761,50 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "topic_images_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topic_shares: {
+        Row: {
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          owner_id: string
+          permission: string
+          share_code: string | null
+          share_type: string
+          shared_with_id: string | null
+          topic_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          owner_id: string
+          permission?: string
+          share_code?: string | null
+          share_type: string
+          shared_with_id?: string | null
+          topic_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          owner_id?: string
+          permission?: string
+          share_code?: string | null
+          share_type?: string
+          shared_with_id?: string | null
+          topic_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_shares_topic_id_fkey"
             columns: ["topic_id"]
             isOneToOne: false
             referencedRelation: "topics"
@@ -685,6 +874,41 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          id: string
+          metadata: Json | null
+          progress: number | null
+          unlocked_at: string | null
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          id?: string
+          metadata?: Json | null
+          progress?: number | null
+          unlocked_at?: string | null
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          id?: string
+          metadata?: Json | null
+          progress?: number | null
+          unlocked_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_cards: {
         Row: {
@@ -833,14 +1057,143 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      binary_quantize: {
+        Args: { "": string } | { "": unknown }
+        Returns: unknown
+      }
       calculate_next_review: {
-        Args: {
-          rating: number
-          current_reps: number
-          current_ease: number
-          current_interval: number
-        }
+        Args:
+          | {
+              current_interval: number
+              current_reps: number
+              rating: number
+              current_ease: number
+            }
+          | {
+              p_interval: number
+              p_quality: number
+              p_repetitions: number
+              p_ease_factor: number
+            }
         Returns: Json
+      }
+      get_cards_due_for_review: {
+        Args: { p_topic_id?: string; p_user_id: string }
+        Returns: {
+          card_id: string
+          front: string
+          back: string
+          ease_factor: number
+          interval_days: number
+          repetitions: number
+          last_reviewed_at: string
+        }[]
+      }
+      halfvec_avg: {
+        Args: { "": number[] }
+        Returns: unknown
+      }
+      halfvec_out: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      halfvec_send: {
+        Args: { "": unknown }
+        Returns: string
+      }
+      halfvec_typmod_in: {
+        Args: { "": unknown[] }
+        Returns: number
+      }
+      hnsw_bit_support: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      hnsw_halfvec_support: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      hnsw_sparsevec_support: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      hnswhandler: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      ivfflat_bit_support: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      ivfflat_halfvec_support: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      ivfflathandler: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      l2_norm: {
+        Args: { "": unknown } | { "": unknown }
+        Returns: number
+      }
+      l2_normalize: {
+        Args: { "": string } | { "": unknown } | { "": unknown }
+        Returns: string
+      }
+      search_cards_fulltext: {
+        Args: { search_query: string }
+        Returns: {
+          front: string
+          back: string
+          rank: number
+          id: string
+        }[]
+      }
+      search_similar_cards: {
+        Args: { p_embedding: string; p_user_id: string; p_limit?: number }
+        Returns: {
+          back: string
+          similarity: number
+          card_id: string
+          front: string
+        }[]
+      }
+      sparsevec_out: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      sparsevec_send: {
+        Args: { "": unknown }
+        Returns: string
+      }
+      sparsevec_typmod_in: {
+        Args: { "": unknown[] }
+        Returns: number
+      }
+      vector_avg: {
+        Args: { "": number[] }
+        Returns: string
+      }
+      vector_dims: {
+        Args: { "": string } | { "": unknown }
+        Returns: number
+      }
+      vector_norm: {
+        Args: { "": string }
+        Returns: number
+      }
+      vector_out: {
+        Args: { "": string }
+        Returns: unknown
+      }
+      vector_send: {
+        Args: { "": string }
+        Returns: string
+      }
+      vector_typmod_in: {
+        Args: { "": unknown[] }
+        Returns: number
       }
     }
     Enums: {

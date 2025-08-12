@@ -95,7 +95,7 @@ export function EnhancedLoader({
     <AnimatePresence>
       {showLoader && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5]"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -158,7 +158,7 @@ export function EnhancedLoader({
                   {[...Array(6)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="absolute w-0.5 bg-gradient-to-r from-transparent via-blue-400/40 to-transparent"
+                      className="absolute w-0.5 bg-primary/40"
                       style={{
                         height: '20px',
                         left: '50%',
@@ -247,7 +247,7 @@ export function EnhancedLoader({
               {/* Progress Indicator */}
               <div className="w-32 h-1 bg-black/5 rounded-full overflow-hidden mx-auto">
                 <motion.div 
-                  className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                  className="h-full bg-primary rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ 

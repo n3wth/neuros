@@ -51,10 +51,10 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
 
   const categories = [
     { id: 'all', label: 'All Topics', count: 24 },
-    { id: 'tech', label: 'Technology', count: 8, color: 'from-blue-600 to-cyan-600' },
-    { id: 'career', label: 'Career', count: 6, color: 'from-purple-600 to-pink-600' },
-    { id: 'creative', label: 'Creative', count: 5, color: 'from-orange-600 to-red-600' },
-    { id: 'wellness', label: 'Wellness', count: 5, color: 'from-green-600 to-teal-600' }
+    { id: 'tech', label: 'Technology', count: 8, color: 'bg-primary' },
+    { id: 'career', label: 'Career', count: 6, color: 'bg-accent' },
+    { id: 'creative', label: 'Creative', count: 5, color: 'bg-destructive' },
+    { id: 'wellness', label: 'Wellness', count: 5, color: 'bg-green-600' }
   ]
 
   const learningQueue = [
@@ -71,7 +71,7 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
       lastReviewed: '2 days ago',
       reviewCount: 12,
       icon: Brain,
-      gradient: 'from-blue-600 to-cyan-600'
+      gradient: 'bg-primary'
     },
     {
       id: '2',
@@ -86,7 +86,7 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
       lastReviewed: 'yesterday',
       reviewCount: 8,
       icon: Heart,
-      gradient: 'from-purple-600 to-pink-600'
+      gradient: 'bg-accent'
     },
     {
       id: '3',
@@ -101,7 +101,7 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
       lastReviewed: '5 days ago',
       reviewCount: 4,
       icon: Sparkles,
-      gradient: 'from-orange-600 to-red-600'
+      gradient: 'bg-destructive'
     },
     {
       id: '4',
@@ -116,7 +116,7 @@ export default function NeurosLearningDashboard({ user }: NeurosLearningDashboar
       lastReviewed: 'this morning',
       reviewCount: 47,
       icon: Activity,
-      gradient: 'from-green-600 to-teal-600'
+      gradient: 'bg-green-600'
     }
   ]
 

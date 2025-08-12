@@ -10,6 +10,7 @@ import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 import { OAuthButton } from './oauth-button'
+import { PhoneAuthForm } from './phone-auth-form'
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -40,6 +41,7 @@ export function SignInForm() {
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [isDevSigningIn, setIsDevSigningIn] = useState(false)
+  const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
   const isDevelopment = process.env.NODE_ENV === 'development'
 
   const form = useForm<FormData>({
@@ -103,11 +105,41 @@ export function SignInForm() {
           <div className="w-full border-t border-black/10"></div>
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or continue with email</span>
+          <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or continue with</span>
         </div>
       </div>
 
-      {/* Email/Password Form */}
+      {/* Auth Method Tabs */}
+      <div className="flex gap-2 mb-6">
+        <button
+          type="button"
+          onClick={() => setAuthMethod('email')}
+          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+            authMethod === 'email'
+              ? 'bg-black text-white'
+              : 'bg-black/5 text-black/60 hover:bg-black/10'
+          }`}
+        >
+          Email
+        </button>
+        <button
+          type="button"
+          onClick={() => setAuthMethod('phone')}
+          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+            authMethod === 'phone'
+              ? 'bg-black text-white'
+              : 'bg-black/5 text-black/60 hover:bg-black/10'
+          }`}
+        >
+          Phone
+        </button>
+      </div>
+
+      {/* Phone Authentication Form */}
+      {authMethod === 'phone' ? (
+        <PhoneAuthForm mode="signin" />
+      ) : (
+      /* Email/Password Form */
       <form action={() => form.handleSubmit(onSubmit)()} className="space-y-5">
         {/* Email Field */}
         <div className="space-y-2">
@@ -176,6 +208,8 @@ export function SignInForm() {
 
       {/* Submit Button */}
       <SubmitButton />
+      </form>
+      )}
 
       {/* Development Bypass Button */}
       {isDevelopment && (
@@ -212,7 +246,6 @@ export function SignInForm() {
           </p>
         </>
       )}
-      </form>
     </div>
   )
 }

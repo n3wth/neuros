@@ -1,7 +1,7 @@
 // Reusable style constants for dashboard components
 export const dashboardStyles = {
   // Layout
-  page: "min-h-screen bg-gradient-to-br from-[#F5F5FF] via-[#FAFAF9] to-[#FFF5F5]",
+  page: "min-h-screen bg-background", // Clean solid background
   section: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
   
   // Cards

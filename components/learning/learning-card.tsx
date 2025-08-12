@@ -59,7 +59,7 @@ export default function LearningCard({ card, isActive, onActivate }: LearningCar
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-start gap-4">
-            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center flex-shrink-0`}>
+            <div className={`w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0`}>
               <Icon className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
@@ -122,7 +122,7 @@ export default function LearningCard({ card, isActive, onActivate }: LearningCar
         <div className="mt-4">
           <div className="h-1 bg-white/10 rounded-full overflow-hidden">
             <motion.div
-              className={`h-full bg-gradient-to-r ${card.gradient}`}
+              className="h-full bg-primary"
               initial={{ width: 0 }}
               animate={{ width: `${(card.masteryLevel / 5) * 100}%` }}
               transition={{ duration: 1, ease: "easeOut" }}

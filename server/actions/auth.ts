@@ -15,6 +15,15 @@ export interface SignInData {
   password: string
 }
 
+export interface PhoneAuthData {
+  phone: string
+}
+
+export interface VerifyOtpData {
+  phone: string
+  token: string
+}
+
 export interface ForgotPasswordData {
   email: string
 }
@@ -355,6 +364,65 @@ export async function resetPassword(data: ResetPasswordData) {
 
   const { error } = await supabase.auth.updateUser({
     password: data.password
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true }
+}
+
+/**
+ * Send OTP to phone number for authentication
+ */
+export async function signInWithPhone(data: PhoneAuthData) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.signInWithOtp({
+    phone: data.phone,
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { success: true, message: 'Verification code sent to your phone' }
+}
+
+/**
+ * Sign up with phone number
+ */
+export async function signUpWithPhone(data: PhoneAuthData & { fullName?: string }) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.signInWithOtp({
+    phone: data.phone,
+    options: {
+      data: {
+        full_name: data.fullName,
+      },
+    },
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { success: true, message: 'Verification code sent to your phone' }
+}
+
+/**
+ * Verify OTP code from phone authentication
+ */
+export async function verifyPhoneOtp(data: VerifyOtpData) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.verifyOtp({
+    phone: data.phone,
+    token: data.token,
+    type: 'sms'
   })
 
   if (error) {

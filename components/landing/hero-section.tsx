@@ -5,38 +5,20 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles, Brain } from "lucide-react"
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 
 interface HeroSectionProps {
   isAuthenticated: boolean
 }
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* iOS 26 Liquid Glass Background */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {/* Clean geometric pattern background */}
       <div className="absolute inset-0">
-        {/* Dynamic gradient that follows mouse */}
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.5), transparent 50%)`
-          }}
-        />
-        
-        {/* Animated glass morphism layers */}
+        {/* Subtle animated accent shapes - solid colors only */}
         <motion.div
-          className="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-full filter blur-3xl"
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 rounded-full filter blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, -50, 0],
@@ -48,7 +30,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full filter blur-3xl"
+          className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-accent/5 rounded-full filter blur-3xl"
           animate={{
             x: [0, -100, 0],
             y: [0, 50, 0],
@@ -60,7 +42,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-gradient-to-br from-cyan-600/10 to-blue-600/10 rounded-full filter blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-secondary/10 rounded-full filter blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             rotate: [0, 180, 360],
@@ -73,8 +55,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         />
       </div>
 
-      {/* Glass mesh pattern overlay */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-20" />
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10" />
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
@@ -95,17 +77,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          <span className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+          <span className="text-foreground">
             Learn Anything
           </span>
           <br />
-          <span className="text-3xl md:text-5xl bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <span className="text-3xl md:text-5xl text-primary">
             With AI-Powered Mastery
           </span>
         </motion.h1>
 
         <motion.p
-          className="text-xl text-gray-300 max-w-3xl mx-auto mb-10"
+          className="text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}

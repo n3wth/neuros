@@ -10,6 +10,7 @@ import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 import { OAuthButton } from './oauth-button'
+import { PhoneAuthForm } from './phone-auth-form'
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -45,6 +46,8 @@ export function SignUpForm() {
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
+  const [fullName, setFullName] = useState('')
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -91,11 +94,58 @@ export function SignUpForm() {
           <div className="w-full border-t border-black/10"></div>
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or sign up with email</span>
+          <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or sign up with</span>
         </div>
       </div>
 
-      {/* Email/Password Form */}
+      {/* Auth Method Tabs */}
+      <div className="flex gap-2 mb-6">
+        <button
+          type="button"
+          onClick={() => setAuthMethod('email')}
+          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+            authMethod === 'email'
+              ? 'bg-black text-white'
+              : 'bg-black/5 text-black/60 hover:bg-black/10'
+          }`}
+        >
+          Email
+        </button>
+        <button
+          type="button"
+          onClick={() => setAuthMethod('phone')}
+          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+            authMethod === 'phone'
+              ? 'bg-black text-white'
+              : 'bg-black/5 text-black/60 hover:bg-black/10'
+          }`}
+        >
+          Phone
+        </button>
+      </div>
+
+      {/* Full Name Field (for both methods) */}
+      {authMethod === 'phone' && (
+        <div className="space-y-2 mb-6">
+          <label htmlFor="fullNamePhone" className="text-sm font-medium text-black/80">
+            Full Name <span className="text-black/40">(optional)</span>
+          </label>
+          <input
+            id="fullNamePhone"
+            type="text"
+            placeholder="John Doe"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          />
+        </div>
+      )}
+
+      {/* Phone Authentication Form */}
+      {authMethod === 'phone' ? (
+        <PhoneAuthForm mode="signup" fullName={fullName} />
+      ) : (
+      /* Email/Password Form */
       <form action={() => form.handleSubmit(onSubmit)()} className="space-y-5">
         {/* Full Name Field (optional) */}
         <div className="space-y-2">
@@ -201,6 +251,7 @@ export function SignUpForm() {
       {/* Submit Button */}
       <SubmitButton />
       </form>
+      )}
     </div>
   )
 }
