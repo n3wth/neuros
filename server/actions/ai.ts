@@ -2,10 +2,10 @@
 
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
-import { createCard } from './cards'
 import { checkMultipleRateLimits } from '@/lib/rate-limit-server'
 import { RateLimitExceededError } from '@/lib/rate-limit'
 import { env } from '@/lib/env'
+import { revalidatePath } from 'next/cache'
 
 const openai = env.OPENAI_API_KEY ? new OpenAI({
   apiKey: env.OPENAI_API_KEY
@@ -121,33 +121,37 @@ export async function generateCardsFromText(
       throw new Error('Invalid response format from AI')
     }
 
-    // Create cards in database
-    const createdCards = []
-    for (const card of response.cards) {
-      try {
-        const created = await createCard({
-          front: card.front,
-          back: card.back,
-          explanation: card.explanation,
-          difficulty,
-          tags: card.tags || [],
-          topic_id: options?.topic
-        })
-        createdCards.push(created)
-      } catch (cardError) {
-        console.error('Error creating card:', {
-          cardData: {
-            front: card.front,
-            back: card.back,
-            explanation: card.explanation,
-            difficulty,
-            tags: card.tags || []
-          },
-          error: cardError
-        })
-        throw cardError
-      }
-    }
+    // Create cards in database in batch
+    const cardInserts = response.cards.map((card: any) => ({
+      front: card.front,
+      back: card.back,
+      explanation: card.explanation,
+      difficulty,
+      tags: card.tags || [],
+      topic_id: options?.topic,
+      user_id: user.id
+    }))
+
+    const { data: createdCards, error: cardError } = await supabase
+      .from('cards')
+      .insert(cardInserts)
+      .select()
+
+    if (cardError) throw cardError
+
+    const userCardInserts = createdCards.map(card => ({
+      user_id: user.id,
+      card_id: card.id,
+      next_review_date: new Date().toISOString()
+    }))
+
+    const { error: userCardError } = await supabase
+      .from('user_cards')
+      .insert(userCardInserts)
+
+    if (userCardError) throw userCardError
+
+    revalidatePath('/dashboard')
 
     // Log AI generation
     await supabase.from('ai_generations').insert({
