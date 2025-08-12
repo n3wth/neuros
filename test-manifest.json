@@ -358,18 +358,6 @@
       "priority": "medium"
     },
     {
-      "name": "HeroSection",
-      "file": "components/landing/hero-section.tsx",
-      "type": "client",
-      "isClientComponent": true,
-      "hasProps": true,
-      "hasState": true,
-      "hasEffects": true,
-      "testFile": null,
-      "tested": false,
-      "priority": "high"
-    },
-    {
       "name": "InteractiveDashboard",
       "file": "components/landing/interactive-dashboard.tsx",
       "type": "client",
@@ -1165,7 +1153,6 @@
       "components/landing/animated-fluffy-dog.tsx",
       "components/landing/editorial-features.tsx",
       "components/landing/features-grid.tsx",
-      "components/landing/hero-section.tsx",
       "components/landing/interactive-dashboard.tsx",
       "components/landing/neural-network.tsx",
       "components/landing/professional-hero.tsx",
@@ -1307,12 +1294,6 @@
       },
       {
         "file": "components/landing/ai-showcase.tsx",
-        "type": "component",
-        "priority": "high",
-        "reason": "High user impact area"
-      },
-      {
-        "file": "components/landing/hero-section.tsx",
         "type": "component",
         "priority": "high",
         "reason": "High user impact area"

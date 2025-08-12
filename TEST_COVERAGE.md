@@ -37,8 +37,6 @@ Generated: 2025-08-10T22:30:06.506Z
   - Reason: High user impact area
 - **components/landing/ai-showcase.tsx** (high)
   - Reason: High user impact area
-- **components/landing/hero-section.tsx** (high)
-  - Reason: High user impact area
 - **components/landing/professional-hero.tsx** (high)
   - Reason: High user impact area
 - **components/layout/site-header.tsx** (high)
@@ -126,7 +124,6 @@ Generated: 2025-08-10T22:30:06.506Z
 | AnimatedFluffyDog | components/landing/animated-fluffy-dog.tsx | client | medium | ❌ |
 | EditorialFeatures | components/landing/editorial-features.tsx | client | medium | ❌ |
 | FeaturesGrid | components/landing/features-grid.tsx | client | medium | ❌ |
-| HeroSection | components/landing/hero-section.tsx | client | high | ❌ |
 | InteractiveDashboard | components/landing/interactive-dashboard.tsx | client | medium | ❌ |
 | MemoryTraces | components/landing/neural-network.tsx | client | medium | ❌ |
 | ProfessionalHero | components/landing/professional-hero.tsx | client | high | ❌ |
