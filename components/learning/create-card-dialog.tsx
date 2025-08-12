@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { createCard } from '@/server/actions/cards'
 import { generateCardsFromText } from '@/server/actions/ai'
+import { Progress } from '@/components/ui/progress'
 
 interface CreateCardDialogProps {
   isOpen: boolean
@@ -35,6 +36,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
   const [isCreating, setIsCreating] = useState(false)
   const [generatedCards, setGeneratedCards] = useState<Array<{ front: string; back: string }>>([])
   const [successMessage, setSuccessMessage] = useState('')
+  const [progress, setProgress] = useState(0)
 
   const handleManualCreate = async () => {
     if (!front || !back) return
@@ -65,12 +67,16 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
     if (!aiInput) return
 
     setIsCreating(true)
+    setProgress(0)
+    const interval = setInterval(() => {
+      setProgress((p) => (p < 90 ? p + 5 : p))
+    }, 1000)
     try {
       const result = await generateCardsFromText(aiInput, {
         difficulty,
         count: 20
       })
-      
+      setProgress(100)
       setGeneratedCards(result.cards || [])
       setSuccessMessage(`🎉 Successfully generated ${result.cards?.length || 20} cards! They've been added to your collection.`)
       setAiInput('')
@@ -78,7 +84,9 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
     } catch (error) {
       console.error('Failed to generate cards:', error)
     } finally {
+      clearInterval(interval)
       setIsCreating(false)
+      setTimeout(() => setProgress(0), 500)
     }
   }
 
@@ -286,6 +294,13 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                       </>
                     )}
                   </Button>
+
+                  {isCreating && (
+                    <div className="mt-4">
+                      <Progress value={progress} />
+                      <p className="text-sm text-black/60 mt-2">{Math.round(progress)}% complete</p>
+                    </div>
+                  )}
 
                   {/* Success Message */}
                   {successMessage && (
