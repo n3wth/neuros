@@ -9,8 +9,6 @@
 [![Supabase](https://img.shields.io/badge/Supabase-green?logo=supabase)](https://supabase.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
 
----
-
 ## Table of Contents
 
 - [About](#about)
@@ -35,8 +33,6 @@
   - [Manual Deployment](#manual-deployment)
 - [Contributing](#contributing)
 - [License](#license)
-
----
 
 ## About
 
@@ -63,8 +59,6 @@ Seamlessly integrate with your existing tech stack:
 - GitHub - Repository management
 - 21st.dev - UI component generation
 
----
-
 ## Tech Stack
 
 - **Framework**: [Next.js 15.4](https://nextjs.org/) with App Router
@@ -74,8 +68,6 @@ Seamlessly integrate with your existing tech stack:
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
 - **AI**: [OpenAI GPT-4](https://openai.com/) for content generation
 - **Testing**: [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/)
-
----
 
 ## Getting Started
 
@@ -131,8 +123,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
----
-
 ## Documentation
 
 All project documentation is organized in the `docs/` folder:
@@ -144,8 +134,6 @@ All project documentation is organized in the `docs/` folder:
 - **Refactoring** (`docs/refactoring/`) - Code refactoring and migration guides
 
 See [`docs/README.md`](docs/README.md) for the complete documentation index.
-
----
 
 ## Project Structure
 
@@ -166,6 +154,12 @@ neuros/
 │   ├── development/       # Development docs
 │   ├── analysis/          # Analysis & audits
 │   └── refactoring/       # Refactoring guides
+├── scripts/                # Automation & utilities
+│   ├── automation/        # AI & workflow scripts
+│   ├── deployment/        # Deploy scripts
+│   ├── development/       # Dev environment
+│   ├── setup/            # Setup scripts
+│   └── testing/          # Test helpers
 ├── server/
 │   ├── actions/           # Server Actions
 │   └── queries/           # Database queries
@@ -173,8 +167,6 @@ neuros/
 │   └── migrations/        # Database schema
 └── types/                 # TypeScript definitions
 ```
-
----
 
 ## Available Commands
 
@@ -204,8 +196,6 @@ npm run test:coverage   # Coverage report
 npm run test:e2e        # End-to-end tests
 ```
 
----
-
 ## Features
 
 ### Implemented
@@ -221,8 +211,6 @@ npm run test:e2e        # End-to-end tests
 - 🚧 Advanced analytics
 - 🚧 Collaborative learning features
 - 🚧 Enhanced AI capabilities
-
----
 
 ## Deployment
 
@@ -245,20 +233,14 @@ npm run build
 npm run start
 ```
 
----
-
 ## Additional Documentation
 
-- [Deployment Guide](DEPLOYMENT.md)
-- [Playwright Setup](PLAYWRIGHT_SETUP.md)
-- [Testing Coverage](TEST_COVERAGE.md)
-- [Rate Limiting Summary](RATE_LIMITING_SUMMARY.md)
-
----
+- [Deployment Guide](docs/deployment/DEPLOYMENT.md)
+- [Playwright Setup](docs/setup/PLAYWRIGHT_SETUP.md)
+- [Testing Coverage](docs/development/TEST_COVERAGE.md)
+- [Rate Limiting Summary](docs/development/RATE_LIMITING_SUMMARY.md)
 
 ## Contributing
-
-We welcome contributions from our developer community:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -266,18 +248,8 @@ We welcome contributions from our developer community:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
----
-
 ## License
 
 MIT License - See [LICENSE](LICENSE) for details
 
----
-
-<div align="center">
-
 **Built by [Oliver Newth](https://github.com/n3wth)**
-
-Accelerating human learning through artificial intelligence
-
-</div>

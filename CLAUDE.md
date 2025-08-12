@@ -10,7 +10,9 @@ This file provides comprehensive guidance to Claude Code and other AI assistants
 - **Testing**: Co-located *.test.ts, E2E in tests/*.spec.ts
 - **Documentation**: docs/ folder (organized by category)
 
-## Documentation Location
+## Documentation & Scripts Location
+
+### Documentation (`docs/`)
 All project documentation is organized in the `docs/` folder:
 - `docs/setup/` - Environment setup guides (local, OAuth, Playwright)
 - `docs/deployment/` - Deployment guides and configuration
@@ -18,6 +20,15 @@ All project documentation is organized in the `docs/` folder:
 - `docs/analysis/` - UX analysis, audits, and improvements
 - `docs/refactoring/` - Refactoring guides and migration steps
 - `docs/README.md` - Documentation index with quick links
+
+### Scripts (`scripts/`)
+All automation and utility scripts are organized in the `scripts/` folder:
+- `scripts/automation/` - AI-powered automation and workflow scripts
+- `scripts/deployment/` - Deployment and infrastructure scripts
+- `scripts/development/` - Development environment scripts
+- `scripts/setup/` - Initial setup and configuration scripts
+- `scripts/testing/` - Testing utilities and helpers
+- `scripts/README.md` - Scripts documentation and usage
 
 ## Development Commands
 
