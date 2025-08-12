@@ -9,7 +9,8 @@ import {
   CloseIcon,
   VolumeIcon,
   KeyboardIcon,
-  EyeIcon
+  EyeIcon,
+  SparkleIcon
 } from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -50,6 +51,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     correct: 0,
     incorrect: 0
   })
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false)
 
   const currentCard = cards[currentIndex]
 
@@ -77,6 +79,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
 
     const responseTime = Date.now() - startTime
 
+    setIsSubmittingReview(true)
     try {
       await submitReview(
         currentCard.cards.id,
@@ -106,6 +109,8 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
       }
     } catch (error) {
       console.error('Failed to submit review:', error)
+    } finally {
+      setIsSubmittingReview(false)
     }
   }, [currentCard, startTime, sessionId, cards.length, currentIndex, loadCards])
 
@@ -375,13 +380,19 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                       )}
 
                       {/* Rating Buttons */}
-                      <div className="mt-8">
+                      <div className="mt-8 relative">
+                        {isSubmittingReview && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-white/70 rounded-2xl z-10">
+                            <SparkleIcon className="w-6 h-6 animate-spin text-black/70" />
+                          </div>
+                        )}
                         <p className="text-base text-black/70 font-light mb-4">How difficult was this?</p>
                         <div className="grid grid-cols-6 gap-3">
                           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                             <Button
                               onClick={() => handleRate(0)}
-                              className="bg-red-600 hover:bg-red-700 text-white rounded-2xl p-4 h-auto transition-colors"
+                              disabled={isSubmittingReview}
+                              className="bg-red-600 hover:bg-red-700 text-white rounded-2xl p-4 h-auto transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               <div className="text-center">
                                 <CloseIcon className="w-5 h-5 mx-auto mb-2" />
@@ -394,7 +405,8 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                             <motion.div key={rating} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                               <Button
                                 onClick={() => handleRate(rating)}
-                                className={`${getRatingColor(rating)} text-white rounded-2xl p-4 h-auto transition-colors`}
+                                disabled={isSubmittingReview}
+                                className={`${getRatingColor(rating)} text-white rounded-2xl p-4 h-auto transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
                               >
                                 <div className="text-center">
                                   <span className="text-xl font-light">{rating}</span>

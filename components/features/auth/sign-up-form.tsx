@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { signUp } from '@/server/actions/auth'
 import { useToast } from '@/hooks/use-toast'
-import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 
@@ -22,19 +21,17 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-function SubmitButton() {
-  const { pending } = useFormStatus()
-  
+function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   return (
-    <button 
-      type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
-      disabled={pending}
+    <button
+      type="submit"
+      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      disabled={isSubmitting}
     >
-      {pending && (
+      {isSubmitting && (
         <SparkleIcon className="w-4 h-4 animate-spin" />
       )}
-      {pending ? 'Creating your learning space...' : 'Create account'}
+      {isSubmitting ? 'Creating your learning space...' : 'Create account'}
     </button>
   )
 }
@@ -77,8 +74,10 @@ export function SignUpForm() {
     }
   }
 
+  const isSubmitting = form.formState.isSubmitting
+
   return (
-    <form action={() => form.handleSubmit(onSubmit)()} className="space-y-5">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
       {/* Full Name Field (optional) */}
       <div className="space-y-2">
         <label htmlFor="fullName" className="text-sm font-medium text-black/80">
@@ -89,6 +88,7 @@ export function SignUpForm() {
           type="text"
           placeholder="John Doe"
           className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          disabled={isSubmitting}
           {...form.register('fullName')}
         />
       </div>
@@ -103,6 +103,7 @@ export function SignUpForm() {
           type="email"
           placeholder="you@example.com"
           className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          disabled={isSubmitting}
           {...form.register('email')}
         />
         {form.formState.errors.email && (
@@ -121,6 +122,7 @@ export function SignUpForm() {
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            disabled={isSubmitting}
             {...form.register('password')}
           />
           <button
@@ -156,6 +158,7 @@ export function SignUpForm() {
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder="••••••••"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            disabled={isSubmitting}
             {...form.register('confirmPassword')}
           />
           <button
@@ -181,7 +184,7 @@ export function SignUpForm() {
       </div>
 
       {/* Submit Button */}
-      <SubmitButton />
+      <SubmitButton isSubmitting={isSubmitting} />
     </form>
   )
 }
