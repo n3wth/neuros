@@ -9,8 +9,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { IconMenu2, IconX } from '@tabler/icons-react'
 
 const navigation = [
-  { name: 'Explore', href: '/explore' },
-  { name: 'About', href: '/about' },
+  { name: 'Features', href: '/explore' },
   { name: 'Pricing', href: '/pricing' },
 ]
 
@@ -61,8 +60,8 @@ export default function SiteHeader() {
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-12">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          <div className="flex items-center gap-8 lg:gap-12">
             {/* Pure Typography Logo */}
             <Link href="/" className="group">
               <motion.span 
@@ -79,7 +78,7 @@ export default function SiteHeader() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-6 lg:gap-8">
               {navigation.map((item) => {
                 const isActive = pathname === item.href
                 return (
@@ -94,7 +93,7 @@ export default function SiteHeader() {
                   </Link>
                 )
               })}
-            </div>
+            </nav>
           </div>
 
           {/* Desktop Auth Buttons */}

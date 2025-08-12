@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { SparkleIcon, BookIcon } from '@/components/icons/line-icons'
 
 interface LoadingSkeletonProps {
   type?: 'card' | 'dashboard' | 'stats' | 'list' | 'review'
@@ -101,30 +102,29 @@ export function LoadingSkeleton({
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
                 animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 1, 0.5]
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 10, -10, 0]
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center"
               >
-                <span className="text-2xl">🧠</span>
+                <SparkleIcon className="w-8 h-8 text-black/60" />
               </motion.div>
             </div>
           </div>
           
           {/* Fast-updating status text */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <motion.h3 
               key={loadingStage}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="text-lg font-light text-black/80"
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.15 }}
+              className="text-base font-medium text-black/70"
             >
               {loadingMessages[loadingStage]}{dots}
             </motion.h3>
@@ -147,11 +147,11 @@ export function LoadingSkeleton({
             
             {/* Quick tips */}
             <motion.p 
-              className="text-xs text-black/40 font-light mt-4"
-              animate={{ opacity: [0.4, 0.7, 0.4] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="text-xs text-black/40 mt-4"
+              animate={{ opacity: [0.4, 0.6, 0.4] }}
+              transition={{ duration: 3, repeat: Infinity }}
             >
-              Tip: Press spacebar to quickly review cards
+              Press spacebar to quickly review cards
             </motion.p>
           </div>
         </div>
@@ -257,7 +257,7 @@ export function LoadingSkeleton({
                   repeat: Infinity
                 }}
               >
-                <span className="text-2xl">📚</span>
+                <BookIcon className="w-8 h-8 text-black/60" />
               </motion.div>
             </div>
             

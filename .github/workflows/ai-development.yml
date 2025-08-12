@@ -1,0 +1,96 @@
+name: AI Autonomous Development Team
+
+on:
+  # Run every 6 hours
+  schedule:
+    - cron: '0 */6 * * *'
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Mode: full-team, quick-fix, or specific task'
+        required: false
+        default: 'full-team'
+        type: choice
+        options:
+          - full-team
+          - quick-fix
+          - feature
+          - bug-fix
+
+jobs:
+  ai-product-team:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install Node dependencies
+        run: npm ci
+      
+      - name: Install Python dependencies
+        run: |
+          pip install anthropic openai
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "Neuros AI Team"
+          git config --global user.email "ai@neuros.newth.ai"
+      
+      - name: Run AI Product Team
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event.inputs.mode }}" == "quick-fix" ]; then
+            python3 ai-improve-simple.py
+          else
+            python3 autonomous-team.py
+          fi
+      
+      - name: Auto-merge Approved PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Auto-merge PRs that are approved and pass checks
+          gh pr list --state open --json number,reviews,checks --jq '.[] | 
+            select(.reviews | any(.state == "APPROVED")) | 
+            select(.checks | all(.conclusion == "SUCCESS" or .conclusion == null)) | 
+            .number' | while read pr; do
+              echo "Auto-merging PR #$pr"
+              gh pr merge $pr --auto --squash
+            done
+        continue-on-error: true
+      
+      - name: Report Status
+        if: always()
+        run: |
+          echo "## 📊 AI Team Status Report"
+          echo ""
+          echo "### Open Issues"
+          gh issue list --limit 5
+          echo ""
+          echo "### Recent PRs"
+          gh pr list --limit 5
+          echo ""
+          echo "### Test Status"
+          npm test -- --reporter=json || true

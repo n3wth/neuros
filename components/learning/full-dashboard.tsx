@@ -265,64 +265,79 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   return (
     <div className="min-h-screen bg-[#FAFAF9]">
       {/* Header */}
-      <header className="bg-white/95 backdrop-blur-lg border-b border-black/10 sticky top-0 z-50">
+      <header className="bg-white border-b border-black/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="flex items-center group">
-                <SparkleIcon className="w-7 h-7 text-black stroke-[1.5] group-hover:rotate-12 transition-transform duration-300" />
+            <div className="flex items-center flex-1">
+              <Link href="/" className="group mr-12">
+                <img src="/icon.svg" alt="Neuros" className="h-7 w-7 group-hover:opacity-70 transition-opacity" />
               </Link>
               
-              <nav className="hidden md:flex items-center space-x-1">
+              <nav className="flex items-center space-x-8">
                 <button
                   onClick={() => setViewMode('overview')}
-                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
+                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'overview' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/5'
+                      ? 'text-black' 
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
                   Overview
+                  {viewMode === 'overview' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  )}
                 </button>
                 <button
                   onClick={() => setViewMode('review')}
-                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
+                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'review' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/5'
+                      ? 'text-black' 
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
                   Review
+                  {viewMode === 'review' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  )}
                 </button>
                 <button
                   onClick={() => setViewMode('browse')}
-                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
+                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'browse' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/5'
+                      ? 'text-black' 
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
-                  Browse
+                  Library
+                  {viewMode === 'browse' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  )}
                 </button>
                 <button
                   onClick={() => setViewMode('stats')}
-                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
+                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'stats' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/5'
+                      ? 'text-black' 
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
-                  Stats
+                  Analytics
+                  {viewMode === 'stats' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  )}
                 </button>
                 <button
                   onClick={() => setViewMode('settings')}
-                  className={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${
+                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'settings' 
-                      ? 'bg-black text-white' 
-                      : 'text-black/60 hover:text-black hover:bg-black/5'
+                      ? 'text-black' 
+                      : 'text-black/60 hover:text-black'
                   }`}
                 >
-                  AI
+                  Settings
+                  {viewMode === 'settings' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  )}
                 </button>
               </nav>
             </div>
@@ -330,24 +345,24 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             <div className="flex items-center space-x-3">
               {studyStats && studyStats.current_streak_days > 0 && (
                 <div className="flex items-center gap-1.5 px-3 py-1.5">
+                  <HeartIcon className="h-4 w-4 text-black/60" />
                   <span className="text-sm text-black/60">
-                    <SparkleIcon className="h-4 w-4 inline mr-1" />
-                {studyStats.current_streak_days} day{studyStats.current_streak_days !== 1 ? 's' : ''}
+                    {studyStats.current_streak_days} day{studyStats.current_streak_days !== 1 ? 's' : ''}
                   </span>
                 </div>
               )}
               
               <Button
                 onClick={() => setIsCreateDialogOpen(true)}
-                className="bg-black text-white hover:bg-black/90 rounded-full px-5 py-2 text-sm shadow-sm hover:shadow-md transition-all duration-300"
+                className="bg-black text-white hover:bg-black/90 px-4 py-2 text-sm transition-all duration-200"
               >
-                <PlusIcon className="w-4 h-4 mr-2" />
+                <PlusIcon className="w-4 h-4 mr-1.5" />
                 Create Cards
               </Button>
 
               <button
                 onClick={async () => await signOut()}
-                className="p-2 hover:bg-black/5 rounded-full transition-colors duration-200"
+                className="p-2 hover:bg-black/5 transition-colors duration-200"
                 title="Sign out"
               >
                 <LogOutIcon className="w-4 h-4 text-black/60 hover:text-black stroke-[1.5]" />
@@ -454,7 +469,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 >
                   <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
                     <div className="mb-4">
-                      <RocketIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
+                      <HeartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
                     <p className="text-3xl font-serif font-light text-black mb-1">{studyStats?.current_streak_days || 0}</p>
                     <p className="text-sm text-black/50">day streak</p>

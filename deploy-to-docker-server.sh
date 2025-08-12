@@ -9,7 +9,7 @@ echo "🚀 Deploying Autonomous Neuros Development System..."
 # Configuration
 DOCKER_HOST="docker"
 DOCKER_USER="${SSH_USER:-oliver}"
-PROJECT_DIR="/opt/neuros"
+PROJECT_DIR="~/neuros-autonomous"
 GITHUB_REPO="https://github.com/n3wth/neuros.git"
 
 # Colors for output
@@ -33,11 +33,11 @@ print_warning() {
 
 # Check if we can connect to Docker server
 echo "Checking connection to Docker server..."
-if ssh -o ConnectTimeout=5 ${DOCKER_USER}@${DOCKER_HOST} "echo 'Connected'" > /dev/null 2>&1; then
+if ssh -o ConnectTimeout=5 ${DOCKER_HOST} "echo 'Connected'" > /dev/null 2>&1; then
     print_status "Successfully connected to Docker server"
 else
     print_error "Cannot connect to Docker server. Please check SSH configuration."
-    echo "Make sure you have SSH access configured: ssh ${DOCKER_USER}@${DOCKER_HOST}"
+    echo "Make sure you have SSH access configured: ssh ${DOCKER_HOST}"
     exit 1
 fi
 
@@ -80,22 +80,22 @@ print_status "Environment configuration created"
 
 # Copy files to Docker server
 echo "Copying files to Docker server..."
-ssh ${DOCKER_USER}@${DOCKER_HOST} "mkdir -p ${PROJECT_DIR}"
+ssh ${DOCKER_HOST} "mkdir -p ${PROJECT_DIR}"
 
 # Copy docker-compose and related files
-scp docker-compose.production.yml ${DOCKER_USER}@${DOCKER_HOST}:${PROJECT_DIR}/
-scp Dockerfile.production ${DOCKER_USER}@${DOCKER_HOST}:${PROJECT_DIR}/
-scp .env.production ${DOCKER_USER}@${DOCKER_HOST}:${PROJECT_DIR}/.env
-scp -r docker/ ${DOCKER_USER}@${DOCKER_HOST}:${PROJECT_DIR}/
+scp docker-compose.production.yml ${DOCKER_HOST}:${PROJECT_DIR}/
+scp Dockerfile.production ${DOCKER_HOST}:${PROJECT_DIR}/
+scp .env.production ${DOCKER_HOST}:${PROJECT_DIR}/.env
+scp -r docker/ ${DOCKER_HOST}:${PROJECT_DIR}/
 
 print_status "Files copied to Docker server"
 
 # Deploy on Docker server
 echo "Deploying on Docker server..."
-ssh ${DOCKER_USER}@${DOCKER_HOST} << 'ENDSSH'
+ssh ${DOCKER_HOST} << 'ENDSSH'
 set -e
 
-cd /opt/neuros
+cd ~/neuros-autonomous
 
 # Clone or update repository
 if [ ! -d ".git" ]; then
@@ -175,7 +175,7 @@ else
 fi
 
 # Check monitoring dashboard
-if ssh ${DOCKER_USER}@${DOCKER_HOST} "docker exec grafana curl -f http://localhost:3000/api/health" > /dev/null 2>&1; then
+if ssh ${DOCKER_HOST} "docker exec grafana curl -f http://localhost:3000/api/health" > /dev/null 2>&1; then
     print_status "Monitoring dashboard is running"
 else
     print_warning "Monitoring dashboard is still initializing"

@@ -44,33 +44,33 @@ const features = [
 const useCases = [
   {
     title: "Employee Onboarding",
-    description: "Reduce onboarding time by 50% with personalized learning paths",
+    description: "Streamline onboarding with personalized learning paths",
     icon: RocketIcon,
-    metrics: ["2 weeks faster", "87% retention", "4.8/5 satisfaction"]
+    metrics: ["Structured approach", "Organized content", "Clear progress"]
   },
   {
     title: "Skills Development",
-    description: "Upskill your workforce with AI-powered recommendations",
+    description: "Help your workforce develop skills with AI-powered recommendations",
     icon: ChartIcon,
-    metrics: ["63% faster learning", "2.3x retention", "91% completion"]
+    metrics: ["Personalized paths", "Adaptive learning", "Progress tracking"]
   },
   {
     title: "Compliance Training",
-    description: "Ensure 100% compliance with automated tracking and reporting",
+    description: "Maintain compliance with automated tracking and reporting",
     icon: SparkleIcon,
-    metrics: ["100% compliance", "75% time saved", "0 violations"]
+    metrics: ["Automated tracking", "Detailed reports", "Audit trails"]
   },
   {
     title: "Leadership Development",
     description: "Build next-generation leaders with executive coaching paths",
     icon: TrendingIcon,
-    metrics: ["42% promotion rate", "89% engagement", "3.2x ROI"]
+    metrics: ["Structured development", "Engaged learners", "Measurable outcomes"]
   }
 ]
 
 const testimonials = [
   {
-    quote: "Neuros transformed our engineering onboarding. New hires are productive 3x faster.",
+    quote: "Neuros improved our engineering onboarding process with structured learning paths.",
     author: "Sarah Chen",
     role: "VP of Engineering",
     companyName: "Google"
@@ -442,7 +442,7 @@ export default function EnterprisePage() {
             Ready to transform your L&D?
           </h2>
           <p className="text-xl mb-8 text-white/60">
-            Join 500+ companies achieving 3.2x ROI with AI-powered learning
+            Join organizations using AI-powered learning to improve outcomes
           </p>
           <div className="flex items-center justify-center gap-4">
             <button 

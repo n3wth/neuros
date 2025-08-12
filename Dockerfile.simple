@@ -1,0 +1,23 @@
+# Simple production Dockerfile for Neuros
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies without running prepare script
+RUN npm ci --omit=dev --ignore-scripts
+
+# Copy application files
+COPY . .
+
+# Build the application
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN npm run build
+
+# Expose port
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]

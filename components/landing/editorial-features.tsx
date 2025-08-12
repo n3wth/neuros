@@ -17,9 +17,9 @@ export default function EditorialFeatures() {
       categoryColor: '#FF6B6B',
       title: 'The Forgetting Curve Is Dead',
       subtitle: 'How AI rewrote 150 years of memory science',
-      excerpt: 'Hermann Ebbinghaus discovered the forgetting curve in 1885. We just made it obsolete. New research shows AI-powered spacing beats traditional methods by 300%.',
-      author: 'Dr. Sarah Chen',
-      authorTitle: 'Stanford Cognitive Science Lab',
+      excerpt: 'Hermann Ebbinghaus discovered the forgetting curve in 1885. Modern spaced repetition algorithms help combat this natural forgetting process.',
+      author: 'The Neuros Team',
+      authorTitle: 'Learning Science',
       readTime: '12',
       featured: true,
       stats: { views: '48.2K', shares: '2.1K' }
@@ -43,7 +43,7 @@ export default function EditorialFeatures() {
       title: 'Inside Our Algorithm',
       subtitle: 'The math behind perfect memory',
       excerpt: 'We open-sourced our core algorithm. Here\'s exactly how we predict when you\'ll forget, and why it works.',
-      author: 'Dr. James Liu',
+      author: 'The Neuros Team',
       authorTitle: 'Chief Science Officer',
       readTime: '15',
       stats: { views: '22.8K', shares: '1.4K' }
