@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { signUp } from '@/server/actions/auth'
 import { useToast } from '@/hooks/use-toast'
 import { useFormStatus } from 'react-dom'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 
 const formSchema = z.object({
@@ -44,6 +44,8 @@ export function SignUpForm() {
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const confirmPasswordRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -118,6 +120,7 @@ export function SignUpForm() {
         <div className="relative">
           <input
             id="password"
+            ref={passwordRef}
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
@@ -125,7 +128,11 @@ export function SignUpForm() {
           />
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            onClick={() => {
+              setShowPassword(!showPassword)
+              passwordRef.current?.focus()
+            }}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-black/40 hover:text-black/60 transition-colors"
           >
             {showPassword ? (
@@ -153,6 +160,7 @@ export function SignUpForm() {
         <div className="relative">
           <input
             id="confirmPassword"
+            ref={confirmPasswordRef}
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder="••••••••"
             className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
@@ -160,7 +168,11 @@ export function SignUpForm() {
           />
           <button
             type="button"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+            onClick={() => {
+              setShowConfirmPassword(!showConfirmPassword)
+              confirmPasswordRef.current?.focus()
+            }}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-black/40 hover:text-black/60 transition-colors"
           >
             {showConfirmPassword ? (

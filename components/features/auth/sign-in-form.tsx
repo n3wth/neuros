@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { signIn, signInAsDeveloper } from '@/server/actions/auth'
 import { useToast } from '@/hooks/use-toast'
 import { useFormStatus } from 'react-dom'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 
 const formSchema = z.object({
@@ -38,6 +38,7 @@ export function SignInForm() {
   const router = useRouter()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
+  const passwordRef = useRef<HTMLInputElement>(null)
   const [isDevSigningIn, setIsDevSigningIn] = useState(false)
   const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -117,6 +118,7 @@ export function SignInForm() {
         <div className="relative">
           <input
             id="password"
+            ref={passwordRef}
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             autoComplete="current-password"
@@ -125,7 +127,11 @@ export function SignInForm() {
           />
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            onClick={() => {
+              setShowPassword(!showPassword)
+              passwordRef.current?.focus()
+            }}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-black/40 hover:text-black/60 transition-colors"
           >
             {showPassword ? (
