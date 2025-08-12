@@ -268,12 +268,21 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
       <header className="bg-white border-b border-black/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center flex-1">
+            {/* Mobile Layout */}
+            <div className="flex items-center flex-1 md:hidden">
+              <Link href="/" className="flex items-center gap-2 group">
+                <img src="/icon.svg" alt="Neuros" className="h-6 w-6" />
+                <span className="text-xl font-serif font-light">Neuros</span>
+              </Link>
+            </div>
+            
+            {/* Desktop Layout */}
+            <div className="hidden md:flex items-center flex-1">
               <Link href="/" className="group mr-12">
                 <img src="/icon.svg" alt="Neuros" className="h-7 w-7 group-hover:opacity-70 transition-opacity" />
               </Link>
               
-              <nav className="flex items-center space-x-8">
+              <nav className="hidden md:flex items-center space-x-8">
                 <button
                   onClick={() => setViewMode('overview')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
@@ -342,12 +351,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               </nav>
             </div>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 md:space-x-3">
               {studyStats && studyStats.current_streak_days > 0 && (
-                <div className="flex items-center gap-1.5 px-3 py-1.5">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5">
                   <HeartIcon className="h-4 w-4 text-black/60" />
-                  <span className="text-sm text-black/60">
+                  <span className="hidden sm:inline text-sm text-black/60">
                     {studyStats.current_streak_days} day{studyStats.current_streak_days !== 1 ? 's' : ''}
+                  </span>
+                  <span className="sm:hidden text-sm text-black/60">
+                    {studyStats.current_streak_days}
                   </span>
                 </div>
               )}
@@ -362,7 +374,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
 
               <button
                 onClick={async () => await signOut()}
-                className="p-2 hover:bg-black/5 transition-colors duration-200"
+                className="hidden md:block p-2 hover:bg-black/5 transition-colors duration-200"
                 title="Sign out"
               >
                 <LogOutIcon className="w-4 h-4 text-black/60 hover:text-black stroke-[1.5]" />
@@ -487,8 +499,14 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                      <Card className="bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-lg transition-all duration-300">
-                        <div className="flex items-start justify-between">
+                      <Card className="relative bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-xl transition-all duration-500 overflow-hidden group">
+                        <motion.div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          style={{
+                            background: 'radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%)'
+                          }}
+                        />
+                        <div className="relative flex items-start justify-between">
                           <div>
                             <h3 className="text-2xl font-serif font-light mb-3 text-black">Ready to review</h3>
                             <p className="text-black/60 mb-6 max-w-md">
@@ -497,7 +515,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                             </p>
                             <Button
                               onClick={handleStartReview}
-                              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 text-sm transition-all duration-300"
+                              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 text-sm transition-all duration-200"
                             >
                               <PlayIcon className="w-4 h-4 mr-2" />
                               Start Review Session
@@ -513,8 +531,16 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                      <Card className="bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-lg transition-all duration-300">
-                        <div className="flex items-start justify-between">
+                      <Card className="relative bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-xl transition-all duration-500 overflow-hidden group">
+                        <motion.div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          style={{
+                            background: completionState?.type === 'completed_today' 
+                              ? 'radial-gradient(circle at 30% 50%, rgba(34, 197, 94, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(52, 211, 153, 0.03) 0%, transparent 50%)'
+                              : 'radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%)'
+                          }}
+                        />
+                        <div className="relative flex items-start justify-between">
                           <div>
                             {completionState?.type === 'new_user' ? (
                               <>
@@ -532,7 +558,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                   </Button>
                                   <Button
                                     onClick={() => setViewMode('settings')}
-                                    className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                                    className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                     variant="outline"
                                   >
                                     <BeakerIcon className="w-4 h-4 mr-2" />
@@ -542,23 +568,12 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                               </>
                             ) : completionState?.type === 'completed_today' ? (
                               <>
-                                <motion.div
-                                  initial={{ scale: 0.9 }}
-                                  animate={{ scale: 1 }}
-                                  transition={{ 
-                                    type: "spring", 
-                                    stiffness: 200, 
-                                    damping: 10,
-                                    repeat: 2,
-                                    repeatType: "reverse",
-                                    repeatDelay: 0.3
-                                  }}
-                                >
-                                  <div className="flex items-center gap-2 mb-3">
-                                    <SparkleIcon className="w-8 h-8 text-green-500 animate-pulse" />
-                                    <h3 className="text-2xl font-serif font-light text-black/90">Congratulations!</h3>
+                                <div className="flex items-center gap-3 mb-3">
+                                  <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                                    <SparkleIcon className="w-5 h-5 text-green-600" />
                                   </div>
-                                </motion.div>
+                                  <h3 className="text-2xl font-serif font-light text-black/90">Well done</h3>
+                                </div>
                                 <p className="text-black/60 mb-6 font-light max-w-md">
                                   You&apos;ve completed all your reviews for today! Your consistency is building lasting knowledge.
                                   {completionState.nextReviewTime && (
@@ -577,7 +592,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                   </Button>
                                   <Button
                                     onClick={() => setViewMode('stats')}
-                                    className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                                    className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                     variant="outline"
                                   >
                                     <ChartIcon className="w-4 h-4 mr-2" />
@@ -598,7 +613,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 </p>
                                 <Button
                                   onClick={() => setIsCreateDialogOpen(true)}
-                                  className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                                  className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                   variant="outline"
                                 >
                                   <PlusIcon className="w-4 h-4 mr-2" />
@@ -614,7 +629,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 </p>
                                 <Button
                                   onClick={() => setIsCreateDialogOpen(true)}
-                                  className="border-black/20 text-black hover:bg-black/5 focus:bg-black/5 hover:border-black/30 focus:border-black/30 rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                                  className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
                                   variant="outline"
                                 >
                                   <PlusIcon className="w-4 h-4 mr-2" />
@@ -624,25 +639,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                             )}
                           </div>
                           {completionState?.type === 'new_user' ? (
-                            <SparkleIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                            <SparkleIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
                           ) : completionState?.type === 'completed_today' ? (
-                            <motion.div
-                              animate={{ 
-                                rotate: [0, 10, -10, 10, 0],
-                                scale: [1, 1.1, 1, 1.1, 1]
-                              }}
-                              transition={{ 
-                                duration: 2,
-                                repeat: Infinity,
-                                repeatDelay: 3
-                              }}
-                            >
-                              <HeartIcon className="w-16 h-16 text-green-400 stroke-[1.5]" />
-                            </motion.div>
+                            <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
+                              <HeartIcon className="w-6 h-6 text-green-600 stroke-[1.5]" />
+                            </div>
                           ) : completionState?.type === 'no_cards_due' ? (
-                            <LightbulbIcon className="w-16 h-16 text-blue-400 stroke-[1.5]" />
+                            <LightbulbIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
                           ) : (
-                            <RocketIcon className="w-16 h-16 text-black/30 stroke-[1.5]" />
+                            <RocketIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
                           )}
                         </div>
                       </Card>
@@ -729,17 +734,45 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  {/* AI Insights / Onboarding - Editorial Style */}
-                  <Card className="bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700">
-                    <div className="flex items-center justify-between mb-6">
+                  {/* AI Insights / Onboarding - Editorial Style with Color */}
+                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
+                    <motion.div
+                      className="absolute top-0 right-0 w-32 h-32 rounded-full"
+                      style={{
+                        background: completionState?.type === 'completed_today'
+                          ? 'radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%)'
+                          : 'radial-gradient(circle, rgba(147, 51, 234, 0.08) 0%, transparent 70%)',
+                        filter: 'blur(20px)',
+                      }}
+                      animate={{
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    <div className="relative flex items-center justify-between mb-6">
                       <h3 className="text-xl font-serif font-light text-black">
                         {completionState?.type === 'new_user' ? 'Getting Started' : 
                          completionState?.type === 'completed_today' ? 'Today\'s Achievement' :
                          'AI Insights'}
                       </h3>
-                      <div className="w-10 h-10 rounded-xl bg-black/5 flex items-center justify-center">
-                        <LightbulbIcon className="w-5 h-5 text-black/60 stroke-[1.5]" />
-                      </div>
+                      <motion.div 
+                        className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        style={{
+                          background: completionState?.type === 'completed_today'
+                            ? 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(52, 211, 153, 0.1) 100%)'
+                            : 'linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)'
+                        }}
+                        whileHover={{ rotate: 180 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <LightbulbIcon className={`w-5 h-5 stroke-[1.5] ${
+                          completionState?.type === 'completed_today' ? 'text-green-600' : 'text-purple-600'
+                        }`} />
+                      </motion.div>
                     </div>
                     <div className="space-y-4">
                       {completionState?.type === 'new_user' ? (
@@ -760,7 +793,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                               </p>
                               <button 
                                 onClick={() => setIsCreateDialogOpen(true)}
-                                className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                                className="text-xs font-light text-black/70 hover:text-black hover:underline transition-colors"
                               >
                                 Create your first card →
                               </button>
@@ -785,7 +818,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                               </p>
                               <button 
                                 onClick={() => setViewMode('stats')}
-                                className="text-xs font-light text-green-600 hover:text-green-700 hover:underline transition-colors"
+                                className="text-xs font-light text-black/70 hover:text-black hover:underline transition-colors"
                               >
                                 View your progress →
                               </button>
@@ -818,7 +851,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                                 {insight.action && (
                                   <button 
                                     onClick={() => insight.action === 'Create your first card' && setIsCreateDialogOpen(true)}
-                                    className="text-xs font-light text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                                    className="text-xs font-light text-black/70 hover:text-black hover:underline transition-colors"
                                   >
                                     {insight.action} →
                                   </button>
@@ -831,29 +864,67 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     </div>
                   </Card>
 
-                  {/* Upcoming Reviews - Editorial Style */}
+                  {/* Upcoming Reviews - Editorial Style with Animation */}
                   <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500/20 to-transparent" />
+                    <motion.div 
+                      className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-transparent"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      style={{ transformOrigin: 'left' }}
+                    />
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-xl font-serif font-light text-black">Upcoming</h3>
-                      <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
+                      <motion.div 
+                        className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center"
+                        animate={{ 
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
                         <SparkleIcon className="w-5 h-5 text-orange-600 stroke-[1.5]" />
-                      </div>
+                      </motion.div>
                     </div>
                     <div className="space-y-3">
-                      {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, Array<{ id: string }>]) => (
-                        <div key={date} className="group flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 transition-all duration-300 cursor-pointer">
+                      {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, Array<{ id: string }>], index) => (
+                        <motion.div 
+                          key={date} 
+                          className="group flex items-center justify-between p-4 rounded-2xl hover:bg-gradient-to-r hover:from-orange-50/50 hover:to-amber-50/50 transition-all duration-300 cursor-pointer"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                          whileHover={{ x: 4 }}
+                        >
                           <div>
                             <span className="text-base text-black font-light">{date}</span>
                             <span className="block text-xs text-black/40 mt-1">Scheduled review</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-mono text-black/60">{cards.length}</span>
-                            <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-black group-hover:text-white flex items-center justify-center transition-all duration-300">
+                            <motion.span 
+                              className="text-sm font-mono text-black/60"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ 
+                                type: "spring",
+                                stiffness: 500,
+                                damping: 15,
+                                delay: 0.7 + index * 0.1
+                              }}
+                            >
+                              {cards.length}
+                            </motion.span>
+                            <motion.div 
+                              className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 group-hover:from-orange-500 group-hover:to-amber-500 group-hover:text-white flex items-center justify-center transition-all duration-300"
+                              whileHover={{ scale: 1.1 }}
+                            >
                               <ChevronRightIcon className="w-4 h-4 stroke-[1.5]" />
-                            </div>
+                            </motion.div>
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </Card>
