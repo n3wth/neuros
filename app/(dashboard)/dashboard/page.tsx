@@ -14,6 +14,7 @@ export default async function DashboardPage() {
       redirect('/signin')
     }
 
+    // Using the editorial-style dashboard that matches the main site design
     return <FullLearningDashboard user={user} />
   } catch (error) {
     console.error('Dashboard page error:', error)
