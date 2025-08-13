@@ -147,22 +147,19 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
                 icon: ClockIcon,
                 title: 'Intelligent Spacing',
                 description: 'Our system learns your forgetting curve and delivers knowledge at the exact moment before you forget—creating permanent memories.',
-                color: '#FF6B6B',
-                stats: { main: 'Smart', label: 'scheduling' }
+                color: '#FF6B6B'
               },
               {
                 icon: SparkleIcon,
                 title: 'AI Generation',
                 description: 'Generate study materials from your content using AI. Import PDFs, documents, and notes to create learning cards.',
-                color: '#4ECDC4',
-                stats: { main: 'AI', label: 'powered' }
+                color: '#4ECDC4'
               },
               {
                 icon: ChartIcon,
                 title: 'Deep Analytics',
                 description: 'See your learning patterns emerge. Discover your peak performance times and optimal review schedules.',
-                color: '#95E77E',
-                stats: { main: 'Track', label: 'progress' }
+                color: '#95E77E'
               },
             ].map((feature, index) => (
               <motion.div
@@ -172,7 +169,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 + index * 0.05 }}
               >
-                <div className="bg-white border border-black/5 rounded-3xl p-6 lg:p-8 h-full hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                <div className="bg-white border border-black/5 rounded-3xl p-6 lg:p-8 h-full hover:shadow-lg transition-shadow duration-300">
                   <div 
                     className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
                     style={{ backgroundColor: `${feature.color}20` }}
@@ -187,16 +184,9 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
                     {feature.title}
                   </h3>
                   
-                  <p className="text-base leading-relaxed text-black/60 font-light flex-grow">
+                  <p className="text-base leading-relaxed text-black/60 font-light">
                     {feature.description}
                   </p>
-
-                  <div className="pt-6 mt-auto border-t border-black/5">
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-2xl font-serif font-light">{feature.stats.main}</span>
-                      <span className="text-sm text-black/60">{feature.stats.label}</span>
-                    </div>
-                  </div>
                 </div>
               </motion.div>
             ))}
