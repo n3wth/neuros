@@ -118,10 +118,10 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
           >
             <Link 
               href={isAuthenticated ? "/dashboard" : "/signup"}
-              className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/90 transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/80 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
             >
-              <span className="text-sm font-medium">Get started</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              <span className="text-sm font-medium text-white">Get started</span>
+              <ArrowRight className="w-4 h-4 text-white transition-transform group-hover:translate-x-0.5" />
             </Link>
             
             {/* Development Only: Quick Test Login */}
