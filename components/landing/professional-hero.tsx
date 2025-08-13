@@ -110,9 +110,9 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
           {/* Refined CTAs */}
           <motion.div 
             className="pt-2 flex items-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           >
             <Link 
               href={isAuthenticated ? "/dashboard" : "/signup"}
@@ -166,9 +166,9 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
               <motion.div
                 key={index}
                 className="group relative"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
+                transition={{ duration: 0.5, delay: 0.15 + index * 0.05 }}
               >
                 <div className="bg-white border border-black/5 rounded-3xl p-6 lg:p-8 h-full hover:shadow-lg transition-shadow duration-300 flex flex-col">
                   <div 

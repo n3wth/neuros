@@ -24,12 +24,7 @@ export default function SiteHeader() {
   const headerBg = useTransform(
     scrollY,
     [0, 100],
-    ['rgba(250, 250, 249, 0)', 'rgba(250, 250, 249, 0.95)']
-  )
-  const headerBorder = useTransform(
-    scrollY,
-    [0, 100],
-    ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.05)']
+    ['rgba(250, 250, 249, 0.8)', 'rgba(250, 250, 249, 0.98)']
   )
 
   useEffect(() => {
@@ -53,27 +48,22 @@ export default function SiteHeader() {
 
   return (
     <motion.nav 
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        backgroundColor: headerBg,
-        borderBottom: useTransform(headerBorder, (value) => `1px solid ${value}`)
+        backgroundColor: headerBg
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex items-center gap-8 lg:gap-12">
             {/* Pure Typography Logo */}
-            <Link href="/" className="group">
+            <Link href="/">
               <motion.span 
-                className="text-[32px] font-serif font-light tracking-tight leading-none relative"
+                className="text-[32px] font-serif font-light tracking-tight leading-none"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 Neuros
-                {/* Subtle underline on hover */}
-                <motion.div 
-                  className="absolute bottom-0 left-0 w-full h-[1px] bg-black origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-                />
               </motion.span>
             </Link>
 
@@ -152,7 +142,7 @@ export default function SiteHeader() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-white/95 backdrop-blur-sm border-t border-black/5"
+            className="md:hidden bg-[#FAFAF9]"
           >
             <div className="px-6 py-6 space-y-4">
               {navigation.map((item) => (
