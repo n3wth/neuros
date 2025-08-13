@@ -6,6 +6,7 @@ import { checkRateLimit } from '@/lib/rate-limit-server'
 import { RateLimitExceededError } from '@/lib/rate-limit'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
+import { cache, cacheKeys, cacheTTL } from '@/lib/cache'
 
 const openai = env.OPENAI_API_KEY ? new OpenAI({
   apiKey: env.OPENAI_API_KEY
@@ -34,7 +35,7 @@ interface TopicsResult {
   error?: string
 }
 
-export async function generateAISuggestions(userLevel: 'new' | 'beginner' | 'intermediate' | 'advanced' = 'new'): Promise<SuggestionResult> {
+export async function generateAISuggestions(userLevel: 'new' | 'beginner' | 'intermediate' | 'advanced' = 'new', forceRefresh: boolean = false): Promise<SuggestionResult> {
   try {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -43,11 +44,24 @@ export async function generateAISuggestions(userLevel: 'new' | 'beginner' | 'int
       return { error: 'Not authenticated' }
     }
 
+    // Check cache first unless force refresh
+    const cacheKey = cacheKeys.aiSuggestions(user.id, userLevel)
+    if (!forceRefresh) {
+      const cached = cache.get<string[]>(cacheKey)
+      if (cached) {
+        logger.debug('Returning cached AI suggestions', {
+          metadata: { userId: user.id, userLevel, cacheHit: true }
+        })
+        return { suggestions: cached }
+      }
+    }
+
     if (!openai) {
       // Return fallback suggestions if OpenAI is not configured
-      return {
-        suggestions: getFallbackSuggestions(userLevel)
-      }
+      const fallback = getFallbackSuggestions(userLevel)
+      // Cache even fallback suggestions to reduce computation
+      cache.set(cacheKey, fallback, cacheTTL.aiSuggestions)
+      return { suggestions: fallback }
     }
 
     // Check rate limit
@@ -58,10 +72,14 @@ export async function generateAISuggestions(userLevel: 'new' | 'beginner' | 'int
         logger.warn('Rate limit exceeded for AI suggestions', { 
           metadata: { userId: user.id, retryAfter: error.retryAfter }
         })
-        // Return fallback suggestions instead of error
-        return {
-          suggestions: getFallbackSuggestions(userLevel)
+        // Return cached suggestions if available, otherwise fallback
+        const cached = cache.get<string[]>(cacheKey)
+        if (cached) {
+          return { suggestions: cached }
         }
+        const fallback = getFallbackSuggestions(userLevel)
+        cache.set(cacheKey, fallback, cacheTTL.shortLived) // Short cache for rate limited
+        return { suggestions: fallback }
       }
       throw error
     }

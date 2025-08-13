@@ -165,18 +165,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
       setUpcomingCards(formattedUpcoming)
       setCompletionState(completionResult)
 
-      // Skip AI insights for now to avoid rate limiting issues
-      // In production, this should use caching or be loaded on-demand
-      setAiInsights([
-        {
-          type: 'info',
-          title: 'AI Insights',
-          description: cardStats && cardStats.totalCards > 0 
-            ? `You're making progress! ${cardStats.mastered} cards mastered out of ${cardStats.totalCards}.`
-            : 'Start creating cards to track your learning progress.',
-          action: cardStats && cardStats.totalCards > 0 ? undefined : 'Create your first card'
-        }
-      ])
+      // Load real data-driven insights
+      try {
+        const insights = await generateDataDrivenInsights()
+        setAiInsights(insights)
+      } catch (insightError) {
+        console.error('Failed to load insights:', insightError)
+        // Fallback to basic insights if data analysis fails
+        setAiInsights([])
+      }
     } catch (error) {
       console.error('Failed to load dashboard data:', error)
       setError('Failed to load dashboard data. Please try refreshing the page.')
@@ -893,32 +890,58 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                           </div>
                         </motion.div>
                       ) : (
-                        aiInsights.slice(0, 2).map((insight, index) => (
+                        aiInsights.slice(0, 3).map((insight, index) => (
                           <motion.div 
                             key={index} 
-                            className="p-4 bg-gray-50 rounded-2xl"
+                            className={`p-4 rounded-2xl ${
+                              insight.priority === 'high' ? 'bg-red-50/50' :
+                              insight.priority === 'medium' ? 'bg-amber-50/50' :
+                              'bg-gray-50'
+                            }`}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                           >
                             <div className="flex items-start gap-3">
-                              <div className={`w-2.5 h-2.5 rounded-full mt-2 ${
-                                insight.type === 'strength' ? 'bg-green-500' :
-                                insight.type === 'improvement' ? 'bg-yellow-500' :
-                                insight.type === 'info' ? 'bg-blue-500' :
-                                'bg-blue-500'
-                              }`} />
+                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                insight.type === 'achievement' ? 'bg-green-100' :
+                                insight.type === 'pattern' ? 'bg-blue-100' :
+                                insight.type === 'suggestion' ? 'bg-amber-100' :
+                                insight.type === 'warning' ? 'bg-red-100' :
+                                insight.type === 'milestone' ? 'bg-purple-100' :
+                                'bg-gray-100'
+                              }`}>
+                                {insight.icon === 'trophy' ? <SparkleIcon className="w-5 h-5 text-green-600" /> :
+                                 insight.icon === 'trend' ? <ChartIcon className="w-5 h-5 text-blue-600" /> :
+                                 insight.icon === 'lightbulb' ? <LightbulbIcon className="w-5 h-5 text-amber-600" /> :
+                                 insight.icon === 'alert' ? <ClockIcon className="w-5 h-5 text-red-600" /> :
+                                 insight.icon === 'flag' ? <RocketIcon className="w-5 h-5 text-purple-600" /> :
+                                 <LightbulbIcon className="w-5 h-5 text-gray-600" />}
+                              </div>
                               <div className="flex-1">
-                                <p className="text-sm font-light text-black/90 mb-2">
-                                  {insight.title}
-                                </p>
-                                <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
+                                <div className="flex items-start justify-between mb-1">
+                                  <p className="text-sm font-medium text-black/90">
+                                    {insight.title}
+                                  </p>
+                                  {insight.metric && (
+                                    <span className="text-xs font-mono text-black/50 ml-2">
+                                      {insight.metric}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-xs text-black/60 mb-2 font-light leading-relaxed">
                                   {insight.description}
                                 </p>
                                 {insight.action && (
                                   <button 
-                                    onClick={() => insight.action === 'Create your first card' && setIsCreateDialogOpen(true)}
-                                    className="text-xs font-light text-black/70 hover:text-black hover:underline transition-colors"
+                                    onClick={() => {
+                                      if (insight.action === 'Start review session' || insight.action === 'Start a quick review session') {
+                                        setViewMode('review')
+                                      } else if (insight.action === 'Create practice cards' || insight.action === 'Review difficult cards') {
+                                        setIsCreateDialogOpen(true)
+                                      }
+                                    }}
+                                    className="text-xs font-medium text-black/70 hover:text-black hover:underline transition-colors"
                                   >
                                     {insight.action} →
                                   </button>
