@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { registerServiceWorker, setupInstallPrompt } from "./sw-register";
@@ -101,6 +102,7 @@ export default function RootLayout({
         <ErrorBoundary>
           {children}
           <Toaster />
+          <Analytics />
         </ErrorBoundary>
       </body>
     </html>
