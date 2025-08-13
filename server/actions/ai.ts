@@ -143,13 +143,16 @@ export async function generateCardsFromText(
         })
         createdCards.push(created)
       } catch (cardError) {
-        console.error('Error creating card:', {
-          cardData: {
-            front: card.front,
-            back: card.back,
-            explanation: card.explanation,
-            difficulty,
-            tags: card.tags || []
+        logger.error('Error creating card', {
+          userId: user.id,
+          metadata: {
+            cardData: {
+              front: card.front,
+              back: card.back,
+              explanation: card.explanation,
+              difficulty,
+              tags: card.tags || []
+            }
           },
           error: cardError
         })
@@ -177,12 +180,15 @@ export async function generateCardsFromText(
       throw error
     }
     
-    console.error('AI generation error details:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-      error: error,
+    logger.error('AI generation failed', {
       userId: user.id,
-      timestamp: new Date().toISOString()
+      action: 'generateCardsFromText',
+      error,
+      metadata: {
+        textLength: text.length,
+        difficulty,
+        count
+      }
     })
     
     // More specific error messages
@@ -269,7 +275,7 @@ export async function generateExplanation(
       throw error
     }
     
-    console.error('AI explanation error:', {
+    logger.error('AI explanation failed', {
       error,
       userId: user.id,
       concept,
@@ -357,7 +363,7 @@ export async function generatePracticeQuestions(
       throw error
     }
     
-    console.error('AI practice questions error:', {
+    logger.error('AI practice questions failed', {
       error,
       userId: user.id,
       cardFront,
@@ -445,7 +451,7 @@ export async function generateLearningPath(
       throw error
     }
     
-    console.error('AI learning path error:', {
+    logger.error('AI learning path failed', {
       error,
       userId: user.id,
       topic,
@@ -532,7 +538,7 @@ export async function generateLearningInsights(
       throw error
     }
     
-    console.error('AI insights error:', {
+    logger.error('AI insights generation failed', {
       error,
       userId: user.id,
       stats,

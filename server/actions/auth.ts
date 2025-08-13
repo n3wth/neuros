@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { logger } from '@/lib/logger'
 
 export interface SignUpData {
   email: string
@@ -36,7 +37,7 @@ export interface ResetPasswordData {
 export async function signUp(data: SignUpData) {
   const supabase = await createClient()
 
-  const { error } = await supabase.auth.signUp({
+  const { error, data: authData } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
@@ -47,9 +48,11 @@ export async function signUp(data: SignUpData) {
   })
 
   if (error) {
+    logger.auth('error', data.email, error)
     return { error: error.message }
   }
 
+  logger.auth('signup', authData.user?.id || data.email)
   revalidatePath('/', 'layout')
   return { success: true }
 }
@@ -57,15 +60,17 @@ export async function signUp(data: SignUpData) {
 export async function signIn(data: SignInData) {
   const supabase = await createClient()
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error, data: authData } = await supabase.auth.signInWithPassword({
     email: data.email,
     password: data.password,
   })
 
   if (error) {
+    logger.auth('error', data.email, error)
     return { error: error.message }
   }
 
+  logger.auth('signin', authData.user?.id || data.email)
   revalidatePath('/', 'layout')
   return { success: true }
 }
@@ -271,7 +276,10 @@ async function seedTestAccountData() {
     .select('id')
 
   if (cardsError || !insertedCards) {
-    console.error('Failed to seed cards:', cardsError)
+    logger.error('Failed to seed cards', {
+      userId: userId,
+      error: cardsError
+    })
     return
   }
 

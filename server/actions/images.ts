@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
 import { env } from '@/lib/env'
+import { logger } from '@/lib/logger'
 
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY
@@ -63,7 +64,11 @@ export async function generateCardImage(
       imageId: data.id
     }
   } catch (error) {
-    console.error('Image generation error:', error)
+    logger.error('Image generation failed', {
+      userId: user.id,
+      error,
+      metadata: { prompt, cardId }
+    })
     throw new Error('Failed to generate image')
   }
 }
@@ -104,7 +109,11 @@ export async function generateProgressVisualization(
       imageUrl: response.data?.[0]?.url
     }
   } catch (error) {
-    console.error('Visualization generation error:', error)
+    logger.error('Visualization generation failed', {
+      userId: user.id,
+      error,
+      metadata: { concept, cardId }
+    })
     throw new Error('Failed to generate visualization')
   }
 }
@@ -164,7 +173,11 @@ export async function generateTopicIllustration(
       imageId: data.id
     }
   } catch (error) {
-    console.error('Topic illustration error:', error)
+    logger.error('Topic illustration failed', {
+      userId: user.id,
+      error,
+      metadata: { topic, style }
+    })
     throw new Error('Failed to generate topic illustration')
   }
 }

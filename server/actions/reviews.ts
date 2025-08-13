@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { logger } from '@/lib/logger'
 import type { Database } from '@/types/supabase'
 
 type Review = Database['public']['Tables']['reviews']['Insert']
@@ -283,7 +284,10 @@ async function updateUserStats(userId: string) {
     })
 
   if (error) {
-    console.error('Error updating user stats:', error);
+    logger.error('Error updating user stats', {
+      userId: user.id,
+      error
+    });
     throw new Error('Failed to update user statistics');
   }
 }

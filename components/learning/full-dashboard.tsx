@@ -102,7 +102,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         studyStatsData,
         upcomingData,
         userCompletionState
-      ] = await Promise.all([
+      ] = await Promise.allSettled([
         getUserCards(),
         getDueCards(10),
         getCardStats(),
@@ -111,7 +111,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         getUserCompletionState()
       ])
 
-      setCards(userCards.map(card => ({
+      // Handle results from Promise.allSettled
+      const userCardsResult = userCards.status === 'fulfilled' ? userCards.value : []
+      const dueCardsResult = dueCardsData.status === 'fulfilled' ? dueCardsData.value : []
+      const cardStatsResult = cardStats.status === 'fulfilled' ? cardStats.value : null
+      const studyStatsResult = studyStatsData.status === 'fulfilled' ? studyStatsData.value : null
+      const upcomingResult = upcomingData.status === 'fulfilled' ? upcomingData.value : {}
+      const completionResult = userCompletionState.status === 'fulfilled' ? userCompletionState.value : null
+
+      setCards(userCardsResult.map(card => ({
         id: card.id,
         front: card.front,
         back: card.back,
@@ -124,7 +132,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
           mastery_level: uc.mastery_level || 0
         }))
       })))
-      setDueCards(dueCardsData.map(item => ({
+      setDueCards(dueCardsResult.map(item => ({
         id: item.id,
         cards: {
           front: item.cards.front,
@@ -136,19 +144,23 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         mastery_level: item.mastery_level || 0,
         total_reviews: item.total_reviews || 0
       })))
-      setStats(cardStats)
-      setStudyStats(studyStatsData ? {
-        total_reviews: studyStatsData.total_reviews || 0,
-        average_accuracy: studyStatsData.average_accuracy || 0,
-        total_study_time_minutes: studyStatsData.total_study_time_minutes || 0,
-        current_streak_days: studyStatsData.current_streak_days || 0
+      setStats(cardStatsResult)
+      setStudyStats(studyStatsResult ? {
+        total_reviews: studyStatsResult.total_reviews || 0,
+        average_accuracy: studyStatsResult.average_accuracy || 0,
+        total_study_time_minutes: studyStatsResult.total_study_time_minutes || 0,
+        current_streak_days: studyStatsResult.current_streak_days || 0
       } : null)
       const formattedUpcoming: Record<string, Array<{ id: string }>> = {}
-      Object.entries(upcomingData).forEach(([date, items]) => {
-        formattedUpcoming[date] = items.map(item => ({ id: item.cards.id }))
-      })
+      if (upcomingResult) {
+        Object.entries(upcomingResult).forEach(([date, items]) => {
+          if (Array.isArray(items)) {
+            formattedUpcoming[date] = items.map(item => ({ id: item.cards?.id || item.id }))
+          }
+        })
+      }
       setUpcomingCards(formattedUpcoming)
-      setCompletionState(userCompletionState)
+      setCompletionState(completionResult)
 
       // Skip AI insights for now to avoid rate limiting issues
       // In production, this should use caching or be loaded on-demand

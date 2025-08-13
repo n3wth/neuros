@@ -14,8 +14,14 @@ export default async function DashboardPage() {
       redirect('/signin')
     }
 
+    // Pass only serializable user data to client component
+    const serializedUser = {
+      id: user.id,
+      email: user.email || undefined
+    }
+
     // Using the editorial-style dashboard that matches the main site design
-    return <FullLearningDashboard user={user} />
+    return <FullLearningDashboard user={serializedUser} />
   } catch (error) {
     console.error('Dashboard page error:', error)
     return (
