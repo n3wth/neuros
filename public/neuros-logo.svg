@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <rect width="512" height="512" rx="128" fill="#000000"/>
+  
+  <!-- N letterform - Modern, clean design -->
+  <path d="M 140 360 L 140 152 L 190 152 L 322 310 L 322 152 L 372 152 L 372 360 L 322 360 L 190 202 L 190 360 Z" 
+        fill="#FFFFFF" 
+        stroke="none"/>
+  
+  <!-- Subtle accent dot - represents the "neuro" spark -->
+  <circle cx="256" cy="420" r="16" fill="#FFFFFF" opacity="0.8"/>
+</svg>
