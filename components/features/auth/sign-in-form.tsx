@@ -44,6 +44,9 @@ export function SignInForm() {
   const [isDevSigningIn, setIsDevSigningIn] = useState(false)
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
   const isDevelopment = process.env.NODE_ENV === 'development'
+  
+  // Check if OAuth should be shown (for testing)
+  const showOAuth = searchParams.get('test') === 'google'
 
   // Display error from URL params (OAuth errors)
   useEffect(() => {
@@ -111,20 +114,24 @@ export function SignInForm() {
 
   return (
     <div className="space-y-5">
-      {/* OAuth Buttons */}
-      <div className="space-y-3">
-        <OAuthButton provider="google" label="Sign in with Google" />
-      </div>
+      {/* OAuth Buttons - Only show with ?test=google */}
+      {showOAuth && (
+        <>
+          <div className="space-y-3">
+            <OAuthButton provider="google" label="Sign in with Google" />
+          </div>
 
-      {/* Divider */}
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-black/10"></div>
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or continue with</span>
-        </div>
-      </div>
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-black/10"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or continue with</span>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Auth Method Tabs */}
       <div className="flex gap-2 mb-6">

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { Suspense } from 'react'
 import { SignUpForm } from '@/components/features/auth/sign-up-form'
 import { SparkleIcon, RocketIcon, HeartIcon } from '@/components/icons/line-icons'
 import { Logo } from '@/components/ui/logo'
@@ -165,7 +166,9 @@ export default function SignUpPage() {
             </div>
 
             {/* Form */}
-            <SignUpForm />
+            <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg" />}>
+              <SignUpForm />
+            </Suspense>
 
             {/* Social Options - Temporarily disabled but kept for future implementation */}
             {/* 

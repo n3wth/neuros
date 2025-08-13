@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -43,11 +43,15 @@ function SubmitButton() {
 
 export function SignUpForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
   const [fullName, setFullName] = useState('')
+  
+  // Check if OAuth should be shown (for testing)
+  const showOAuth = searchParams.get('test') === 'google'
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -83,20 +87,24 @@ export function SignUpForm() {
 
   return (
     <div className="space-y-5">
-      {/* OAuth Buttons */}
-      <div className="space-y-3">
-        <OAuthButton provider="google" label="Sign up with Google" />
-      </div>
+      {/* OAuth Buttons - Only show with ?test=google */}
+      {showOAuth && (
+        <>
+          <div className="space-y-3">
+            <OAuthButton provider="google" label="Sign up with Google" />
+          </div>
 
-      {/* Divider */}
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-black/10"></div>
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or sign up with</span>
-        </div>
-      </div>
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-black/10"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-[#FAFAF9] lg:bg-white px-4 text-black/40 font-mono tracking-wider">or sign up with</span>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Auth Method Tabs */}
       <div className="flex gap-2 mb-6">
