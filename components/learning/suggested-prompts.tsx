@@ -159,11 +159,10 @@ export default function SuggestedPrompts({ onSelectPrompt, variant = 'grid' }: S
                       <motion.div
                         animate={hoveredCard === prompt.id ? { rotate: [0, -10, 10, 0] } : {}}
                         transition={{ duration: 0.5 }}
+                        className="w-7 h-7"
+                        style={{ color: prompt.color.split(' ')[1].replace('to-', '') }}
                       >
-                        <prompt.icon 
-                          className="w-7 h-7" 
-                          style={{ color: prompt.color.split(' ')[1].replace('to-', '') }}
-                        />
+                        {prompt.icon}
                       </motion.div>
                     </div>
                     <p className="text-xs font-mono text-black/40 tracking-[0.2em] uppercase mb-3">
