@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:log": "./scripts/development/log-capture.sh 'npm run dev'",
     "dev:local": "next dev -H 0.0.0.0 -p 3001",
     "dev:80": "sudo next dev -H 0.0.0.0 -p 80",
     "proxy:80": "sudo node scripts/development/proxy-80.js",
@@ -39,7 +40,10 @@
     "qdb": "npm run db:reset && npm run db:types",
     "qdm": "./scripts/db-migrate.sh",
     "qai": "./scripts/generate-action.sh",
-    "qrate": "node scripts/check-rate-limits.js"
+    "qrate": "node scripts/check-rate-limits.js",
+    "logs": "./scripts/development/show-logs.sh",
+    "logs:full": "./scripts/development/show-logs.sh full",
+    "logs:live": "./scripts/development/show-logs.sh live"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

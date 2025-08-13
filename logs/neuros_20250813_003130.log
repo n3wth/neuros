@@ -1,0 +1,7 @@
+=== Starting neuros at Wed Aug 13 00:31:30 PDT 2025 ===
+Command: echo "Testing log capture system - this should appear in logs"
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_003130.log
+==========================================
+Testing log capture system - this should appear in logs
+
+=== Session ended at Wed Aug 13 00:31:30 PDT 2025 ===

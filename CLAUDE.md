@@ -72,10 +72,24 @@ git worktree remove .worktrees/feature-name
 ### Core Development
 ```bash
 npm run dev              # Start development server (port 3000)
+npm run dev:log          # Start dev server with log capture for Claude Code
 npm run build           # Production build
 npm run start           # Start production server
 npm run lint            # Run ESLint
 npm run typecheck       # TypeScript type checking
+```
+
+### Log Management for Claude Code Integration
+```bash
+npm run logs             # Show latest logs (last 100 lines)
+npm run logs:full        # Show full latest log file
+npm run logs:live        # Follow logs in real-time
+
+# Manual log capture for any command
+./scripts/development/log-capture.sh 'your-command-here'
+
+# Log files location: /Users/oliver/gh/neuros/logs/
+# Latest log symlink: /Users/oliver/gh/neuros/logs/latest.log
 ```
 
 ### Testing Commands
