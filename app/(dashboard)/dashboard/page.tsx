@@ -6,31 +6,19 @@ import FullLearningDashboard from '@/components/learning/full-dashboard'
 export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
-  try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
-    if (!user) {
-      redirect('/signin')
-    }
-
-    // Pass only serializable user data to client component
-    const serializedUser = {
-      id: user.id,
-      email: user.email || undefined
-    }
-
-    // Using the editorial-style dashboard that matches the main site design
-    return <FullLearningDashboard user={serializedUser} />
-  } catch (error) {
-    console.error('Dashboard page error:', error)
-    return (
-      <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-serif font-light mb-4">Something went wrong</h1>
-          <p className="text-black/60">Please try refreshing the page or contact support.</p>
-        </div>
-      </div>
-    )
+  if (!user) {
+    redirect('/signin')
   }
+
+  // Pass only serializable user data to client component
+  const serializedUser = {
+    id: user.id,
+    email: user.email || undefined
+  }
+
+  // Using the editorial-style dashboard that matches the main site design
+  return <FullLearningDashboard user={serializedUser} />
 }
