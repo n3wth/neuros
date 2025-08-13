@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import NeurosLearningDashboard from './neuros-dashboard'
+import ReviewInterface from './review-interface'
 import MobileReviewInterface from './mobile-review-interface'
 import { useMobile } from '@/hooks/use-mobile'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
@@ -32,6 +32,6 @@ export default function AdaptiveLearningInterface({ user }: AdaptiveLearningInte
     return <MobileReviewInterface sessionId={user.id} />
   }
 
-  // Desktop experience
-  return <NeurosLearningDashboard user={user} />
+  // Desktop experience - use the new ReviewInterface
+  return <ReviewInterface sessionId={user.id} />
 }
