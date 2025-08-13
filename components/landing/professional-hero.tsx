@@ -40,7 +40,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveWord(prev => (prev + 1) % words.length)
-    }, 3000)
+    }, 2500)
     return () => clearInterval(interval)
   }, [words.length])
 
@@ -77,24 +77,26 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
             transition={{ duration: 0.5, delay: 0.05 }}
           >
             <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] max-w-5xl">
-              <span className="block mb-4 relative inline-block">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={words[activeWord]}
-                    initial={{ opacity: 0, y: 30, scale: 0.95, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -30, scale: 1.05, filter: "blur(8px)" }}
-                    transition={{ 
-                      duration: 1.2,
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }}
-                    className="block text-black"
-                  >
-                    {words[activeWord]}
-                  </motion.span>
-                </AnimatePresence>
-                <span className="text-black"> everything.</span>
-              </span>
+              <div className="mb-4">
+                <div className="relative h-[1.2em]">
+                  <AnimatePresence mode="sync">
+                    <motion.span
+                      key={words[activeWord]}
+                      initial={{ opacity: 0, y: 15, filter: "blur(3px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -15, filter: "blur(3px)" }}
+                      transition={{ 
+                        duration: 0.5,
+                        ease: [0.25, 0.46, 0.45, 0.94]
+                      }}
+                      className="absolute left-0 text-black"
+                    >
+                      {words[activeWord]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+                <div className="text-black">everything.</div>
+              </div>
               <span className="block text-black/60 mt-4">
                 No more forgetting.
               </span>

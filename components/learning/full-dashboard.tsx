@@ -284,16 +284,15 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
           <div className="flex items-center justify-between h-16">
             {/* Mobile Layout */}
             <div className="flex items-center flex-1 md:hidden">
-              <Link href="/" className="flex items-center gap-2 group">
-                <img src="/neuros-logo.svg" alt="Neuros" className="h-6 w-6" />
-                <span className="text-xl font-serif font-light">Neuros</span>
+              <Link href="/" className="group">
+                <span className="text-2xl font-serif font-light tracking-tight">Neuros</span>
               </Link>
             </div>
             
             {/* Desktop Layout */}
             <div className="hidden md:flex items-center flex-1">
               <Link href="/" className="group mr-12">
-                <img src="/neuros-logo.svg" alt="Neuros" className="h-7 w-7 group-hover:opacity-70 transition-opacity" />
+                <span className="text-[32px] font-serif font-light tracking-tight leading-none hover:scale-[1.02] transition-transform">Neuros</span>
               </Link>
               
               <nav className="hidden md:flex items-center space-x-8">
