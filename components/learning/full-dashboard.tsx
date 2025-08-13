@@ -67,6 +67,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isLoadingData, setIsLoadingData] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
   const loadingRef = useRef(false)
 
   // Update view mode when pathname changes
@@ -131,6 +132,19 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
     // Load data immediately on mount
     loadDashboardData()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Add scroll listener for header animation
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 10
+      if (scrolled !== hasScrolled) {
+        setHasScrolled(scrolled)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [hasScrolled])
 
   const formatGreeting = () => {
     const hour = new Date().getHours()
@@ -205,7 +219,11 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
   return (
     <div className="min-h-screen bg-[#FAFAF9]">
       {/* Header */}
-      <header className="bg-white border-b border-black/10 sticky top-0 z-50">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        hasScrolled 
+          ? 'bg-white border-b border-black/10 backdrop-blur-lg shadow-sm' 
+          : 'bg-[#FAFAF9] border-b border-transparent'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Mobile Layout */}
@@ -231,8 +249,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   }`}
                 >
                   Overview
-                  {viewMode === 'overview' && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  {viewMode === 'overview' && hasScrolled && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
                 </Link>
                 <Link
@@ -244,8 +262,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   }`}
                 >
                   Discover
-                  {viewMode === 'discover' && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  {viewMode === 'discover' && hasScrolled && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
                 </Link>
                 <Link
@@ -257,8 +275,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   }`}
                 >
                   Library
-                  {viewMode === 'browse' && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  {viewMode === 'browse' && hasScrolled && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
                 </Link>
                 <Link
@@ -270,8 +288,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   }`}
                 >
                   Analytics
-                  {viewMode === 'stats' && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  {viewMode === 'stats' && hasScrolled && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
                 </Link>
                 <Link
@@ -283,8 +301,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   }`}
                 >
                   Settings
-                  {viewMode === 'settings' && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  {viewMode === 'settings' && hasScrolled && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
                 </Link>
               </nav>
