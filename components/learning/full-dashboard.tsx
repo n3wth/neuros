@@ -60,6 +60,14 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
     if (pathname.includes('/dashboard/settings')) return 'settings'
     return initialViewMode
   })
+  
+  // Handle client-side navigation
+  const handleNavigation = (mode: ViewMode) => {
+    setViewMode(mode)
+    // Update URL without causing a reload
+    const newPath = mode === 'overview' ? '/dashboard' : `/dashboard/${mode}`
+    window.history.pushState({}, '', newPath)
+  }
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [stats, setStats] = useState<{ totalCards: number; dueCards: number; mastered: number; learning: number; difficult: number } | null>(null)
   const [studyStats, setStudyStats] = useState<{ total_reviews: number; average_accuracy: number; total_study_time_minutes: number; current_streak_days: number } | null>(null)
@@ -70,18 +78,24 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
   const [hasScrolled, setHasScrolled] = useState(false)
   const loadingRef = useRef(false)
 
-  // Update view mode when pathname changes
+  // Listen for browser back/forward navigation
   useEffect(() => {
-    let newViewMode: ViewMode = 'overview'
-    if (pathname.includes('/dashboard/browse')) newViewMode = 'browse'
-    else if (pathname.includes('/dashboard/discover')) newViewMode = 'discover' 
-    else if (pathname.includes('/dashboard/stats')) newViewMode = 'stats'
-    else if (pathname.includes('/dashboard/settings')) newViewMode = 'settings'
-    
-    if (newViewMode !== viewMode) {
-      setViewMode(newViewMode)
+    const handlePopState = () => {
+      const path = window.location.pathname
+      let newViewMode: ViewMode = 'overview'
+      if (path.includes('/dashboard/browse')) newViewMode = 'browse'
+      else if (path.includes('/dashboard/discover')) newViewMode = 'discover' 
+      else if (path.includes('/dashboard/stats')) newViewMode = 'stats'
+      else if (path.includes('/dashboard/settings')) newViewMode = 'settings'
+      
+      if (newViewMode !== viewMode) {
+        setViewMode(newViewMode)
+      }
     }
-  }, [pathname, viewMode])
+    
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [viewMode])
 
   const loadDashboardData = useCallback(async () => {
     // Prevent multiple simultaneous loads using ref
@@ -240,8 +254,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
               </Link>
               
               <nav className="hidden md:flex items-center space-x-8">
-                <Link
-                  href="/dashboard"
+                <button
+                  onClick={() => handleNavigation('overview')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'overview' 
                       ? 'text-black' 
@@ -252,9 +266,9 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   {viewMode === 'overview' && hasScrolled && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
-                </Link>
-                <Link
-                  href="/dashboard/discover"
+                </button>
+                <button
+                  onClick={() => handleNavigation('discover')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'discover' 
                       ? 'text-black' 
@@ -265,9 +279,9 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   {viewMode === 'discover' && hasScrolled && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
-                </Link>
-                <Link
-                  href="/dashboard/browse"
+                </button>
+                <button
+                  onClick={() => handleNavigation('browse')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'browse' 
                       ? 'text-black' 
@@ -278,9 +292,9 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   {viewMode === 'browse' && hasScrolled && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
-                </Link>
-                <Link
-                  href="/dashboard/stats"
+                </button>
+                <button
+                  onClick={() => handleNavigation('stats')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'stats' 
                       ? 'text-black' 
@@ -291,9 +305,9 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   {viewMode === 'stats' && hasScrolled && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
-                </Link>
-                <Link
-                  href="/dashboard/settings"
+                </button>
+                <button
+                  onClick={() => handleNavigation('settings')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'settings' 
                       ? 'text-black' 
@@ -304,7 +318,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   {viewMode === 'settings' && hasScrolled && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black transition-opacity duration-300" />
                   )}
-                </Link>
+                </button>
               </nav>
             </div>
 

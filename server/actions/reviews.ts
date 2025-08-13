@@ -3,7 +3,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { logger } from '@/lib/logger'
-import { checkRateLimit, RateLimitExceededError } from '@/lib/rate-limit-redis'
+import { checkRateLimit } from '@/lib/rate-limit-server'
+import { RateLimitExceededError } from '@/lib/rate-limit'
 import type { Database } from '@/types/supabase'
 
 type Review = Database['public']['Tables']['reviews']['Insert']
@@ -68,13 +69,9 @@ export async function submitReview(
   if (!user) throw new Error('Not authenticated')
   
   // Rate limit review submissions to prevent abuse
-  try {
-    await checkRateLimit(user.id, 'REVIEW_SUBMISSION')
-  } catch (error) {
-    if (error instanceof RateLimitExceededError) {
-      throw new Error(`Too many review submissions. Please try again in ${error.retryAfter} seconds.`)
-    }
-    throw new Error('Rate limit check failed')
+  const rateLimitResult = await checkRateLimit(user.id, 'REVIEW_SUBMISSION')
+  if (!rateLimitResult.allowed) {
+    throw new Error(`Too many review submissions. Please try again in ${rateLimitResult.retryAfter} seconds.`)
   }
 
   // Get current user_card data
@@ -296,7 +293,7 @@ async function updateUserStats(userId: string) {
 
   if (error) {
     logger.error('Error updating user stats', {
-      userId: user.id,
+      userId,
       error
     });
     throw new Error('Failed to update user statistics');

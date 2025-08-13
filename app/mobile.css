@@ -213,6 +213,50 @@
       background-color: rgba(255, 255, 255, 0.95);
     }
   }
+  
+  /* Optimize shadow rendering on mobile */
+  .shadow-lg {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Reduce motion for better battery life */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Optimize font rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+  }
+  
+  /* Mobile-first layout containers */
+  .mobile-container {
+    max-width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+  
+  /* Optimize image loading */
+  img {
+    loading: lazy;
+    decoding: async;
+  }
+  
+  /* Battery-conscious animation */
+  .mobile-fade-in {
+    animation: mobileFadeIn 0.2s ease-out forwards;
+  }
+  
+  @keyframes mobileFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }
 
 /* Touch gesture indicators */

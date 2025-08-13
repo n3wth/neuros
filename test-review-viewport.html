@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Interface Viewport Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .safe-top { padding-top: env(safe-area-inset-top); }
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+        .mobile-scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .mobile-readable { line-height: 1.6; }
+        
+        /* Animation classes */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        
+        /* Custom button hover effects */
+        .rating-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Swipe hints animation */
+        @keyframes swipe-left {
+            0%, 100% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+        }
+        @keyframes swipe-right {
+            0%, 100% { transform: translateX(5px); }
+            50% { transform: translateX(-5px); }
+        }
+        .swipe-left { animation: swipe-left 2s ease-in-out infinite; }
+        .swipe-right { animation: swipe-right 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-[#FAFAF9] relative overflow-hidden mobile-scroll">
+        <!-- Pull to refresh indicator -->
+        <div class="pull-to-refresh absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
+            <svg class="w-8 h-8 text-black/40 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+        </div>
+
+        <div class="relative z-10 max-w-lg mx-auto px-4 py-6 safe-top safe-bottom">
+            <!-- Compact Progress Bar -->
+            <div class="mb-4">
+                <div class="flex items-center justify-between text-xs sm:text-sm text-black/60 font-light mb-2">
+                    <span>Progress: 5/20</span>
+                    <span>Mastery: 73%</span>
+                </div>
+                <div class="h-1 bg-black/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-black/30 w-1/4"></div>
+                </div>
+            </div>
+
+            <!-- Compact Stats -->
+            <div class="grid grid-cols-3 gap-2 mb-4">
+                <div class="p-3 bg-white/80 backdrop-blur-sm rounded-2xl">
+                    <div class="text-xs text-black/60 mb-1">Reviewed</div>
+                    <div class="text-lg font-medium">12</div>
+                </div>
+                <div class="p-3 bg-white/80 backdrop-blur-sm rounded-2xl">
+                    <div class="text-xs text-black/60 mb-1">Correct</div>
+                    <div class="text-lg font-medium text-green-600">8</div>
+                </div>
+                <div class="p-3 bg-white/80 backdrop-blur-sm rounded-2xl">
+                    <div class="text-xs text-black/60 mb-1">Learning</div>
+                    <div class="text-lg font-medium text-orange-600">4</div>
+                </div>
+            </div>
+
+            <!-- Card Display -->
+            <div class="relative">
+                <div class="p-6 sm:p-8 bg-white border border-black/5 rounded-3xl shadow-lg min-h-[400px] sm:min-h-[500px]">
+                    <!-- Topic Badge -->
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 text-xs sm:text-sm font-light rounded-full border bg-blue-50 text-blue-700 border-blue-200">
+                            JavaScript Fundamentals
+                        </span>
+                    </div>
+
+                    <!-- Question -->
+                    <div class="mb-6">
+                        <h2 class="text-lg sm:text-2xl font-serif font-light mb-3 text-black/90">Question</h2>
+                        <p class="text-base sm:text-xl text-black/80 font-light leading-relaxed mobile-readable">
+                            What is the difference between `let`, `const`, and `var` in JavaScript, and when should you use each?
+                        </p>
+                    </div>
+
+                    <!-- Answer Section -->
+                    <div class="border-t border-black/5 pt-6">
+                        <h3 class="text-lg sm:text-2xl font-serif font-light mb-3 text-green-600">Answer</h3>
+                        <p class="text-base sm:text-xl text-black/80 font-light leading-relaxed mobile-readable mb-4">
+                            `let` and `const` are block-scoped and don't allow redeclaration. `var` is function-scoped and allows redeclaration. Use `const` for constants, `let` for variables that change, avoid `var` in modern JavaScript.
+                        </p>
+
+                        <!-- Explanation -->
+                        <div class="mt-4 p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                            <div class="flex items-center mb-2">
+                                <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                                <span class="font-serif font-light text-sm text-blue-900">Explanation</span>
+                            </div>
+                            <p class="text-sm text-blue-800 font-light leading-relaxed">
+                                Block scope means the variable is only accessible within the nearest enclosing block (between {}). Function scope means accessible throughout the entire function. Hoisting behavior also differs - let/const have temporal dead zones.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swipe hints -->
+                <div class="flex justify-between mt-4 px-4">
+                    <div class="text-xs text-red-600/60 swipe-left">← Hard</div>
+                    <div class="text-xs text-green-600/60 swipe-right">Easy →</div>
+                </div>
+            </div>
+
+            <!-- Mobile Action Buttons -->
+            <div class="mt-4 flex gap-2">
+                <button class="flex-1 text-black/60 border border-black/20 rounded-full py-3 px-4 bg-white hover:bg-gray-50 transition-colors">
+                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                    Explain
+                </button>
+                <button class="flex-1 text-black/60 border border-black/20 rounded-full py-3 px-4 bg-white hover:bg-gray-50 transition-colors">
+                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                    AI Help
+                </button>
+            </div>
+
+            <!-- Mobile Rating Panel -->
+            <div class="mt-4">
+                <button class="w-full bg-black/5 text-black hover:bg-black/10 rounded-full py-3 transition-colors">
+                    Rate Difficulty
+                    <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                    </svg>
+                </button>
+                
+                <!-- Rating Buttons Grid -->
+                <div class="mt-3 grid grid-cols-3 gap-2">
+                    <button class="rating-button bg-red-600 text-white rounded-2xl py-3 text-sm font-light transition-all">
+                        Forgot
+                    </button>
+                    <button class="rating-button bg-orange-600 text-white rounded-2xl py-3 text-sm font-light transition-all">
+                        Hard
+                    </button>
+                    <button class="rating-button bg-yellow-600 text-white rounded-2xl py-3 text-sm font-light transition-all">
+                        Tough
+                    </button>
+                    <button class="rating-button bg-blue-600 text-white rounded-2xl py-3 text-sm font-light transition-all">
+                        Good
+                    </button>
+                    <button class="rating-button bg-green-600 text-white rounded-2xl py-3 text-sm font-light transition-all">
+                        Easy
+                    </button>
+                    <button class="rating-button bg-emerald-600 text-white rounded-2xl py-3 text-sm font-light transition-all">
+                        Perfect
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Viewport Info Display (for testing) -->
+    <div id="viewport-info" class="fixed bottom-4 left-4 bg-black/80 text-white px-3 py-2 rounded text-xs font-mono">
+        <div id="screen-size"></div>
+        <div id="viewport-size"></div>
+        <div id="scroll-info"></div>
+    </div>
+
+    <script>
+        function updateViewportInfo() {
+            const screenInfo = document.getElementById('screen-size');
+            const viewportInfo = document.getElementById('viewport-size');
+            const scrollInfo = document.getElementById('scroll-info');
+            
+            screenInfo.textContent = `Screen: ${screen.width}x${screen.height}`;
+            viewportInfo.textContent = `Viewport: ${window.innerWidth}x${window.innerHeight}`;
+            scrollInfo.textContent = `Scroll: ${document.documentElement.scrollHeight > window.innerHeight ? 'Yes' : 'No'} (${document.documentElement.scrollHeight}px total)`;
+        }
+
+        // Update on load and resize
+        window.addEventListener('load', updateViewportInfo);
+        window.addEventListener('resize', updateViewportInfo);
+        
+        // Update on scroll
+        window.addEventListener('scroll', updateViewportInfo);
+        
+        // Initial call
+        updateViewportInfo();
+    </script>
+</body>
+</html>

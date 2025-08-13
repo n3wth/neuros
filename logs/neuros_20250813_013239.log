@@ -1,0 +1,86 @@
+=== Starting neuros at Wed Aug 13 01:32:39 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_013239.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 32999
+40584, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 994ms
+ ✓ Compiled /middleware in 95ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1249ms (1841 modules)
+ GET / 200 in 1956ms
+ ✓ Compiled in 645ms (684 modules)
+ ✓ Compiled /icon.svg in 207ms (1174 modules)
+ GET /icon.svg 200 in 291ms
+ ✓ Compiled in 145ms (684 modules)
+ ✓ Compiled /dashboard in 388ms (2009 modules)
+[2025-08-13T08:32:47.455Z] [ERROR] Dashboard auth error {
+  error: [Error [AuthApiError]: User from sub claim in JWT does not exist] {
+    __isAuthError: true,
+    status: 403,
+    code: 'user_not_found'
+  },
+  action: 'dashboard_load'
+}
+AuthApiError: User from sub claim in JWT does not exist
+    at handleError (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:80:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _handleRequest (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:123:9)
+    at async _request (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:18)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:24)
+    at async SupabaseAuthClient._useSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:20)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28)
+ GET /dashboard 200 in 557ms
+[2025-08-13T08:32:47.497Z] [ERROR] Dashboard auth error {
+  error: [Error [AuthApiError]: User from sub claim in JWT does not exist] {
+    __isAuthError: true,
+    status: 403,
+    code: 'user_not_found'
+  },
+  action: 'dashboard_load'
+}
+AuthApiError: User from sub claim in JWT does not exist
+    at handleError (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:80:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _handleRequest (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:123:9)
+    at async _request (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:18)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:24)
+    at async SupabaseAuthClient._useSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:20)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28)
+ GET /dashboard 200 in 23ms
+ ✓ Compiled /signin in 205ms (2161 modules)
+ GET /signin 200 in 282ms
+ GET /signin 200 in 10ms
+[Error: Failed to find Server Action "00e2394177ce321a1910c2cb6e7b9e1ad18acf6ffc". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action]
+ POST / 404 in 151ms
+ ✓ Compiled in 266ms (2175 modules)
+ GET / 200 in 75ms
+ ✓ Compiled in 195ms (2175 modules)
+ GET / 200 in 70ms
+ ✓ Compiled in 243ms (2175 modules)
+ GET / 200 in 58ms
+[Error: Failed to find Server Action "00e2394177ce321a1910c2cb6e7b9e1ad18acf6ffc". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action]
+ POST / 404 in 88ms
+ ✓ Compiled in 297ms (2175 modules)
+ GET / 200 in 84ms
+[?25h
+
+=== Session ended at Wed Aug 13 01:33:32 PDT 2025 ===

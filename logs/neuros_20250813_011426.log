@@ -1,0 +1,80 @@
+=== Starting neuros at Wed Aug 13 01:14:26 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_011426.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 966ms
+ ✓ Compiled /middleware in 124ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1691ms (1841 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1293ms (2155 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 4170ms
+ ✓ Compiled in 138ms (832 modules)
+ ✓ Compiled in 94ms (832 modules)
+ ✓ Compiled in 146ms (832 modules)
+ ✓ Compiled in 113ms (832 modules)
+[Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'
+}
+[Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/6.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/6.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/6.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/6.pack.gz'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/6.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/6.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat '/Users/oliver/gh/neuros/.next/cache/webpack/server-development/3.pack.gz'
+ ✓ Compiled in 111ms (831 modules)
+
+=== Session ended at Wed Aug 13 01:15:58 PDT 2025 ===

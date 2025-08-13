@@ -14,8 +14,35 @@ interface RateLimitConfig {
 
 // Moved interfaces and store to rate-limit-server.ts to avoid unused variable warnings
 
-// Default configurations for different AI operations
+// Default configurations for different operations
 export const RATE_LIMIT_CONFIGS = {
+  // Authentication rate limits
+  LOGIN_ATTEMPT: {
+    maxRequests: parseInt(process.env.AUTH_LOGIN_RATE_LIMIT || '5'),
+    windowMs: parseInt(process.env.AUTH_LOGIN_WINDOW_MS || '900000'), // 15 minutes
+    message: 'Too many login attempts. Please wait before trying again.'
+  } as RateLimitConfig,
+  
+  SIGNUP_ATTEMPT: {
+    maxRequests: parseInt(process.env.AUTH_SIGNUP_RATE_LIMIT || '3'),
+    windowMs: parseInt(process.env.AUTH_SIGNUP_WINDOW_MS || '3600000'), // 1 hour
+    message: 'Too many signup attempts. Please wait before trying again.'
+  } as RateLimitConfig,
+  
+  PASSWORD_RESET: {
+    maxRequests: parseInt(process.env.AUTH_PASSWORD_RESET_RATE_LIMIT || '3'),
+    windowMs: parseInt(process.env.AUTH_PASSWORD_RESET_WINDOW_MS || '3600000'), // 1 hour
+    message: 'Too many password reset attempts. Please wait before trying again.'
+  } as RateLimitConfig,
+  
+  // Review submissions to prevent spam
+  REVIEW_SUBMISSION: {
+    maxRequests: parseInt(process.env.REVIEW_SUBMISSION_RATE_LIMIT || '60'),
+    windowMs: parseInt(process.env.REVIEW_SUBMISSION_WINDOW_MS || '60000'), // 1 minute
+    message: 'Too many review submissions. Please slow down.'
+  } as RateLimitConfig,
+  
+  // AI operation rate limits
   // Card generation - more expensive operation
   CARD_GENERATION: {
     maxRequests: parseInt(process.env.AI_CARD_GENERATION_RATE_LIMIT || '5'),

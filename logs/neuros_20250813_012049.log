@@ -1,0 +1,30 @@
+=== Starting neuros at Wed Aug 13 01:20:49 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_012049.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 32999
+35973, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 862ms
+ ✓ Compiled /middleware in 215ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.1s (1894 modules)
+ GET / 200 in 2696ms
+ ✓ Compiled in 594ms (684 modules)
+[Error: Failed to find Server Action "00e2394177ce321a1910c2cb6e7b9e1ad18acf6ffc". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action]
+ POST / 404 in 102ms
+[?25h
+
+=== Session ended at Wed Aug 13 01:21:35 PDT 2025 ===

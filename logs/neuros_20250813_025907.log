@@ -1,0 +1,132 @@
+=== Starting neuros at Wed Aug 13 02:59:07 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_025907.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1051ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /middleware in 1301ms (1462 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1817ms
+ ○ Compiling /review ...
+ ✓ Compiled /review in 1132ms (1735 modules)
+[2025-08-13T09:59:11.825Z] [INFO] Review page loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'review_load_success'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 279ms
+ GET /review 200 in 1427ms
+ ✓ Compiled /icon.svg in 80ms (1172 modules)
+ GET /icon.svg 200 in 225ms
+ POST /review 200 in 351ms
+ POST /review 200 in 7956ms
+ ✓ Compiled /dashboard in 277ms (1799 modules)
+[2025-08-13T09:59:45.702Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 551ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/(dashboard)/dashboard/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/(dashboard)/dashboard/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ✓ Compiled /_error in 371ms (2127 modules)
+ GET /_next/static/css/app/layout.css?v=1755079185604 500 in 793ms
+ GET /_next/static/chunks/main-app.js?v=1755079185604 500 in 740ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/icon.svg/route.js:1:6889)
+    at Object.<anonymous> (.next/server/app/icon.svg/route.js:1:6941) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/icon.svg'
+}
+ GET /icon.svg 500 in 299ms
+ ✓ Compiled /favicon.ico in 116ms (1390 modules)
+ GET /favicon.ico 200 in 163ms
+[2025-08-13T09:59:48.559Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 222ms
+ GET /_next/static/css/app/layout.css?v=1755079188454 404 in 38ms
+ GET /_next/static/chunks/main-app.js?v=1755079188454 404 in 22ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/icon.svg/route.js:1:6889)
+    at Object.<anonymous> (.next/server/app/icon.svg/route.js:1:6941) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/icon.svg'
+}
+ GET /icon.svg 500 in 246ms
+ GET /favicon.ico 200 in 4ms
+
+=== Session ended at Wed Aug 13 02:59:52 PDT 2025 ===

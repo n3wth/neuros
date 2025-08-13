@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import FullLearningDashboard from '@/components/learning/full-dashboard'
+import MobileOptimizedDashboard from '@/components/learning/mobile-optimized-dashboard'
 import { logger } from '@/lib/logger'
 
 // Force dynamic rendering - this page uses cookies via Supabase
@@ -40,7 +42,18 @@ export default async function DashboardPage() {
       email: user.email || undefined
     }
 
-    // Using the editorial-style dashboard that matches the main site design
+    // Check if this is a mobile request
+    const headersList = await headers()
+    const userAgent = headersList.get('user-agent') || ''
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent) || 
+                    parseInt(headersList.get('sec-ch-viewport-width') || '1024') < 768
+
+    // Use mobile-optimized dashboard for mobile devices
+    if (isMobile) {
+      return <MobileOptimizedDashboard user={serializedUser} />
+    }
+
+    // Use full dashboard for desktop
     return <FullLearningDashboard user={serializedUser} />
   } catch (error) {
     // Only catch non-redirect errors
@@ -52,8 +65,6 @@ export default async function DashboardPage() {
     // Log actual errors
     logger.error('Dashboard page error', {
       error: err,
-      message: err?.message,
-      stack: err?.stack,
       action: 'dashboard_error'
     })
     

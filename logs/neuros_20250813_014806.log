@@ -1,0 +1,23 @@
+=== Starting neuros at Wed Aug 13 01:48:06 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_014806.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Warning: Found multiple lockfiles. Selecting /Users/oliver/gh/neuros/package-lock.json.
+   Consider removing the lockfiles at:
+   * /Users/oliver/gh/neuros/.worktrees/issue-16/package-lock.json
+
+ ⚠ Port 3000 is in use by process 45334
+49375, using available port 3002 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.10.48:3002
+   - Environments: .env.local
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1115ms

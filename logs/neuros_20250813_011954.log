@@ -1,0 +1,33 @@
+=== Starting neuros at Wed Aug 13 01:19:54 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_011954.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 33698, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1054ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 2.1s (1515 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 2478ms
+ ✓ Compiled in 362ms (570 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 782ms (1831 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1099ms
+ GET / 200 in 1092ms
+ ✓ Compiled /icon.svg in 93ms (1177 modules)
+ GET /icon.svg 200 in 161ms
+[?25h
+
+=== Session ended at Wed Aug 13 01:20:01 PDT 2025 ===

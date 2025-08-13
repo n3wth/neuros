@@ -1,0 +1,584 @@
+=== Starting neuros at Wed Aug 13 02:32:56 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_023256.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 54209, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1081ms
+ ✓ Compiled /middleware in 113ms (180 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1353ms (1772 modules)
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+[2025-08-13T09:33:14.443Z] [ERROR] Dashboard page error {
+  error: Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+      at eval (lib/supabase/server.ts:41:24)
+      at Array.forEach (<anonymous>)
+      at setAll (lib/supabase/server.ts:40:23)
+    39 |         setAll: (cookiesToSet) => {
+    40 |           cookiesToSet.forEach(({ name, value, options }) =>
+  > 41 |             cookieStore.set(name, value, options)
+       |                        ^
+    42 |           )
+    43 |         },
+    44 |       },,
+  action: 'dashboard_error'
+}
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at Proxy.callable (/Users/oliver/gh/neuros/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:30:17840)
+    at eval (webpack-internal:///(rsc)/./lib/supabase/server.ts:60:78)
+    at Array.forEach (<anonymous>)
+    at setAll (webpack-internal:///(rsc)/./lib/supabase/server.ts:60:30)
+    at applyServerStorage (webpack-internal:///(rsc)/./node_modules/@supabase/ssr/dist/module/cookies.js:337:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Object.eval [as callback] (webpack-internal:///(rsc)/./node_modules/@supabase/ssr/dist/module/createServerClient.js:53:13)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:1537:21)
+    at async Promise.all (index 1)
+    at async SupabaseAuthClient._notifyAllSubscribers (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:1543:13)
+    at async SupabaseAuthClient._callRefreshToken (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:1504:13)
+    at async SupabaseAuthClient.__loadSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:863:40)
+    at async SupabaseAuthClient._useSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:803:28)
+    at async SupabaseAuthClient._emitInitialSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:1248:16)
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection: Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection:  Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection: Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection:  Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection: Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection:  Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection: Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ unhandledRejection:  Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       },
+ ⨯ Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       }, {
+  digest: '342942652'
+}
+ ⨯ Error: Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options
+    at eval (lib/supabase/server.ts:41:24)
+    at Array.forEach (<anonymous>)
+    at setAll (lib/supabase/server.ts:40:23)
+  39 |         setAll: (cookiesToSet) => {
+  40 |           cookiesToSet.forEach(({ name, value, options }) =>
+> 41 |             cookieStore.set(name, value, options)
+     |                        ^
+  42 |           )
+  43 |         },
+  44 |       }, {
+  digest: '342942652'
+}
+ ✓ Compiled in 1645ms (596 modules)
+ GET /dashboard 500 in 3030ms
+ ✓ Compiled /icon.svg in 270ms (1193 modules)
+ GET /icon.svg 200 in 342ms
+[2025-08-13T09:33:44.076Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 242ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 150ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 21ms
+ ✓ Compiled /dashboard/discover in 214ms (1777 modules)
+[2025-08-13T09:33:46.398Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 308ms
+ POST /dashboard/discover 200 in 106ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:33:46.721Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/discover 200 in 6ms
+[2025-08-13T09:33:48.317Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/discover 200 in 1590ms
+[2025-08-13T09:33:48.337Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 7ms
+[2025-08-13T09:33:48.362Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 16ms
+[2025-08-13T09:34:17.221Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 171ms
+ GET /icon.svg 200 in 12ms
+ POST /dashboard/discover 200 in 39ms
+ POST /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 20ms
+[2025-08-13T09:34:20.187Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 35ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:34:22.056Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 34ms
+ GET /icon.svg 200 in 6ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:35:03.691Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 41ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 33ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 17ms
+[2025-08-13T09:35:12.687Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 55ms
+ GET /icon.svg 200 in 6ms
+ POST /dashboard 200 in 32ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 21ms
+[2025-08-13T09:35:19.482Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 36ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 35ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 20ms
+[2025-08-13T09:36:13.098Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 21ms
+ POST /dashboard/discover 200 in 42ms
+ POST /dashboard/discover 200 in 15ms
+ POST /dashboard/discover 200 in 23ms
+[2025-08-13T09:36:13.476Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 6ms
+[2025-08-13T09:36:13.496Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 9ms
+[2025-08-13T09:36:13.521Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 7ms
+[2025-08-13T09:36:13.555Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 8ms
+[2025-08-13T09:36:51.512Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 1902ms
+ GET /icon.svg 200 in 8ms
+ POST /dashboard/discover 200 in 31ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:36:57.843Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 22ms
+ POST /dashboard 200 in 25ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 21ms
+[2025-08-13T09:37:49.802Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 36ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 35ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:37:51.509Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 33ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:37:52.818Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 36ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T09:37:56.568Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 35ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 20ms
+[2025-08-13T09:37:57.731Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 32ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 17ms
+[2025-08-13T09:38:00.102Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 38ms
+ GET /icon.svg 200 in 3ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T09:38:01.372Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 27ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 14ms
+[2025-08-13T09:38:03.127Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 31ms
+ GET /icon.svg 200 in 3ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:38:04.350Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 29ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:38:05.529Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 32ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 15ms
+[2025-08-13T09:38:06.436Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 28ms
+ GET /icon.svg 200 in 3ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 14ms
+[2025-08-13T09:38:07.510Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 30ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 16ms
+ ✓ Compiled in 338ms (1791 modules)
+[2025-08-13T09:38:08.981Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 343ms
+ POST /dashboard 200 in 348ms
+ GET /icon.svg 200 in 15ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 25ms
+[2025-08-13T09:38:10.285Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 39ms
+ GET /icon.svg 200 in 9ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 17ms
+[2025-08-13T09:38:11.501Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 31ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 15ms
+[2025-08-13T09:38:12.813Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 28ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 23ms
+[2025-08-13T09:38:15.378Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 21ms
+ GET /icon.svg 200 in 8ms
+ POST /dashboard 200 in 22ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:38:16.927Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 33ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 16ms
+ ✓ Compiled /_not-found in 219ms (1778 modules)
+ GET /dashboard 404 in 408ms
+ GET /_next/static/css/app/layout.css?v=1755077930681 404 in 24ms
+ GET /_next/static/chunks/main-app.js?v=1755077930681 404 in 25ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js',
+  page: '/icon.svg'
+}
+ ✓ Compiled /_error in 353ms (2106 modules)
+ GET /icon.svg 500 in 729ms
+ ✓ Compiled /favicon.ico in 138ms (1378 modules)
+ GET /favicon.ico 200 in 182ms
+[2025-08-13T09:38:53.040Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 216ms
+ GET /_next/static/css/app/layout.css?v=1755077932944 404 in 35ms
+ GET /_next/static/chunks/main-app.js?v=1755077932944 404 in 21ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js',
+  page: '/icon.svg'
+}
+ GET /icon.svg 500 in 250ms
+ GET /favicon.ico 200 in 4ms
+[2025-08-13T09:38:54.142Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 38ms
+ GET /_next/static/css/app/layout.css?v=1755077934126 404 in 27ms
+ GET /_next/static/chunks/main-app.js?v=1755077934126 404 in 21ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js',
+  page: '/icon.svg'
+}
+ GET /icon.svg 500 in 220ms
+ GET /favicon.ico 200 in 5ms
+
+=== Session ended at Wed Aug 13 02:38:58 PDT 2025 ===

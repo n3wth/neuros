@@ -12,6 +12,8 @@ interface LogContext {
   error?: Error | unknown
   duration?: number
   requestId?: string
+  // Allow any additional properties
+  [key: string]: string | number | boolean | unknown
 }
 
 class Logger {
@@ -30,7 +32,7 @@ class Logger {
       env: process.env.NODE_ENV,
       ...context,
       // Convert error to serializable format
-      ...(context?.error && {
+      ...(context?.error ? {
         error: context.error instanceof Error
           ? {
               name: context.error.name,
@@ -39,7 +41,7 @@ class Logger {
               cause: context.error.cause
             }
           : context.error
-      })
+      } : {})
     }
 
     // In production, use structured JSON logging for better Vercel parsing

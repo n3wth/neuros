@@ -97,3 +97,110 @@ Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_003831.log
 }
  GET /favicon.ico 500 in 209ms
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/oliver/gh/neuros/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/oliver/gh/neuros/.next/cache/webpack/client-development-fallback/0.pack.gz'
+ ✓ Compiled in 303ms (3488 modules)
+ ✓ Compiled in 1ms (2074 modules)
+ ✓ Compiled in 1ms (2074 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ✓ Compiled in 226ms (3474 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ GET /_next/static/webpack/d2bde89e7610eab5.webpack.hot-update.json 500 in 917ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 1016ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 46ms
+ ✓ Compiled in 303ms (3488 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ✓ Compiled in 215ms (3474 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ GET /_next/static/webpack/d2bde89e7610eab5.webpack.hot-update.json 500 in 834ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 929ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 40ms
+ ✓ Compiled in 325ms (3488 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ✓ Compiled in 0ms (2074 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ✓ Compiled in 218ms (3474 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ GET /_next/static/webpack/d2bde89e7610eab5.webpack.hot-update.json 500 in 935ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 1015ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 42ms
+
+=== Session ended at Wed Aug 13 00:39:07 PDT 2025 ===

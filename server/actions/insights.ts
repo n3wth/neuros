@@ -67,7 +67,7 @@ export async function generateDataDrivenInsights(): Promise<Insight[]> {
 
   // 2. Accuracy-based insights
   if (recentReviews.length >= 10) {
-    const recentAccuracy = recentReviews.filter(r => r.quality >= 3).length / recentReviews.length
+    const recentAccuracy = recentReviews.filter((r: any) => r.quality >= 3).length / recentReviews.length
     
     if (recentAccuracy >= 0.9) {
       insights.push({
@@ -103,7 +103,7 @@ export async function generateDataDrivenInsights(): Promise<Insight[]> {
   }
 
   // 4. Topic-specific insights
-  if (topicPerformance.weakestTopic && topicPerformance.weakestTopicAccuracy < 0.7) {
+  if (topicPerformance.weakestTopic && topicPerformance.weakestTopicAccuracy && topicPerformance.weakestTopicAccuracy < 0.7) {
     insights.push({
       type: 'suggestion',
       priority: 'medium',
@@ -114,7 +114,7 @@ export async function generateDataDrivenInsights(): Promise<Insight[]> {
     })
   }
 
-  if (topicPerformance.strongestTopic && topicPerformance.strongestTopicAccuracy >= 0.85) {
+  if (topicPerformance.strongestTopic && topicPerformance.strongestTopicAccuracy && topicPerformance.strongestTopicAccuracy >= 0.85) {
     insights.push({
       type: 'achievement',
       priority: 'low',
@@ -270,7 +270,7 @@ async function getTopicPerformance(supabase: any, userId: string) {
   // Group by topic and calculate accuracy
   const topicStats = new Map()
   
-  reviews.forEach(review => {
+  reviews.forEach((review: any) => {
     const topicName = review.cards?.topics?.name
     if (!topicName) return
     
@@ -321,7 +321,7 @@ async function getStudyTimePatterns(supabase: any, userId: string) {
   // Group by hour of day
   const hourStats = new Map()
   
-  reviews.forEach(review => {
+  reviews.forEach((review: any) => {
     const hour = new Date(review.created_at).getHours()
     if (!hourStats.has(hour)) {
       hourStats.set(hour, { correct: 0, total: 0 })

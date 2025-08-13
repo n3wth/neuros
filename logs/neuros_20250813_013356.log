@@ -1,0 +1,50 @@
+=== Starting neuros at Wed Aug 13 01:33:56 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_013356.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 32999
+41858, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 878ms
+ ✓ Compiled /middleware in 103ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1093ms (1841 modules)
+ ✓ Compiled in 472ms (684 modules)
+ GET / 200 in 1608ms
+ GET / 200 in 66ms
+ ⚠ Cross origin request detected from 192.168.10.48 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ ✓ Compiled /icon.svg in 181ms (1174 modules)
+ GET /icon.svg 200 in 230ms
+ GET /icon.svg 200 in 267ms
+[Error: Failed to find Server Action "00b81ccd59abbfac4d208ee9c13bcd599d81053607". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action]
+ POST / 404 in 115ms
+ ✓ Compiled in 159ms (684 modules)
+ GET / 200 in 77ms
+ GET / 200 in 73ms
+ ✓ Compiled /favicon.ico in 138ms (1176 modules)
+ GET /icon.svg 200 in 218ms
+ GET /favicon.ico 200 in 243ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 2ms
+ GET /favicon.ico 200 in 4ms
+ GET /icon.svg 200 in 5ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 1ms
+ GET /icon.svg 200 in 5ms
+[?25h

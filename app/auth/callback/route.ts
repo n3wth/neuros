@@ -10,18 +10,12 @@ export async function GET(request: Request) {
 
   // Log the callback attempt
   logger.info('Auth callback received', {
-    hasCode: !!code,
-    hasError: !!error,
-    error: error,
-    errorDescription: errorDescription,
     origin: requestUrl.origin
   })
 
   // Handle OAuth errors from provider
   if (error) {
     logger.error('OAuth provider error', {
-      error: error,
-      errorDescription: errorDescription,
       action: 'oauth_callback_error'
     })
     const errorUrl = new URL('/signin', requestUrl.origin)

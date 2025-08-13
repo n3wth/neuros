@@ -1,0 +1,176 @@
+=== Starting neuros at Wed Aug 13 01:06:07 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_010607.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 24092
+25298, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 996ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1978ms (1335 modules)
+ ✓ Compiled /middleware in 825ms (750 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 887ms (1836 modules)
+ GET / 200 in 1224ms
+ ⚠ Cross origin request detected from 192.168.10.48 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ ✓ Compiled /icon.svg in 95ms (1182 modules)
+ GET /icon.svg 200 in 168ms
+ ✓ Compiled /signup in 389ms (2005 modules)
+ GET /signup 200 in 467ms
+ GET /signup 200 in 10ms
+ ✓ Compiled /signin in 197ms (2014 modules)
+ GET /signin 200 in 255ms
+ ✓ Compiled in 259ms (2028 modules)
+ GET /signin 200 in 60ms
+TypeError: fetch failed
+    at async signInAsDeveloper (server/actions/auth.ts:156:33)
+  154 |
+  155 |   // Try to sign in with existing test user
+> 156 |   const { error: signInError } = await supabase.auth.signInWithPassword({
+      |                                 ^
+  157 |     email: testEmail,
+  158 |     password: testPassword,
+  159 |   }) {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+TypeError: fetch failed
+    at async signInAsDeveloper (server/actions/auth.ts:168:33)
+  166 |
+  167 |   // If sign in failed, try to create the test user
+> 168 |   const { error: signUpError } = await supabase.auth.signUp({
+      |                                 ^
+  169 |     email: testEmail,
+  170 |     password: testPassword,
+  171 |     options: { {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+ POST /signin 200 in 293ms
+ GET / 200 in 41ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 517ms (2342 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ POST / 500 in 1698ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 406ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 326ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 326ms
+ ✓ Compiled /favicon.ico in 127ms (1448 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 201ms
+ ✓ Compiled in 237ms (2358 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/29fad6aa5de61c2c.webpack.hot-update.json 500 in 153ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 503ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 55ms
+[?25h
+
+=== Session ended at Wed Aug 13 01:06:51 PDT 2025 ===

@@ -1,0 +1,180 @@
+=== Starting neuros at Wed Aug 13 00:45:19 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_004519.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 866ms
+ ✓ Compiled /middleware in 343ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.3s (1899 modules)
+ ✓ Compiled in 111ms (684 modules)
+ ✓ Compiled /_not-found in 105ms (1836 modules)
+ ⨯ Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:493:47)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:496:3) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ✓ Compiled /_error in 474ms (2164 modules)
+ GET / 500 in 3805ms
+ ✓ Compiled /favicon.ico in 150ms (1362 modules)
+ GET /favicon.ico 200 in 277ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/(public)/page.js:3:18573)
+    at Object.<anonymous> (.next/server/app/(public)/page.js:3:18662) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './8548.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/pages/_document.js:1:327)
+    at Object.<anonymous> (.next/server/pages/_document.js:1:374) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET / 500 in 45ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/chunks/fallback/webpack.js 500 in 43ms
+ GET /_next/static/chunks/fallback/main.js 500 in 42ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 43ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 28ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 27ms
+ GET /favicon.ico 200 in 5ms
+
+=== Session ended at Wed Aug 13 00:46:08 PDT 2025 ===

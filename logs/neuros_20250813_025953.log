@@ -1,0 +1,336 @@
+=== Starting neuros at Wed Aug 13 02:59:53 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_025953.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1005ms
+ ✓ Compiled /middleware in 103ms (180 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1256ms (1770 modules)
+[2025-08-13T09:59:57.261Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ ✓ Compiled in 515ms (595 modules)
+ GET /dashboard 200 in 1816ms
+ ✓ Compiled /icon.svg in 159ms (1192 modules)
+ GET /icon.svg 200 in 308ms
+ POST /dashboard 200 in 465ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 45ms
+ ✓ Compiled /dashboard/discover in 218ms (1775 modules)
+[2025-08-13T10:00:01.665Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 324ms
+ GET /icon.svg 200 in 10ms
+ POST /dashboard/discover 200 in 103ms
+ POST /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 19ms
+[2025-08-13T10:00:01.890Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/discover 200 in 6ms
+[2025-08-13T10:00:03.418Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/discover 200 in 1522ms
+[2025-08-13T10:00:03.449Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 11ms
+[2025-08-13T10:00:03.471Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 13ms
+ POST /dashboard 200 in 53ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 22ms
+[2025-08-13T10:01:00.838Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 190ms
+ GET /icon.svg 200 in 7ms
+ POST /dashboard 200 in 54ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 45ms
+[2025-08-13T10:01:10.978Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 28ms
+ GET /icon.svg 200 in 6ms
+ POST /dashboard 200 in 26ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 19ms
+[2025-08-13T10:01:23.189Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 16ms
+ POST /dashboard/discover 200 in 19ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T10:01:23.323Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 5ms
+[2025-08-13T10:01:23.346Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 10ms
+[2025-08-13T10:01:23.357Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 5ms
+[2025-08-13T10:01:23.380Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 9ms
+ ✓ Compiled /dashboard/browse in 340ms (1777 modules)
+[2025-08-13T10:01:24.922Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 456ms
+ POST /dashboard/browse 200 in 119ms
+ POST /dashboard/browse 200 in 12ms
+ POST /dashboard/browse 200 in 17ms
+ ✓ Compiled /dashboard/stats in 179ms (1779 modules)
+[2025-08-13T10:01:26.677Z] [INFO] Dashboard Stats loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_stats_load_success'
+}
+ GET /dashboard/stats 200 in 273ms
+ POST /dashboard/stats 200 in 95ms
+ POST /dashboard/stats 200 in 12ms
+ POST /dashboard/stats 200 in 15ms
+ ✓ Compiled /dashboard/settings in 204ms (1781 modules)
+[2025-08-13T10:01:28.127Z] [INFO] Dashboard Settings loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_settings_load_success'
+}
+ GET /dashboard/settings 200 in 276ms
+ POST /dashboard/settings 200 in 72ms
+ POST /dashboard/settings 200 in 10ms
+ POST /dashboard/settings 200 in 18ms
+[2025-08-13T10:01:29.073Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 36ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 15ms
+ ✓ Compiled in 632ms (1795 modules)
+[2025-08-13T10:01:30.763Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 71ms
+ POST /dashboard 200 in 75ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 30ms
+ ✓ Compiled /review in 377ms (1806 modules)
+[2025-08-13T10:01:48.479Z] [INFO] Review page loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'review_load_success'
+}
+ GET /review 200 in 505ms
+ POST /review 200 in 122ms
+ POST /review 200 in 16ms
+ ✓ Compiled in 314ms (1820 modules)
+[2025-08-13T10:02:01.027Z] [INFO] Review page loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'review_load_success'
+}
+ GET /review 200 in 61ms
+[2025-08-13T10:02:15.064Z] [INFO] Review page loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'review_load_success'
+}
+ GET /review 200 in 151ms
+ ✓ Compiled in 473ms (1803 modules)
+ ✓ Compiled /icon.svg in 117ms (1215 modules)
+ GET /icon.svg 200 in 292ms
+ POST /review 200 in 389ms
+ GET /icon.svg 200 in 5ms
+[2025-08-13T10:02:22.214Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 50ms
+ ✓ Compiled /favicon.ico in 282ms (1217 modules)
+ GET /icon.svg 200 in 409ms
+ GET /favicon.ico 200 in 427ms
+ GET /icon.svg 200 in 96ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+ POST /dashboard 200 in 535ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 41ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/icon.svg/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/(dashboard)/dashboard/discover/page.js:2:10677)
+    at Object.<anonymous> (.next/server/app/(dashboard)/dashboard/discover/page.js:2:10771) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/dashboard/discover'
+}
+ ✓ Compiled /_not-found in 460ms (2130 modules)
+ ✓ Compiled in 173ms (739 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/9d0599f96cdd1e17.webpack.hot-update.json 500 in 1160ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /dashboard/discover 500 in 1549ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard/discover'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 333ms
+ GET /dashboard/discover 500 in 233ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 19ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 19ms
+ ✓ Compiled /dashboard/settings in 122ms (1394 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard/settings'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard/settings 500 in 517ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/(dashboard)/dashboard/settings/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 20ms
+
+=== Session ended at Wed Aug 13 03:02:56 PDT 2025 ===

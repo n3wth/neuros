@@ -1,0 +1,586 @@
+=== Starting neuros at Wed Aug 13 02:26:25 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_022625.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 54209, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1026ms
+ ✓ Compiled /middleware in 111ms (180 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1452ms (1766 modules)
+[2025-08-13T09:26:35.826Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ ✓ Compiled in 555ms (594 modules)
+ GET /dashboard 200 in 2042ms
+ ✓ Compiled /icon.svg in 127ms (1189 modules)
+ GET /icon.svg 200 in 209ms
+ POST /dashboard 200 in 130ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 20ms
+ ✓ Compiled /dashboard/discover in 197ms (1771 modules)
+[2025-08-13T09:26:40.173Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 305ms
+ POST /dashboard/discover 200 in 103ms
+ POST /dashboard/discover 200 in 10ms
+ POST /dashboard/discover 200 in 16ms
+ ✓ Compiled /dashboard/browse in 166ms (1773 modules)
+[2025-08-13T09:27:21.515Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 239ms
+ POST /dashboard/browse 200 in 101ms
+ POST /dashboard/browse 200 in 11ms
+ POST /dashboard/browse 200 in 17ms
+[2025-08-13T09:27:43.539Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 30ms
+ POST /dashboard/discover 200 in 22ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:28:32.491Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 28ms
+ POST /dashboard/browse 200 in 36ms
+ POST /dashboard/browse 200 in 13ms
+ POST /dashboard/browse 200 in 19ms
+ ✓ Compiled /dashboard/stats in 268ms (1758 modules)
+[2025-08-13T09:28:34.736Z] [INFO] Dashboard Stats loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_stats_load_success'
+}
+ GET /dashboard/stats 200 in 413ms
+ POST /dashboard/stats 200 in 115ms
+ POST /dashboard/stats 200 in 12ms
+ POST /dashboard/stats 200 in 26ms
+[2025-08-13T09:28:38.518Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 44ms
+ POST /dashboard/browse 200 in 17ms
+ POST /dashboard/browse 200 in 10ms
+ POST /dashboard/browse 200 in 16ms
+ ✓ Compiled /dashboard/settings in 193ms (1760 modules)
+[2025-08-13T09:28:40.032Z] [INFO] Dashboard Settings loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_settings_load_success'
+}
+ GET /dashboard/settings 200 in 293ms
+ POST /dashboard/settings 200 in 85ms
+ POST /dashboard/settings 200 in 11ms
+ POST /dashboard/settings 200 in 16ms
+[2025-08-13T09:28:41.499Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 27ms
+ POST /dashboard/discover 200 in 20ms
+ POST /dashboard/discover 200 in 10ms
+ POST /dashboard/discover 200 in 16ms
+[2025-08-13T09:28:42.462Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 39ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:28:43.801Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 13ms
+[2025-08-13T09:28:44.517Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 14ms
+ POST /dashboard/discover 200 in 19ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:28:45.270Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 15ms
+ ✓ Compiled /icon.svg in 107ms (1197 modules)
+ GET /icon.svg 200 in 178ms
+ POST /dashboard 200 in 107ms
+ ✓ Compiled /favicon.ico in 156ms (1199 modules)
+ GET /icon.svg 200 in 280ms
+ GET /favicon.ico 200 in 301ms
+ GET /icon.svg 200 in 113ms
+ GET /icon.svg 200 in 6ms
+ POST /dashboard 200 in 378ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 14ms
+[2025-08-13T09:28:46.450Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 56ms
+ POST /dashboard/discover 200 in 17ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 14ms
+[2025-08-13T09:29:04.075Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 22ms
+ POST /dashboard/browse 200 in 19ms
+ POST /dashboard/browse 200 in 10ms
+ POST /dashboard/browse 200 in 16ms
+[2025-08-13T09:29:05.125Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 19ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T09:29:05.985Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 11ms
+[2025-08-13T09:29:06.652Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 20ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 15ms
+[2025-08-13T09:29:07.953Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 15ms
+ POST /dashboard/browse 200 in 23ms
+ POST /dashboard/browse 200 in 10ms
+ POST /dashboard/browse 200 in 16ms
+[2025-08-13T09:29:08.905Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 18ms
+ POST /dashboard/discover 200 in 19ms
+ POST /dashboard/discover 200 in 13ms
+ POST /dashboard/discover 200 in 20ms
+[2025-08-13T09:29:09.708Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 12ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T09:29:10.928Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 202ms
+ GET /icon.svg 200 in 6ms
+ POST /dashboard 200 in 21ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T09:29:13.385Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 43ms
+ GET /icon.svg 200 in 4ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 15ms
+[2025-08-13T09:29:24.593Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 52ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 29ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 15ms
+[2025-08-13T09:29:37.475Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 17ms
+ POST /dashboard/discover 200 in 20ms
+ POST /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 18ms
+[2025-08-13T09:30:35.143Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 17ms
+ POST /dashboard 200 in 37ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 22ms
+[2025-08-13T09:30:36.482Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 13ms
+ POST /dashboard/discover 200 in 18ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 16ms
+[2025-08-13T09:30:38.754Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 17ms
+ POST /dashboard/browse 200 in 20ms
+ POST /dashboard/browse 200 in 11ms
+ POST /dashboard/browse 200 in 17ms
+[2025-08-13T09:30:39.613Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 11ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+ ✓ Compiled in 299ms (594 modules)
+[2025-08-13T09:30:40.964Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 12ms
+[2025-08-13T09:30:40.977Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 9ms
+ POST /dashboard/discover 200 in 21ms
+ POST /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:30:41.875Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 14ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 17ms
+[2025-08-13T09:30:42.975Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 20ms
+ POST /dashboard/discover 200 in 20ms
+ POST /dashboard/discover 200 in 14ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:30:43.768Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 13ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 17ms
+[2025-08-13T09:30:44.563Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 37ms
+ GET /icon.svg 200 in 7ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T09:30:46.871Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 32ms
+ GET /icon.svg 200 in 5ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 16ms
+ ✓ Compiled in 549ms (1789 modules)
+[2025-08-13T09:31:01.301Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 114ms
+ POST /dashboard 200 in 121ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 17ms
+ ✓ Compiled /favicon.ico in 90ms (1197 modules)
+ GET /icon.svg 200 in 208ms
+ GET /favicon.ico 200 in 229ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+[2025-08-13T09:31:03.393Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 84ms
+ POST /dashboard/discover 200 in 99ms
+ POST /dashboard/discover 200 in 10ms
+ POST /dashboard/discover 200 in 20ms
+[2025-08-13T09:31:05.284Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 34ms
+ POST /dashboard/browse 200 in 20ms
+ POST /dashboard/browse 200 in 11ms
+ POST /dashboard/browse 200 in 17ms
+[2025-08-13T09:31:06.020Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 25ms
+ POST /dashboard 200 in 21ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T09:31:15.037Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 30ms
+ POST /dashboard/discover 200 in 24ms
+ POST /dashboard/discover 200 in 14ms
+ POST /dashboard/discover 200 in 19ms
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ POST /dashboard/discover 200 in 110ms
+ POST /dashboard/discover 200 in 13ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T09:31:16.298Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 33ms
+[2025-08-13T09:31:16.315Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/discover 200 in 5ms
+[2025-08-13T09:31:19.207Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/discover 200 in 2882ms
+[2025-08-13T09:31:19.222Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 6ms
+[2025-08-13T09:31:19.243Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 9ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/server/app-paths-manifest.json',
+  page: '/dashboard/discover'
+}
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ ○ Compiling /_error ...
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard/discover'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard/discover 500 in 1687ms
+ GET /dashboard/discover 500 in 1333ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 39ms
+
+=== Session ended at Wed Aug 13 02:31:34 PDT 2025 ===

@@ -1,0 +1,572 @@
+=== Starting neuros at Wed Aug 13 00:48:20 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_004820.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     ✓ swcMinify
+     ✓ optimizeCss
+     · optimizePackageImports
+     · ...
+
+ ✓ Starting...
+ ⚠ Invalid next.config.ts options detected: 
+ ⚠     Unrecognized key(s) in object: 'serverActionsBodySizeLimit', 'swcMinify' at "experimental"
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ⚠ The config property `experimental.turbo` is deprecated. Move this setting to `config.turbopack` as Turbopack is now stable.
+ ✓ Ready in 939ms
+ ✓ Compiled /middleware in 260ms (180 modules)
+ ○ Compiling /review ...
+ ⨯ ./components/learning/review-interface.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     : [35;1m^[0m
+     `----
+  [31mx[0m Unexpected eof
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/review-interface.tsx
+./app/(dashboard)/review/page.tsx
+ ⨯ ./components/learning/review-interface.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     : [35;1m^[0m
+     `----
+  [31mx[0m Unexpected eof
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/review-interface.tsx
+./app/(dashboard)/review/page.tsx
+ ⨯ ./components/learning/review-interface.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     : [35;1m^[0m
+     `----
+  [31mx[0m Unexpected eof
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/review-interface.tsx
+./app/(dashboard)/review/page.tsx
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /review 500 in 3277ms
+ GET /review 500 in 19ms
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /review 500 in 72ms
+ GET /review 500 in 18ms
+ ⨯ ./components/learning/review-interface.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     : [35;1m^[0m
+     `----
+  [31mx[0m Unexpected eof
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/review-interface.tsx[0m:479:1]
+ [2m476[0m |       </div>
+ [2m477[0m |     </div>
+ [2m478[0m |   )
+ [2m479[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/review-interface.tsx
+./app/(dashboard)/review/page.tsx
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/post-process.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/render.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/module.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-default-error-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/dev/next-dev-server.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /review 500 in 67ms
+ GET /review 500 in 19ms
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 857ms
+ ✓ Compiled /middleware in 291ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.2s (1899 modules)
+ GET / 200 in 2732ms
+ ✓ Compiled in 439ms (684 modules)
+ ✓ Compiled /icon.svg in 449ms (1179 modules)
+ GET /icon.svg 200 in 532ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1655ms (3222 modules)
+[2025-08-13T07:48:47.099Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 1328ms
+[2025-08-13T07:48:47.118Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 10ms
+ ✓ Compiled in 291ms (3249 modules)
+[2025-08-13T07:49:03.272Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 91ms
+ GET / 200 in 204ms
+[2025-08-13T07:49:08.933Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 18ms
+ ✓ Compiled in 275ms (3236 modules)
+[2025-08-13T07:49:10.282Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 70ms
+[2025-08-13T07:49:10.412Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ ⨯ ReferenceError: Cannot access 'loadDashboardData' before initialization
+    at FullLearningDashboard (components/learning/full-dashboard.tsx:94:6)
+  92 |   useEffect(() => {
+  93 |     loadDashboardData()
+> 94 |   }, [loadDashboardData])
+     |      ^
+  95 |
+  96 |   const loadDashboardData = useCallback(async () => {
+  97 |     // Prevent multiple simultaneous loads {
+  digest: '93546222'
+}
+ GET /dashboard 500 in 147ms
+ GET /icon.svg 200 in 15ms
+ ✓ Compiled in 322ms (3236 modules)
+[2025-08-13T07:49:25.661Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 120ms
+[2025-08-13T07:49:25.718Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ ⨯ ReferenceError: Cannot access 'loadDashboardData' before initialization
+    at FullLearningDashboard (components/learning/full-dashboard.tsx:94:6)
+  92 |   useEffect(() => {
+  93 |     loadDashboardData()
+> 94 |   }, [loadDashboardData])
+     |      ^
+  95 |
+  96 |   const loadDashboardData = useCallback(async () => {
+  97 |     // Prevent multiple simultaneous loads {
+  digest: '93546222'
+}
+ GET /dashboard 500 in 198ms
+ GET /icon.svg 200 in 8ms
+[2025-08-13T07:49:38.273Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ ⨯ ReferenceError: Cannot access 'loadDashboardData' before initialization
+    at FullLearningDashboard (components/learning/full-dashboard.tsx:94:6)
+  92 |   useEffect(() => {
+  93 |     loadDashboardData()
+> 94 |   }, [loadDashboardData])
+     |      ^
+  95 |
+  96 |   const loadDashboardData = useCallback(async () => {
+  97 |     // Prevent multiple simultaneous loads {
+  digest: '93546222'
+}
+ GET /dashboard 500 in 41ms
+ GET /icon.svg 200 in 10ms
+ ✓ Compiled in 247ms (3236 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 564ms (3550 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 2351ms
+ GET /dashboard 500 in 2351ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/oliver/gh/neuros/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/oliver/gh/neuros/.next/cache/webpack/client-development-fallback/0.pack.gz'
+ ✓ Compiled /_not-found in 235ms (3564 modules)
+ ✓ Compiled in 236ms (3551 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/a296d9f04031fdb6.webpack.hot-update.json 500 in 856ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 1063ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/(public)/page.js:3:18573)
+    at Object.<anonymous> (.next/server/app/(public)/page.js:3:18658) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 497ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/(public)/page.js:3:18573)
+    at Object.<anonymous> (.next/server/app/(public)/page.js:3:18658) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET / 500 in 500ms
+
+=== Session ended at Wed Aug 13 00:50:36 PDT 2025 ===

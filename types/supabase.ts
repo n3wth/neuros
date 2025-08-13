@@ -17,10 +17,10 @@ export type Database = {
     Functions: {
       graphql: {
         Args: {
-          query?: string
           extensions?: Json
-          variables?: Json
           operationName?: string
+          variables?: Json
+          query?: string
         }
         Returns: Json
       }
@@ -1064,16 +1064,16 @@ export type Database = {
       calculate_next_review: {
         Args:
           | {
-              current_interval: number
               current_reps: number
               rating: number
+              current_interval: number
               current_ease: number
             }
           | {
-              p_interval: number
               p_quality: number
               p_repetitions: number
               p_ease_factor: number
+              p_interval: number
             }
         Returns: Json
       }
@@ -1153,9 +1153,9 @@ export type Database = {
       search_similar_cards: {
         Args: { p_embedding: string; p_user_id: string; p_limit?: number }
         Returns: {
-          back: string
-          similarity: number
           card_id: string
+          similarity: number
+          back: string
           front: string
         }[]
       }

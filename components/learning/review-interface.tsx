@@ -164,22 +164,13 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
           }
           break
         case '1':
-          if (showAnswer) handleRate(1)
+          if (showAnswer) handleRate(0) // Forgot
           break
         case '2':
-          if (showAnswer) handleRate(2)
+          if (showAnswer) handleRate(2) // Remembered
           break
         case '3':
-          if (showAnswer) handleRate(3)
-          break
-        case '4':
-          if (showAnswer) handleRate(4)
-          break
-        case '5':
-          if (showAnswer) handleRate(5)
-          break
-        case '0':
-          if (showAnswer) handleRate(0)
+          if (showAnswer) handleRate(4) // Easy
           break
         case 'e':
           if (showAnswer) toggleExplanation()
@@ -219,284 +210,272 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
   }
 
   const progress = ((currentIndex + 1) / cards.length) * 100
-  const masteryLevel = currentCard?.mastery_level || 0
-  const difficultyColor = masteryLevel > 70 ? '#22C55E' : masteryLevel > 40 ? '#4682B4' : '#F59E0B'
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-[#FAFAFA]">
-      <div className="max-w-4xl mx-auto px-6 py-6">
+    <div className="h-screen bg-[#FAFAF9] flex flex-col overflow-hidden">
+      <div className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col">
         {/* Compact Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <div className="relative">
-                  <svg className="w-10 h-10 -rotate-90">
-                    <circle
-                      cx="20"
-                      cy="20"
-                      r="18"
-                      stroke="#F5F1EB"
-                      strokeWidth="3"
-                      fill="none"
-                    />
-                    <circle
-                      cx="20"
-                      cy="20"
-                      r="18"
-                      stroke={difficultyColor}
-                      strokeWidth="3"
-                      fill="none"
-                      strokeDasharray={`${progress * 1.13} 113`}
-                      className="transition-all duration-500"
-                    />
-                  </svg>
-                  <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-[#36454F]">
-                    {currentIndex + 1}/{cards.length}
-                  </span>
-                </div>
+        <div className="mb-3 sm:mb-4 flex-shrink-0">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-6">
+              {/* Minimal Progress */}
+              <div className="flex items-center gap-3">
+                <div className="h-px w-6 bg-black/20" />
+                <span className="font-mono text-xs text-black/60 tracking-[0.2em] uppercase">
+                  {currentIndex + 1} / {cards.length}
+                </span>
+                <div className="h-px w-6 bg-black/20" />
               </div>
               
               {/* Live Stats */}
-              <div className="flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-1">
-                  <CheckCircleIcon className="w-4 h-4 text-[#22C55E]" />
-                  <span className="font-medium text-[#36454F]">{stats.correct}</span>
+              <div className="hidden sm:flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircleIcon className="w-4 h-4 text-black/60" />
+                  <span className="font-medium text-black">{stats.correct}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <FlashIcon className="w-4 h-4 text-[#F59E0B]" />
-                  <span className="font-medium text-[#36454F]">{stats.streak}</span>
+                <div className="flex items-center gap-2">
+                  <FlashIcon className="w-4 h-4 text-black/60" />
+                  <span className="font-medium text-black">{stats.streak}</span>
                 </div>
-                {currentCard?.cards.topics && (
-                  <div className="px-2 py-0.5 bg-[#F5F1EB] rounded text-xs text-[#8B8680]">
-                    {currentCard.cards.topics.name}
-                  </div>
-                )}
               </div>
+              
+              {/* Topic Badge */}
+              {currentCard?.cards.topics && (
+                <div className="hidden md:block px-3 py-1 bg-black/5 rounded text-xs font-medium text-black/70 tracking-wide">
+                  {currentCard.cards.topics.name}
+                </div>
+              )}
             </div>
             
             <Button
               variant="ghost"
-              className="text-[#8B8680] hover:text-[#36454F] h-8 w-8 p-0"
+              className="text-black/40 hover:text-black/80 h-8 w-8 p-0 hover:bg-black/5"
               onClick={() => window.location.href = '/dashboard'}
             >
               <CloseIcon className="w-5 h-5" />
             </Button>
           </div>
+
+          {/* Progress Bar */}
+          <div className="h-px bg-black/10 overflow-hidden">
+            <motion.div 
+              className="h-full bg-black/60"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            />
+          </div>
         </div>
 
-        {/* Main Card */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentCard?.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
-            ref={cardRef}
-          >
-            <Card className={cn(
-              "bg-white border-2 shadow-lg min-h-[500px] relative overflow-hidden transition-all duration-300",
-              isFlipping && "scale-[0.98]",
-              showAnswer ? "border-[#4682B4]/20" : "border-[#F5F1EB]"
-            )}>
-              {/* Mastery Indicator */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-[#F5F1EB]">
-                <motion.div
-                  className="h-full"
-                  style={{ backgroundColor: difficultyColor }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${masteryLevel}%` }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                />
-              </div>
-
-              <div className="p-10">
-                {/* Question Section */}
-                <div className="min-h-[200px] flex flex-col justify-center">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <h2 className="text-3xl font-light text-[#36454F] leading-relaxed text-center">
-                      {currentCard?.cards.front}
-                    </h2>
-                  </motion.div>
-                </div>
-
-                {/* Divider with Show Answer */}
-                {!showAnswer && (
-                  <motion.div 
-                    className="my-8 relative"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <div className="border-t border-[#F5F1EB]" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Button
-                        onClick={handleShowAnswer}
-                        className="bg-white border-2 border-[#4682B4] text-[#4682B4] hover:bg-[#4682B4] hover:text-white px-6 py-2 transition-all duration-200 group"
-                      >
-                        <span className="mr-2">Reveal Answer</span>
-                        <ChevronDownIcon className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-                      </Button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Answer Section */}
-                <AnimatePresence>
-                  {showAnswer && (
+        {/* Main Card - Optimized Height */}
+        <div className="flex-1 flex flex-col min-h-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentCard?.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
+              ref={cardRef}
+              className="flex-1 flex flex-col"
+            >
+              <Card className={cn(
+                "bg-white border border-black/10 shadow-sm flex-1 flex flex-col relative overflow-hidden transition-all duration-300",
+                isFlipping && "scale-[0.995]",
+                showAnswer && "shadow-md"
+              )}>
+                <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-6">
+                  {/* Question Section */}
+                  <div className="flex-1 flex flex-col justify-center min-h-0">
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="text-center"
                     >
-                      <div className="border-t-2 border-[#F5F1EB] pt-8 mt-8">
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.1 }}
+                      <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif font-light text-black leading-tight tracking-[-0.01em] max-w-3xl mx-auto">
+                        {currentCard?.cards.front}
+                      </h2>
+                    </motion.div>
+                  </div>
+
+                  {/* Divider with Show Answer */}
+                  {!showAnswer && (
+                    <motion.div 
+                      className="my-6 relative"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <div className="border-t border-black/10" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Button
+                          onClick={handleShowAnswer}
+                          className="bg-white border border-black/20 text-black hover:bg-black hover:text-white px-6 py-2 transition-all duration-200 group font-medium"
                         >
-                          <h3 className="text-2xl font-light text-[#36454F] leading-relaxed text-center mb-8">
-                            {currentCard?.cards.back}
-                          </h3>
-                        </motion.div>
-
-                        {/* Explanation Section */}
-                        <AnimatePresence>
-                          {showExplanation && (currentCard?.cards.explanation || aiExplanation) && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              className="mb-6 p-4 bg-gradient-to-r from-[#4682B4]/5 to-[#4682B4]/10 border-l-3 border-[#4682B4] rounded-r-lg"
-                            >
-                              <div className="flex items-center mb-2">
-                                {aiExplanation ? (
-                                  <SparkleIcon className="w-4 h-4 text-[#4682B4] mr-2" />
-                                ) : (
-                                  <LightbulbIcon className="w-4 h-4 text-[#4682B4] mr-2" />
-                                )}
-                                <span className="text-xs text-[#4682B4] font-medium uppercase tracking-wider">
-                                  {aiExplanation ? 'AI Insight' : 'Explanation'}
-                                </span>
-                              </div>
-                              <p className="text-sm text-[#36454F] leading-relaxed">
-                                {aiExplanation || currentCard?.cards.explanation}
-                              </p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-
-                        {/* Smart Rating Buttons */}
-                        <div className="mt-8">
-                          <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-4 text-center">How difficult was this?</p>
-                          <div className="grid grid-cols-5 gap-2">
-                            {[
-                              { rating: 0, label: 'Again', color: 'bg-red-500 hover:bg-red-600', key: '1' },
-                              { rating: 1, label: 'Hard', color: 'bg-orange-500 hover:bg-orange-600', key: '2' },
-                              { rating: 2, label: 'Good', color: 'bg-yellow-500 hover:bg-yellow-600', key: '3' },
-                              { rating: 3, label: 'Easy', color: 'bg-blue-500 hover:bg-blue-600', key: '4' },
-                              { rating: 5, label: 'Perfect', color: 'bg-green-500 hover:bg-green-600', key: '5' }
-                            ].map((item, index) => (
-                              <motion.div
-                                key={item.rating}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.05 * index }}
-                              >
-                                <Button
-                                  onClick={() => handleRate(item.rating)}
-                                  className={cn(
-                                    "w-full h-14 text-white font-medium transition-all duration-200 relative overflow-hidden",
-                                    item.color,
-                                    selectedRating === item.rating && "ring-2 ring-offset-2 ring-[#4682B4] scale-95"
-                                  )}
-                                >
-                                  <span className="relative z-10">
-                                    <div className="text-xs opacity-80">{item.key}</div>
-                                    <div className="text-sm">{item.label}</div>
-                                  </span>
-                                  {selectedRating === item.rating && (
-                                    <motion.div
-                                      className="absolute inset-0 bg-white/20"
-                                      initial={{ scale: 0 }}
-                                      animate={{ scale: 1 }}
-                                      transition={{ duration: 0.3 }}
-                                    />
-                                  )}
-                                </Button>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Quick Actions */}
-                        <div className="flex items-center justify-center gap-2 mt-6">
-                          {!showExplanation && (
-                            <Button
-                              variant="ghost"
-                              onClick={toggleExplanation}
-                              className="text-[#8B8680] hover:text-[#4682B4] hover:bg-[#F5F1EB] text-sm"
-                            >
-                              <LightbulbIcon className="w-4 h-4 mr-1" />
-                              Show Explanation
-                            </Button>
-                          )}
-                          {!aiExplanation && !isGeneratingAI && (
-                            <Button
-                              variant="ghost"
-                              onClick={getAIHelp}
-                              className="text-[#8B8680] hover:text-[#4682B4] hover:bg-[#F5F1EB] text-sm"
-                            >
-                              <SparkleIcon className="w-4 h-4 mr-1" />
-                              Get AI Insight
-                            </Button>
-                          )}
-                          {isGeneratingAI && (
-                            <div className="flex items-center text-sm text-[#4682B4]">
-                              <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              >
-                                <SparkleIcon className="w-4 h-4 mr-1" />
-                              </motion.div>
-                              Generating...
-                            </div>
-                          )}
-                        </div>
+                          <span className="mr-2">Reveal Answer</span>
+                          <ChevronDownIcon className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                        </Button>
                       </div>
                     </motion.div>
                   )}
-                </AnimatePresence>
-              </div>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
+
+                  {/* Answer Section - Optimized */}
+                  <AnimatePresence>
+                    {showAnswer && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex-1 flex flex-col min-h-0"
+                      >
+                        <div className="border-t border-black/10 pt-4 mt-4 flex-1 flex flex-col">
+                          {/* Answer Text */}
+                          <div className="flex-shrink-0 text-center mb-4">
+                            <motion.h3
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 }}
+                              className="text-base sm:text-lg lg:text-xl font-serif font-light text-black leading-relaxed max-w-3xl mx-auto"
+                            >
+                              {currentCard?.cards.back}
+                            </motion.h3>
+                          </div>
+
+                          {/* Explanation Section - Compact */}
+                          <AnimatePresence>
+                            {showExplanation && (currentCard?.cards.explanation || aiExplanation) && (
+                              <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="flex-shrink-0 mb-3 p-3 bg-black/3 border-l-2 border-black/20 rounded-r"
+                              >
+                                <div className="flex items-center mb-2">
+                                  {aiExplanation ? (
+                                    <SparkleIcon className="w-3 h-3 text-black/60 mr-2" />
+                                  ) : (
+                                    <LightbulbIcon className="w-3 h-3 text-black/60 mr-2" />
+                                  )}
+                                  <span className="text-[10px] text-black/60 font-mono uppercase tracking-wider">
+                                    {aiExplanation ? 'AI Insight' : 'Explanation'}
+                                  </span>
+                                </div>
+                                <p className="text-sm text-black/80 leading-relaxed">
+                                  {aiExplanation || currentCard?.cards.explanation}
+                                </p>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+
+                          {/* Spacer */}
+                          <div className="flex-1 min-h-1"></div>
+
+                          {/* Rating System - Always at bottom */}
+                          <div className="flex-shrink-0">
+                            <div className="flex items-center gap-3 mb-3 justify-center">
+                              <div className="h-px w-6 bg-black/20" />
+                              <span className="font-mono text-[10px] text-black/60 tracking-[0.2em] uppercase">
+                                How did you do?
+                              </span>
+                              <div className="h-px w-6 bg-black/20" />
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-lg mx-auto">
+                              {[
+                                { rating: 0, label: 'Forgot', description: 'Need to review', key: '1' },
+                                { rating: 2, label: 'Remembered', description: 'Got it right', key: '2' },
+                                { rating: 4, label: 'Easy', description: 'Knew instantly', key: '3' }
+                              ].map((item, index) => (
+                                <motion.div
+                                  key={item.rating}
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.1 + (0.1 * index) }}
+                                >
+                                  <Button
+                                    onClick={() => handleRate(item.rating)}
+                                    className={cn(
+                                      "w-full h-10 sm:h-12 font-medium transition-all duration-200 relative overflow-hidden border flex flex-col gap-0.5",
+                                      selectedRating === item.rating 
+                                        ? "bg-black text-white border-black" 
+                                        : "bg-white text-black border-black/20 hover:bg-black/5 hover:border-black/40"
+                                    )}
+                                  >
+                                    <span className="relative z-10 flex flex-col items-center">
+                                      <div className="font-serif text-xs sm:text-sm">{item.label}</div>
+                                      <div className="text-[9px] opacity-60 hidden sm:block">{item.description}</div>
+                                      <div className="text-[8px] font-mono opacity-40 hidden sm:block">Press {item.key}</div>
+                                    </span>
+                                  </Button>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Quick Actions - Compact */}
+                          <div className="flex items-center justify-center gap-2 mt-2 flex-shrink-0">
+                            {!showExplanation && (
+                              <Button
+                                variant="ghost"
+                                onClick={toggleExplanation}
+                                className="text-black/60 hover:text-black hover:bg-black/5 text-xs px-2 py-1 h-6"
+                              >
+                                <LightbulbIcon className="w-3 h-3 mr-1" />
+                                <span className="hidden sm:inline">Explanation</span>
+                              </Button>
+                            )}
+                            {!aiExplanation && !isGeneratingAI && (
+                              <Button
+                                variant="ghost"
+                                onClick={getAIHelp}
+                                className="text-black/60 hover:text-black hover:bg-black/5 text-xs px-2 py-1 h-6"
+                              >
+                                <SparkleIcon className="w-3 h-3 mr-1" />
+                                <span className="hidden sm:inline">AI Insight</span>
+                              </Button>
+                            )}
+                            {isGeneratingAI && (
+                              <div className="flex items-center text-xs text-black/60">
+                                <motion.div
+                                  animate={{ rotate: 360 }}
+                                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                >
+                                  <SparkleIcon className="w-3 h-3 mr-1" />
+                                </motion.div>
+                                <span className="hidden sm:inline">Generating...</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
         {/* Minimalist Keyboard Hints */}
         <motion.div 
-          className="mt-6 flex justify-center"
+          className="mt-2 flex justify-center flex-shrink-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.6 }}
         >
-          <div className="flex items-center gap-4 text-xs text-[#8B8680]">
-            <div className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[#F5F1EB] rounded text-[10px] font-mono">Space</kbd>
-              <span className="opacity-60">Reveal</span>
+          <div className="hidden sm:flex items-center gap-4 text-xs text-black/40">
+            <div className="flex items-center gap-2">
+              <kbd className="px-2 py-1 bg-black/5 border border-black/10 rounded text-[9px] font-mono">Space</kbd>
+              <span>Reveal</span>
             </div>
-            <div className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[#F5F1EB] rounded text-[10px] font-mono">1-5</kbd>
-              <span className="opacity-60">Rate</span>
+            <div className="flex items-center gap-2">
+              <kbd className="px-2 py-1 bg-black/5 border border-black/10 rounded text-[9px] font-mono">1-3</kbd>
+              <span>Rate</span>
             </div>
-            <div className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[#F5F1EB] rounded text-[10px] font-mono">E</kbd>
-              <span className="opacity-60">Explain</span>
+            <div className="flex items-center gap-2">
+              <kbd className="px-2 py-1 bg-black/5 border border-black/10 rounded text-[9px] font-mono">E</kbd>
+              <span>Explain</span>
             </div>
           </div>
         </motion.div>

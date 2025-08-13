@@ -1,0 +1,274 @@
+=== Starting neuros at Wed Aug 13 02:31:35 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_023135.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 54209, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 990ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1094ms (1462 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1562ms
+ ✓ Compiled in 440ms (570 modules)
+ ○ Compiling /dashboard/discover ...
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[2025-08-13T09:31:39.786Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+[2025-08-13T09:31:39.788Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1164ms
+ GET /dashboard/discover 200 in 1153ms
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ ⚠ ./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'HashIcon' is not exported from '@/components/icons/line-icons' (imported as 'HashIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+
+./components/learning/discovery-dashboard.tsx
+Attempted import error: 'UsersIcon' is not exported from '@/components/icons/line-icons' (imported as 'UsersIcon').
+
+Import trace for requested module:
+./components/learning/discovery-dashboard.tsx
+./components/learning/full-dashboard.tsx
+ GET /icon.svg 200 in 189ms
+ POST /dashboard/discover 200 in 186ms
+ ✓ Compiled /icon.svg in 200ms (1790 modules)
+ POST /dashboard/discover 200 in 283ms
+ POST /dashboard/discover 200 in 22ms
+[2025-08-13T09:31:40.927Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 44ms
+ ✓ Compiled /favicon.ico in 101ms (1196 modules)
+ GET /icon.svg 200 in 186ms
+ GET /favicon.ico 200 in 205ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ ✓ Compiled /dashboard in 169ms (1780 modules)
+[2025-08-13T09:31:41.943Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 256ms
+ POST /dashboard 200 in 74ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 17ms
+ ✓ Compiled in 391ms (1794 modules)
+[2025-08-13T09:31:52.157Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 66ms
+ ✓ Compiled in 213ms (1794 modules)
+[2025-08-13T09:31:59.101Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 66ms
+ ✓ Compiled in 194ms (1794 modules)
+[2025-08-13T09:32:04.909Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 64ms
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  digest: '1729396948'
+}
+[TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  page: '/dashboard'
+}
+[2025-08-13T09:32:24.772Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ ✓ Compiled /_error in 337ms (2108 modules)
+[2025-08-13T09:32:25.341Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 378ms
+[2025-08-13T09:32:25.363Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 12ms
+ GET /dashboard 500 in 1155ms
+ GET /_next/static/css/app/layout.css?v=1755077545359 404 in 186ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 22ms
+[2025-08-13T09:32:46.926Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 78ms
+ GET /_next/static/css/app/layout.css?v=1755077566904 404 in 25ms
+ GET /_next/static/chunks/main-app.js?v=1755077566904 404 in 33ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/icon.svg/route.js:1:6889)
+    at Object.<anonymous> (.next/server/app/icon.svg/route.js:1:6941) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/icon.svg'
+}
+ GET /icon.svg 500 in 235ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 20ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/pages/_document.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 18ms
+
+=== Session ended at Wed Aug 13 02:32:56 PDT 2025 ===

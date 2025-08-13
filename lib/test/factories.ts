@@ -3,7 +3,9 @@
  * Following 2025 best practices for AI-assisted test writing
  */
 
-import type { Card } from '@/server/actions/cards-refactored'
+import type { Database } from '@/types/supabase'
+
+type Card = Database['public']['Tables']['cards']['Row']
 
 /**
  * Creates a test user object
@@ -54,15 +56,22 @@ export function makeDeck(overrides?: Partial<{
 export function makeCard(overrides?: Partial<Card>): Card {
   return {
     id: crypto.randomUUID(),
-    deck_id: crypto.randomUUID(),
+    user_id: crypto.randomUUID(),
+    topic_id: crypto.randomUUID(),
     front: 'Default question',
     back: 'Default answer',
-    ease_factor: 2.5,
-    interval: 0,
-    repetitions: 0,
+    explanation: null,
+    difficulty: null,
+    tags: [],
+    image_url: null,
+    attachment_urls: null,
+    has_attachments: null,
+    front_embedding: null,
+    back_embedding: null,
+    search_vector: null,
+    metadata: null,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
-    tags: [],
     ...overrides
   }
 }
@@ -120,7 +129,7 @@ export function makeCards(
 export function makeTestProfile() {
   const user = makeUser()
   const deck = makeDeck({ user_id: user.id })
-  const cards = makeCards(5, { deck_id: deck.id })
+  const cards = makeCards(5, { topic_id: deck.id, user_id: user.id })
   
   return {
     user,
@@ -134,35 +143,28 @@ export function makeTestProfile() {
  * @returns Cards with various review states
  */
 export function makeSpacedRepetitionScenario() {
-  const deckId = crypto.randomUUID()
+  const topicId = crypto.randomUUID()
+  const userId = crypto.randomUUID()
   
   return {
     newCard: makeCard({
-      deck_id: deckId,
-      ease_factor: 2.5,
-      interval: 0,
-      repetitions: 0
+      topic_id: topicId,
+      user_id: userId
     }),
     
     learningCard: makeCard({
-      deck_id: deckId,
-      ease_factor: 2.3,
-      interval: 1,
-      repetitions: 2
+      topic_id: topicId,
+      user_id: userId
     }),
     
     reviewCard: makeCard({
-      deck_id: deckId,
-      ease_factor: 2.7,
-      interval: 7,
-      repetitions: 5
+      topic_id: topicId,
+      user_id: userId
     }),
     
     matureCard: makeCard({
-      deck_id: deckId,
-      ease_factor: 3.0,
-      interval: 90,
-      repetitions: 15
+      topic_id: topicId,
+      user_id: userId
     })
   }
 }
@@ -174,13 +176,13 @@ export function makeAIGenerationInput() {
   return {
     basicPrompt: {
       prompt: 'Create flashcards about photosynthesis',
-      deck_id: crypto.randomUUID(),
+      topic_id: crypto.randomUUID(),
       count: 3
     },
     
     advancedPrompt: {
       prompt: 'Create advanced medical terminology flashcards about the cardiovascular system',
-      deck_id: crypto.randomUUID(),
+      topic_id: crypto.randomUUID(),
       count: 5,
       options: {
         difficulty: 'advanced' as const,

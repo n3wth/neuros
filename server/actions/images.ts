@@ -67,7 +67,7 @@ export async function generateCardImage(
     logger.error('Image generation failed', {
       userId: user.id,
       error,
-      metadata: { prompt, cardId }
+      metadata: { prompt }
     })
     throw new Error('Failed to generate image')
   }
@@ -112,7 +112,7 @@ export async function generateProgressVisualization(
     logger.error('Visualization generation failed', {
       userId: user.id,
       error,
-      metadata: { concept, cardId }
+      metadata: { stats }
     })
     throw new Error('Failed to generate visualization')
   }
@@ -176,7 +176,7 @@ export async function generateTopicIllustration(
     logger.error('Topic illustration failed', {
       userId: user.id,
       error,
-      metadata: { topic, style }
+      metadata: { topic, concepts }
     })
     throw new Error('Failed to generate topic illustration')
   }

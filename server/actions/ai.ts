@@ -3,7 +3,8 @@
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
 import { createCard } from './cards'
-import { checkRateLimit, RateLimitExceededError } from '@/lib/rate-limit-redis'
+import { checkRateLimit } from '@/lib/rate-limit-server'
+import { RateLimitExceededError } from '@/lib/rate-limit'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
 
@@ -71,14 +72,24 @@ export async function generateCardsFromText(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits (both specific and global)
-  try {
-    await checkRateLimit(user.id, 'CARD_GENERATION')
-    await checkRateLimit(user.id, 'GLOBAL_AI')
-  } catch (error) {
-    if (error instanceof RateLimitExceededError) {
-      throw error
-    }
-    throw new Error('Rate limit check failed')
+  const cardGenResult = await checkRateLimit(user.id, 'CARD_GENERATION')
+  if (!cardGenResult.allowed) {
+    throw new RateLimitExceededError(
+      cardGenResult.message || 'Card generation rate limit exceeded',
+      cardGenResult.retryAfter || 0,
+      cardGenResult.resetTime,
+      'CARD_GENERATION'
+    )
+  }
+  
+  const globalResult = await checkRateLimit(user.id, 'GLOBAL_AI')
+  if (!globalResult.allowed) {
+    throw new RateLimitExceededError(
+      globalResult.message || 'AI service rate limit exceeded',
+      globalResult.retryAfter || 0,
+      globalResult.resetTime,
+      'GLOBAL_AI'
+    )
   }
 
   const count = options?.count || 20
@@ -220,13 +231,14 @@ export async function generateExplanation(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  try {
-    await checkRateLimit(user.id, 'GLOBAL_AI')
-  } catch (error) {
-    if (error instanceof RateLimitExceededError) {
-      throw error
-    }
-    throw new Error('Rate limit check failed')
+  const rateLimitResult = await checkRateLimit(user.id, 'GLOBAL_AI')
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'AI service rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'GLOBAL_AI'
+    )
   }
 
   const prompts = {
@@ -302,13 +314,14 @@ export async function generatePracticeQuestions(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  try {
-    await checkRateLimit(user.id, 'GLOBAL_AI')
-  } catch (error) {
-    if (error instanceof RateLimitExceededError) {
-      throw error
-    }
-    throw new Error('Rate limit check failed')
+  const rateLimitResult = await checkRateLimit(user.id, 'GLOBAL_AI')
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'AI service rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'GLOBAL_AI'
+    )
   }
 
   try {
@@ -388,13 +401,14 @@ export async function generateLearningPath(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  try {
-    await checkRateLimit(user.id, 'GLOBAL_AI')
-  } catch (error) {
-    if (error instanceof RateLimitExceededError) {
-      throw error
-    }
-    throw new Error('Rate limit check failed')
+  const rateLimitResult = await checkRateLimit(user.id, 'GLOBAL_AI')
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'AI service rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'GLOBAL_AI'
+    )
   }
 
   try {
@@ -481,13 +495,14 @@ export async function generateLearningInsights(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  try {
-    await checkRateLimit(user.id, 'GLOBAL_AI')
-  } catch (error) {
-    if (error instanceof RateLimitExceededError) {
-      throw error
-    }
-    throw new Error('Rate limit check failed')
+  const rateLimitResult = await checkRateLimit(user.id, 'GLOBAL_AI')
+  if (!rateLimitResult.allowed) {
+    throw new RateLimitExceededError(
+      rateLimitResult.message || 'AI service rate limit exceeded',
+      rateLimitResult.retryAfter || 0,
+      rateLimitResult.resetTime,
+      'GLOBAL_AI'
+    )
   }
 
   try {

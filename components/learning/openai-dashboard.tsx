@@ -57,8 +57,8 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null)
-  const [cards, setCards] = useState<Array<{id: string; front: string; back: string; difficulty: string; topics?: {name: string}; user_cards?: Array<{mastery_level: number}>}>>([])
-  const [dueCards, setDueCards] = useState<Array<{id: string; cards: {front: string; back: string; topics?: {name: string}}; mastery_level: number; total_reviews: number}>>([])
+  const [cards, setCards] = useState<Array<{id: string; front: string; back: string; difficulty: string | null; topics?: {name: string} | null; user_cards?: Array<{mastery_level: number}>}>>([])
+  const [dueCards, setDueCards] = useState<Array<{id: string; cards: {front: string; back: string; topics?: {name: string} | null}; mastery_level: number; total_reviews: number}>>([])
   const [stats, setStats] = useState<{totalCards: number; dueCards: number; mastered: number; learning: number; difficult: number} | null>(null)
   const [studyStats, setStudyStats] = useState<{total_reviews: number; average_accuracy: number; total_study_time_minutes: number; current_streak_days: number} | null>(null)
   const [, setUpcomingCards] = useState<Record<string, Array<{id: string}>>>({})
@@ -94,11 +94,39 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
         getUserCompletionState()
       ])
 
-      setCards(userCards)
-      setDueCards(dueCardsData)
+      setCards(userCards.map(card => ({
+        id: card.id,
+        front: card.front,
+        back: card.back,
+        difficulty: card.difficulty,
+        topics: card.topics ? { name: card.topics.name } : undefined,
+        user_cards: card.user_cards?.map(uc => ({
+          mastery_level: uc.mastery_level ?? 0
+        }))
+      })))
+      setDueCards(dueCardsData.map(dueCard => ({
+        id: dueCard.id,
+        cards: {
+          front: dueCard.cards.front,
+          back: dueCard.cards.back,
+          topics: dueCard.cards.topics ? { name: dueCard.cards.topics.name } : undefined
+        },
+        mastery_level: dueCard.mastery_level ?? 0,
+        total_reviews: dueCard.total_reviews ?? 0
+      })))
       setStats(cardStats)
-      setStudyStats(studyStatsData)
-      setUpcomingCards(upcomingCardsData)
+      setStudyStats(studyStatsData ? {
+        total_reviews: studyStatsData.total_reviews ?? 0,
+        average_accuracy: studyStatsData.average_accuracy ?? 0,
+        total_study_time_minutes: studyStatsData.total_study_time_minutes ?? 0,
+        current_streak_days: studyStatsData.current_streak_days ?? 0
+      } : null)
+      setUpcomingCards(
+        Object.entries(upcomingCardsData).reduce((acc, [date, cards]) => {
+          acc[date] = cards.map(card => ({ id: card.cards.id }))
+          return acc
+        }, {} as Record<string, Array<{id: string}>>)
+      )
       setCompletionState(completionStateData)
     } catch (error) {
       console.error('Failed to load dashboard data:', error)
@@ -395,7 +423,7 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
                   icon={ChartIcon}
                   label="Accuracy"
                   value={`${Math.round(studyStats?.average_accuracy || 0)}%`}
-                  trend={studyStats?.average_accuracy > 70 ? 5 : -3}
+                  trend={(studyStats?.average_accuracy ?? 0) > 70 ? 5 : -3}
                   color="purple"
                 />
               </div>
@@ -507,8 +535,8 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
                       <div className="flex items-center gap-3">
                         <div className={cn(
                           "w-2 h-2 rounded-full",
-                          card.user_cards?.[0]?.mastery_level > 0.7 ? "bg-green-500" :
-                          card.user_cards?.[0]?.mastery_level > 0.3 ? "bg-yellow-500" : "bg-red-500"
+                          (card.user_cards?.[0]?.mastery_level ?? 0) > 0.7 ? "bg-green-500" :
+                          (card.user_cards?.[0]?.mastery_level ?? 0) > 0.3 ? "bg-yellow-500" : "bg-red-500"
                         )} />
                         <div>
                           <p className="text-sm font-medium text-gray-900 dark:text-white">
@@ -596,7 +624,7 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
       <CreateCardDialog
         isOpen={isCreateDialogOpen}
         onClose={() => setIsCreateDialogOpen(false)}
-        onSuccess={() => {
+        onCardCreated={() => {
           setIsCreateDialogOpen(false)
           loadDashboardData()
         }}

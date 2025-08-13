@@ -1,0 +1,63 @@
+=== Starting neuros at Wed Aug 13 03:02:57 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_030257.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 974ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1188ms (1462 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1689ms
+ ○ Compiling /dashboard/settings ...
+ ✓ Compiled /dashboard/settings in 1117ms (1757 modules)
+[2025-08-13T10:03:01.709Z] [INFO] Dashboard Settings loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_settings_load_success'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 267ms
+ GET /dashboard/settings 200 in 1399ms
+ ✓ Compiled /icon.svg in 152ms (1193 modules)
+ GET /icon.svg 200 in 230ms
+ POST /dashboard/settings 200 in 240ms
+ POST /dashboard/settings 200 in 20ms
+ POST /dashboard/settings 200 in 48ms
+ ✓ Compiled /dashboard/stats in 160ms (1776 modules)
+[2025-08-13T10:03:05.691Z] [INFO] Dashboard Stats loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_stats_load_success'
+}
+ GET /dashboard/stats 200 in 260ms
+ POST /dashboard/stats 200 in 103ms
+ POST /dashboard/stats 200 in 10ms
+ POST /dashboard/stats 200 in 23ms
+ ✓ Compiled /dashboard in 141ms (1778 modules)
+[2025-08-13T10:03:06.896Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 219ms
+ POST /dashboard 200 in 76ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 18ms
+ ✓ Compiled /dashboard/discover in 158ms (1780 modules)
+[2025-08-13T10:03:10.379Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 232ms
+ POST /dashboard/discover 200 in 75ms
+ POST /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 16ms

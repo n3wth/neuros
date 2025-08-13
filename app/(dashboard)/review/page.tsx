@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import ReviewInterface from '@/components/learning/review-interface'
+import MobileReviewInterface from '@/components/learning/mobile-review-interface'
 import { logger } from '@/lib/logger'
 
 // Force dynamic rendering - this page uses cookies via Supabase
@@ -34,8 +34,8 @@ export default async function ReviewPage() {
       action: 'review_load_success'
     })
 
-    // Full-screen immersive review experience
-    return <ReviewInterface sessionId={user.id} />
+    // Mobile-optimized review experience  
+    return <MobileReviewInterface sessionId={user.id} />
   } catch (error) {
     // Only catch non-redirect errors
     const err = error as Error & { digest?: string }
@@ -46,8 +46,6 @@ export default async function ReviewPage() {
     // Log actual errors
     logger.error('Review page error', {
       error: err,
-      message: err?.message,
-      stack: err?.stack,
       action: 'review_error'
     })
     

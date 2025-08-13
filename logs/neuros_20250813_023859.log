@@ -1,0 +1,22 @@
+=== Starting neuros at Wed Aug 13 02:38:59 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_023859.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 54209, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 980ms
+ ✓ Compiled /middleware in 99ms (180 modules)
+[?25h
+
+=== Session ended at Wed Aug 13 02:39:01 PDT 2025 ===

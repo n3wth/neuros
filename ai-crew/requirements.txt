@@ -1,5 +1,0 @@
-crewai
-crewai-tools
-langchain-openai
-langchain-anthropic
-python-dotenv

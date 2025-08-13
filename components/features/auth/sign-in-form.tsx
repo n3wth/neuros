@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -37,7 +37,6 @@ function SubmitButton() {
 }
 
 export function SignInForm() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
@@ -82,8 +81,8 @@ export function SignInForm() {
         variant: 'destructive',
       })
     } else if (result?.success) {
-      router.push('/dashboard')
-      router.refresh()
+      // Redirect immediately without waiting for refresh
+      window.location.href = '/dashboard'
     }
   }
 
@@ -99,13 +98,8 @@ export function SignInForm() {
           variant: 'destructive',
         })
       } else if (result?.success) {
-        toast({
-          title: 'Development Mode',
-          description: result.message || 'Signed in as test user',
-          variant: 'default',
-        })
-        router.push('/dashboard')
-        router.refresh()
+        // Redirect immediately without waiting for toast or refresh
+        window.location.href = '/dashboard'
       }
     } finally {
       setIsDevSigningIn(false)

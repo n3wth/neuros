@@ -1,0 +1,344 @@
+=== Starting neuros at Wed Aug 13 00:39:09 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_003909.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 926ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.2s (1515 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/d2bde89e7610eab5.webpack.hot-update.json 404 in 2560ms
+ ✓ Compiled in 359ms (570 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1531ms (3118 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/d2bde89e7610eab5.webpack.hot-update.json 404 in 1765ms
+[2025-08-13T07:39:15.377Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 1813ms
+ ✓ Compiled /icon.svg in 104ms (1885 modules)
+ GET /icon.svg 200 in 256ms
+ POST /dashboard 200 in 376ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 255ms
+ POST /dashboard 200 in 38ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 24ms
+ POST /dashboard 200 in 14ms
+[2025-08-13T07:39:23.318Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 203ms
+ GET /icon.svg 200 in 7ms
+ POST /dashboard 200 in 23ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 15ms
+ ✓ Compiled /review in 350ms (3144 modules)
+[2025-08-13T07:39:26.417Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 455ms
+ POST /review 200 in 124ms
+ POST /review 200 in 13ms
+ ✓ Compiled in 428ms (3140 modules)
+ POST /review 200 in 403ms
+[2025-08-13T07:40:58.561Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 57ms
+ ✓ Compiled in 280ms (3140 modules)
+ POST /review 200 in 195ms
+[2025-08-13T07:41:18.029Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 43ms
+ ✓ Compiled in 306ms (3140 modules)
+ POST /review 200 in 162ms
+[2025-08-13T07:41:27.770Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 34ms
+ ✓ Compiled in 242ms (3140 modules)
+ POST /review 200 in 113ms
+[2025-08-13T07:41:35.715Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 31ms
+ ✓ Compiled in 300ms (3140 modules)
+ POST /review 200 in 250ms
+[2025-08-13T07:41:46.319Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 30ms
+ ✓ Compiled in 276ms (3140 modules)
+ POST /review 200 in 273ms
+[2025-08-13T07:41:53.271Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 32ms
+ ✓ Compiled in 221ms (3140 modules)
+[2025-08-13T07:42:03.946Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 79ms
+ POST /review 200 in 81ms
+ ✓ Compiled in 224ms (3140 modules)
+ POST /review 200 in 151ms
+[2025-08-13T07:42:24.428Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 37ms
+ ✓ Compiled in 210ms (3140 modules)
+[2025-08-13T07:42:36.321Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 66ms
+ POST /review 200 in 80ms
+ ✓ Compiled in 230ms (3140 modules)
+[2025-08-13T07:42:47.402Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 62ms
+ POST /review 200 in 79ms
+ ⨯ Error: Rate limit check failed
+    at submitReview (server/actions/reviews.ts:77:10)
+  75 |       throw new Error(`Too many review submissions. Please try again in ${error.retryAfter} seconds.`)
+  76 |     }
+> 77 |     throw new Error('Rate limit check failed')
+     |          ^
+  78 |   }
+  79 |
+  80 |   // Get current user_card data {
+  digest: '603071964'
+}
+ POST /review 500 in 149ms
+ ✓ Compiled in 276ms (3140 modules)
+ POST /review 200 in 242ms
+[2025-08-13T07:43:10.681Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 72ms
+ ✓ Compiled in 243ms (3140 modules)
+ POST /review 200 in 180ms
+[2025-08-13T07:43:18.037Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 32ms
+ ✓ Compiled in 254ms (3140 modules)
+ POST /review 200 in 285ms
+[2025-08-13T07:43:27.468Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 32ms
+ ✓ Compiled in 229ms (3140 modules)
+ POST /review 200 in 276ms
+[2025-08-13T07:43:33.777Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 32ms
+ ✓ Compiled in 216ms (3140 modules)
+ POST /review 200 in 240ms
+[2025-08-13T07:43:39.355Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 32ms
+ ✓ Compiled in 236ms (3140 modules)
+ POST /review 200 in 245ms
+[2025-08-13T07:43:44.935Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 50ms
+ ✓ Compiled in 281ms (3140 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 603ms (3454 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /review 500 in 1838ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ POST /review 500 in 358ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /review 500 in 318ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /review 500 in 317ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /review 500 in 318ms
+ ✓ Compiled /favicon.ico in 412ms (2071 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 544ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/(dashboard)/review/page.js:2:10244)
+    at Object.<anonymous> (.next/server/app/(dashboard)/review/page.js:2:10326) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/review'
+}
+ ⨯ Error: Cannot find module './8548.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/pages/_document.js:1:327)
+    at Object.<anonymous> (.next/server/pages/_document.js:1:374) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /review 500 in 43ms
+ ✓ Compiled /_not-found in 152ms (2072 modules)
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  digest: '1729396948'
+}
+[TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  digest: '1729396948'
+}
+[TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  digest: '1729396948'
+}
+[TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  digest: '1729396948'
+}
+[TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')] {
+  digest: '1729396948'
+}
+[TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'call')]
+ GET /_next/static/chunks/fallback/main.js 500 in 1739ms
+ GET /_next/static/chunks/fallback/webpack.js 500 in 1739ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 1738ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 1654ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 1654ms
+[?25h
+
+=== Session ended at Wed Aug 13 00:45:12 PDT 2025 ===

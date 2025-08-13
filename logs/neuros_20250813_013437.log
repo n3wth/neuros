@@ -1,0 +1,93 @@
+=== Starting neuros at Wed Aug 13 01:34:37 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_013437.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 985ms
+ ✓ Compiled /middleware in 97ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1141ms (1841 modules)
+ GET / 200 in 1680ms
+ ✓ Compiled in 485ms (684 modules)
+ POST / 200 in 258ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 551ms (1992 modules)
+[2025-08-13T08:34:43.896Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 704ms
+ POST /dashboard 200 in 102ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 21ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 8ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 44ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 72ms
+ ✓ Compiled in 305ms (2008 modules)
+ POST /dashboard 200 in 266ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 14ms
+[2025-08-13T08:34:45.632Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 38ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 9ms
+ POST /dashboard 200 in 13ms
+[?25h
+
+=== Session ended at Wed Aug 13 01:35:03 PDT 2025 ===

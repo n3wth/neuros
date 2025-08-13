@@ -70,9 +70,12 @@ export function SmartSearch() {
         })
 
       if (!error && data) {
-        setResults(data.map((item: { card_id?: string; id: string; front: string; back: string; rank?: number }) => ({
-          id: item.card_id || item.id,
-          ...item
+        setResults(data.map((item: { back: string; similarity: number; card_id: string; front: string; }) => ({
+          id: item.card_id,
+          card_id: item.card_id,
+          front: item.front,
+          back: item.back,
+          rank: item.similarity
         })))
       }
     } catch (error) {

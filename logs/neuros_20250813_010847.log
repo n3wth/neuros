@@ -1,0 +1,710 @@
+=== Starting neuros at Wed Aug 13 01:08:47 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_010847.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 24092
+26050, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 954ms
+ ✓ Compiled /middleware in 213ms (180 modules)
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+ ○ Compiling / ...
+ ⚠ ./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+ GET / 200 in 2614ms
+ ⚠ ./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+ ⚠ ./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/reviews.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/reviews.ts
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+[2025-08-13T08:08:55.190Z] [ERROR] Dashboard auth error {
+  error: [Error [AuthRetryableFetchError]: fetch failed] {
+    __isAuthError: true,
+    status: 0,
+    code: undefined
+  },
+  action: 'dashboard_load'
+}
+AuthRetryableFetchError: fetch failed
+    at _handleRequest (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:120:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _request (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:18)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:24)
+    at async SupabaseAuthClient._useSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:20)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28)
+ GET /dashboard 200 in 655ms
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/reviews.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/reviews.ts
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/reviews.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/reviews.ts
+ GET /signin 200 in 415ms
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+ GET /signin 200 in 11ms
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/reviews.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/reviews.ts
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/reviews.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/reviews.ts
+ GET /icon.svg 200 in 212ms
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+TypeError: fetch failed
+    at async signInAsDeveloper (server/actions/auth.ts:156:33)
+  154 |
+  155 |   // Try to sign in with existing test user
+> 156 |   const { error: signInError } = await supabase.auth.signInWithPassword({
+      |                                 ^
+  157 |     email: testEmail,
+  158 |     password: testPassword,
+  159 |   }) {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+TypeError: fetch failed
+    at async signInAsDeveloper (server/actions/auth.ts:168:33)
+  166 |
+  167 |   // If sign in failed, try to create the test user
+> 168 |   const { error: signUpError } = await supabase.auth.signUp({
+      |                                 ^
+  169 |     email: testEmail,
+  170 |     password: testPassword,
+  171 |     options: { {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+ POST / 200 in 352ms
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+TypeError: fetch failed
+    at async signInAsDeveloper (server/actions/auth.ts:156:33)
+  154 |
+  155 |   // Try to sign in with existing test user
+> 156 |   const { error: signInError } = await supabase.auth.signInWithPassword({
+      |                                 ^
+  157 |     email: testEmail,
+  158 |     password: testPassword,
+  159 |   }) {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+TypeError: fetch failed
+    at async signInAsDeveloper (server/actions/auth.ts:168:33)
+  166 |
+  167 |   // If sign in failed, try to create the test user
+> 168 |   const { error: signUpError } = await supabase.auth.signUp({
+      |                                 ^
+  169 |     email: testEmail,
+  170 |     password: testPassword,
+  171 |     options: { {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+ POST / 200 in 176ms
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/reviews.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/reviews.ts
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+ GET / 200 in 95ms
+ ⚠ ./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+
+./server/actions/ai.ts
+Attempted import error: 'checkRateLimit' is not exported from '@/lib/rate-limit' (imported as 'checkRateLimit').
+
+Import trace for requested module:
+./server/actions/ai.ts
+Error: fetch failed
+    at context.fetch (/Users/oliver/gh/neuros/node_modules/next/dist/server/web/sandbox/context.js:321:60)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/helpers.js:113:25)
+    at _handleRequest (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:115:24)
+    at _request (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/lib/fetch.js:105:24)
+    at eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:909:82)
+    at SupabaseAuthClient._useSession (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(middleware)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28) {
+  
+}
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:54321
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:54321) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 54321
+  }
+}
+ GET / 200 in 78ms
+[?25h
+
+=== Session ended at Wed Aug 13 01:09:47 PDT 2025 ===

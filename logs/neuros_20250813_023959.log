@@ -1,0 +1,98 @@
+=== Starting neuros at Wed Aug 13 02:39:59 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_023959.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 996ms
+ ✓ Compiled /middleware in 127ms (180 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1245ms (1770 modules)
+[2025-08-13T09:40:03.398Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ ✓ Compiled in 453ms (595 modules)
+ GET /dashboard 200 in 1733ms
+ ✓ Compiled /icon.svg in 173ms (1192 modules)
+ GET /icon.svg 200 in 259ms
+ ✓ Compiled in 172ms (1787 modules)
+ ✓ Compiled /dashboard/settings in 205ms (1775 modules)
+[2025-08-13T09:40:24.086Z] [INFO] Dashboard Settings loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_settings_load_success'
+}
+ GET /dashboard/settings 200 in 477ms
+ POST /dashboard/settings 200 in 143ms
+ POST /dashboard/settings 200 in 11ms
+ POST /dashboard/settings 200 in 19ms
+[2025-08-13T09:40:26.926Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 44ms
+ POST /dashboard 200 in 23ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 31ms
+ ✓ Compiled in 275ms (1789 modules)
+[2025-08-13T09:40:42.167Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 83ms
+ POST /dashboard 200 in 100ms
+ POST /dashboard 200 in 22ms
+ POST /dashboard 200 in 17ms
+ ✓ Compiled in 222ms (1789 modules)
+ ✓ Compiled in 221ms (1789 modules)
+{"timestamp":"2025-08-13T09:41:36.386Z","level":"info","message":"Dashboard loaded","env":"production","userId":"1a996f40-e8a7-427e-8728-88509f201193","action":"dashboard_load_success"}
+ GET /dashboard 200 in 98ms
+ GET /icon.svg 200 in 16ms
+ POST /dashboard 200 in 76ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+ ○ Compiling / ...
+ ✓ Compiled / in 795ms (2025 modules)
+ GET /dashboard/browse 200 in 1002ms
+ GET /dashboard/settings 200 in 996ms
+ GET /dashboard/discover 200 in 997ms
+ GET / 200 in 997ms
+ GET /dashboard/stats 200 in 1004ms
+[2025-08-13T09:41:38.527Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 355ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 576ms (2026 modules)
+ GET /_next/static/css/app/layout.css?v=1755078098403 404 in 771ms
+ GET /_next/static/chunks/main-app.js?v=1755078098403 404 in 750ms
+[2025-08-13T09:41:42.517Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 120ms
+ GET /_next/static/css/app/layout.css?v=1755078102468 404 in 51ms
+ GET /_next/static/chunks/main-app.js?v=1755078102468 404 in 29ms
+ ✓ Compiled in 352ms (1877 modules)
+ ✓ Compiled in 240ms (702 modules)
+ ✓ Compiled in 114ms (702 modules)
+ ✓ Compiled in 899ms (1877 modules)
+ ✓ Compiled in 397ms (1877 modules)
+ ✓ Compiled in 205ms (1877 modules)
+ ✓ Compiled in 208ms (1877 modules)
+ ✓ Compiled in 301ms (1877 modules)
+ ✓ Compiled in 382ms (1877 modules)
+
+=== Session ended at Wed Aug 13 02:55:57 PDT 2025 ===
