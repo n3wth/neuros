@@ -38,7 +38,7 @@ import {
   endStudySession,
   getStudyStats 
 } from '@/server/actions/reviews'
-// import { generateLearningInsights } from '@/server/actions/ai' // Temporarily disabled due to rate limiting
+import { generateDataDrivenInsights, type Insight } from '@/server/actions/insights'
 // Meta-learning imports for future use
 // import { analyzeMetaLearningPatterns, evolveSystemIntelligence } from '@/server/actions/meta-learning'
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
@@ -84,7 +84,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   const [stats, setStats] = useState<{ totalCards: number; dueCards: number; mastered: number; learning: number; difficult: number } | null>(null)
   const [studyStats, setStudyStats] = useState<{ total_reviews: number; average_accuracy: number; total_study_time_minutes: number; current_streak_days: number } | null>(null)
   const [upcomingCards, setUpcomingCards] = useState<Record<string, Array<{ id: string }>>>({})
-  const [aiInsights, setAiInsights] = useState<Array<{ type: string; title: string; description: string; action?: string }>>([])
+  const [aiInsights, setAiInsights] = useState<Insight[]>([])
   const [completionState, setCompletionState] = useState<{ type: string; totalCards: number; dueCards: number; nextReviewTime: string | null; completedToday: boolean } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')

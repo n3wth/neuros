@@ -29,7 +29,17 @@
     "ai:quality:fix": "node scripts/automation/ai-quality-monitor.js --fix",
     "ai:optimize": "python3 scripts/automation/self-learning-optimizer.py",
     "ai:deploy": "tsx scripts/deployment/ai-deployment-manager.ts",
-    "ai:deploy:check": "tsx scripts/deployment/ai-deployment-manager.ts --check"
+    "ai:deploy:check": "tsx scripts/deployment/ai-deployment-manager.ts --check",
+    "check:all": "concurrently \"npm:lint\" \"npm:typecheck\" \"npm:test\" --kill-others-on-fail",
+    "fix:all": "concurrently \"npm:lint -- --fix\" \"npm:db:types\" \"npm:browser:clean\"",
+    "dev:full": "concurrently \"npm:dev\" \"supabase start\" --names \"NEXT,DB\"",
+    "qf": "npm run lint -- --fix && npm run browser:clean",
+    "qt": "npm run test:e2e -- --grep",
+    "qb": "npm run build && npm run typecheck",
+    "qdb": "npm run db:reset && npm run db:types",
+    "qdm": "./scripts/db-migrate.sh",
+    "qai": "./scripts/generate-action.sh",
+    "qrate": "node scripts/check-rate-limits.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -74,6 +84,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.5.0",
+    "concurrently": "^9.2.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "^10.1.5",

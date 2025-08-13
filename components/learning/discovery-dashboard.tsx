@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   TrendingUpIcon,
@@ -19,6 +19,7 @@ import { SparkleIcon, RefreshIcon } from '@/components/icons/line-icons'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { generateAISuggestions, getTrendingTopics } from '@/server/actions/discovery'
 
 interface TrendingTopic {
   id: string
@@ -158,34 +159,53 @@ export default function DiscoveryDashboard({
     { id: 'History', name: 'History', icon: BookOpenIcon }
   ]
 
-  const aiPrompts = [
-    "Create cards about quantum computing basics",
-    "Help me learn French cooking terms",
-    "Teach me about the Roman Empire",
-    "Explain cryptocurrency fundamentals",
-    "Create a deck for medical terminology",
-    "Help me memorize world capitals",
-    "Teach me about climate science",
-    "Create cards for JavaScript concepts"
-  ]
-
   useEffect(() => {
-    // Load trending topics
-    setTrendingTopics(mockTrendingTopics)
-    
-    // Generate AI suggestions based on user level
-    generateAISuggestions()
+    // Load initial data
+    loadInitialData()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const generateAISuggestions = async () => {
-    setIsLoadingSuggestions(true)
-    // Simulate AI suggestion generation
-    setTimeout(() => {
-      const suggestions = aiPrompts.sort(() => Math.random() - 0.5).slice(0, 4)
-      setAiSuggestions(suggestions)
-      setIsLoadingSuggestions(false)
-    }, 1000)
+  const loadInitialData = async () => {
+    // Load trending topics
+    const topicsResult = await getTrendingTopics()
+    if (topicsResult.topics) {
+      setTrendingTopics(topicsResult.topics)
+    } else {
+      // Use mock data as fallback
+      setTrendingTopics(mockTrendingTopics)
+    }
+    
+    // Generate AI suggestions
+    loadAISuggestions()
   }
+
+  const loadAISuggestions = useCallback(async () => {
+    setIsLoadingSuggestions(true)
+    try {
+      const result = await generateAISuggestions(userLevel)
+      if (result.suggestions && result.suggestions.length > 0) {
+        setAiSuggestions(result.suggestions)
+      } else {
+        // Fallback suggestions if AI fails
+        setAiSuggestions([
+          "Create cards about machine learning basics",
+          "Learn essential Spanish phrases",
+          "Master JavaScript fundamentals",
+          "Study human psychology concepts"
+        ])
+      }
+    } catch (error) {
+      console.error('Failed to generate AI suggestions:', error)
+      // Use fallback suggestions
+      setAiSuggestions([
+        "Create cards about AI fundamentals",
+        "Learn a new programming language",
+        "Study world history events",
+        "Master personal finance basics"
+      ])
+    } finally {
+      setIsLoadingSuggestions(false)
+    }
+  }, [userLevel])
 
   const filteredTopics = selectedCategory === 'all' 
     ? trendingTopics 
@@ -260,7 +280,7 @@ export default function DiscoveryDashboard({
             </div>
           </div>
           <Button
-            onClick={generateAISuggestions}
+            onClick={loadAISuggestions}
             variant="ghost"
             size="sm"
             className="rounded-full"
