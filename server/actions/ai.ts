@@ -3,8 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
 import { createCard } from './cards'
-import { checkMultipleRateLimits } from '@/lib/rate-limit-server'
-import { RateLimitExceededError } from '@/lib/rate-limit'
+import { checkRateLimit, RateLimitExceededError } from '@/lib/rate-limit-redis'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
 
@@ -72,14 +71,14 @@ export async function generateCardsFromText(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits (both specific and global)
-  const rateLimitResult = await checkMultipleRateLimits(user.id, ['CARD_GENERATION', 'GLOBAL_AI'])
-  if (!rateLimitResult.allowed) {
-    throw new RateLimitExceededError(
-      rateLimitResult.message || 'Rate limit exceeded',
-      rateLimitResult.retryAfter || 0,
-      rateLimitResult.resetTime,
-      'CARD_GENERATION'
-    )
+  try {
+    await checkRateLimit(user.id, 'CARD_GENERATION')
+    await checkRateLimit(user.id, 'GLOBAL_AI')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    throw new Error('Rate limit check failed')
   }
 
   const count = options?.count || 20
@@ -221,14 +220,13 @@ export async function generateExplanation(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  const rateLimitResult = await checkMultipleRateLimits(user.id, ['EXPLANATION', 'GLOBAL_AI'])
-  if (!rateLimitResult.allowed) {
-    throw new RateLimitExceededError(
-      rateLimitResult.message || 'Rate limit exceeded',
-      rateLimitResult.retryAfter || 0,
-      rateLimitResult.resetTime,
-      'EXPLANATION'
-    )
+  try {
+    await checkRateLimit(user.id, 'GLOBAL_AI')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    throw new Error('Rate limit check failed')
   }
 
   const prompts = {
@@ -304,14 +302,13 @@ export async function generatePracticeQuestions(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  const rateLimitResult = await checkMultipleRateLimits(user.id, ['PRACTICE_QUESTIONS', 'GLOBAL_AI'])
-  if (!rateLimitResult.allowed) {
-    throw new RateLimitExceededError(
-      rateLimitResult.message || 'Rate limit exceeded',
-      rateLimitResult.retryAfter || 0,
-      rateLimitResult.resetTime,
-      'PRACTICE_QUESTIONS'
-    )
+  try {
+    await checkRateLimit(user.id, 'GLOBAL_AI')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    throw new Error('Rate limit check failed')
   }
 
   try {
@@ -391,14 +388,13 @@ export async function generateLearningPath(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  const rateLimitResult = await checkMultipleRateLimits(user.id, ['LEARNING_PATH', 'GLOBAL_AI'])
-  if (!rateLimitResult.allowed) {
-    throw new RateLimitExceededError(
-      rateLimitResult.message || 'Rate limit exceeded',
-      rateLimitResult.retryAfter || 0,
-      rateLimitResult.resetTime,
-      'LEARNING_PATH'
-    )
+  try {
+    await checkRateLimit(user.id, 'GLOBAL_AI')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    throw new Error('Rate limit check failed')
   }
 
   try {
@@ -485,14 +481,13 @@ export async function generateLearningInsights(
   if (!openai) throw new Error('OpenAI API key is not configured')
 
   // Check rate limits
-  const rateLimitResult = await checkMultipleRateLimits(user.id, ['INSIGHTS', 'GLOBAL_AI'])
-  if (!rateLimitResult.allowed) {
-    throw new RateLimitExceededError(
-      rateLimitResult.message || 'Rate limit exceeded',
-      rateLimitResult.retryAfter || 0,
-      rateLimitResult.resetTime,
-      'INSIGHTS'
-    )
+  try {
+    await checkRateLimit(user.id, 'GLOBAL_AI')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      throw error
+    }
+    throw new Error('Rate limit check failed')
   }
 
   try {

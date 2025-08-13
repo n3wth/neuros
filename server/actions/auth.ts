@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { logger } from '@/lib/logger'
+import { checkRateLimit, RateLimitExceededError } from '@/lib/rate-limit-redis'
+import { headers } from 'next/headers'
 
 export interface SignUpData {
   email: string
@@ -36,6 +38,19 @@ export interface ResetPasswordData {
 
 export async function signUp(data: SignUpData) {
   const supabase = await createClient()
+  
+  // Rate limit by IP address for signup
+  const headersList = await headers()
+  const ip = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'unknown'
+  
+  try {
+    await checkRateLimit(ip, 'SIGNUP_ATTEMPT')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      return { error: `Too many signup attempts. Please try again in ${error.retryAfter} seconds.` }
+    }
+    return { error: 'Rate limit check failed' }
+  }
 
   const { error, data: authData } = await supabase.auth.signUp({
     email: data.email,
@@ -59,6 +74,16 @@ export async function signUp(data: SignUpData) {
 
 export async function signIn(data: SignInData) {
   const supabase = await createClient()
+  
+  // Rate limit by email to prevent brute force
+  try {
+    await checkRateLimit(data.email, 'LOGIN_ATTEMPT')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      return { error: `Too many login attempts. Please try again in ${error.retryAfter} seconds.` }
+    }
+    return { error: 'Rate limit check failed' }
+  }
 
   const { error, data: authData } = await supabase.auth.signInWithPassword({
     email: data.email,
@@ -277,7 +302,7 @@ async function seedTestAccountData() {
 
   if (cardsError || !insertedCards) {
     logger.error('Failed to seed cards', {
-      userId: userId,
+      userId: user.id,
       error: cardsError
     })
     return
@@ -351,6 +376,16 @@ async function seedTestAccountData() {
 
 export async function forgotPassword(data: ForgotPasswordData) {
   const supabase = await createClient()
+  
+  // Rate limit password reset attempts by email
+  try {
+    await checkRateLimit(data.email, 'PASSWORD_RESET')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      return { error: `Too many password reset attempts. Please try again in ${error.retryAfter} seconds.` }
+    }
+    return { error: 'Rate limit check failed' }
+  }
   
   const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
     redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/reset-password`,

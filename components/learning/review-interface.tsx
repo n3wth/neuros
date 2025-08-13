@@ -1,14 +1,15 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   LightbulbIcon,
   RefreshIcon,
   CheckCircleIcon,
   CloseIcon,
-  KeyboardIcon,
-  EyeIcon
+  ChevronDownIcon,
+  SparkleIcon,
+  FlashIcon
 } from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -16,6 +17,7 @@ import LoadingSkeleton from '@/components/ui/loading-skeleton'
 import { submitReview } from '@/server/actions/reviews'
 import { getDueCards } from '@/server/actions/cards'
 import { generateExplanation } from '@/server/actions/ai'
+import { cn } from '@/lib/utils'
 
 interface ReviewCard {
   id: string
@@ -44,11 +46,16 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
   const [isLoading, setIsLoading] = useState(true)
   const [showExplanation, setShowExplanation] = useState(false)
   const [aiExplanation, setAiExplanation] = useState<string>('')
+  const [isFlipping, setIsFlipping] = useState(false)
+  const [selectedRating, setSelectedRating] = useState<number | null>(null)
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false)
   const [stats, setStats] = useState({
     reviewed: 0,
     correct: 0,
-    incorrect: 0
+    incorrect: 0,
+    streak: 0
   })
+  const cardRef = useRef<HTMLDivElement>(null)
 
   const currentCard = cards[currentIndex]
 
@@ -67,8 +74,12 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
 
   // Define callbacks before they're used
   const handleShowAnswer = useCallback(() => {
-    setShowAnswer(true)
-    setStartTime(Date.now())
+    setIsFlipping(true)
+    setTimeout(() => {
+      setShowAnswer(true)
+      setStartTime(Date.now())
+      setIsFlipping(false)
+    }, 300)
   }, [])
 
   const handleRate = useCallback(async (rating: number) => {
@@ -88,8 +99,13 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
       setStats(prev => ({
         reviewed: prev.reviewed + 1,
         correct: rating >= 3 ? prev.correct + 1 : prev.correct,
-        incorrect: rating < 3 ? prev.incorrect + 1 : prev.incorrect
+        incorrect: rating < 3 ? prev.incorrect + 1 : prev.incorrect,
+        streak: rating >= 3 ? prev.streak + 1 : 0
       }))
+
+      // Animate rating selection
+      setSelectedRating(rating)
+      setTimeout(() => setSelectedRating(null), 300)
 
       // Move to next card
       if (currentIndex < cards.length - 1) {
@@ -113,18 +129,22 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
   }, [showExplanation])
 
   const getAIHelp = useCallback(async () => {
-    if (!currentCard || aiExplanation) return
+    if (!currentCard || aiExplanation || isGeneratingAI) return
 
+    setIsGeneratingAI(true)
     try {
       const result = await generateExplanation(
         `${currentCard.cards.front} - ${currentCard.cards.back}`,
         'simple'
       )
       setAiExplanation(result.explanation || '')
+      setShowExplanation(true)
     } catch (error) {
       console.error('Failed to get AI explanation:', error)
+    } finally {
+      setIsGeneratingAI(false)
     }
-  }, [currentCard, aiExplanation])
+  }, [currentCard, aiExplanation, isGeneratingAI])
 
   // Load due cards
   useEffect(() => {
@@ -198,221 +218,288 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
     )
   }
 
+  const progress = ((currentIndex + 1) / cards.length) * 100
+  const masteryLevel = currentCard?.mastery_level || 0
+  const difficultyColor = masteryLevel > 70 ? '#22C55E' : masteryLevel > 40 ? '#4682B4' : '#F59E0B'
+
   return (
-    <div className="min-h-screen bg-[#FEFEFE]">
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-light text-[#36454F] mb-2">Review Session</h1>
-              <p className="text-sm text-[#8B8680]">Card {currentIndex + 1} of {cards.length}</p>
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#FAFAFA]">
+      <div className="max-w-4xl mx-auto px-6 py-6">
+        {/* Compact Header */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <svg className="w-10 h-10 -rotate-90">
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="18"
+                      stroke="#F5F1EB"
+                      strokeWidth="3"
+                      fill="none"
+                    />
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="18"
+                      stroke={difficultyColor}
+                      strokeWidth="3"
+                      fill="none"
+                      strokeDasharray={`${progress * 1.13} 113`}
+                      className="transition-all duration-500"
+                    />
+                  </svg>
+                  <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-[#36454F]">
+                    {currentIndex + 1}/{cards.length}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Live Stats */}
+              <div className="flex items-center gap-3 text-sm">
+                <div className="flex items-center gap-1">
+                  <CheckCircleIcon className="w-4 h-4 text-[#22C55E]" />
+                  <span className="font-medium text-[#36454F]">{stats.correct}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <FlashIcon className="w-4 h-4 text-[#F59E0B]" />
+                  <span className="font-medium text-[#36454F]">{stats.streak}</span>
+                </div>
+                {currentCard?.cards.topics && (
+                  <div className="px-2 py-0.5 bg-[#F5F1EB] rounded text-xs text-[#8B8680]">
+                    {currentCard.cards.topics.name}
+                  </div>
+                )}
+              </div>
             </div>
+            
             <Button
               variant="ghost"
-              className="text-[#8B8680] hover:text-[#36454F]"
+              className="text-[#8B8680] hover:text-[#36454F] h-8 w-8 p-0"
               onClick={() => window.location.href = '/dashboard'}
             >
               <CloseIcon className="w-5 h-5" />
             </Button>
           </div>
-          
-          {/* Simple Progress Bar */}
-          <div className="h-0.5 bg-[#F5F1EB] overflow-hidden">
-            <motion.div 
-              className="h-full bg-[#4682B4]"
-              initial={{ width: 0 }}
-              animate={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
-              transition={{ duration: 0.3 }}
-            />
-          </div>
         </div>
 
-        {/* Stats Row */}
-        <div className="flex gap-8 mb-8 pb-8 border-b border-[#F5F1EB]">
-          <div>
-            <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-1">Reviewed</p>
-            <p className="text-2xl font-light text-[#36454F]">{stats.reviewed}</p>
-          </div>
-          <div>
-            <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-1">Correct</p>
-            <p className="text-2xl font-light text-[#22C55E]">{stats.correct}</p>
-          </div>
-          <div>
-            <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-1">Learning</p>
-            <p className="text-2xl font-light text-[#F59E0B]">{stats.incorrect}</p>
-          </div>
-          <div className="ml-auto">
-            <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-1">Mastery</p>
-            <p className="text-2xl font-light text-[#36454F]">{Math.round(currentCard?.mastery_level || 0)}%</p>
-          </div>
-        </div>
-
-        {/* Card Display */}
+        {/* Main Card */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentCard?.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
+            ref={cardRef}
           >
-            <Card className="bg-white border border-[#F5F1EB] shadow-sm min-h-[400px]">
-              <div className="p-8">
-                {/* Topic Badge */}
-                {currentCard?.cards.topics && (
-                  <div className="mb-6">
-                    <span className="inline-block px-3 py-1 text-xs uppercase tracking-wider text-[#8B8680] bg-[#F5F1EB] rounded">
-                      {currentCard.cards.topics.name}
-                    </span>
-                  </div>
-                )}
+            <Card className={cn(
+              "bg-white border-2 shadow-lg min-h-[500px] relative overflow-hidden transition-all duration-300",
+              isFlipping && "scale-[0.98]",
+              showAnswer ? "border-[#4682B4]/20" : "border-[#F5F1EB]"
+            )}>
+              {/* Mastery Indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-[#F5F1EB]">
+                <motion.div
+                  className="h-full"
+                  style={{ backgroundColor: difficultyColor }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${masteryLevel}%` }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                />
+              </div>
 
-                {/* Question */}
-                <div className="mb-8">
-                  <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-3">Question</p>
-                  <p className="text-xl text-[#36454F] leading-relaxed">{currentCard?.cards.front}</p>
+              <div className="p-10">
+                {/* Question Section */}
+                <div className="min-h-[200px] flex flex-col justify-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <h2 className="text-3xl font-light text-[#36454F] leading-relaxed text-center">
+                      {currentCard?.cards.front}
+                    </h2>
+                  </motion.div>
                 </div>
 
-                {/* Answer */}
+                {/* Divider with Show Answer */}
+                {!showAnswer && (
+                  <motion.div 
+                    className="my-8 relative"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div className="border-t border-[#F5F1EB]" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Button
+                        onClick={handleShowAnswer}
+                        className="bg-white border-2 border-[#4682B4] text-[#4682B4] hover:bg-[#4682B4] hover:text-white px-6 py-2 transition-all duration-200 group"
+                      >
+                        <span className="mr-2">Reveal Answer</span>
+                        <ChevronDownIcon className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Answer Section */}
                 <AnimatePresence>
                   {showAnswer && (
                     <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <div className="border-t border-[#F5F1EB] pt-8">
-                        <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-3">Answer</p>
-                        <p className="text-lg text-[#36454F] leading-relaxed mb-6">{currentCard?.cards.back}</p>
+                      <div className="border-t-2 border-[#F5F1EB] pt-8 mt-8">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 }}
+                        >
+                          <h3 className="text-2xl font-light text-[#36454F] leading-relaxed text-center mb-8">
+                            {currentCard?.cards.back}
+                          </h3>
+                        </motion.div>
 
-                        {/* Explanation */}
-                        {(currentCard?.cards.explanation || aiExplanation) && showExplanation && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="mt-6 p-4 bg-[#F5F1EB] border-l-2 border-[#4682B4]"
-                          >
-                            <div className="flex items-center mb-2">
-                              <LightbulbIcon className="w-4 h-4 text-[#4682B4] mr-2" />
-                              <span className="text-xs text-[#4682B4] uppercase tracking-wider">Explanation</span>
-                            </div>
-                            <p className="text-sm text-[#36454F] leading-relaxed">
-                              {aiExplanation || currentCard?.cards.explanation}
-                            </p>
-                          </motion.div>
-                        )}
+                        {/* Explanation Section */}
+                        <AnimatePresence>
+                          {showExplanation && (currentCard?.cards.explanation || aiExplanation) && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              className="mb-6 p-4 bg-gradient-to-r from-[#4682B4]/5 to-[#4682B4]/10 border-l-3 border-[#4682B4] rounded-r-lg"
+                            >
+                              <div className="flex items-center mb-2">
+                                {aiExplanation ? (
+                                  <SparkleIcon className="w-4 h-4 text-[#4682B4] mr-2" />
+                                ) : (
+                                  <LightbulbIcon className="w-4 h-4 text-[#4682B4] mr-2" />
+                                )}
+                                <span className="text-xs text-[#4682B4] font-medium uppercase tracking-wider">
+                                  {aiExplanation ? 'AI Insight' : 'Explanation'}
+                                </span>
+                              </div>
+                              <p className="text-sm text-[#36454F] leading-relaxed">
+                                {aiExplanation || currentCard?.cards.explanation}
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
 
-                        {/* Rating Buttons */}
+                        {/* Smart Rating Buttons */}
                         <div className="mt-8">
-                          <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-4">Rate Difficulty</p>
-                          <div className="flex gap-2">
-                            <Button
-                              onClick={() => handleRate(0)}
-                              className="flex-1 bg-[#B7410E] hover:bg-[#B7410E]/90 text-white h-12"
-                            >
-                              <span className="text-sm">Forgot</span>
-                            </Button>
-                            <Button
-                              onClick={() => handleRate(1)}
-                              className="flex-1 bg-[#F59E0B] hover:bg-[#F59E0B]/90 text-white h-12"
-                            >
-                              <span className="text-sm">Hard</span>
-                            </Button>
-                            <Button
-                              onClick={() => handleRate(2)}
-                              className="flex-1 bg-[#8B8680] hover:bg-[#8B8680]/90 text-white h-12"
-                            >
-                              <span className="text-sm">Good</span>
-                            </Button>
-                            <Button
-                              onClick={() => handleRate(3)}
-                              className="flex-1 bg-[#4682B4] hover:bg-[#4682B4]/90 text-white h-12"
-                            >
-                              <span className="text-sm">Easy</span>
-                            </Button>
-                            <Button
-                              onClick={() => handleRate(5)}
-                              className="flex-1 bg-[#22C55E] hover:bg-[#22C55E]/90 text-white h-12"
-                            >
-                              <span className="text-sm">Perfect</span>
-                            </Button>
+                          <p className="text-xs text-[#8B8680] uppercase tracking-wider mb-4 text-center">How difficult was this?</p>
+                          <div className="grid grid-cols-5 gap-2">
+                            {[
+                              { rating: 0, label: 'Again', color: 'bg-red-500 hover:bg-red-600', key: '1' },
+                              { rating: 1, label: 'Hard', color: 'bg-orange-500 hover:bg-orange-600', key: '2' },
+                              { rating: 2, label: 'Good', color: 'bg-yellow-500 hover:bg-yellow-600', key: '3' },
+                              { rating: 3, label: 'Easy', color: 'bg-blue-500 hover:bg-blue-600', key: '4' },
+                              { rating: 5, label: 'Perfect', color: 'bg-green-500 hover:bg-green-600', key: '5' }
+                            ].map((item, index) => (
+                              <motion.div
+                                key={item.rating}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.05 * index }}
+                              >
+                                <Button
+                                  onClick={() => handleRate(item.rating)}
+                                  className={cn(
+                                    "w-full h-14 text-white font-medium transition-all duration-200 relative overflow-hidden",
+                                    item.color,
+                                    selectedRating === item.rating && "ring-2 ring-offset-2 ring-[#4682B4] scale-95"
+                                  )}
+                                >
+                                  <span className="relative z-10">
+                                    <div className="text-xs opacity-80">{item.key}</div>
+                                    <div className="text-sm">{item.label}</div>
+                                  </span>
+                                  {selectedRating === item.rating && (
+                                    <motion.div
+                                      className="absolute inset-0 bg-white/20"
+                                      initial={{ scale: 0 }}
+                                      animate={{ scale: 1 }}
+                                      transition={{ duration: 0.3 }}
+                                    />
+                                  )}
+                                </Button>
+                              </motion.div>
+                            ))}
                           </div>
+                        </div>
+
+                        {/* Quick Actions */}
+                        <div className="flex items-center justify-center gap-2 mt-6">
+                          {!showExplanation && (
+                            <Button
+                              variant="ghost"
+                              onClick={toggleExplanation}
+                              className="text-[#8B8680] hover:text-[#4682B4] hover:bg-[#F5F1EB] text-sm"
+                            >
+                              <LightbulbIcon className="w-4 h-4 mr-1" />
+                              Show Explanation
+                            </Button>
+                          )}
+                          {!aiExplanation && !isGeneratingAI && (
+                            <Button
+                              variant="ghost"
+                              onClick={getAIHelp}
+                              className="text-[#8B8680] hover:text-[#4682B4] hover:bg-[#F5F1EB] text-sm"
+                            >
+                              <SparkleIcon className="w-4 h-4 mr-1" />
+                              Get AI Insight
+                            </Button>
+                          )}
+                          {isGeneratingAI && (
+                            <div className="flex items-center text-sm text-[#4682B4]">
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              >
+                                <SparkleIcon className="w-4 h-4 mr-1" />
+                              </motion.div>
+                              Generating...
+                            </div>
+                          )}
                         </div>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
-                {/* Show Answer Button */}
-                {!showAnswer && (
-                  <div className="flex justify-center mt-auto pt-8">
-                    <Button
-                      onClick={handleShowAnswer}
-                      className="bg-[#4682B4] hover:bg-[#4682B4]/90 text-white px-8 py-3"
-                    >
-                      <EyeIcon className="w-4 h-4 mr-2" />
-                      Reveal Answer
-                    </Button>
-                  </div>
-                )}
-
-                {/* Action Buttons */}
-                {showAnswer && (
-                  <div className="flex items-center justify-between mt-6 pt-6 border-t border-[#F5F1EB]">
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={toggleExplanation}
-                        className="text-[#8B8680] border-[#F5F1EB] hover:bg-[#F5F1EB] h-9"
-                      >
-                        <LightbulbIcon className="w-3 h-3 mr-1" />
-                        {showExplanation ? 'Hide' : 'Show'} Explanation
-                      </Button>
-                      {!aiExplanation && (
-                        <Button
-                          variant="outline"
-                          onClick={getAIHelp}
-                          className="text-[#8B8680] border-[#F5F1EB] hover:bg-[#F5F1EB] h-9"
-                        >
-                          <LightbulbIcon className="w-3 h-3 mr-1" />
-                          AI Help
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                )}
               </div>
             </Card>
           </motion.div>
         </AnimatePresence>
 
-        {/* Keyboard Shortcuts */}
-        <div className="mt-8 pt-8 border-t border-[#F5F1EB]">
-          <div className="flex items-center gap-2 mb-3">
-            <KeyboardIcon className="w-4 h-4 text-[#8B8680]" />
-            <span className="text-xs text-[#8B8680] uppercase tracking-wider">Keyboard Shortcuts</span>
-          </div>
-          <div className="flex flex-wrap gap-4 text-xs text-[#8B8680]">
-            <div className="flex items-center gap-2">
-              <kbd className="px-2 py-1 bg-[#F5F1EB] rounded font-mono">Space</kbd>
-              <span>Show Answer</span>
+        {/* Minimalist Keyboard Hints */}
+        <motion.div 
+          className="mt-6 flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="flex items-center gap-4 text-xs text-[#8B8680]">
+            <div className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-[#F5F1EB] rounded text-[10px] font-mono">Space</kbd>
+              <span className="opacity-60">Reveal</span>
             </div>
-            <div className="flex items-center gap-2">
-              <kbd className="px-2 py-1 bg-[#F5F1EB] rounded font-mono">1-5</kbd>
-              <span>Rate Difficulty</span>
+            <div className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-[#F5F1EB] rounded text-[10px] font-mono">1-5</kbd>
+              <span className="opacity-60">Rate</span>
             </div>
-            <div className="flex items-center gap-2">
-              <kbd className="px-2 py-1 bg-[#F5F1EB] rounded font-mono">E</kbd>
-              <span>Explanation</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <kbd className="px-2 py-1 bg-[#F5F1EB] rounded font-mono">H</kbd>
-              <span>AI Help</span>
+            <div className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-[#F5F1EB] rounded text-[10px] font-mono">E</kbd>
+              <span className="opacity-60">Explain</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

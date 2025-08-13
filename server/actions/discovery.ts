@@ -126,8 +126,11 @@ export async function generateAISuggestions(userLevel: 'new' | 'beginner' | 'int
       }
     }
 
+    // Cache the suggestions
+    cache.set(cacheKey, suggestions, cacheTTL.aiSuggestions)
+    
     logger.info('Generated AI suggestions', { 
-      metadata: { userId: user.id, userLevel, count: suggestions.length }
+      metadata: { userId: user.id, userLevel, count: suggestions.length, cached: true }
     })
 
     return { suggestions }
@@ -143,6 +146,16 @@ export async function generateAISuggestions(userLevel: 'new' | 'beginner' | 'int
 
 export async function getTrendingTopics(): Promise<TopicsResult> {
   try {
+    // Check cache first
+    const cacheKey = cacheKeys.trendingTopics()
+    const cached = cache.get<TrendingTopic[]>(cacheKey)
+    if (cached) {
+      logger.debug('Returning cached trending topics', {
+        metadata: { cacheHit: true, count: cached.length }
+      })
+      return { topics: cached }
+    }
+    
     const supabase = await createClient()
     
     // In a real implementation, this would fetch from your database
@@ -245,6 +258,13 @@ export async function getTrendingTopics(): Promise<TopicsResult> {
         ]
       }
     ]
+
+    // Cache the topics for 1 hour
+    cache.set(cacheKey, topics, cacheTTL.trendingTopics)
+    
+    logger.debug('Cached trending topics', {
+      metadata: { count: topics.length, ttl: cacheTTL.trendingTopics }
+    })
 
     // You could randomize or filter based on user preferences
     return { topics }

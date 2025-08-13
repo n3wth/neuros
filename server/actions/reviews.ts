@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { logger } from '@/lib/logger'
+import { checkRateLimit, RateLimitExceededError } from '@/lib/rate-limit-redis'
 import type { Database } from '@/types/supabase'
 
 type Review = Database['public']['Tables']['reviews']['Insert']
@@ -65,6 +66,16 @@ export async function submitReview(
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) throw new Error('Not authenticated')
+  
+  // Rate limit review submissions to prevent abuse
+  try {
+    await checkRateLimit(user.id, 'REVIEW_SUBMISSION')
+  } catch (error) {
+    if (error instanceof RateLimitExceededError) {
+      throw new Error(`Too many review submissions. Please try again in ${error.retryAfter} seconds.`)
+    }
+    throw new Error('Rate limit check failed')
+  }
 
   // Get current user_card data
   let { data: userCard, error: fetchError } = await supabase

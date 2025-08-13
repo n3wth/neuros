@@ -50,106 +50,6 @@ export default function DiscoveryDashboard({
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([])
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false)
 
-  // Simulated trending topics - in production, this would come from your API
-  const mockTrendingTopics: TrendingTopic[] = [
-    {
-      id: 'ai-fundamentals',
-      title: 'AI & Machine Learning Basics',
-      category: 'Technology',
-      difficulty: 'beginner',
-      cardCount: 47,
-      learners: 3420,
-      trending: true,
-      color: '#8B5CF6',
-      description: 'Master the fundamentals of artificial intelligence and machine learning',
-      exampleCards: [
-        'What is a neural network?',
-        'Difference between AI and ML',
-        'What is deep learning?'
-      ]
-    },
-    {
-      id: 'web3-crypto',
-      title: 'Web3 & Blockchain',
-      category: 'Technology',
-      difficulty: 'intermediate',
-      cardCount: 35,
-      learners: 2156,
-      trending: true,
-      color: '#3B82F6',
-      description: 'Understand blockchain technology and the decentralized web',
-      exampleCards: [
-        'What is a smart contract?',
-        'How does proof of stake work?',
-        'What is DeFi?'
-      ]
-    },
-    {
-      id: 'spanish-basics',
-      title: 'Spanish for Beginners',
-      category: 'Languages',
-      difficulty: 'beginner',
-      cardCount: 120,
-      learners: 5823,
-      trending: false,
-      color: '#EF4444',
-      description: 'Start your journey to Spanish fluency',
-      exampleCards: [
-        'Common Spanish greetings',
-        'Numbers 1-100 in Spanish',
-        'Essential Spanish verbs'
-      ]
-    },
-    {
-      id: 'psychology-101',
-      title: 'Psychology Fundamentals',
-      category: 'Science',
-      difficulty: 'beginner',
-      cardCount: 68,
-      learners: 4120,
-      trending: true,
-      color: '#10B981',
-      description: 'Explore the human mind and behavior',
-      exampleCards: [
-        'What is cognitive bias?',
-        'Pavlov\'s classical conditioning',
-        'Maslow\'s hierarchy of needs'
-      ]
-    },
-    {
-      id: 'finance-investing',
-      title: 'Personal Finance & Investing',
-      category: 'Business',
-      difficulty: 'intermediate',
-      cardCount: 82,
-      learners: 6234,
-      trending: true,
-      color: '#F59E0B',
-      description: 'Build wealth through smart financial decisions',
-      exampleCards: [
-        'What is compound interest?',
-        'Dollar cost averaging explained',
-        'Understanding P/E ratios'
-      ]
-    },
-    {
-      id: 'history-ww2',
-      title: 'World War II History',
-      category: 'History',
-      difficulty: 'intermediate',
-      cardCount: 95,
-      learners: 2834,
-      trending: false,
-      color: '#6B7280',
-      description: 'Key events and figures of WWII',
-      exampleCards: [
-        'Major battles of WWII',
-        'The Manhattan Project',
-        'Post-war reconstruction'
-      ]
-    }
-  ]
-
   const categories = [
     { id: 'all', name: 'All Topics', icon: GlobeIcon },
     { id: 'Technology', name: 'Technology', icon: RocketIcon },
@@ -169,9 +69,6 @@ export default function DiscoveryDashboard({
     const topicsResult = await getTrendingTopics()
     if (topicsResult.topics) {
       setTrendingTopics(topicsResult.topics)
-    } else {
-      // Use mock data as fallback
-      setTrendingTopics(mockTrendingTopics)
     }
     
     // Generate AI suggestions
