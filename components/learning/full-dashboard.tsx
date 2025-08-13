@@ -1,23 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   SparkleIcon, 
-  LightbulbIcon, 
   ChartIcon, 
   BookIcon, 
-  RocketIcon, 
-  BeakerIcon,
   HeartIcon,
   PlusIcon,
   PlayIcon,
-  ChevronRightIcon,
-  SearchIcon,
   LogOutIcon,
   RefreshIcon,
-  ClockIcon
+  ClockIcon,
+  RocketIcon
 } from '@/components/icons/line-icons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -25,42 +21,19 @@ import { Badge } from '@/components/ui/badge'
 import { signOut } from '@/server/actions/auth'
 import Link from 'next/link'
 import CreateCardDialog from './create-card-dialog'
-import AIFeaturesSettings from './ai-features-settings'
 import { 
-  getUserCards, 
-  getDueCards, 
   getCardStats,
-  getUpcomingCards,
   getUserCompletionState 
 } from '@/server/actions/cards'
 import { 
   getStudyStats 
 } from '@/server/actions/reviews'
-import { generateDataDrivenInsights, type Insight } from '@/server/actions/insights'
 // Meta-learning imports for future use
 // import { analyzeMetaLearningPatterns, evolveSystemIntelligence } from '@/server/actions/meta-learning'
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
-import dynamic from 'next/dynamic'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
 import ProgressIndicator from './progress-indicator'
-
-// Lazy load heavy visualization components
-const KnowledgeGraph = dynamic(() => import('@/components/visualizations/knowledge-graph'), {
-  ssr: false,
-  loading: () => <LoadingSkeleton type="card" message="Loading knowledge graph..." />
-})
-const GlobalLearningNetwork = dynamic(() => import('@/components/global/learning-network'), {
-  ssr: false,
-  loading: () => <LoadingSkeleton type="card" message="Connecting to global learning network..." />
-})
-const ViralMechanisms = dynamic(() => import('@/components/sharing/viral-mechanisms'), {
-  ssr: false,
-  loading: () => <LoadingSkeleton type="card" message="Loading impact mechanisms..." />
-})
-const DiscoveryDashboard = dynamic(() => import('@/components/learning/discovery-dashboard'), {
-  ssr: false,
-  loading: () => <LoadingSkeleton type="card" message="Loading discovery..." />
-})
+import DiscoveryDashboard from './discovery-dashboard'
 
 interface User {
   id: string
@@ -69,82 +42,73 @@ interface User {
 
 interface FullLearningDashboardProps {
   user: User
+  initialViewMode?: ViewMode
 }
 
 type ViewMode = 'overview' | 'discover' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
 
-export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
+export default function FullLearningDashboard({ user, initialViewMode = 'overview' }: FullLearningDashboardProps) {
   const router = useRouter()
-  const [viewMode, setViewMode] = useState<ViewMode>('overview')
+  const pathname = usePathname()
+  
+  // Get view mode from route path or use initial view mode
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    // Extract view mode from pathname
+    if (pathname.includes('/dashboard/browse')) return 'browse'
+    if (pathname.includes('/dashboard/discover')) return 'discover' 
+    if (pathname.includes('/dashboard/stats')) return 'stats'
+    if (pathname.includes('/dashboard/settings')) return 'settings'
+    return initialViewMode
+  })
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [cards, setCards] = useState<Array<{ id: string; front: string; back: string; difficulty: string; topics?: { name: string; color: string }; user_cards?: Array<{ mastery_level: number }> }>>([])
-  const [dueCards, setDueCards] = useState<Array<{ id: string; cards: { front: string; back: string; topics?: { name: string } }; mastery_level: number; total_reviews: number }>>([])
   const [stats, setStats] = useState<{ totalCards: number; dueCards: number; mastered: number; learning: number; difficult: number } | null>(null)
   const [studyStats, setStudyStats] = useState<{ total_reviews: number; average_accuracy: number; total_study_time_minutes: number; current_streak_days: number } | null>(null)
-  const [upcomingCards, setUpcomingCards] = useState<Record<string, Array<{ id: string }>>>({})
-  const [aiInsights, setAiInsights] = useState<Insight[]>([])
   const [completionState, setCompletionState] = useState<{ type: string; totalCards: number; dueCards: number; nextReviewTime: string | null; completedToday: boolean } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [isLoadingData, setIsLoadingData] = useState(false)
+  const loadingRef = useRef(false)
 
+  // Update view mode when pathname changes
   useEffect(() => {
-    loadDashboardData()
-  }, [])
+    let newViewMode: ViewMode = 'overview'
+    if (pathname.includes('/dashboard/browse')) newViewMode = 'browse'
+    else if (pathname.includes('/dashboard/discover')) newViewMode = 'discover' 
+    else if (pathname.includes('/dashboard/stats')) newViewMode = 'stats'
+    else if (pathname.includes('/dashboard/settings')) newViewMode = 'settings'
+    
+    if (newViewMode !== viewMode) {
+      setViewMode(newViewMode)
+    }
+  }, [pathname, viewMode])
 
-  const loadDashboardData = async () => {
-    setIsLoading(true)
+  const loadDashboardData = useCallback(async () => {
+    // Prevent multiple simultaneous loads using ref
+    if (loadingRef.current) return
+    loadingRef.current = true
+    
+    setIsLoadingData(true)
+    // Don't set isLoading to true if we already have data (for refreshes)
+    if (!stats) {
+      setIsLoading(true)
+    }
     setError(null)
     try {
       const [
-        userCards,
-        dueCardsData,
         cardStats,
         studyStatsData,
-        upcomingData,
         userCompletionState
       ] = await Promise.allSettled([
-        getUserCards(),
-        getDueCards(10),
         getCardStats(),
         getStudyStats(),
-        getUpcomingCards(),
         getUserCompletionState()
       ])
 
       // Handle results from Promise.allSettled
-      const userCardsResult = userCards.status === 'fulfilled' ? userCards.value : []
-      const dueCardsResult = dueCardsData.status === 'fulfilled' ? dueCardsData.value : []
       const cardStatsResult = cardStats.status === 'fulfilled' ? cardStats.value : null
       const studyStatsResult = studyStatsData.status === 'fulfilled' ? studyStatsData.value : null
-      const upcomingResult = upcomingData.status === 'fulfilled' ? upcomingData.value : {}
       const completionResult = userCompletionState.status === 'fulfilled' ? userCompletionState.value : null
 
-      setCards(userCardsResult.map(card => ({
-        id: card.id,
-        front: card.front,
-        back: card.back,
-        difficulty: card.difficulty || 'medium',
-        topics: card.topics ? {
-          name: card.topics.name,
-          color: card.topics.color || '#999999'
-        } : undefined,
-        user_cards: card.user_cards?.map(uc => ({
-          mastery_level: uc.mastery_level || 0
-        }))
-      })))
-      setDueCards(dueCardsResult.map(item => ({
-        id: item.id,
-        cards: {
-          front: item.cards.front,
-          back: item.cards.back,
-          topics: item.cards.topics ? {
-            name: item.cards.topics.name
-          } : undefined
-        },
-        mastery_level: item.mastery_level || 0,
-        total_reviews: item.total_reviews || 0
-      })))
       setStats(cardStatsResult)
       setStudyStats(studyStatsResult ? {
         total_reviews: studyStatsResult.total_reviews || 0,
@@ -152,39 +116,21 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
         total_study_time_minutes: studyStatsResult.total_study_time_minutes || 0,
         current_streak_days: studyStatsResult.current_streak_days || 0
       } : null)
-      const formattedUpcoming: Record<string, Array<{ id: string }>> = {}
-      if (upcomingResult) {
-        Object.entries(upcomingResult).forEach(([date, items]) => {
-          if (Array.isArray(items)) {
-            formattedUpcoming[date] = items.map(item => ({ id: item.cards?.id || item.id }))
-          }
-        })
-      }
-      setUpcomingCards(formattedUpcoming)
       setCompletionState(completionResult)
-
-      // Load real data-driven insights
-      try {
-        const insights = await generateDataDrivenInsights()
-        setAiInsights(insights)
-      } catch (insightError) {
-        console.error('Failed to load insights:', insightError)
-        // Fallback to basic insights if data analysis fails
-        setAiInsights([])
-      }
     } catch (error) {
       console.error('Failed to load dashboard data:', error)
       setError('Failed to load dashboard data. Please try refreshing the page.')
     } finally {
       setIsLoading(false)
+      setIsLoadingData(false)
+      loadingRef.current = false
     }
-  }
+  }, [stats]) // Only depend on stats to prevent infinite loop
 
-  const handleStartReview = () => {
-    // Navigate to dedicated full-screen review page
-    router.push('/review')
-  }
-
+  useEffect(() => {
+    // Load data immediately on mount
+    loadDashboardData()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const formatGreeting = () => {
     const hour = new Date().getHours()
@@ -197,6 +143,11 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
   }
 
   const formatSmartMessage = () => {
+    // Show optimistic message immediately, update when data loads
+    if (!completionState && !stats) {
+      return "Welcome back! Let's continue your learning journey"
+    }
+    
     if (!completionState) return `You have ${stats?.dueCards || 0} cards ready for review`
     
     switch (completionState.type) {
@@ -225,12 +176,6 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
     }
   }
 
-  const filteredCards = cards.filter(card => 
-    searchQuery ? 
-      card.front.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      card.back.toLowerCase().includes(searchQuery.toLowerCase())
-      : true
-  )
 
   if (isLoading) {
     return <LoadingSkeleton type="dashboard" message="Loading your learning dashboard..." />
@@ -277,8 +222,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               </Link>
               
               <nav className="hidden md:flex items-center space-x-8">
-                <button
-                  onClick={() => setViewMode('overview')}
+                <Link
+                  href="/dashboard"
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'overview' 
                       ? 'text-black' 
@@ -289,9 +234,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   {viewMode === 'overview' && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
                   )}
-                </button>
-                <button
-                  onClick={() => setViewMode('discover')}
+                </Link>
+                <Link
+                  href="/dashboard/discover"
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'discover' 
                       ? 'text-black' 
@@ -302,9 +247,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   {viewMode === 'discover' && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
                   )}
-                </button>
-                <button
-                  onClick={() => setViewMode('browse')}
+                </Link>
+                <Link
+                  href="/dashboard/browse"
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'browse' 
                       ? 'text-black' 
@@ -315,9 +260,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   {viewMode === 'browse' && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
                   )}
-                </button>
-                <button
-                  onClick={() => setViewMode('stats')}
+                </Link>
+                <Link
+                  href="/dashboard/stats"
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'stats' 
                       ? 'text-black' 
@@ -328,9 +273,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   {viewMode === 'stats' && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
                   )}
-                </button>
-                <button
-                  onClick={() => setViewMode('settings')}
+                </Link>
+                <Link
+                  href="/dashboard/settings"
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'settings' 
                       ? 'text-black' 
@@ -341,7 +286,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   {viewMode === 'settings' && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
                   )}
-                </button>
+                </Link>
               </nav>
             </div>
 
@@ -419,8 +364,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 </p>
               </motion.div>
 
-              {/* Stats Cards - Hide for new users */}
-              {completionState?.type !== 'new_user' && (
+              {/* Stats Cards - Show immediately with loading states when data is loading */}
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -431,7 +375,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="mb-4">
                       <BookIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black mb-1">{stats?.totalCards || 0}</p>
+                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
+                      {stats?.totalCards ?? (isLoadingData ? '...' : '0')}
+                    </p>
                     <p className="text-sm text-black/50">total cards</p>
                   </Card>
                 </motion.div>
@@ -445,7 +391,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="mb-4">
                       <SparkleIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black mb-1">{stats?.mastered || 0}</p>
+                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
+                      {stats?.mastered ?? (isLoadingData ? '...' : '0')}
+                    </p>
                     <p className="text-sm text-black/50">mastered</p>
                   </Card>
                 </motion.div>
@@ -459,7 +407,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="mb-4">
                       <ClockIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black mb-1">{stats?.dueCards || 0}</p>
+                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
+                      {stats?.dueCards ?? (isLoadingData ? '...' : '0')}
+                    </p>
                     <p className="text-sm text-black/50">due today</p>
                   </Card>
                 </motion.div>
@@ -473,7 +423,9 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="mb-4">
                       <ChartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black mb-1">{studyStats?.average_accuracy || 0}%</p>
+                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
+                      {studyStats?.average_accuracy ?? (isLoadingData ? '...' : '0')}%
+                    </p>
                     <p className="text-sm text-black/50">accuracy</p>
                   </Card>
                 </motion.div>
@@ -487,624 +439,214 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                     <div className="mb-4">
                       <HeartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                     </div>
-                    <p className="text-3xl font-serif font-light text-black mb-1">{studyStats?.current_streak_days || 0}</p>
+                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
+                      {studyStats?.current_streak_days ?? (isLoadingData ? '...' : '0')}
+                    </p>
                     <p className="text-sm text-black/50">day streak</p>
                   </Card>
                 </motion.div>
               </div>
-              )}
 
-              {/* Discovery Experience for new users or users with very few cards */}
-              {(completionState?.type === 'new_user' || (stats && stats.totalCards < 3)) && viewMode === 'overview' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="mb-12"
-                >
-                  <DiscoveryDashboard 
-                    onCreateCard={(prompt) => {
-                      if (prompt && typeof window !== 'undefined') {
-                        window.localStorage.setItem('suggested-prompt', prompt)
-                      }
-                      setIsCreateDialogOpen(true)
-                    }}
-                    onStartLearning={(topicId) => {
-                      // Store topic ID for later use
-                      if (typeof window !== 'undefined') {
-                        window.localStorage.setItem('selected-topic', topicId)
-                      }
-                      setIsCreateDialogOpen(true)
-                    }}
-                    userLevel={stats && stats.totalCards > 0 ? 'beginner' : 'new'}
-                  />
-                </motion.div>
-              )}
-
-              <div className="grid lg:grid-cols-3 gap-8 items-start">
-                {/* Main Action Area */}
-                <div className="lg:col-span-2">
-                  {/* Start Review Card */}
-                  {stats && stats.dueCards > 0 ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 }}
-                    >
-                      <Card className="relative bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-xl transition-all duration-500 overflow-hidden group">
-                        <motion.div
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                          style={{
-                            background: 'radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%)'
-                          }}
-                        />
-                        <div className="relative flex items-start justify-between">
-                          <div>
-                            <h3 className="text-2xl font-serif font-light mb-3 text-black">Ready to review</h3>
-                            <p className="text-black/60 mb-6 max-w-md">
-                              {stats.dueCards} cards are due for review. 
-                              Estimated time: {Math.ceil(stats.dueCards * 0.5)} minutes
-                            </p>
-                            <Button
-                              onClick={handleStartReview}
-                              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 text-sm transition-all duration-200"
-                            >
-                              <PlayIcon className="w-4 h-4 mr-2" />
-                              Start Review Session
-                            </Button>
-                          </div>
-                          <LightbulbIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 }}
-                    >
-                      <Card className="relative bg-white rounded-3xl border border-black/5 p-8 mb-8 hover:shadow-xl transition-all duration-500 overflow-hidden group">
-                        <motion.div
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                          style={{
-                            background: completionState?.type === 'completed_today' 
-                              ? 'radial-gradient(circle at 30% 50%, rgba(34, 197, 94, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(52, 211, 153, 0.03) 0%, transparent 50%)'
-                              : 'radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%)'
-                          }}
-                        />
-                        <div className="relative flex items-start justify-between">
-                          <div>
-                            {completionState?.type === 'new_user' ? (
-                              <>
-                                <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Start Your Learning Journey</h3>
-                                <p className="text-black/60 mb-6 font-light max-w-md">
-                                  Welcome to Neuros! Create your first learning card to begin using AI-powered spaced repetition for better knowledge retention.
-                                </p>
-                                <div className="flex flex-col sm:flex-row gap-3">
-                                  <Button
-                                    onClick={() => setIsCreateDialogOpen(true)}
-                                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                                  >
-                                    <PlusIcon className="w-4 h-4 mr-2" />
-                                    Create First Card
-                                  </Button>
-                                  <Button
-                                    onClick={() => setViewMode('settings')}
-                                    className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                                    variant="outline"
-                                  >
-                                    <BeakerIcon className="w-4 h-4 mr-2" />
-                                    Learn About AI Features
-                                  </Button>
-                                </div>
-                              </>
-                            ) : completionState?.type === 'completed_today' ? (
-                              <>
-                                <div className="flex items-center gap-3 mb-3">
-                                  <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
-                                    <SparkleIcon className="w-5 h-5 text-green-600" />
-                                  </div>
-                                  <h3 className="text-2xl font-serif font-light text-black/90">Well done</h3>
-                                </div>
-                                <p className="text-black/60 mb-6 font-light max-w-md">
-                                  You&apos;ve completed all your reviews for today! Your consistency is building lasting knowledge.
-                                  {completionState.nextReviewTime && (
-                                    <span className="block mt-2 text-sm text-black/50">
-                                      Next reviews: {new Date(completionState.nextReviewTime).toLocaleDateString()}
-                                    </span>
-                                  )}
-                                </p>
-                                <div className="flex flex-col sm:flex-row gap-3">
-                                  <Button
-                                    onClick={() => setIsCreateDialogOpen(true)}
-                                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                                  >
-                                    <PlusIcon className="w-4 h-4 mr-2" />
-                                    Add New Cards
-                                  </Button>
-                                  <Button
-                                    onClick={() => setViewMode('stats')}
-                                    className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                                    variant="outline"
-                                  >
-                                    <ChartIcon className="w-4 h-4 mr-2" />
-                                    View Progress
-                                  </Button>
-                                </div>
-                              </>
-                            ) : completionState?.type === 'no_cards_due' ? (
-                              <>
-                                <h3 className="text-2xl font-serif font-light mb-3 text-black/90">Spaced Repetition Active!</h3>
-                                <p className="text-black/60 mb-6 font-light max-w-md">
-                                  Your learning schedule is optimized. No reviews needed right now - your brain is consolidating knowledge.
-                                  {completionState.nextReviewTime && (
-                                    <span className="block mt-2 text-sm text-black/50">
-                                      Next reviews: {new Date(completionState.nextReviewTime).toLocaleDateString()}
-                                    </span>
-                                  )}
-                                </p>
-                                <Button
-                                  onClick={() => setIsCreateDialogOpen(true)}
-                                  className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                                  variant="outline"
-                                >
-                                  <PlusIcon className="w-4 h-4 mr-2" />
-                                  Add New Cards
-                                </Button>
-                              </>
-                            ) : (
-                              // Fallback for unknown states
-                              <>
-                                <h3 className="text-2xl font-serif font-light mb-3 text-black/90">All caught up!</h3>
-                                <p className="text-black/60 mb-6 font-light max-w-md">
-                                  No cards due for review. Great job staying on top of your learning!
-                                </p>
-                                <Button
-                                  onClick={() => setIsCreateDialogOpen(true)}
-                                  className="border-black/20 text-black hover:bg-black hover:text-white hover:border-black focus:bg-black focus:text-white focus:border-black rounded-full px-8 py-3 font-light focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                                  variant="outline"
-                                >
-                                  <PlusIcon className="w-4 h-4 mr-2" />
-                                  Add New Cards
-                                </Button>
-                              </>
-                            )}
-                          </div>
-                          {completionState?.type === 'new_user' ? (
-                            <SparkleIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
-                          ) : completionState?.type === 'completed_today' ? (
-                            <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-                              <HeartIcon className="w-6 h-6 text-green-600 stroke-[1.5]" />
-                            </div>
-                          ) : completionState?.type === 'no_cards_due' ? (
-                            <LightbulbIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
-                          ) : (
-                            <RocketIcon className="w-12 h-12 text-black/20 stroke-[1.5]" />
-                          )}
-                        </div>
-                      </Card>
-                    </motion.div>
-                  )}
-
-                  {/* Enhanced Due Cards Preview - Hide for new users with no cards */}
-                  {dueCards.length > 0 && completionState?.type !== 'new_user' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.7 }}
-                    >
-                      <div className="flex items-center justify-between mb-8">
-                        <div>
-                          <h3 className="text-2xl font-serif font-light text-black">Due Today</h3>
-                          <p className="text-sm text-black/50 font-light mt-1">Your spaced repetition schedule</p>
-                        </div>
-                        <span className="text-xs font-mono text-black/40 tracking-[0.2em] uppercase">
-                          {dueCards.length} {dueCards.length === 1 ? 'card' : 'cards'}
-                        </span>
-                      </div>
-                      <div className="space-y-3">
-                        {dueCards.slice(0, 5).map((card, index) => (
-                          <motion.div
-                            key={card.id}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
-                          >
-                            <Card className="relative bg-white rounded-2xl border border-black/5 p-6 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-0.5 transition-all duration-500 cursor-pointer group overflow-hidden">
-                              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500 opacity-60" />
-                              <div className="flex items-center justify-between">
-                                <div className="flex-1 pl-3">
-                                  <p className="font-light text-black text-lg mb-3 leading-relaxed">
-                                    {card.cards.front}
-                                  </p>
-                                  <div className="flex items-center gap-6">
-                                    <div className="flex items-center gap-2">
-                                      <div className="w-20 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                        <div 
-                                          className="h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full"
-                                          style={{ width: `${card.mastery_level}%` }}
-                                        />
-                                      </div>
-                                      <span className="text-xs text-black/40 font-mono">{Math.round(card.mastery_level)}%</span>
-                                    </div>
-                                    {card.cards.topics && (
-                                      <span className="text-xs px-2 py-1 bg-gray-50 rounded-full text-black/60">
-                                        {card.cards.topics.name}
-                                      </span>
-                                    )}
-                                    <span className="text-xs text-black/40">
-                                      {card.total_reviews} reviews
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-300">
-                                  <ChevronRightIcon className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
-                                </div>
-                              </div>
-                            </Card>
-                          </motion.div>
-                        ))}
-                      </div>
-                      {dueCards.length > 5 && (
-                        <motion.p 
-                          className="text-center mt-6 text-sm text-black/40 font-light"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 1.3 }}
-                        >
-                          +{dueCards.length - 5} more cards waiting
-                        </motion.p>
-                      )}
-                    </motion.div>
-                  )}
-                </div>
-
-                {/* Sidebar */}
-                <motion.div 
-                  className="space-y-8"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  {/* AI Insights / Onboarding - Editorial Style with Color */}
-                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
-                    <motion.div
-                      className="absolute top-0 right-0 w-32 h-32 rounded-full"
-                      style={{
-                        background: completionState?.type === 'completed_today'
-                          ? 'radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%)'
-                          : 'radial-gradient(circle, rgba(147, 51, 234, 0.08) 0%, transparent 70%)',
-                        filter: 'blur(20px)',
-                      }}
-                      animate={{
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    <div className="relative flex items-center justify-between mb-6">
-                      <h3 className="text-xl font-serif font-light text-black">
-                        {completionState?.type === 'new_user' ? 'Getting Started' : 
-                         completionState?.type === 'completed_today' ? 'Today\'s Achievement' :
-                         'AI Insights'}
-                      </h3>
-                      <motion.div 
-                        className="w-10 h-10 rounded-xl flex items-center justify-center"
-                        style={{
-                          background: completionState?.type === 'completed_today'
-                            ? 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(52, 211, 153, 0.1) 100%)'
-                            : 'linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)'
-                        }}
-                        whileHover={{ rotate: 180 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <LightbulbIcon className={`w-5 h-5 stroke-[1.5] ${
-                          completionState?.type === 'completed_today' ? 'text-green-600' : 'text-purple-600'
-                        }`} />
-                      </motion.div>
-                    </div>
-                    <div className="space-y-4">
-                      {completionState?.type === 'new_user' ? (
-                        <motion.div 
-                          className="p-4 bg-black/5 rounded-2xl border border-black/10"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.4, delay: 0.6 }}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-full mt-2 bg-black" />
-                            <div className="flex-1">
-                              <p className="text-sm font-light text-black/90 mb-2">
-                                Welcome to Neuros!
-                              </p>
-                              <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
-                                Create your first learning card to unlock AI-powered insights, spaced repetition, and personalized learning analytics.
-                              </p>
-                              <button 
-                                onClick={() => setIsCreateDialogOpen(true)}
-                                className="text-xs font-light text-black/70 hover:text-black hover:underline transition-colors"
-                              >
-                                Create your first card →
-                              </button>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ) : completionState?.type === 'completed_today' ? (
-                        <motion.div 
-                          className="p-4 bg-black/5 rounded-2xl border border-black/10"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.4, delay: 0.6 }}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-full mt-2 bg-green-500" />
-                            <div className="flex-1">
-                              <p className="text-sm font-light text-black/90 mb-2">
-                                Consistency Champion!
-                              </p>
-                              <p className="text-xs text-black/60 mb-3 font-light leading-relaxed">
-                                You&apos;ve maintained your learning streak. Consistent daily practice is the key to long-term retention and mastery.
-                              </p>
-                              <button 
-                                onClick={() => setViewMode('stats')}
-                                className="text-xs font-light text-black/70 hover:text-black hover:underline transition-colors"
-                              >
-                                View your progress →
-                              </button>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ) : (
-                        aiInsights.slice(0, 3).map((insight, index) => (
-                          <motion.div 
-                            key={index} 
-                            className={`p-4 rounded-2xl ${
-                              insight.priority === 'high' ? 'bg-red-50/50' :
-                              insight.priority === 'medium' ? 'bg-amber-50/50' :
-                              'bg-gray-50'
-                            }`}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                          >
-                            <div className="flex items-start gap-3">
-                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                insight.type === 'achievement' ? 'bg-green-100' :
-                                insight.type === 'pattern' ? 'bg-blue-100' :
-                                insight.type === 'suggestion' ? 'bg-amber-100' :
-                                insight.type === 'warning' ? 'bg-red-100' :
-                                insight.type === 'milestone' ? 'bg-purple-100' :
-                                'bg-gray-100'
-                              }`}>
-                                {insight.icon === 'trophy' ? <SparkleIcon className="w-5 h-5 text-green-600" /> :
-                                 insight.icon === 'trend' ? <ChartIcon className="w-5 h-5 text-blue-600" /> :
-                                 insight.icon === 'lightbulb' ? <LightbulbIcon className="w-5 h-5 text-amber-600" /> :
-                                 insight.icon === 'alert' ? <ClockIcon className="w-5 h-5 text-red-600" /> :
-                                 insight.icon === 'flag' ? <RocketIcon className="w-5 h-5 text-purple-600" /> :
-                                 <LightbulbIcon className="w-5 h-5 text-gray-600" />}
-                              </div>
-                              <div className="flex-1">
-                                <div className="flex items-start justify-between mb-1">
-                                  <p className="text-sm font-medium text-black/90">
-                                    {insight.title}
-                                  </p>
-                                  {insight.metric && (
-                                    <span className="text-xs font-mono text-black/50 ml-2">
-                                      {insight.metric}
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-xs text-black/60 mb-2 font-light leading-relaxed">
-                                  {insight.description}
-                                </p>
-                                {insight.action && (
-                                  <button 
-                                    onClick={() => {
-                                      if (insight.action === 'Start review session' || insight.action === 'Start a quick review session') {
-                                        setViewMode('review')
-                                      } else if (insight.action === 'Create practice cards' || insight.action === 'Review difficult cards') {
-                                        setIsCreateDialogOpen(true)
-                                      }
-                                    }}
-                                    className="text-xs font-medium text-black/70 hover:text-black hover:underline transition-colors"
-                                  >
-                                    {insight.action} →
-                                  </button>
-                                )}
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))
-                      )}
-                    </div>
-                  </Card>
-
-                  {/* Upcoming Reviews - Hide for new users */}
-                  {completionState?.type !== 'new_user' && (
-                  <Card className="relative bg-white rounded-3xl border border-black/5 p-8 hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 overflow-hidden">
-                    <motion.div 
-                      className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-transparent"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      style={{ transformOrigin: 'left' }}
-                    />
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-xl font-serif font-light text-black">Upcoming</h3>
-                      <motion.div 
-                        className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center"
-                        animate={{ 
-                          scale: [1, 1.1, 1],
-                        }}
-                        transition={{ 
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <SparkleIcon className="w-5 h-5 text-orange-600 stroke-[1.5]" />
-                      </motion.div>
-                    </div>
-                    <div className="space-y-3">
-                      {Object.entries(upcomingCards).slice(0, 3).map(([date, cards]: [string, Array<{ id: string }>], index) => (
-                        <motion.div 
-                          key={date} 
-                          className="group flex items-center justify-between p-4 rounded-2xl hover:bg-gradient-to-r hover:from-orange-50/50 hover:to-amber-50/50 transition-all duration-300 cursor-pointer"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                          whileHover={{ x: 4 }}
-                        >
-                          <div>
-                            <span className="text-base text-black font-light">{date}</span>
-                            <span className="block text-xs text-black/40 mt-1">Scheduled review</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <motion.span 
-                              className="text-sm font-mono text-black/60"
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ 
-                                type: "spring",
-                                stiffness: 500,
-                                damping: 15,
-                                delay: 0.7 + index * 0.1
-                              }}
-                            >
-                              {cards.length}
-                            </motion.span>
-                            <motion.div 
-                              className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 group-hover:from-orange-500 group-hover:to-amber-500 group-hover:text-white flex items-center justify-center transition-all duration-300"
-                              whileHover={{ scale: 1.1 }}
-                            >
-                              <ChevronRightIcon className="w-4 h-4 stroke-[1.5]" />
-                            </motion.div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </Card>
-                  )}
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-
-
-          {viewMode === 'browse' && (
-            <motion.div
-              key="browse"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div 
-                className="mb-8"
+              {/* Quick Actions Section */}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mb-12"
               >
-                <h2 className="text-3xl font-serif font-light mb-6 text-black/90">Your Cards</h2>
-                <div className="flex items-center gap-4">
-                  <div className="flex-1 relative">
-                    <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/40" />
-                    <input
-                      type="text"
-                      placeholder="Search cards..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-12 pr-6 py-4 border border-black/10 rounded-full bg-white focus:outline-none focus:border-black/30 focus:ring-2 focus:ring-black/20 focus:ring-offset-1 focus:shadow-sm transition-all duration-300 font-light"
-                      aria-label="Search your learning cards"
-                    />
-                  </div>
-                  <Button
-                    onClick={() => setIsCreateDialogOpen(true)}
-                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-4 font-light shadow-sm hover:shadow-md focus:shadow-md focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
-                  >
-                    <PlusIcon className="w-4 h-4 mr-2" />
-                    New Card
-                  </Button>
+                <h2 className="text-lg font-serif font-light text-black/70 mb-6">Quick Actions</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Start Review */}
+                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-gray-50 border border-black/5 rounded-3xl overflow-hidden"
+                    onClick={() => router.push('/review')}>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <PlayIcon className="w-8 h-8 text-black/60 group-hover:text-black transition-colors" />
+                        <Badge className="bg-black/5 text-black/60 text-xs">
+                          {stats?.dueCards || 0} cards
+                        </Badge>
+                      </div>
+                      <h3 className="text-xl font-serif font-light text-black mb-2">Start Review Session</h3>
+                      <p className="text-sm text-black/50">Review your due cards with spaced repetition</p>
+                    </div>
+                  </Card>
+
+                  {/* Create New Cards */}
+                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-blue-50 border border-black/5 rounded-3xl overflow-hidden"
+                    onClick={() => setIsCreateDialogOpen(true)}>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <PlusIcon className="w-8 h-8 text-black/60 group-hover:text-black transition-colors" />
+                        <Badge className="bg-blue-100/50 text-blue-700 text-xs">AI-Powered</Badge>
+                      </div>
+                      <h3 className="text-xl font-serif font-light text-black mb-2">Create Cards</h3>
+                      <p className="text-sm text-black/50">Generate cards from text or manually create</p>
+                    </div>
+                  </Card>
+
+                  {/* Browse Library */}
+                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-green-50 border border-black/5 rounded-3xl overflow-hidden"
+                    onClick={() => router.push('/dashboard/browse')}>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <BookIcon className="w-8 h-8 text-black/60 group-hover:text-black transition-colors" />
+                        <Badge className="bg-green-100/50 text-green-700 text-xs">
+                          {stats?.totalCards || 0} total
+                        </Badge>
+                      </div>
+                      <h3 className="text-xl font-serif font-light text-black mb-2">Browse Library</h3>
+                      <p className="text-sm text-black/50">View and manage all your cards</p>
+                    </div>
+                  </Card>
                 </div>
               </motion.div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCards.map((card, index) => (
-                  <motion.div
-                    key={card.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                  >
-                    <Card className="p-6 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                      <div className="mb-4">
-                        {card.topics && (
-                          <Badge 
-                            variant="outline"
-                            className="rounded-full px-3 py-1 text-xs font-light border-black/20"
-                            style={{ 
-                              borderColor: card.topics.color + '40',
-                              color: card.topics.color,
-                              backgroundColor: card.topics.color + '10'
-                            }}
-                          >
-                            {card.topics.name}
-                          </Badge>
-                        )}
+              {/* Learning Insights Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                className="mb-12"
+              >
+                <h2 className="text-lg font-serif font-light text-black/70 mb-6">Your Learning Journey</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Progress Overview */}
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-medium text-black">Weekly Progress</h3>
+                      <ChartIcon className="w-5 h-5 text-black/40" />
+                    </div>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-black/60">Cards Reviewed</span>
+                          <span className="text-black font-medium">{studyStats?.total_reviews || 0}</span>
+                        </div>
+                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-black rounded-full transition-all duration-700"
+                            style={{ width: `${Math.min((studyStats?.total_reviews || 0) / 50 * 100, 100)}%` }} />
+                        </div>
                       </div>
-                      <p className="font-light text-black/90 mb-3 text-lg leading-relaxed">{card.front}</p>
-                      <p className="text-sm text-black/60 mb-4 font-light leading-relaxed">{card.back}</p>
-                      <div className="flex items-center justify-between text-xs text-black/50 font-mono">
-                        <span className="px-2 py-1 bg-gray-100 rounded-full">{card.difficulty}</span>
-                        {card.user_cards?.[0] && (
-                          <span>Mastery: {Math.round(card.user_cards[0].mastery_level)}%</span>
-                        )}
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-black/60">Mastery Level</span>
+                          <span className="text-black font-medium">
+                            {stats?.totalCards ? Math.round((stats.mastered / stats.totalCards) * 100) : 0}%
+                          </span>
+                        </div>
+                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-green-500 rounded-full transition-all duration-700"
+                            style={{ width: `${stats?.totalCards ? (stats.mastered / stats.totalCards) * 100 : 0}%` }} />
+                        </div>
                       </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-black/60">Study Time</span>
+                          <span className="text-black font-medium">
+                            {Math.round((studyStats?.total_study_time_minutes || 0) / 60)} hours
+                          </span>
+                        </div>
+                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-blue-500 rounded-full transition-all duration-700"
+                            style={{ width: `${Math.min((studyStats?.total_study_time_minutes || 0) / 60 / 10 * 100, 100)}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
 
-              {filteredCards.length === 0 && (
-                searchQuery ? (
-                  <motion.div 
-                    className="text-center py-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <SearchIcon className="w-16 h-16 mx-auto mb-6 text-black/20" />
-                    <p className="text-black/60 font-light text-lg mb-6">
-                      No cards found matching your search
-                    </p>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <DiscoveryDashboard 
-                      onCreateCard={(prompt) => {
-                        if (prompt && typeof window !== 'undefined') {
-                          window.localStorage.setItem('suggested-prompt', prompt)
-                        }
-                        setIsCreateDialogOpen(true)
-                      }}
-                      onStartLearning={(topicId) => {
-                        if (typeof window !== 'undefined') {
-                          window.localStorage.setItem('selected-topic', topicId)
-                        }
-                        setIsCreateDialogOpen(true)
-                      }}
-                      userLevel={stats && stats.totalCards > 10 ? 'intermediate' : stats && stats.totalCards > 0 ? 'beginner' : 'new'}
-                    />
-                  </motion.div>
-                )
+                  {/* Achievement Highlights */}
+                  <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-medium text-black">Recent Achievements</h3>
+                      <SparkleIcon className="w-5 h-5 text-black/40" />
+                    </div>
+                    <div className="space-y-3">
+                      {studyStats?.current_streak_days && studyStats.current_streak_days >= 3 && (
+                        <div className="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl">
+                          <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <HeartIcon className="w-5 h-5 text-yellow-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-black">Streak Master</p>
+                            <p className="text-xs text-black/50">{studyStats.current_streak_days} day learning streak!</p>
+                          </div>
+                        </div>
+                      )}
+                      {stats?.mastered && stats.mastered >= 5 && (
+                        <div className="flex items-center gap-3 p-3 bg-green-50 rounded-xl">
+                          <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                            <SparkleIcon className="w-5 h-5 text-green-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-black">Knowledge Expert</p>
+                            <p className="text-xs text-black/50">{stats.mastered} cards mastered</p>
+                          </div>
+                        </div>
+                      )}
+                      {studyStats?.average_accuracy && studyStats.average_accuracy >= 80 && (
+                        <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
+                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                            <ChartIcon className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-black">Accuracy Champion</p>
+                            <p className="text-xs text-black/50">{studyStats.average_accuracy}% accuracy rate</p>
+                          </div>
+                        </div>
+                      )}
+                      {(!studyStats?.current_streak_days || studyStats.current_streak_days < 3) && (
+                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                          <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                            <RocketIcon className="w-5 h-5 text-gray-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-black">Keep Going!</p>
+                            <p className="text-xs text-black/50">Build your streak to unlock achievements</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                </div>
+              </motion.div>
+
+              {/* Upcoming Reviews Preview */}
+              {stats && stats.totalCards > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  className="mb-12"
+                >
+                  <h2 className="text-lg font-serif font-light text-black/70 mb-6">Upcoming Reviews</h2>
+                  <Card className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-3xl border border-black/5">
+                    <div className="grid grid-cols-7 gap-2">
+                      {[0, 1, 2, 3, 4, 5, 6].map((dayOffset) => {
+                        const date = new Date()
+                        date.setDate(date.getDate() + dayOffset)
+                        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' })
+                        const isToday = dayOffset === 0
+                        
+                        return (
+                          <div key={dayOffset} className={`text-center p-3 rounded-xl ${
+                            isToday ? 'bg-black text-white' : 'bg-white'
+                          }`}>
+                            <p className={`text-xs font-medium mb-1 ${
+                              isToday ? 'text-white/70' : 'text-black/50'
+                            }`}>{dayName}</p>
+                            <p className={`text-lg font-serif ${
+                              isToday ? 'text-white' : 'text-black'
+                            }`}>
+                              {isToday ? (stats?.dueCards || 0) : '—'}
+                            </p>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </Card>
+                </motion.div>
               )}
+              
             </motion.div>
           )}
 
@@ -1134,307 +676,18 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               />
             </motion.div>
           )}
-
-          {viewMode === 'stats' && (
-            <motion.div
-              key="stats"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.h2 
-                className="text-3xl font-serif font-light mb-8 text-black/90"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                Your Statistics
-              </motion.h2>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                >
-                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                    <ChartIcon className="w-10 h-10 text-blue-600/70 mb-4" />
-                    <p className="text-4xl font-serif font-light mb-2 text-black/90">{studyStats?.total_reviews || 0}</p>
-                    <p className="text-sm text-black/60 font-light">Total Reviews</p>
-                  </Card>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                    <SparkleIcon className="w-10 h-10 text-green-600/70 mb-4" />
-                    <p className="text-4xl font-serif font-light mb-2 text-black/90">
-                      {Math.round((studyStats?.total_study_time_minutes || 0) / 60)}h
-                    </p>
-                    <p className="text-sm text-black/60 font-light">Study Time</p>
-                  </Card>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                    <RocketIcon className="w-10 h-10 text-orange-600/70 mb-4" />
-                    <p className="text-4xl font-serif font-light mb-2 text-black/90">{studyStats?.current_streak_days || 0}</p>
-                    <p className="text-sm text-black/60 font-light">Day Streak</p>
-                  </Card>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                    <HeartIcon className="w-10 h-10 text-purple-600/70 mb-4" />
-                    <p className="text-4xl font-serif font-light mb-2 text-black/90">{studyStats?.average_accuracy || 0}%</p>
-                    <p className="text-sm text-black/60 font-light">Accuracy</p>
-                  </Card>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <Card className="p-8 bg-white rounded-3xl border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                  <h3 className="text-xl font-serif font-light mb-6 text-black/90">Card Distribution</h3>
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-black/70 font-light">Mastered ({stats?.mastered || 0})</span>
-                        <span className="text-black/60 font-mono text-xs">{stats && stats.totalCards > 0 ? Math.round((stats.mastered / stats.totalCards) * 100) : 0}%</span>
-                      </div>
-                      <div className="h-4 bg-black/5 rounded-full overflow-hidden">
-                        <motion.div 
-                          className="h-full bg-green-500 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${stats && stats.totalCards > 0 ? (stats.mastered / stats.totalCards) * 100 : 0}%` }}
-                          transition={{ duration: 1, delay: 0.7 }}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-black/70 font-light">Learning ({stats?.learning || 0})</span>
-                        <span className="text-black/60 font-mono text-xs">{stats && stats.totalCards > 0 ? Math.round((stats.learning / stats.totalCards) * 100) : 0}%</span>
-                      </div>
-                      <div className="h-4 bg-black/5 rounded-full overflow-hidden">
-                        <motion.div 
-                          className="h-full bg-orange-400 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${stats && stats.totalCards > 0 ? (stats.learning / stats.totalCards) * 100 : 0}%` }}
-                          transition={{ duration: 1, delay: 0.8 }}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-black/70 font-light">Difficult ({stats?.difficult || 0})</span>
-                        <span className="text-black/60 font-mono text-xs">{stats && stats.totalCards > 0 ? Math.round((stats.difficult / stats.totalCards) * 100) : 0}%</span>
-                      </div>
-                      <div className="h-4 bg-black/5 rounded-full overflow-hidden">
-                        <motion.div 
-                          className="h-full bg-red-400 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${stats && stats.totalCards > 0 ? (stats.difficult / stats.totalCards) * 100 : 0}%` }}
-                          transition={{ duration: 1, delay: 0.9 }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            </motion.div>
-          )}
-
-
-          {viewMode === 'settings' && (
-            <motion.div
-              key="settings"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div 
-                className="mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl font-serif font-light mb-3 text-black/90">AI-Powered Features</h2>
-                <p className="text-lg text-black/60 font-light">Configure intelligent learning features powered by advanced AI</p>
-              </motion.div>
-              
-              <div className="max-w-3xl">
-                <AIFeaturesSettings 
-                  onFeatureClick={(feature) => {
-                    console.log('Feature clicked:', feature)
-                    // Future: Could open detailed settings for each feature
-                  }}
-                />
-              </div>
-            </motion.div>
-          )}
           
-          {/* Knowledge Graph View */}
-          {viewMode === 'knowledge' && (
-            <motion.div
-              key="knowledge"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="max-w-7xl mx-auto"
-            >
-              <div className="mb-8">
-                <h2 className="text-3xl font-serif font-light text-black/90 mb-2">
-                  Your Knowledge Universe
-                </h2>
-                <p className="text-black/60 font-light">
-                  Visualize how your learning connects and grows over time
-                </p>
-              </div>
-              
-              <Card className="p-8 bg-white/90 backdrop-blur-sm rounded-3xl border-black/5">
-                <KnowledgeGraph
-                  nodes={[
-                    { id: '1', label: 'Machine Learning', type: 'topic', mastery: 0.7, size: 30 },
-                    { id: '2', label: 'Neural Networks', type: 'concept', mastery: 0.5, size: 25 },
-                    { id: '3', label: 'Backpropagation', type: 'skill', mastery: 0.3, size: 20 },
-                    { id: '4', label: 'Deep Learning', type: 'topic', mastery: 0.6, size: 28 },
-                    { id: '5', label: 'Computer Vision', type: 'concept', mastery: 0.4, size: 22 },
-                    { id: '6', label: user.email || 'You', type: 'user', size: 35 },
-                  ]}
-                  edges={[
-                    { source: '1', target: '2', strength: 0.9, type: 'prerequisite' },
-                    { source: '2', target: '3', strength: 0.8, type: 'builds-on' },
-                    { source: '1', target: '4', strength: 0.7, type: 'related' },
-                    { source: '4', target: '5', strength: 0.6, type: 'related' },
-                    { source: '6', target: '1', strength: 0.7, type: 'similar' },
-                    { source: '6', target: '4', strength: 0.5, type: 'similar' },
-                  ]}
-                  width={1000}
-                  height={600}
-                  onNodeClick={(node) => {
-                    console.log('Node clicked:', node)
-                    // Future: Open detailed view of this knowledge area
-                  }}
-                />
-              </Card>
-              
-              <div className="mt-6 grid grid-cols-3 gap-4">
-                <Card className="p-6 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl">
-                  <h3 className="font-semibold mb-2">Knowledge Depth</h3>
-                  <p className="text-2xl font-bold text-purple-600">Level 7</p>
-                  <p className="text-sm text-gray-600 mt-1">Advanced Learner</p>
-                </Card>
-                <Card className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl">
-                  <h3 className="font-semibold mb-2">Connections Made</h3>
-                  <p className="text-2xl font-bold text-blue-600">142</p>
-                  <p className="text-sm text-gray-600 mt-1">Cross-domain links</p>
-                </Card>
-                <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl">
-                  <h3 className="font-semibold mb-2">Growth Rate</h3>
-                  <p className="text-2xl font-bold text-green-600">+23%</p>
-                  <p className="text-sm text-gray-600 mt-1">This month</p>
-                </Card>
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Global Learning Network View */}
-          {viewMode === 'network' && (
-            <motion.div
-              key="network"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-7xl mx-auto"
-            >
-              <div className="mb-8">
-                <h2 className="text-3xl font-serif font-light text-black/90 mb-2">
-                  Global Learning Community
-                </h2>
-                <p className="text-black/60 font-light">
-                  Connect with learners worldwide in real-time
-                </p>
-              </div>
-              
-              <GlobalLearningNetwork />
-              
-              <div className="mt-8 grid grid-cols-2 gap-6">
-                <Card className="p-6 bg-white rounded-2xl">
-                  <h3 className="font-semibold mb-4">Learning Together</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Join collaborative learning sessions with peers who share your interests
-                    and complement your learning style.
-                  </p>
-                  <Button className="w-full">
-                    Find Learning Partner
-                  </Button>
-                </Card>
-                
-                <Card className="p-6 bg-white rounded-2xl">
-                  <h3 className="font-semibold mb-4">Knowledge Exchange</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Share your expertise and learn from others through peer-to-peer
-                    knowledge markets.
-                  </p>
-                  <Button variant="outline" className="w-full">
-                    Browse Knowledge Market
-                  </Button>
-                </Card>
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Viral Impact View */}
-          {viewMode === 'viral' && (
-            <motion.div
-              key="viral"
-              initial={{ opacity: 0, rotateY: -10 }}
-              animate={{ opacity: 1, rotateY: 0 }}
-              exit={{ opacity: 0, rotateY: 10 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto"
-            >
-              <div className="mb-8">
-                <h2 className="text-3xl font-serif font-light text-black/90 mb-2">
-                  Your Learning Impact
-                </h2>
-                <p className="text-black/60 font-light">
-                  Share achievements, join challenges, and inspire others
-                </p>
-              </div>
-              
-              <ViralMechanisms userId={user.id} />
-            </motion.div>
-          )}
         </AnimatePresence>
       </main>
 
       {/* Create Card Dialog */}
-      <CreateCardDialog
-        isOpen={isCreateDialogOpen}
+      <CreateCardDialog 
+        isOpen={isCreateDialogOpen} 
         onClose={() => setIsCreateDialogOpen(false)}
-        onCardCreated={loadDashboardData}
+        onCardCreated={() => {
+          // Refresh dashboard data
+          loadDashboardData()
+        }}
       />
     </div>
   )

@@ -1,21 +1,19 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  TrendingUpIcon,
-  GlobeIcon,
-  BookOpenIcon,
-  BrainIcon,
+  SparkleIcon,
+  RefreshIcon,
   RocketIcon,
-  StarIcon,
-  PlusIcon,
+  BookIcon,
+  GlobeIcon,
+  BrainIcon,
+  TrendingIcon,
   ChevronRightIcon,
-  HashIcon,
-  UsersIcon,
+  PlusIcon,
   ZapIcon
-} from 'lucide-react'
-import { SparkleIcon, RefreshIcon } from '@/components/icons/line-icons'
+} from '@/components/icons/line-icons'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -49,60 +47,49 @@ export default function DiscoveryDashboard({
   const [trendingTopics, setTrendingTopics] = useState<TrendingTopic[]>([])
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([])
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false)
+  const [isLoadingTopics, setIsLoadingTopics] = useState(true)
 
   const categories = [
     { id: 'all', name: 'All Topics', icon: GlobeIcon },
     { id: 'Technology', name: 'Technology', icon: RocketIcon },
-    { id: 'Languages', name: 'Languages', icon: BookOpenIcon },
+    { id: 'Languages', name: 'Languages', icon: BookIcon },
     { id: 'Science', name: 'Science', icon: BrainIcon },
-    { id: 'Business', name: 'Business', icon: TrendingUpIcon },
-    { id: 'History', name: 'History', icon: BookOpenIcon }
+    { id: 'Business', name: 'Business', icon: TrendingIcon },
+    { id: 'History', name: 'History', icon: BookIcon }
   ]
 
   useEffect(() => {
-    // Load initial data
-    loadInitialData()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loadInitialData = async () => {
-    // Load trending topics
-    const topicsResult = await getTrendingTopics()
-    if (topicsResult.topics) {
-      setTrendingTopics(topicsResult.topics)
-    }
-    
-    // Generate AI suggestions
+    loadTrendingTopics()
     loadAISuggestions()
+  }, [userLevel]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const loadTrendingTopics = async () => {
+    setIsLoadingTopics(true)
+    try {
+      const result = await getTrendingTopics()
+      if (result.topics) {
+        setTrendingTopics(result.topics)
+      }
+    } catch (error) {
+      console.error('Failed to load trending topics:', error)
+    } finally {
+      setIsLoadingTopics(false)
+    }
   }
 
-  const loadAISuggestions = useCallback(async () => {
+  const loadAISuggestions = async (forceRefresh = false) => {
     setIsLoadingSuggestions(true)
     try {
-      const result = await generateAISuggestions(userLevel)
-      if (result.suggestions && result.suggestions.length > 0) {
+      const result = await generateAISuggestions(userLevel, forceRefresh)
+      if (result.suggestions) {
         setAiSuggestions(result.suggestions)
-      } else {
-        // Fallback suggestions if AI fails
-        setAiSuggestions([
-          "Create cards about machine learning basics",
-          "Learn essential Spanish phrases",
-          "Master JavaScript fundamentals",
-          "Study human psychology concepts"
-        ])
       }
     } catch (error) {
       console.error('Failed to generate AI suggestions:', error)
-      // Use fallback suggestions
-      setAiSuggestions([
-        "Create cards about AI fundamentals",
-        "Learn a new programming language",
-        "Study world history events",
-        "Master personal finance basics"
-      ])
     } finally {
       setIsLoadingSuggestions(false)
     }
-  }, [userLevel])
+  }
 
   const filteredTopics = selectedCategory === 'all' 
     ? trendingTopics 
@@ -119,269 +106,251 @@ export default function DiscoveryDashboard({
 
   return (
     <div className="space-y-8">
-      {/* Welcome Section for New Users */}
-      {userLevel === 'new' && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-50 via-white to-blue-50 p-8 border border-black/5"
-        >
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-4">
-              <SparkleIcon className="w-5 h-5 text-purple-600" />
-              <span className="text-sm font-medium text-purple-600">Welcome to Neuros</span>
-            </div>
-            <h2 className="text-3xl font-serif font-light mb-3">
-              Start with what interests you
-            </h2>
-            <p className="text-lg text-black/60 mb-6 max-w-2xl">
-              Choose from trending topics or let AI create a personalized learning path. 
-              Our spaced repetition system will help you remember everything.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button
-                onClick={() => onCreateCard()}
-                className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-2.5"
-              >
-                <PlusIcon className="w-4 h-4 mr-2" />
-                Create Custom Cards
-              </Button>
-              <Button
-                onClick={() => document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' })}
-                variant="outline"
-                className="rounded-full px-6 py-2.5"
-              >
-                <TrendingUpIcon className="w-4 h-4 mr-2" />
-                Explore Trending
-              </Button>
-            </div>
-          </div>
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full blur-3xl" />
-        </motion.div>
-      )}
-
-      {/* AI-Powered Suggestions */}
+      {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="mb-8"
       >
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-              <SparkleIcon className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold">AI Suggestions</h3>
-              <p className="text-sm text-black/60">Personalized topics based on popular learning paths</p>
-            </div>
-          </div>
-          <Button
-            onClick={loadAISuggestions}
-            variant="ghost"
-            size="sm"
-            className="rounded-full"
-            disabled={isLoadingSuggestions}
-          >
-            <RefreshIcon className={`w-4 h-4 ${isLoadingSuggestions ? 'animate-spin' : ''}`} />
-          </Button>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-3">
-          <AnimatePresence mode="wait">
-            {isLoadingSuggestions ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="col-span-2"
-              >
-                <Card className="p-8 bg-white/50 border-black/5">
-                  <div className="flex items-center justify-center gap-3">
-                    <RefreshIcon className="w-5 h-5 animate-spin text-black/40" />
-                    <span className="text-black/60">Generating personalized suggestions...</span>
-                  </div>
-                </Card>
-              </motion.div>
-            ) : (
-              aiSuggestions.map((suggestion, index) => (
-                <motion.div
-                  key={suggestion}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Card 
-                    className="p-4 bg-white hover:shadow-lg transition-all duration-300 cursor-pointer group border-black/5"
-                    onClick={() => onCreateCard(suggestion)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-black/80 group-hover:text-black transition-colors">
-                          {suggestion}
-                        </p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <ZapIcon className="w-3 h-3 text-yellow-500" />
-                          <span className="text-xs text-black/50">Quick generate</span>
-                        </div>
-                      </div>
-                      <ChevronRightIcon className="w-4 h-4 text-black/30 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
-                    </div>
-                  </Card>
-                </motion.div>
-              ))
-            )}
-          </AnimatePresence>
-        </div>
+        <h1 className="text-4xl font-serif font-light mb-3 text-black">
+          Discover Your Next Learning Adventure
+        </h1>
+        <p className="text-lg text-black/60 font-light">
+          Explore trending topics and get personalized AI suggestions
+        </p>
       </motion.div>
 
-      {/* Category Filter */}
+      {/* AI Suggestions Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
       >
-        <div className="flex items-center gap-2 overflow-x-auto pb-2">
-          {categories.map((category) => {
-            const Icon = category.icon
-            return (
-              <Button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                variant={selectedCategory === category.id ? 'default' : 'outline'}
-                className={`rounded-full px-4 py-2 whitespace-nowrap ${
-                  selectedCategory === category.id 
-                    ? 'bg-black text-white' 
-                    : 'hover:bg-black/5'
-                }`}
-              >
-                <Icon className="w-4 h-4 mr-2" />
-                {category.name}
-              </Button>
-            )
-          })}
-        </div>
+        <Card className="p-8 bg-gradient-to-br from-white via-white to-purple-50/30 border-black/5">
+          <div className="flex items-start justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-purple-100 rounded-xl">
+                <SparkleIcon className="w-6 h-6 text-purple-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-serif font-light text-black">
+                  AI-Powered Suggestions
+                </h2>
+                <p className="text-sm text-black/60 mt-1">
+                  Personalized learning ideas just for you
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => loadAISuggestions(true)}
+              disabled={isLoadingSuggestions}
+              className="hover:bg-black/5"
+            >
+              <RefreshIcon className={`w-4 h-4 ${isLoadingSuggestions ? 'animate-spin' : ''}`} />
+            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {isLoadingSuggestions ? (
+              <>
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="h-24 bg-black/5 rounded-xl"></div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <AnimatePresence mode="wait">
+                {aiSuggestions.map((suggestion, index) => (
+                  <motion.button
+                    key={suggestion}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    onClick={() => onCreateCard(suggestion)}
+                    className="group relative p-4 bg-white rounded-xl border border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all duration-200 text-left"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="p-1.5 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">
+                        <ZapIcon className="w-4 h-4 text-purple-600" />
+                      </div>
+                      <p className="text-sm font-medium text-black/80 leading-relaxed flex-1">
+                        {suggestion}
+                      </p>
+                    </div>
+                    <ChevronRightIcon className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </motion.button>
+                ))}
+              </AnimatePresence>
+            )}
+          </div>
+        </Card>
+      </motion.div>
+
+      {/* Category Filters */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="flex gap-2 overflow-x-auto pb-2"
+      >
+        {categories.map((category) => {
+          const Icon = category.icon
+          return (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border whitespace-nowrap transition-all duration-200 ${
+                selectedCategory === category.id
+                  ? 'bg-black text-white border-black'
+                  : 'bg-white text-black/70 border-black/10 hover:border-black/30 hover:bg-black/5'
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="text-sm font-medium">{category.name}</span>
+            </button>
+          )
+        })}
       </motion.div>
 
       {/* Trending Topics Grid */}
       <motion.div
-        id="trending"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
       >
-        <div className="flex items-center gap-2 mb-6">
-          <TrendingUpIcon className="w-5 h-5 text-black/60" />
-          <h3 className="text-xl font-semibold">Trending Topics</h3>
-          {filteredTopics.filter(t => t.trending).length > 0 && (
-            <Badge className="bg-red-50 text-red-600 border-red-200">
-              {filteredTopics.filter(t => t.trending).length} hot
-            </Badge>
-          )}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-serif font-light text-black">
+            Trending Topics
+          </h2>
+          <Badge variant="secondary" className="bg-orange-50 text-orange-700 border-orange-200">
+            <TrendingIcon className="w-3 h-3 mr-1" />
+            {filteredTopics.filter(t => t.trending).length} trending
+          </Badge>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredTopics.map((topic, index) => (
-            <motion.div
-              key={topic.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 * index }}
-            >
-              <Card className="p-6 bg-white hover:shadow-xl transition-all duration-300 border-black/5 group cursor-pointer h-full flex flex-col">
-                <div className="flex items-start justify-between mb-4">
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: `${topic.color}15` }}
+        {isLoadingTopics ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="animate-pulse">
+                <Card className="h-64 bg-black/5"></Card>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredTopics.map((topic, index) => (
+                <motion.div
+                  key={topic.id}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                >
+                  <Card className="group relative h-full p-6 bg-white hover:shadow-xl transition-all duration-300 cursor-pointer border-black/5"
+                    onClick={() => onStartLearning(topic.id)}
                   >
-                    <HashIcon className="w-6 h-6" style={{ color: topic.color }} />
-                  </div>
-                  {topic.trending && (
-                    <Badge className="bg-red-50 text-red-600 border-red-200">
-                      <TrendingUpIcon className="w-3 h-3 mr-1" />
-                      Trending
-                    </Badge>
-                  )}
-                </div>
+                    {/* Trending Badge */}
+                    {topic.trending && (
+                      <div className="absolute -top-2 -right-2 z-10">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-orange-400 blur-md opacity-50 animate-pulse"></div>
+                          <Badge className="relative bg-gradient-to-r from-orange-400 to-red-400 text-white border-0">
+                            <TrendingIcon className="w-3 h-3 mr-1" />
+                            Hot
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
 
-                <h4 className="text-lg font-semibold mb-2">{topic.title}</h4>
-                <p className="text-sm text-black/60 mb-4 flex-grow">{topic.description}</p>
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className={`px-2 py-1 rounded-full text-xs border ${getDifficultyColor(topic.difficulty)}`}>
-                      {topic.difficulty}
-                    </span>
-                    <div className="flex items-center gap-3 text-black/50">
-                      <span className="flex items-center gap-1">
-                        <UsersIcon className="w-3 h-3" />
-                        {topic.learners.toLocaleString()}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <StarIcon className="w-3 h-3" />
-                        {topic.cardCount}
-                      </span>
+                    {/* Category & Difficulty */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <Badge variant="outline" className="text-xs">
+                        {topic.category}
+                      </Badge>
+                      <Badge className={`text-xs ${getDifficultyColor(topic.difficulty)}`}>
+                        {topic.difficulty}
+                      </Badge>
                     </div>
-                  </div>
 
-                  <div className="pt-3 border-t border-black/5">
-                    <p className="text-xs text-black/50 mb-2">Example cards:</p>
-                    <div className="space-y-1">
+                    {/* Title & Description */}
+                    <h3 className="text-xl font-serif font-light mb-2 text-black group-hover:text-purple-600 transition-colors">
+                      {topic.title}
+                    </h3>
+                    <p className="text-sm text-black/60 mb-4 line-clamp-2">
+                      {topic.description}
+                    </p>
+
+                    {/* Stats */}
+                    <div className="flex items-center gap-4 mb-4 text-sm text-black/50">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs">#</span>
+                        <span>{topic.cardCount} cards</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs">👥</span>
+                        <span>{topic.learners.toLocaleString()} learners</span>
+                      </div>
+                    </div>
+
+                    {/* Example Cards */}
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-black/40 uppercase tracking-wider">
+                        Sample cards:
+                      </p>
                       {topic.exampleCards.slice(0, 2).map((card, i) => (
-                        <p key={i} className="text-xs text-black/70 truncate">
-                          • {card}
-                        </p>
+                        <div key={i} className="text-sm text-black/70 pl-3 border-l-2 border-purple-100">
+                          {card}
+                        </div>
                       ))}
                     </div>
-                  </div>
 
-                  <Button
-                    onClick={() => onStartLearning(topic.id)}
-                    className="w-full bg-black text-white hover:bg-black/90 rounded-full py-2 mt-3 group-hover:shadow-lg transition-all"
-                  >
-                    Start Learning
-                    <ChevronRightIcon className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" />
-                  </Button>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+                    {/* Hover Action */}
+                    <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="p-2 bg-purple-600 text-white rounded-full">
+                        <PlusIcon className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
       </motion.div>
 
-      {/* Quick Actions */}
+      {/* Quick Start CTA */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="grid sm:grid-cols-3 gap-4 mt-8"
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="mt-12"
       >
-        <Card 
-          className="p-6 bg-gradient-to-br from-purple-50 to-white border-purple-200/50 hover:shadow-lg transition-all cursor-pointer group"
-          onClick={() => onCreateCard("Import my notes and create study cards")}
-        >
-          <BookOpenIcon className="w-8 h-8 text-purple-600 mb-3" />
-          <h4 className="font-semibold mb-1">Import Notes</h4>
-          <p className="text-sm text-black/60">Convert PDFs & docs to cards</p>
-        </Card>
-
-        <Card 
-          className="p-6 bg-gradient-to-br from-blue-50 to-white border-blue-200/50 hover:shadow-lg transition-all cursor-pointer group"
-          onClick={() => onCreateCard("Create a study plan for my upcoming exam")}
-        >
-          <RocketIcon className="w-8 h-8 text-blue-600 mb-3" />
-          <h4 className="font-semibold mb-1">Exam Prep</h4>
-          <p className="text-sm text-black/60">AI-powered study plans</p>
-        </Card>
-
-        <Card 
-          className="p-6 bg-gradient-to-br from-green-50 to-white border-green-200/50 hover:shadow-lg transition-all cursor-pointer group"
-          onClick={() => onCreateCard("Help me learn from this article or video")}
-        >
-          <GlobeIcon className="w-8 h-8 text-green-600 mb-3" />
-          <h4 className="font-semibold mb-1">Learn from Web</h4>
-          <p className="text-sm text-black/60">Extract knowledge from URLs</p>
+        <Card className="p-8 bg-gradient-to-r from-purple-50 to-blue-50 border-purple-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-serif font-light mb-2 text-black">
+                Can&apos;t find what you&apos;re looking for?
+              </h3>
+              <p className="text-black/60">
+                Create your own custom learning deck with AI assistance
+              </p>
+            </div>
+            <Button
+              onClick={() => onCreateCard()}
+              size="lg"
+              className="bg-black text-white hover:bg-black/90"
+            >
+              <PlusIcon className="w-5 h-5 mr-2" />
+              Create Custom Deck
+            </Button>
+          </div>
         </Card>
       </motion.div>
     </div>
