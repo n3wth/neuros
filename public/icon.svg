@@ -1,11 +1,16 @@
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <!-- Light mode background -->
-  <rect width="24" height="24" rx="4" fill="#FEFEFE"/>
-  <!-- Sparkle icon -->
-  <path d="M12 2 Q11.8 8.5 10.5 10.5 Q8.5 11.8 2 12 Q8.5 12.2 10.5 13.5 Q11.8 15.5 12 22 Q12.2 15.5 13.5 13.5 Q15.5 12.2 22 12 Q15.5 11.8 13.5 10.5 Q12.2 8.5 12 2" 
-        fill="none" 
-        stroke="#36454F" 
-        stroke-width="1.5" 
-        stroke-linecap="round" 
-        stroke-linejoin="round"/>
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean background -->
+  <rect width="32" height="32" rx="3" fill="#FAFAF9"/>
+  
+  <!-- Elegant serif N inspired by Playfair Display -->
+  <g fill="#000000">
+    <!-- Left vertical stroke with serifs -->
+    <path d="M 8 8 L 10 8 L 10 8.5 L 9.5 8.5 L 9.5 23.5 L 10 23.5 L 10 24 L 8 24 L 8 23.5 L 8.5 23.5 L 8.5 8.5 L 8 8.5 Z"/>
+    
+    <!-- Diagonal stroke -->
+    <path d="M 9 9 L 22 23 L 22.5 22.5 L 9.5 8.5 Z"/>
+    
+    <!-- Right vertical stroke with serifs -->
+    <path d="M 22 8 L 24 8 L 24 8.5 L 23.5 8.5 L 23.5 23.5 L 24 23.5 L 24 24 L 22 24 L 22 23.5 L 22.5 23.5 L 22.5 8.5 L 22 8.5 Z"/>
+  </g>
 </svg>

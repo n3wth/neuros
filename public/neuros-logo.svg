@@ -1,12 +1,20 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background circle -->
-  <rect width="512" height="512" rx="128" fill="#000000"/>
+  <!-- Off-white background circle -->
+  <rect width="512" height="512" rx="64" fill="#FAFAF9"/>
   
-  <!-- N letterform - Modern, clean design -->
-  <path d="M 140 360 L 140 152 L 190 152 L 322 310 L 322 152 L 372 152 L 372 360 L 322 360 L 190 202 L 190 360 Z" 
-        fill="#FFFFFF" 
-        stroke="none"/>
-  
-  <!-- Subtle accent dot - represents the "neuro" spark -->
-  <circle cx="256" cy="420" r="16" fill="#FFFFFF" opacity="0.8"/>
+  <!-- Elegant serif N - scaled up version -->
+  <g fill="#000000">
+    <!-- Left vertical with serif -->
+    <rect x="120" y="140" width="20" height="232" fill="#000000"/>
+    <rect x="100" y="140" width="60" height="12" fill="#000000"/>
+    <rect x="100" y="360" width="60" height="12" fill="#000000"/>
+    
+    <!-- Diagonal -->
+    <path d="M 140 160 L 372 352 L 392 340 L 160 148 Z" fill="#000000"/>
+    
+    <!-- Right vertical with serif -->
+    <rect x="372" y="140" width="20" height="232" fill="#000000"/>
+    <rect x="352" y="140" width="60" height="12" fill="#000000"/>
+    <rect x="352" y="360" width="60" height="12" fill="#000000"/>
+  </g>
 </svg>

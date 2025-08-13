@@ -8,26 +8,26 @@ import "./globals.css";
 import "./polish.css";
 import "./mobile.css";
 
-// Optimized font loading
+// Optimized font loading with 'optional' for instant rendering
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap',
+  display: 'optional', // Use optional for instant loading
   preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains',
-  display: 'swap',
+  display: 'optional', // Use optional for instant loading
   preload: false, // Only load when needed
 });
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
-  display: 'swap',
-  preload: false, // Only load when needed
+  display: 'optional', // Use optional for instant loading
+  preload: true, // Preload since used on landing page
 });
 
 export const viewport: Viewport = {

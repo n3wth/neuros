@@ -59,9 +59,9 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
           {/* Refined announcement */}
           <motion.div 
             className="flex items-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.4 }}
           >
             <div className="h-px w-12 bg-black/30" />
             <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
@@ -72,9 +72,9 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
           {/* Editorial hero text */}
           <motion.div 
             className="space-y-6"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
           >
             <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] max-w-5xl">
               <span className="block mb-4 relative inline-block">

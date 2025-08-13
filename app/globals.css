@@ -3,6 +3,31 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Critical CSS for preventing layout shift */
+html {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent FOUC - set default background immediately */
+body {
+  background-color: #FAFAF9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Predefine header space to prevent layout shift */
+.site-header-placeholder {
+  height: 64px;
+}
+
+@media (min-width: 1024px) {
+  .site-header-placeholder {
+    height: 80px;
+  }
+}
+
 /* Custom animations */
 @keyframes blink {
   0%, 50% { opacity: 1; }

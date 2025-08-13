@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import SiteHeader from '@/components/layout/site-header'
 import ProfessionalHero from '@/components/landing/professional-hero'
 import AIShowcase from '@/components/landing/ai-showcase'
 import TrustIndicators from '@/components/landing/trust-indicators'
@@ -15,6 +16,7 @@ export default async function Home() {
   
   return (
     <div className="min-h-screen bg-[#FAFAF9]">
+      <SiteHeader />
       <ProfessionalHero isAuthenticated={!!user} isDevelopment={isDevelopment} />
       <AIShowcase />
       <TrustIndicators />

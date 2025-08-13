@@ -285,7 +285,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             {/* Mobile Layout */}
             <div className="flex items-center flex-1 md:hidden">
               <Link href="/" className="flex items-center gap-2 group">
-                <img src="/icon.svg" alt="Neuros" className="h-6 w-6" />
+                <img src="/neuros-logo.svg" alt="Neuros" className="h-6 w-6" />
                 <span className="text-xl font-serif font-light">Neuros</span>
               </Link>
             </div>
@@ -293,7 +293,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             {/* Desktop Layout */}
             <div className="hidden md:flex items-center flex-1">
               <Link href="/" className="group mr-12">
-                <img src="/icon.svg" alt="Neuros" className="h-7 w-7 group-hover:opacity-70 transition-opacity" />
+                <img src="/neuros-logo.svg" alt="Neuros" className="h-7 w-7 group-hover:opacity-70 transition-opacity" />
               </Link>
               
               <nav className="hidden md:flex items-center space-x-8">
