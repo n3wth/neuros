@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { Suspense } from 'react'
 import { SignInForm } from '@/components/features/auth/sign-in-form'
 import { LightbulbIcon, ChartIcon, RocketIcon } from '@/components/icons/line-icons'
 import { Logo } from '@/components/ui/logo'
@@ -135,7 +136,9 @@ export default function SignInPage() {
             </div>
 
             {/* Form */}
-            <SignInForm />
+            <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg" />}>
+              <SignInForm />
+            </Suspense>
 
             {/* Social Options - Temporarily disabled but kept for future implementation */}
             {/* 

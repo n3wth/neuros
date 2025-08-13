@@ -3,18 +3,39 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, TestTube2 } from 'lucide-react'
 import { ClockIcon, SparkleIcon, ChartIcon } from '@/components/icons/line-icons'
+import { signInAsDeveloper } from '@/server/actions/auth'
+import { useRouter } from 'next/navigation'
 
 interface ProfessionalHeroProps {
   isAuthenticated: boolean
+  isDevelopment?: boolean
 }
 
-export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroProps) {
+export default function ProfessionalHero({ isAuthenticated, isDevelopment = false }: ProfessionalHeroProps) {
   const ref = useRef(null)
+  const router = useRouter()
   const [activeWord, setActiveWord] = useState(0)
+  const [isTestLoading, setIsTestLoading] = useState(false)
   
   const words = ['Remember', 'Master', 'Understand', 'Internalize']
+  
+  const handleTestLogin = async () => {
+    setIsTestLoading(true)
+    try {
+      const result = await signInAsDeveloper()
+      if (result.success) {
+        router.push('/dashboard')
+      } else {
+        console.error('Test login failed:', result.error)
+        setIsTestLoading(false)
+      }
+    } catch (error) {
+      console.error('Test login error:', error)
+      setIsTestLoading(false)
+    }
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,7 +109,7 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
 
           {/* Refined CTAs */}
           <motion.div 
-            className="pt-2"
+            className="pt-2 flex items-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -100,6 +121,21 @@ export default function ProfessionalHero({ isAuthenticated }: ProfessionalHeroPr
               <span className="text-sm font-medium">Get started</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
+            
+            {/* Development Only: Quick Test Login */}
+            {isDevelopment && !isAuthenticated && (
+              <button
+                onClick={handleTestLogin}
+                disabled={isTestLoading}
+                className="group inline-flex items-center gap-2 bg-[#4682B4] text-white px-4 py-3 rounded-full hover:bg-[#4682B4]/90 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Development Only: Quick Test Login\nSigns in as test@neuros.dev with sample learning data"
+              >
+                <TestTube2 className="w-4 h-4" />
+                <span className="text-sm font-medium">
+                  {isTestLoading ? 'Loading...' : 'Test Login'}
+                </span>
+              </button>
+            )}
           </motion.div>
 
           {/* Refined features */}

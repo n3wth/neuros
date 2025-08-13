@@ -6,6 +6,7 @@ import { createCard } from './cards'
 import { checkMultipleRateLimits } from '@/lib/rate-limit-server'
 import { RateLimitExceededError } from '@/lib/rate-limit'
 import { env } from '@/lib/env'
+import { logger } from '@/lib/logger'
 
 const openai = env.OPENAI_API_KEY ? new OpenAI({
   apiKey: env.OPENAI_API_KEY
@@ -39,7 +40,14 @@ async function retryWithBackoff<T>(
       
       // Calculate delay with exponential backoff and jitter
       const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000
-      console.log(`AI request failed (attempt ${attempt + 1}/${maxRetries + 1}), retrying in ${delay}ms:`, lastError.message)
+      logger.warn(`AI request failed, retrying`, {
+        metadata: {
+          attempt: attempt + 1,
+          maxRetries: maxRetries + 1,
+          delay,
+          errorMessage: lastError.message
+        }
+      })
       
       await new Promise(resolve => setTimeout(resolve, delay))
     }

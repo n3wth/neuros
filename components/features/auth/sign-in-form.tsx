@@ -1,13 +1,13 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { signIn, signInAsDeveloper } from '@/server/actions/auth'
 import { useToast } from '@/hooks/use-toast'
 import { useFormStatus } from 'react-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SparkleIcon } from '@/components/icons/line-icons'
 import { OAuthButton } from './oauth-button'
 import { PhoneAuthForm } from './phone-auth-form'
@@ -38,11 +38,28 @@ function SubmitButton() {
 
 export function SignInForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [isDevSigningIn, setIsDevSigningIn] = useState(false)
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
   const isDevelopment = process.env.NODE_ENV === 'development'
+
+  // Display error from URL params (OAuth errors)
+  useEffect(() => {
+    const error = searchParams.get('error')
+    if (error) {
+      toast({
+        title: 'Authentication Error',
+        description: decodeURIComponent(error),
+        variant: 'destructive',
+      })
+      // Clear the error from URL
+      const url = new URL(window.location.href)
+      url.searchParams.delete('error')
+      window.history.replaceState({}, '', url)
+    }
+  }, [searchParams, toast])
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),

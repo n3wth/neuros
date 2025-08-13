@@ -14,13 +14,6 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimize package imports for better bundling
     optimizePackageImports: ['@radix-ui/react-*', 'lucide-react', 'framer-motion'],
-    // Turbopack configuration
-    turbo: {
-      resolveAlias: {
-        // Ensure proper module resolution for Turbopack
-        '@': './src',
-      },
-    },
   },
   // Pre-compile frequently used packages
   serverExternalPackages: [],
