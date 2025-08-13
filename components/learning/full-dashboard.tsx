@@ -529,8 +529,8 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               </div>
               )}
 
-              {/* New User Discovery Experience */}
-              {completionState?.type === 'new_user' && stats?.totalCards === 0 && (
+              {/* Discovery Experience for new users or users with very few cards */}
+              {(completionState?.type === 'new_user' || (stats && stats.totalCards < 3)) && viewMode === 'overview' && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -551,7 +551,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                       }
                       setIsCreateDialogOpen(true)
                     }}
-                    userLevel="new"
+                    userLevel={stats && stats.totalCards > 0 ? 'beginner' : 'new'}
                   />
                 </motion.div>
               )}
@@ -1119,23 +1119,41 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               </div>
 
               {filteredCards.length === 0 && (
-                <motion.div 
-                  className="text-center py-16"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <BookIcon className="w-16 h-16 mx-auto mb-6 text-black/20" />
-                  <p className="text-black/60 font-light text-lg mb-6">
-                    {searchQuery ? 'No cards found matching your search' : 'No cards yet'}
-                  </p>
-                  <Button
-                    onClick={() => setIsCreateDialogOpen(true)}
-                    className="bg-black text-white hover:bg-black/80 focus:bg-black/80 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-black/20 focus:ring-offset-2 transition-all duration-300"
+                searchQuery ? (
+                  <motion.div 
+                    className="text-center py-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
                   >
-                    Create Your First Card
-                  </Button>
-                </motion.div>
+                    <SearchIcon className="w-16 h-16 mx-auto mb-6 text-black/20" />
+                    <p className="text-black/60 font-light text-lg mb-6">
+                      No cards found matching your search
+                    </p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <DiscoveryDashboard 
+                      onCreateCard={(prompt) => {
+                        if (prompt && typeof window !== 'undefined') {
+                          window.localStorage.setItem('suggested-prompt', prompt)
+                        }
+                        setIsCreateDialogOpen(true)
+                      }}
+                      onStartLearning={(topicId) => {
+                        if (typeof window !== 'undefined') {
+                          window.localStorage.setItem('selected-topic', topicId)
+                        }
+                        setIsCreateDialogOpen(true)
+                      }}
+                      userLevel={stats && stats.totalCards > 10 ? 'intermediate' : stats && stats.totalCards > 0 ? 'beginner' : 'new'}
+                    />
+                  </motion.div>
+                )
               )}
             </motion.div>
           )}

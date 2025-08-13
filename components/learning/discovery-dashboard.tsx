@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  SparkleIcon, 
   TrendingUpIcon,
   GlobeIcon,
   BookOpenIcon,
@@ -11,12 +10,12 @@ import {
   RocketIcon,
   StarIcon,
   PlusIcon,
-  RefreshIcon,
   ChevronRightIcon,
   HashIcon,
   UsersIcon,
   ZapIcon
 } from 'lucide-react'
+import { SparkleIcon, RefreshIcon } from '@/components/icons/line-icons'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
