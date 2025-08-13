@@ -44,7 +44,6 @@ import {
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
 import dynamic from 'next/dynamic'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
-import SuggestedPrompts from './suggested-prompts'
 import ProgressIndicator from './progress-indicator'
 
 // Lazy load heavy visualization components
@@ -60,6 +59,10 @@ const ViralMechanisms = dynamic(() => import('@/components/sharing/viral-mechani
   ssr: false,
   loading: () => <LoadingSkeleton type="card" message="Loading impact mechanisms..." />
 })
+const DiscoveryDashboard = dynamic(() => import('@/components/learning/discovery-dashboard'), {
+  ssr: false,
+  loading: () => <LoadingSkeleton type="card" message="Loading discovery..." />
+})
 
 interface User {
   id: string
@@ -70,7 +73,7 @@ interface FullLearningDashboardProps {
   user: User
 }
 
-type ViewMode = 'overview' | 'review' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
+type ViewMode = 'overview' | 'discover' | 'review' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
 
 export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
@@ -310,6 +313,19 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   )}
                 </button>
                 <button
+                  onClick={() => setViewMode('discover')}
+                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
+                    viewMode === 'discover' 
+                      ? 'text-black' 
+                      : 'text-black/60 hover:text-black'
+                  }`}
+                >
+                  Discover
+                  {viewMode === 'discover' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                  )}
+                </button>
+                <button
                   onClick={() => setViewMode('review')}
                   className={`relative py-5 text-sm font-medium transition-all duration-200 ${
                     viewMode === 'review' 
@@ -513,7 +529,7 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
               </div>
               )}
 
-              {/* New User Onboarding Experience */}
+              {/* New User Discovery Experience */}
               {completionState?.type === 'new_user' && stats?.totalCards === 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -521,22 +537,21 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   transition={{ duration: 0.8 }}
                   className="mb-12"
                 >
-                  <div className="mb-8">
-                    <ProgressIndicator 
-                      currentCards={stats?.totalCards || 0}
-                      targetCards={3}
-                      variant="detailed"
-                    />
-                  </div>
-                  <SuggestedPrompts 
-                    onSelectPrompt={(prompt) => {
-                      setIsCreateDialogOpen(true)
-                      // Store the prompt to pass to dialog
-                      if (typeof window !== 'undefined') {
+                  <DiscoveryDashboard 
+                    onCreateCard={(prompt) => {
+                      if (prompt && typeof window !== 'undefined') {
                         window.localStorage.setItem('suggested-prompt', prompt)
                       }
+                      setIsCreateDialogOpen(true)
                     }}
-                    variant="grid"
+                    onStartLearning={(topicId) => {
+                      // Store topic ID for later use
+                      if (typeof window !== 'undefined') {
+                        window.localStorage.setItem('selected-topic', topicId)
+                      }
+                      setIsCreateDialogOpen(true)
+                    }}
+                    userLevel="new"
                   />
                 </motion.div>
               )}
@@ -1122,6 +1137,33 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                   </Button>
                 </motion.div>
               )}
+            </motion.div>
+          )}
+
+          {viewMode === 'discover' && (
+            <motion.div
+              key="discover"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <DiscoveryDashboard 
+                onCreateCard={(prompt) => {
+                  if (prompt && typeof window !== 'undefined') {
+                    window.localStorage.setItem('suggested-prompt', prompt)
+                  }
+                  setIsCreateDialogOpen(true)
+                }}
+                onStartLearning={(topicId) => {
+                  // Store topic ID for later use
+                  if (typeof window !== 'undefined') {
+                    window.localStorage.setItem('selected-topic', topicId)
+                  }
+                  setIsCreateDialogOpen(true)
+                }}
+                userLevel={stats && stats.totalCards > 10 ? 'intermediate' : stats && stats.totalCards > 0 ? 'beginner' : 'new'}
+              />
             </motion.div>
           )}
 
