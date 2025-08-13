@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -43,15 +43,14 @@ function SubmitButton() {
 
 export function SignUpForm() {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
   const [fullName, setFullName] = useState('')
   
-  // Check if OAuth should be shown (for testing)
-  const showOAuth = searchParams.get('test') === 'google'
+  // Google OAuth is now enabled for everyone
+  const showOAuth = true
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),

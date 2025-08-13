@@ -45,8 +45,8 @@ export function SignInForm() {
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email')
   const isDevelopment = process.env.NODE_ENV === 'development'
   
-  // Check if OAuth should be shown (for testing)
-  const showOAuth = searchParams.get('test') === 'google'
+  // Google OAuth is now enabled for everyone
+  const showOAuth = true
 
   // Display error from URL params (OAuth errors)
   useEffect(() => {
