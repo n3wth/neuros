@@ -1,0 +1,19 @@
+=== Starting neuros at Wed Aug 13 03:06:25 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_030625.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 939ms
+
+=== Session ended at Wed Aug 13 03:07:59 PDT 2025 ===

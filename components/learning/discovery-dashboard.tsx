@@ -113,10 +113,10 @@ export default function DiscoveryDashboard({
         transition={{ duration: 0.6 }}
         className="mb-8"
       >
-        <h1 className="text-4xl font-serif font-light mb-3 text-black">
+        <h1 className="text-4xl font-serif font-light mb-3 text-black/90">
           Discover Your Next Learning Adventure
         </h1>
-        <p className="text-lg text-black/60 font-light">
+        <p className="text-lg text-black/60 font-light leading-[1.6]">
           Explore trending topics and get personalized AI suggestions
         </p>
       </motion.div>
@@ -127,17 +127,17 @@ export default function DiscoveryDashboard({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
-        <Card className="p-8 bg-gradient-to-br from-white via-white to-purple-50/30 border-black/5">
+        <Card className="p-8 bg-white border-black/5">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-purple-100 rounded-xl">
                 <SparkleIcon className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-serif font-light text-black">
+                <h2 className="text-2xl font-serif font-normal text-black/90">
                   AI-Powered Suggestions
                 </h2>
-                <p className="text-sm text-black/60 mt-1">
+                <p className="text-sm text-black/60 mt-1 leading-relaxed">
                   Personalized learning ideas just for you
                 </p>
               </div>
@@ -178,7 +178,7 @@ export default function DiscoveryDashboard({
                       <div className="p-1.5 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">
                         <ZapIcon className="w-4 h-4 text-purple-600" />
                       </div>
-                      <p className="text-sm font-medium text-black/80 leading-relaxed flex-1">
+                      <p className="text-sm font-normal text-black/80 leading-relaxed flex-1">
                         {suggestion}
                       </p>
                     </div>
@@ -224,7 +224,7 @@ export default function DiscoveryDashboard({
         transition={{ duration: 0.6, delay: 0.3 }}
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-serif font-light text-black">
+          <h2 className="text-2xl font-serif font-normal text-black/90">
             Trending Topics
           </h2>
           <Badge variant="secondary" className="bg-orange-50 text-orange-700 border-orange-200">
@@ -261,7 +261,7 @@ export default function DiscoveryDashboard({
                       <div className="absolute -top-2 -right-2 z-10">
                         <div className="relative">
                           <div className="absolute inset-0 bg-orange-400 blur-md opacity-50 animate-pulse"></div>
-                          <Badge className="relative bg-gradient-to-r from-orange-400 to-red-400 text-white border-0">
+                          <Badge className="relative bg-orange-400 text-white border-0">
                             <TrendingIcon className="w-3 h-3 mr-1" />
                             Hot
                           </Badge>
@@ -280,10 +280,10 @@ export default function DiscoveryDashboard({
                     </div>
 
                     {/* Title & Description */}
-                    <h3 className="text-xl font-serif font-light mb-2 text-black group-hover:text-purple-600 transition-colors">
+                    <h3 className="text-xl font-serif font-normal mb-2 text-black/90 group-hover:text-purple-600 transition-colors">
                       {topic.title}
                     </h3>
-                    <p className="text-sm text-black/60 mb-4 line-clamp-2">
+                    <p className="text-sm text-black/60 mb-4 line-clamp-2 leading-relaxed">
                       {topic.description}
                     </p>
 
@@ -305,7 +305,7 @@ export default function DiscoveryDashboard({
                         Sample cards:
                       </p>
                       {topic.exampleCards.slice(0, 2).map((card, i) => (
-                        <div key={i} className="text-sm text-black/70 pl-3 border-l-2 border-purple-100">
+                        <div key={i} className="text-sm text-black/70 pl-3 border-l-2 border-purple-100 leading-relaxed">
                           {card}
                         </div>
                       ))}
@@ -332,13 +332,13 @@ export default function DiscoveryDashboard({
         transition={{ duration: 0.6, delay: 0.4 }}
         className="mt-12"
       >
-        <Card className="p-8 bg-gradient-to-r from-purple-50 to-blue-50 border-purple-100">
+        <Card className="p-8 bg-purple-50 border-purple-100">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-2xl font-serif font-light mb-2 text-black">
+              <h3 className="text-2xl font-serif font-normal mb-2 text-black/90">
                 Can&apos;t find what you&apos;re looking for?
               </h3>
-              <p className="text-black/60">
+              <p className="text-black/60 leading-relaxed">
                 Create your own custom learning deck with AI assistance
               </p>
             </div>

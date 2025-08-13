@@ -61,3 +61,67 @@ Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_030257.log
  POST /dashboard/discover 200 in 75ms
  POST /dashboard/discover 200 in 12ms
  POST /dashboard/discover 200 in 16ms
+[2025-08-13T10:03:11.638Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 17ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 19ms
+[2025-08-13T10:03:13.008Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 10ms
+[2025-08-13T10:03:13.527Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 11ms
+ POST /dashboard/discover 200 in 22ms
+ POST /dashboard/discover 200 in 13ms
+ POST /dashboard/discover 200 in 20ms
+ ✓ Compiled /dashboard/browse in 187ms (1782 modules)
+[2025-08-13T10:03:14.558Z] [INFO] Dashboard Browse loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_browse_load_success'
+}
+ GET /dashboard/browse 200 in 257ms
+ POST /dashboard/browse 200 in 77ms
+ POST /dashboard/browse 200 in 10ms
+ POST /dashboard/browse 200 in 16ms
+[2025-08-13T10:03:15.172Z] [INFO] Dashboard Stats loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_stats_load_success'
+}
+ GET /dashboard/stats 200 in 24ms
+ POST /dashboard/stats 200 in 19ms
+ POST /dashboard/stats 200 in 13ms
+ POST /dashboard/stats 200 in 21ms
+[2025-08-13T10:03:16.187Z] [INFO] Dashboard Settings loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_settings_load_success'
+}
+ GET /dashboard/settings 200 in 35ms
+ POST /dashboard/settings 200 in 18ms
+ POST /dashboard/settings 200 in 13ms
+ POST /dashboard/settings 200 in 17ms
+[2025-08-13T10:03:17.102Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 37ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 16ms
+[2025-08-13T10:03:18.622Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 17ms
+ POST /dashboard/discover 200 in 19ms
+ POST /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 16ms
+
+=== Session ended at Wed Aug 13 03:03:50 PDT 2025 ===

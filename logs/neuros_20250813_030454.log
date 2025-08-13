@@ -1,0 +1,135 @@
+=== Starting neuros at Wed Aug 13 03:04:54 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_030454.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363
+69627, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1019ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1033ms (1462 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1472ms
+ ✓ Compiled in 408ms (570 modules)
+ ○ Compiling /dashboard/discover ...
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:653:1]
+ [2m650[0m |               )}
+ [2m651[0m |               
+ [2m652[0m |             </motion.div>
+ [2m653[0m |           )}
+     : [35;1m          ^[0m
+ [2m654[0m | 
+ [2m655[0m |           {viewMode === 'discover' && (
+ [2m656[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:653:1]
+ [2m650[0m |               )}
+ [2m651[0m |               
+ [2m652[0m |             </motion.div>
+ [2m653[0m |           )}
+     : [35;1m          ^[0m
+ [2m654[0m | 
+ [2m655[0m |           {viewMode === 'discover' && (
+ [2m656[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:653:1]
+ [2m650[0m |               )}
+ [2m651[0m |               
+ [2m652[0m |             </motion.div>
+ [2m653[0m |           )}
+     : [35;1m          ^[0m
+ [2m654[0m | 
+ [2m655[0m |           {viewMode === 'discover' && (
+ [2m656[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 1530ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard/discover 500 in 254ms
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:653:1]
+ [2m650[0m |               )}
+ [2m651[0m |               
+ [2m652[0m |             </motion.div>
+ [2m653[0m |           )}
+     : [35;1m          ^[0m
+ [2m654[0m | 
+ [2m655[0m |           {viewMode === 'discover' && (
+ [2m656[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 565ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /review 500 in 582ms
+ GET /dashboard/discover 500 in 12ms
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:629:1]
+ [2m626[0m |               )}
+ [2m627[0m |               
+ [2m628[0m |             </motion.div>
+ [2m629[0m |           )}
+     : [35;1m          ^[0m
+ [2m630[0m | 
+ [2m631[0m |           {viewMode === 'discover' && (
+ [2m632[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 318ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 11ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /review 500 in 9ms
+ GET /dashboard/discover 500 in 16ms
+
+=== Session ended at Wed Aug 13 03:05:51 PDT 2025 ===

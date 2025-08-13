@@ -1,0 +1,236 @@
+=== Starting neuros at Wed Aug 13 03:03:51 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_030351.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1010ms
+ ✓ Compiled /middleware in 120ms (180 modules)
+ ○ Compiling /dashboard/discover ...
+ ✓ Compiled /dashboard/discover in 1297ms (1770 modules)
+[2025-08-13T10:03:55.547Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ ✓ Compiled in 534ms (595 modules)
+ GET /dashboard/discover 200 in 1869ms
+ ✓ Compiled /icon.svg in 177ms (1192 modules)
+ GET /icon.svg 200 in 263ms
+ ✓ Compiled /dashboard in 174ms (1775 modules)
+[2025-08-13T10:04:02.216Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 433ms
+ ✓ Compiled in 274ms (1787 modules)
+[2025-08-13T10:04:23.807Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 215ms
+ GET /icon.svg 200 in 11ms
+ POST /dashboard 200 in 149ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 46ms
+[2025-08-13T10:04:24.701Z] [INFO] Dashboard loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 27ms
+ GET /icon.svg 200 in 6ms
+ POST /dashboard 200 in 23ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 19ms
+[2025-08-13T10:04:28.340Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/discover 200 in 22ms
+[2025-08-13T10:04:29.664Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/discover 200 in 1314ms
+ ✓ Compiled /dashboard/browse in 217ms (1775 modules)
+[2025-08-13T10:04:29.984Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/browse 200 in 354ms
+[2025-08-13T10:04:31.466Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/browse 200 in 1473ms
+[2025-08-13T10:04:31.508Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 46ms
+ ✓ Compiled /dashboard/stats in 162ms (1777 modules)
+[2025-08-13T10:04:32.764Z] [INFO] Dashboard Stats loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_stats_load_success'
+}
+ GET /dashboard/stats 200 in 242ms
+ POST /dashboard/stats 200 in 83ms
+ POST /dashboard/stats 200 in 10ms
+ POST /dashboard/stats 200 in 17ms
+[2025-08-13T10:04:35.751Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/discover 200 in 16ms
+[2025-08-13T10:04:36.552Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/browse 200 in 11ms
+[2025-08-13T10:04:37.067Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/discover 200 in 1309ms
+ ✓ Compiled /dashboard/settings in 169ms (1779 modules)
+[2025-08-13T10:04:37.936Z] [INFO] Dashboard Settings loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_settings_load_success'
+}
+ GET /dashboard/settings 200 in 244ms
+[2025-08-13T10:04:38.123Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/browse 200 in 1564ms
+[2025-08-13T10:04:39.084Z] [DEBUG] Cached trending topics { metadata: { count: 6, ttl: 3600 } }
+ POST /dashboard/discover 200 in 67ms
+[2025-08-13T10:04:39.104Z] [INFO] Dashboard Discover loaded {
+  userId: '1a996f40-e8a7-427e-8728-88509f201193',
+  action: 'dashboard_discover_load_success'
+}
+ GET /dashboard/discover 200 in 14ms
+[2025-08-13T10:04:40.139Z] [INFO] Generated AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    count: 4,
+    cached: true
+  }
+}
+ POST /dashboard/discover 200 in 1047ms
+[2025-08-13T10:04:40.157Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 7ms
+[2025-08-13T10:04:40.182Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 12ms
+ POST /dashboard/discover 200 in 20ms
+ POST /dashboard/discover 200 in 9ms
+ POST /dashboard/discover 200 in 17ms
+[2025-08-13T10:04:40.290Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 6ms
+[2025-08-13T10:04:40.304Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 8ms
+[2025-08-13T10:04:40.315Z] [DEBUG] Returning cached trending topics { metadata: { cacheHit: true, count: 6 } }
+ POST /dashboard/discover 200 in 5ms
+[2025-08-13T10:04:40.333Z] [DEBUG] Returning cached AI suggestions {
+  metadata: {
+    userId: '1a996f40-e8a7-427e-8728-88509f201193',
+    userLevel: 'beginner',
+    cacheHit: true
+  }
+}
+ POST /dashboard/discover 200 in 8ms
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:659:1]
+ [2m656[0m |               )}
+ [2m657[0m |               
+ [2m658[0m |             </motion.div>
+ [2m659[0m |           )}
+     : [35;1m          ^[0m
+ [2m660[0m | 
+ [2m661[0m |           {viewMode === 'discover' && (
+ [2m662[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:659:1]
+ [2m656[0m |               )}
+ [2m657[0m |               
+ [2m658[0m |             </motion.div>
+ [2m659[0m |           )}
+     : [35;1m          ^[0m
+ [2m660[0m | 
+ [2m661[0m |           {viewMode === 'discover' && (
+ [2m662[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ GET /dashboard/discover 500 in 662ms
+ GET /dashboard/discover 500 in 5ms
+ GET /dashboard/discover 500 in 5ms
+ GET /dashboard/discover 500 in 5ms
+ ○ Compiling /_error ...
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:659:1]
+ [2m656[0m |               )}
+ [2m657[0m |               
+ [2m658[0m |             </motion.div>
+ [2m659[0m |           )}
+     : [35;1m          ^[0m
+ [2m660[0m | 
+ [2m661[0m |           {viewMode === 'discover' && (
+ [2m662[0m |             <motion.div
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/page.tsx
+ ✓ Compiled /_not-found in 127ms (724 modules)
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 293ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard/discover 500 in 9ms
+
+=== Session ended at Wed Aug 13 03:04:51 PDT 2025 ===

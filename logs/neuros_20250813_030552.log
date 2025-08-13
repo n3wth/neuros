@@ -1,0 +1,58 @@
+=== Starting neuros at Wed Aug 13 03:05:52 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_030552.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 65363
+69627, using available port 3001 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.10.48:3001
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1042ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 922ms (1282 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 404 in 1237ms
+ ⨯ SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+ ✓ Compiled /middleware in 648ms (750 modules)
+ ○ Compiling /dashboard/discover ...
+ ⨯ ./components/learning/full-dashboard.tsx
+Error:   [31mx[0m Expected '</', got 'jsx text (
+  [31m|[0m
+  [31m|[0m               )'
+     ,-[[36;1;4m/Users/oliver/gh/neuros/components/learning/full-dashboard.tsx[0m:475:1]
+ [2m472[0m |                         </div>
+ [2m473[0m |                       </Card>
+ [2m474[0m |                     </div>
+ [2m475[0m | [35;1m,[0m[35;1m-[0m[35;1m>[0m               </motion.div>
+ [2m476[0m | [35;1m|[0m   
+ [2m477[0m | [35;1m`[0m[35;1m-[0m[35;1m>[0m               {/* Learning Insights Section */}
+ [2m478[0m |                   <motion.div
+ [2m479[0m |                     initial={{ opacity: 0, y: 20 }}
+ [2m480[0m |                     animate={{ opacity: 1, y: 0 }}
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/learning/full-dashboard.tsx
+./app/(dashboard)/dashboard/discover/page.tsx
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 1853ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 500 in 1342ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/69ddbe14901882e5.webpack.hot-update.json 500 in 14ms
+ GET /dashboard/discover 500 in 1202ms
+[?25h
+
+=== Session ended at Wed Aug 13 03:06:20 PDT 2025 ===

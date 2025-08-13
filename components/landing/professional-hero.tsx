@@ -76,7 +76,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
           >
-            <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] max-w-5xl">
+            <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] max-w-5xl text-black/90">
               <div className="mb-4">
                 <div className="relative h-[1.2em]">
                   <AnimatePresence mode="sync">
@@ -89,15 +89,15 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
                         duration: 0.5,
                         ease: [0.25, 0.46, 0.45, 0.94]
                       }}
-                      className="absolute left-0 text-black"
+                      className="absolute left-0"
                     >
                       {words[activeWord]}
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <div className="text-black">everything.</div>
+                <div>everything.</div>
               </div>
-              <span className="block text-black/60 mt-4">
+              <span className="block text-black/60 mt-4 font-light">
                 No more forgetting.
               </span>
             </h1>
@@ -181,7 +181,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
                     />
                   </div>
                   
-                  <h3 className="text-2xl font-serif font-light mb-4 leading-tight">
+                  <h3 className="text-2xl font-serif font-normal mb-4 leading-tight text-black/90">
                     {feature.title}
                   </h3>
                   

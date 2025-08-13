@@ -1,8 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 import { 
   SparkleIcon, 
   ChartIcon, 
@@ -32,7 +31,6 @@ import {
 // import { analyzeMetaLearningPatterns, evolveSystemIntelligence } from '@/server/actions/meta-learning'
 // import { generateTutorIntervention } from '@/server/actions/ai-tutor'
 import LoadingSkeleton from '@/components/ui/loading-skeleton'
-import ProgressIndicator from './progress-indicator'
 import DiscoveryDashboard from './discovery-dashboard'
 
 interface User {
@@ -48,7 +46,6 @@ interface FullLearningDashboardProps {
 type ViewMode = 'overview' | 'discover' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
 
 export default function FullLearningDashboard({ user, initialViewMode = 'overview' }: FullLearningDashboardProps) {
-  const router = useRouter()
   const pathname = usePathname()
   
   // Get view mode from route path or use initial view mode
@@ -74,6 +71,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
   const [completionState, setCompletionState] = useState<{ type: string; totalCards: number; dueCards: number; nextReviewTime: string | null; completedToday: boolean } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  // State for tracking data loading (keeping for future use)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
   const loadingRef = useRef(false)
@@ -140,12 +139,13 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
       setIsLoadingData(false)
       loadingRef.current = false
     }
-  }, [stats]) // Only depend on stats to prevent infinite loop
+  }, []) // Remove dependency on stats to prevent infinite loops
 
   useEffect(() => {
     // Load data immediately on mount
     loadDashboardData()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Empty dependency to prevent infinite loop
 
   // Add scroll listener for header animation
   useEffect(() => {
@@ -216,7 +216,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
           <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center">
             <RefreshIcon className="w-8 h-8 text-red-500 stroke-[1.5]" />
           </div>
-          <h2 className="text-xl font-serif font-light mb-3 text-black/90">Something went wrong</h2>
+          <h2 className="text-xl font-serif font-normal mb-3 text-black/90">Something went wrong</h2>
           <p className="text-black/60 font-light mb-6">{error}</p>
           <Button
             onClick={loadDashboardData}
@@ -323,22 +323,10 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
             </div>
 
             <div className="flex items-center space-x-2 md:space-x-3">
-              {/* Progress Indicator for users with few cards */}
-              {stats && stats.totalCards > 0 && stats.totalCards < 10 && (
-                <ProgressIndicator 
-                  currentCards={stats.totalCards}
-                  targetCards={10}
-                  variant="minimal"
-                />
-              )}
-              
               {studyStats && studyStats.current_streak_days > 0 && (
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5">
                   <HeartIcon className="h-4 w-4 text-black/60" />
-                  <span className="hidden sm:inline text-sm text-black/60">
-                    {studyStats.current_streak_days} day{studyStats.current_streak_days !== 1 ? 's' : ''}
-                  </span>
-                  <span className="sm:hidden text-sm text-black/60">
+                  <span className="text-sm text-black/60">
                     {studyStats.current_streak_days}
                   </span>
                 </div>
@@ -366,159 +354,112 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <AnimatePresence mode="wait">
-          {viewMode === 'overview' && (
-            <motion.div
-              key="overview"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Greeting with Editorial Style */}
-              <motion.div 
-                className="mb-16"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px w-12 bg-black/30" />
-                  <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
-                    {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                  </p>
-                </div>
-                <h1 className="text-[clamp(3rem,5vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-4 text-black">
-                  {formatGreeting()}
-                </h1>
-                <p className="text-xl sm:text-2xl text-black/60 font-light leading-relaxed max-w-3xl">
-                  {formatSmartMessage()}
+        {viewMode === 'overview' && (
+          <div>
+            {/* Greeting - Simple, no animation */}
+            <div className="mb-16">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="h-px w-12 bg-black/30" />
+                <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+                  {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 </p>
-              </motion.div>
+              </div>
+              <h1 className="text-[clamp(3rem,5vw,5rem)] font-serif font-light leading-[1.1] tracking-[-0.02em] mb-4 text-black/90">
+                {formatGreeting()}
+              </h1>
+              <p className="text-xl sm:text-2xl text-black/60 font-light leading-[1.6] max-w-3xl">
+                {formatSmartMessage()}
+              </p>
+            </div>
 
-              {/* Stats Cards - Show immediately with loading states when data is loading */}
+              {/* Stats Cards - Simple, no animations */}
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                >
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
-                    <div className="mb-4">
-                      <BookIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
-                    </div>
-                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
-                      {stats?.totalCards ?? (isLoadingData ? '...' : '0')}
-                    </p>
-                    <p className="text-sm text-black/50">total cards</p>
-                  </Card>
-                </motion.div>
+                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <div className="mb-4">
+                    <BookIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
+                  </div>
+                  <p className="text-3xl font-serif font-light text-black mb-1">
+                    {stats?.totalCards ?? '0'}
+                  </p>
+                  <p className="text-sm text-black/50">total cards</p>
+                </Card>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
-                    <div className="mb-4">
-                      <SparkleIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
-                    </div>
-                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
-                      {stats?.mastered ?? (isLoadingData ? '...' : '0')}
-                    </p>
-                    <p className="text-sm text-black/50">mastered</p>
-                  </Card>
-                </motion.div>
+                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <div className="mb-4">
+                    <SparkleIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
+                  </div>
+                  <p className="text-3xl font-serif font-light text-black mb-1">
+                    {stats?.mastered ?? '0'}
+                  </p>
+                  <p className="text-sm text-black/50">mastered</p>
+                </Card>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
-                    <div className="mb-4">
-                      <ClockIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
-                    </div>
-                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
-                      {stats?.dueCards ?? (isLoadingData ? '...' : '0')}
-                    </p>
-                    <p className="text-sm text-black/50">due today</p>
-                  </Card>
-                </motion.div>
+                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <div className="mb-4">
+                    <ClockIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
+                  </div>
+                  <p className="text-3xl font-serif font-light text-black mb-1">
+                    {stats?.dueCards ?? '0'}
+                  </p>
+                  <p className="text-sm text-black/50">due today</p>
+                </Card>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
-                    <div className="mb-4">
-                      <ChartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
-                    </div>
-                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
-                      {studyStats?.average_accuracy ?? (isLoadingData ? '...' : '0')}%
-                    </p>
-                    <p className="text-sm text-black/50">accuracy</p>
-                  </Card>
-                </motion.div>
+                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <div className="mb-4">
+                    <ChartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
+                  </div>
+                  <p className="text-3xl font-serif font-light text-black mb-1">
+                    {studyStats?.average_accuracy ?? '0'}%
+                  </p>
+                  <p className="text-sm text-black/50">accuracy</p>
+                </Card>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
-                    <div className="mb-4">
-                      <HeartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
-                    </div>
-                    <p className={`text-3xl font-serif font-light text-black mb-1 ${isLoadingData ? 'animate-pulse' : ''}`}>
-                      {studyStats?.current_streak_days ?? (isLoadingData ? '...' : '0')}
-                    </p>
-                    <p className="text-sm text-black/50">day streak</p>
-                  </Card>
-                </motion.div>
+                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <div className="mb-4">
+                    <HeartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
+                  </div>
+                  <p className="text-3xl font-serif font-light text-black mb-1">
+                    {studyStats?.current_streak_days ?? '0'}
+                  </p>
+                  <p className="text-sm text-black/50">day streak</p>
+                </Card>
               </div>
 
-              {/* Quick Actions Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mb-12"
-              >
-                <h2 className="text-lg font-serif font-light text-black/70 mb-6">Quick Actions</h2>
+              {/* Quick Actions Section - No animations */}
+              <div className="mb-12">
+                <h2 className="text-xl font-serif font-normal text-black/80 mb-6">Quick Actions</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Start Review */}
-                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-gray-50 border border-black/5 rounded-3xl overflow-hidden"
-                    onClick={() => router.push('/review')}>
+                  <Card className="group cursor-pointer hover:shadow-lg bg-white border border-black/5 rounded-3xl overflow-hidden"
+                    onClick={() => window.location.href = '/review'}>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
-                        <PlayIcon className="w-8 h-8 text-black/60 group-hover:text-black transition-colors" />
+                        <PlayIcon className="w-8 h-8 text-black/60" />
                         <Badge className="bg-black/5 text-black/60 text-xs">
                           {stats?.dueCards || 0} cards
                         </Badge>
                       </div>
-                      <h3 className="text-xl font-serif font-light text-black mb-2">Start Review Session</h3>
-                      <p className="text-sm text-black/50">Review your due cards with spaced repetition</p>
+                      <h3 className="text-xl font-serif font-normal text-black/90 mb-2">Start Review Session</h3>
+                      <p className="text-sm text-black/60 leading-relaxed">Review your due cards with spaced repetition</p>
                     </div>
                   </Card>
 
                   {/* Create New Cards */}
-                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-blue-50 border border-black/5 rounded-3xl overflow-hidden"
+                  <Card className="group cursor-pointer hover:shadow-lg bg-blue-50 border border-black/5 rounded-3xl overflow-hidden"
                     onClick={() => setIsCreateDialogOpen(true)}>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
                         <PlusIcon className="w-8 h-8 text-black/60 group-hover:text-black transition-colors" />
                         <Badge className="bg-blue-100/50 text-blue-700 text-xs">AI-Powered</Badge>
                       </div>
-                      <h3 className="text-xl font-serif font-light text-black mb-2">Create Cards</h3>
-                      <p className="text-sm text-black/50">Generate cards from text or manually create</p>
+                      <h3 className="text-xl font-serif font-normal text-black/90 mb-2">Create Cards</h3>
+                      <p className="text-sm text-black/60 leading-relaxed">Generate cards from text or manually create</p>
                     </div>
                   </Card>
 
                   {/* Browse Library */}
-                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-green-50 border border-black/5 rounded-3xl overflow-hidden"
-                    onClick={() => router.push('/dashboard/browse')}>
+                  <Card className="group cursor-pointer hover:shadow-lg bg-green-50 border border-black/5 rounded-3xl overflow-hidden"
+                    onClick={() => handleNavigation('browse')}>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
                         <BookIcon className="w-8 h-8 text-black/60 group-hover:text-black transition-colors" />
@@ -526,26 +467,21 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                           {stats?.totalCards || 0} total
                         </Badge>
                       </div>
-                      <h3 className="text-xl font-serif font-light text-black mb-2">Browse Library</h3>
-                      <p className="text-sm text-black/50">View and manage all your cards</p>
+                      <h3 className="text-xl font-serif font-normal text-black/90 mb-2">Browse Library</h3>
+                      <p className="text-sm text-black/60 leading-relaxed">View and manage all your cards</p>
                     </div>
                   </Card>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Learning Insights Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="mb-12"
-              >
-                <h2 className="text-lg font-serif font-light text-black/70 mb-6">Your Learning Journey</h2>
+              <div className="mb-12">
+                <h2 className="text-xl font-serif font-normal text-black/80 mb-6">Your Learning Journey</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Progress Overview */}
                   <Card className="p-6 bg-white rounded-3xl border border-black/5">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-medium text-black">Weekly Progress</h3>
+                      <h3 className="text-lg font-medium text-black/90">Weekly Progress</h3>
                       <ChartIcon className="w-5 h-5 text-black/40" />
                     </div>
                     <div className="space-y-3">
@@ -555,7 +491,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                           <span className="text-black font-medium">{studyStats?.total_reviews || 0}</span>
                         </div>
                         <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-black rounded-full transition-all duration-700"
+                          <div className="h-full bg-black rounded-full"
                             style={{ width: `${Math.min((studyStats?.total_reviews || 0) / 50 * 100, 100)}%` }} />
                         </div>
                       </div>
@@ -567,7 +503,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                           </span>
                         </div>
                         <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-green-500 rounded-full transition-all duration-700"
+                          <div className="h-full bg-green-500 rounded-full"
                             style={{ width: `${stats?.totalCards ? (stats.mastered / stats.totalCards) * 100 : 0}%` }} />
                         </div>
                       </div>
@@ -579,7 +515,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                           </span>
                         </div>
                         <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-blue-500 rounded-full transition-all duration-700"
+                          <div className="h-full bg-blue-500 rounded-full"
                             style={{ width: `${Math.min((studyStats?.total_study_time_minutes || 0) / 60 / 10 * 100, 100)}%` }} />
                         </div>
                       </div>
@@ -589,7 +525,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   {/* Achievement Highlights */}
                   <Card className="p-6 bg-white rounded-3xl border border-black/5">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-medium text-black">Recent Achievements</h3>
+                      <h3 className="text-lg font-medium text-black/90">Recent Achievements</h3>
                       <SparkleIcon className="w-5 h-5 text-black/40" />
                     </div>
                     <div className="space-y-3">
@@ -599,8 +535,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             <HeartIcon className="w-5 h-5 text-yellow-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-black">Streak Master</p>
-                            <p className="text-xs text-black/50">{studyStats.current_streak_days} day learning streak!</p>
+                            <p className="text-sm font-medium text-black/90">Streak Master</p>
+                            <p className="text-xs text-black/60 leading-relaxed">{studyStats.current_streak_days} day learning streak!</p>
                           </div>
                         </div>
                       )}
@@ -610,8 +546,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             <SparkleIcon className="w-5 h-5 text-green-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-black">Knowledge Expert</p>
-                            <p className="text-xs text-black/50">{stats.mastered} cards mastered</p>
+                            <p className="text-sm font-medium text-black/90">Knowledge Expert</p>
+                            <p className="text-xs text-black/60 leading-relaxed">{stats.mastered} cards mastered</p>
                           </div>
                         </div>
                       )}
@@ -621,8 +557,8 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             <ChartIcon className="w-5 h-5 text-blue-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-black">Accuracy Champion</p>
-                            <p className="text-xs text-black/50">{studyStats.average_accuracy}% accuracy rate</p>
+                            <p className="text-sm font-medium text-black/90">Accuracy Champion</p>
+                            <p className="text-xs text-black/60 leading-relaxed">{studyStats.average_accuracy}% accuracy rate</p>
                           </div>
                         </div>
                       )}
@@ -632,26 +568,21 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             <RocketIcon className="w-5 h-5 text-gray-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-black">Keep Going!</p>
-                            <p className="text-xs text-black/50">Build your streak to unlock achievements</p>
+                            <p className="text-sm font-medium text-black/90">Keep Going!</p>
+                            <p className="text-xs text-black/60 leading-relaxed">Build your streak to unlock achievements</p>
                           </div>
                         </div>
                       )}
                     </div>
                   </Card>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Upcoming Reviews Preview */}
               {stats && stats.totalCards > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                  className="mb-12"
-                >
-                  <h2 className="text-lg font-serif font-light text-black/70 mb-6">Upcoming Reviews</h2>
-                  <Card className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-3xl border border-black/5">
+                <div className="mb-12">
+                  <h2 className="text-xl font-serif font-normal text-black/80 mb-6">Upcoming Reviews</h2>
+                  <Card className="p-6 bg-gray-50 rounded-3xl border border-black/5">
                     <div className="grid grid-cols-7 gap-2">
                       {[0, 1, 2, 3, 4, 5, 6].map((dayOffset) => {
                         const date = new Date()
@@ -676,20 +607,14 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                       })}
                     </div>
                   </Card>
-                </motion.div>
+                </div>
               )}
               
-            </motion.div>
+            </div>
           )}
 
           {viewMode === 'discover' && (
-            <motion.div
-              key="discover"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div>
               <DiscoveryDashboard 
                 onCreateCard={(prompt) => {
                   if (prompt && typeof window !== 'undefined') {
@@ -706,10 +631,9 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                 }}
                 userLevel={stats && stats.totalCards > 10 ? 'intermediate' : stats && stats.totalCards > 0 ? 'beginner' : 'new'}
               />
-            </motion.div>
+            </div>
           )}
           
-        </AnimatePresence>
       </main>
 
       {/* Create Card Dialog */}
