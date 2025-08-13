@@ -221,7 +221,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
       {/* Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
         hasScrolled 
-          ? 'bg-white border-b border-black/10 backdrop-blur-lg shadow-sm' 
+          ? 'bg-white border-b border-black/10 backdrop-blur-lg' 
           : 'bg-[#FAFAF9] border-b border-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
