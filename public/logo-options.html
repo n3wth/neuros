@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuros Logo Options</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafaf9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .option-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .option-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .option-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .option-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .icon-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .size-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .size-label {
+            font-size: 10px;
+            color: #999;
+        }
+        .description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Neuros</h1>
+    <p class="subtitle">Logo Design Options</p>
+    
+    <div class="options-grid">
+        <!-- Option 1: Simple Black Square -->
+        <div class="option-card">
+            <div class="option-number">Option 1</div>
+            <div class="option-name">Modern Minimal</div>
+            <div class="icon-display">
+                <div class="size-preview">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#000"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">32px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#000"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">64px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="128" height="128" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#000"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">128px</span>
+                </div>
+            </div>
+            <p class="description">Clean, geometric N on black background. High contrast, works well at all sizes.</p>
+        </div>
+
+        <!-- Option 2: Circle -->
+        <div class="option-card">
+            <div class="option-number">Option 2</div>
+            <div class="option-name">Soft Circle</div>
+            <div class="icon-display">
+                <div class="size-preview">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <circle cx="16" cy="16" r="16" fill="#1a1a1a"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">32px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <circle cx="16" cy="16" r="16" fill="#1a1a1a"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">64px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="128" height="128" viewBox="0 0 32 32">
+                        <circle cx="16" cy="16" r="16" fill="#1a1a1a"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">128px</span>
+                </div>
+            </div>
+            <p class="description">Circular shape feels friendlier and more approachable. Good for app icons.</p>
+        </div>
+
+        <!-- Option 3: Outlined -->
+        <div class="option-card">
+            <div class="option-number">Option 3</div>
+            <div class="option-name">Light Outlined</div>
+            <div class="icon-display">
+                <div class="size-preview">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#fafaf9" stroke="#000" stroke-width="1.5"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#000"/>
+                    </svg>
+                    <span class="size-label">32px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#fafaf9" stroke="#000" stroke-width="1.5"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#000"/>
+                    </svg>
+                    <span class="size-label">64px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="128" height="128" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#fafaf9" stroke="#000" stroke-width="1.5"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#000"/>
+                    </svg>
+                    <span class="size-label">128px</span>
+                </div>
+            </div>
+            <p class="description">Light background with border. Matches the site's off-white aesthetic.</p>
+        </div>
+
+        <!-- Option 4: Serif Text -->
+        <div class="option-card">
+            <div class="option-number">Option 4</div>
+            <div class="option-name">Serif Typography</div>
+            <div class="icon-display">
+                <div class="size-preview">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#000"/>
+                        <text x="16" y="23" font-family="Playfair Display, serif" font-size="20" font-weight="400" text-anchor="middle" fill="#FFF">N</text>
+                    </svg>
+                    <span class="size-label">32px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#000"/>
+                        <text x="16" y="23" font-family="Playfair Display, serif" font-size="20" font-weight="400" text-anchor="middle" fill="#FFF">N</text>
+                    </svg>
+                    <span class="size-label">64px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="128" height="128" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="6" fill="#000"/>
+                        <text x="16" y="23" font-family="Playfair Display, serif" font-size="20" font-weight="400" text-anchor="middle" fill="#FFF">N</text>
+                    </svg>
+                    <span class="size-label">128px</span>
+                </div>
+            </div>
+            <p class="description">Actual Playfair Display font. May not render consistently across all platforms.</p>
+        </div>
+
+        <!-- Option 5: Gradient -->
+        <div class="option-card">
+            <div class="option-number">Option 5</div>
+            <div class="option-name">Subtle Gradient</div>
+            <div class="icon-display">
+                <div class="size-preview">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4a4a4a;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="32" height="32" rx="6" fill="url(#grad1)"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">32px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <defs>
+                            <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4a4a4a;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="32" height="32" rx="6" fill="url(#grad2)"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">64px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="128" height="128" viewBox="0 0 32 32">
+                        <defs>
+                            <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4a4a4a;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="32" height="32" rx="6" fill="url(#grad3)"/>
+                        <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFF"/>
+                    </svg>
+                    <span class="size-label">128px</span>
+                </div>
+            </div>
+            <p class="description">Subtle gradient adds depth without being too flashy.</p>
+        </div>
+
+        <!-- Option 6: Just N -->
+        <div class="option-card">
+            <div class="option-number">Option 6</div>
+            <div class="option-name">Naked Letter</div>
+            <div class="icon-display">
+                <div class="size-preview">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <path d="M 6 26 L 6 6 L 10 6 L 22 20 L 22 6 L 26 6 L 26 26 L 22 26 L 10 12 L 10 26 Z" fill="#000"/>
+                    </svg>
+                    <span class="size-label">32px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <path d="M 6 26 L 6 6 L 10 6 L 22 20 L 22 6 L 26 6 L 26 26 L 22 26 L 10 12 L 10 26 Z" fill="#000"/>
+                    </svg>
+                    <span class="size-label">64px</span>
+                </div>
+                <div class="size-preview">
+                    <svg width="128" height="128" viewBox="0 0 32 32">
+                        <path d="M 6 26 L 6 6 L 10 6 L 22 20 L 22 6 L 26 6 L 26 26 L 22 26 L 10 12 L 10 26 Z" fill="#000"/>
+                    </svg>
+                    <span class="size-label">128px</span>
+                </div>
+            </div>
+            <p class="description">Just the letter, no background. Ultra minimal.</p>
+        </div>
+    </div>
+</body>
+</html>

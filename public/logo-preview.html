@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuros Logo Preview</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .preview-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .preview-card h3 {
+            margin: 0 0 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            margin: 20px 0;
+        }
+        .size-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+        .dark-bg {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .light-bg {
+            background: #fafaf9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Neuros Logo Preview</h1>
+    <p>Current logo design at different sizes and contexts</p>
+    
+    <div class="preview-grid">
+        <!-- Favicon size -->
+        <div class="preview-card">
+            <h3>Favicon (32x32)</h3>
+            <div class="icon-container">
+                <img src="icon.svg" width="32" height="32" alt="32x32 icon">
+            </div>
+            <div class="size-label">Browser tab icon</div>
+        </div>
+
+        <!-- Small icon -->
+        <div class="preview-card">
+            <h3>Small Icon (64x64)</h3>
+            <div class="icon-container">
+                <img src="icon.svg" width="64" height="64" alt="64x64 icon">
+            </div>
+            <div class="size-label">Small app icon</div>
+        </div>
+
+        <!-- Medium icon -->
+        <div class="preview-card">
+            <h3>Medium Icon (128x128)</h3>
+            <div class="icon-container">
+                <img src="icon.svg" width="128" height="128" alt="128x128 icon">
+            </div>
+            <div class="size-label">Standard app icon</div>
+        </div>
+
+        <!-- Large icon -->
+        <div class="preview-card">
+            <h3>Large Icon (256x256)</h3>
+            <div class="icon-container">
+                <img src="icon.svg" width="256" height="256" alt="256x256 icon">
+            </div>
+            <div class="size-label">High-res display</div>
+        </div>
+
+        <!-- On dark background -->
+        <div class="preview-card">
+            <h3>On Dark Background</h3>
+            <div class="icon-container dark-bg">
+                <img src="icon.svg" width="128" height="128" alt="Icon on dark">
+            </div>
+            <div class="size-label">Dark mode</div>
+        </div>
+
+        <!-- On light background -->
+        <div class="preview-card">
+            <h3>On Light Background</h3>
+            <div class="icon-container light-bg">
+                <img src="icon.svg" width="128" height="128" alt="Icon on light">
+            </div>
+            <div class="size-label">Light mode</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center;">
+        <h2>Alternative Designs</h2>
+        <p>Here are some alternative logo options:</p>
+    </div>
+
+    <div class="preview-grid" style="margin-top: 20px;">
+        <!-- Option 1: Circle background -->
+        <div class="preview-card">
+            <h3>Option 1: Circle</h3>
+            <div class="icon-container">
+                <svg width="128" height="128" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="16" fill="#000000"/>
+                    <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#FFFFFF"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Option 2: Outlined -->
+        <div class="preview-card">
+            <h3>Option 2: Outlined</h3>
+            <div class="icon-container">
+                <svg width="128" height="128" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="none" stroke="#000000" stroke-width="2"/>
+                    <path d="M 9 22 L 9 10 L 11 10 L 21 20 L 21 10 L 23 10 L 23 22 L 21 22 L 11 12 L 11 22 Z" fill="#000000"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Option 3: Minimal -->
+        <div class="preview-card">
+            <h3>Option 3: Minimal</h3>
+            <div class="icon-container">
+                <svg width="128" height="128" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 8 24 L 8 8 L 10 8 L 22 21 L 22 8 L 24 8 L 24 24 L 22 24 L 10 11 L 10 24 Z" fill="#000000"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
