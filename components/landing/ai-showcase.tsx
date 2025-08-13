@@ -117,7 +117,7 @@ export default function AIShowcase() {
               onHoverStart={() => setHoveredCard(feature.id)}
               onHoverEnd={() => setHoveredCard(null)}
             >
-              <div className="relative bg-white border border-black/5 rounded-3xl p-8 h-full overflow-hidden hover:shadow-xl transition-shadow duration-500">
+              <div className="relative bg-white border border-black/5 rounded-3xl p-8 h-full overflow-hidden hover:shadow-xl transition-shadow duration-500 flex flex-col">
                 {/* Gradient overlay on hover */}
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -144,19 +144,19 @@ export default function AIShowcase() {
                 </div>
 
                 {/* Content */}
-                <div className="relative">
+                <div className="relative flex-grow flex flex-col">
                   <p className="text-xs font-mono text-black/40 uppercase tracking-wider mb-3">
                     {feature.subtitle}
                   </p>
                   <h3 className="text-2xl font-serif font-light mb-4 leading-tight">
                     {feature.title}
                   </h3>
-                  <p className="text-base leading-relaxed text-black/60 font-light mb-8">
+                  <p className="text-base leading-relaxed text-black/60 font-light flex-grow">
                     {feature.description}
                   </p>
 
-                  {/* Stats */}
-                  <div className="pt-6 border-t border-black/5">
+                  {/* Stats - Always at bottom */}
+                  <div className="pt-6 mt-8 border-t border-black/5">
                     <div className="flex items-baseline gap-3">
                       <span className="text-3xl font-serif font-light">{feature.stats.main}</span>
                       <div className="flex-1">
