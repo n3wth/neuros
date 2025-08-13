@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   SparkleIcon, 
@@ -24,7 +25,6 @@ import { Badge } from '@/components/ui/badge'
 import { signOut } from '@/server/actions/auth'
 import Link from 'next/link'
 import CreateCardDialog from './create-card-dialog'
-import ReviewInterface from './review-interface'
 import AIFeaturesSettings from './ai-features-settings'
 import { 
   getUserCards, 
@@ -34,8 +34,6 @@ import {
   getUserCompletionState 
 } from '@/server/actions/cards'
 import { 
-  startStudySession, 
-  endStudySession,
   getStudyStats 
 } from '@/server/actions/reviews'
 import { generateDataDrivenInsights, type Insight } from '@/server/actions/insights'
@@ -73,12 +71,12 @@ interface FullLearningDashboardProps {
   user: User
 }
 
-type ViewMode = 'overview' | 'discover' | 'review' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
+type ViewMode = 'overview' | 'discover' | 'browse' | 'stats' | 'settings' | 'knowledge' | 'network' | 'viral'
 
 export default function FullLearningDashboard({ user }: FullLearningDashboardProps) {
+  const router = useRouter()
   const [viewMode, setViewMode] = useState<ViewMode>('overview')
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null)
   const [cards, setCards] = useState<Array<{ id: string; front: string; back: string; difficulty: string; topics?: { name: string; color: string }; user_cards?: Array<{ mastery_level: number }> }>>([])
   const [dueCards, setDueCards] = useState<Array<{ id: string; cards: { front: string; back: string; topics?: { name: string } }; mastery_level: number; total_reviews: number }>>([])
   const [stats, setStats] = useState<{ totalCards: number; dueCards: number; mastered: number; learning: number; difficult: number } | null>(null)
@@ -182,28 +180,11 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
     }
   }
 
-  const handleStartReview = async () => {
-    try {
-      const session = await startStudySession()
-      setCurrentSessionId(session.id)
-      setViewMode('review')
-    } catch (error) {
-      console.error('Failed to start study session:', error)
-    }
+  const handleStartReview = () => {
+    // Navigate to dedicated full-screen review page
+    router.push('/review')
   }
 
-  const handleEndReview = async () => {
-    if (currentSessionId) {
-      try {
-        await endStudySession(currentSessionId)
-        setCurrentSessionId(null)
-      } catch (error) {
-        console.error('Failed to end study session:', error)
-      }
-    }
-    setViewMode('overview')
-    loadDashboardData()
-  }
 
   const formatGreeting = () => {
     const hour = new Date().getHours()
@@ -319,19 +300,6 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
                 >
                   Discover
                   {viewMode === 'discover' && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
-                  )}
-                </button>
-                <button
-                  onClick={() => setViewMode('review')}
-                  className={`relative py-5 text-sm font-medium transition-all duration-200 ${
-                    viewMode === 'review' 
-                      ? 'text-black' 
-                      : 'text-black/60 hover:text-black'
-                  }`}
-                >
-                  Review
-                  {viewMode === 'review' && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
                   )}
                 </button>
@@ -1025,47 +993,6 @@ export default function FullLearningDashboard({ user }: FullLearningDashboardPro
             </motion.div>
           )}
 
-          {viewMode === 'review' && (
-            <motion.div
-              key="review"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {currentSessionId ? (
-                <>
-                  <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-2xl font-light">Review Session</h2>
-                    <Button
-                      variant="outline"
-                      onClick={handleEndReview}
-                    >
-                      End Session
-                    </Button>
-                  </div>
-                  <ReviewInterface sessionId={currentSessionId} />
-                </>
-              ) : (
-                <div className="max-w-2xl mx-auto text-center py-20">
-                  <BookIcon className="w-16 h-16 mx-auto mb-6 text-black/20" />
-                  <h2 className="text-2xl font-serif mb-4">Ready to Review?</h2>
-                  <p className="text-black/60 mb-8">You have {dueCards.length} cards ready for review.</p>
-                  {dueCards.length > 0 ? (
-                    <Button
-                      onClick={handleStartReview}
-                      className="bg-black text-white hover:bg-black/90"
-                    >
-                      <PlayIcon className="w-4 h-4 mr-2" />
-                      Start Review Session
-                    </Button>
-                  ) : (
-                    <p className="text-black/40">No cards due for review. Check back later!</p>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          )}
 
           {viewMode === 'browse' && (
             <motion.div

@@ -1,11 +1,13 @@
 import { Redis } from '@upstash/redis'
 import { Ratelimit } from '@upstash/ratelimit'
 
-// Initialize Redis client
-const redis = new Redis({
-  url: process.env.KV_REST_API_URL!,
-  token: process.env.KV_REST_API_TOKEN!,
-})
+// Initialize Redis client only if credentials are available
+const redis = process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN 
+  ? new Redis({
+      url: process.env.KV_REST_API_URL,
+      token: process.env.KV_REST_API_TOKEN,
+    })
+  : null
 
 // Rate limit configurations
 export const RATE_LIMITS = {
@@ -46,77 +48,26 @@ export const RATE_LIMITS = {
 
 export type RateLimitKey = keyof typeof RATE_LIMITS
 
-// Create rate limiters
+// Helper function to create rate limiter with fallback
+const createRateLimiter = (key: RateLimitKey, prefix: string) => new Ratelimit({
+  redis: redis || undefined,
+  limiter: Ratelimit.slidingWindow(
+    RATE_LIMITS[key].requests,
+    RATE_LIMITS[key].window
+  ),
+  analytics: !!redis,
+  prefix,
+})
+
+// Create rate limiters (fallback to memory when Redis not available)
 const rateLimiters: Record<RateLimitKey, Ratelimit> = {
-  CARD_GENERATION: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.CARD_GENERATION.requests,
-      RATE_LIMITS.CARD_GENERATION.window
-    ),
-    analytics: true,
-    prefix: 'rl:card_gen',
-  }),
-  
-  IMAGE_GENERATION: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.IMAGE_GENERATION.requests,
-      RATE_LIMITS.IMAGE_GENERATION.window
-    ),
-    analytics: true,
-    prefix: 'rl:img_gen',
-  }),
-  
-  GLOBAL_AI: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.GLOBAL_AI.requests,
-      RATE_LIMITS.GLOBAL_AI.window
-    ),
-    analytics: true,
-    prefix: 'rl:global_ai',
-  }),
-  
-  REVIEW_SUBMISSION: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.REVIEW_SUBMISSION.requests,
-      RATE_LIMITS.REVIEW_SUBMISSION.window
-    ),
-    analytics: true,
-    prefix: 'rl:review',
-  }),
-  
-  LOGIN_ATTEMPT: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.LOGIN_ATTEMPT.requests,
-      RATE_LIMITS.LOGIN_ATTEMPT.window
-    ),
-    analytics: true,
-    prefix: 'rl:login',
-  }),
-  
-  SIGNUP_ATTEMPT: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.SIGNUP_ATTEMPT.requests,
-      RATE_LIMITS.SIGNUP_ATTEMPT.window
-    ),
-    analytics: true,
-    prefix: 'rl:signup',
-  }),
-  
-  PASSWORD_RESET: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(
-      RATE_LIMITS.PASSWORD_RESET.requests,
-      RATE_LIMITS.PASSWORD_RESET.window
-    ),
-    analytics: true,
-    prefix: 'rl:reset',
-  }),
+  CARD_GENERATION: createRateLimiter('CARD_GENERATION', 'rl:card_gen'),
+  IMAGE_GENERATION: createRateLimiter('IMAGE_GENERATION', 'rl:img_gen'),
+  GLOBAL_AI: createRateLimiter('GLOBAL_AI', 'rl:global_ai'),
+  REVIEW_SUBMISSION: createRateLimiter('REVIEW_SUBMISSION', 'rl:review'),
+  LOGIN_ATTEMPT: createRateLimiter('LOGIN_ATTEMPT', 'rl:login'),
+  SIGNUP_ATTEMPT: createRateLimiter('SIGNUP_ATTEMPT', 'rl:signup'),
+  PASSWORD_RESET: createRateLimiter('PASSWORD_RESET', 'rl:password_reset'),
 }
 
 export class RateLimitExceededError extends Error {

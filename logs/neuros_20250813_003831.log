@@ -1,0 +1,99 @@
+=== Starting neuros at Wed Aug 13 00:38:31 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_003831.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1000ms
+ ✓ Compiled /middleware in 109ms (180 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1758ms (3131 modules)
+[2025-08-13T07:38:35.987Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 2352ms
+ ✓ Compiled in 613ms (1264 modules)
+ ✓ Compiled /icon.svg in 339ms (1884 modules)
+ GET /icon.svg 200 in 504ms
+ POST /dashboard 200 in 631ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 34ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 43ms
+ POST /dashboard 200 in 25ms
+ POST /dashboard 200 in 16ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/oliver/gh/neuros/.next/cache/webpack/client-development/11.pack.gz_' -> '/Users/oliver/gh/neuros/.next/cache/webpack/client-development/11.pack.gz'
+ ✓ Compiled /review in 208ms (3143 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 952ms (3472 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/7f5536a8be8a06ec.webpack.hot-update.json 500 in 2375ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /review 500 in 2748ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/review'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ GET /dashboard 500 in 380ms
+ GET /review 500 in 233ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json'
+}
+ ✓ Compiled /favicon.ico in 139ms (2074 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 209ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/oliver/gh/neuros/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/oliver/gh/neuros/.next/cache/webpack/client-development-fallback/0.pack.gz'

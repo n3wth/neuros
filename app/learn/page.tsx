@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import AdaptiveLearningInterface from '@/components/learning/adaptive-learning-interface'
 
 // Force dynamic rendering - this page uses cookies via Supabase
 export const dynamic = 'force-dynamic'
@@ -13,5 +12,6 @@ export default async function LearnPage() {
     redirect('/signin')
   }
 
-  return <AdaptiveLearningInterface user={user} />
+  // Redirect to dedicated full-screen review experience
+  redirect('/review')
 }

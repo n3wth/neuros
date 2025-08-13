@@ -1,0 +1,750 @@
+=== Starting neuros at Wed Aug 13 00:33:10 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_003310.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.48:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 942ms
+ ✓ Compiled /middleware in 126ms (180 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1329ms (1846 modules)
+ GET / 200 in 1784ms
+ ✓ Compiled in 583ms (684 modules)
+ ○ Compiling /signup ...
+ ✓ Compiled /signup in 687ms (1987 modules)
+ GET /signup 200 in 994ms
+ ✓ Compiled /icon.svg in 109ms (1259 modules)
+ GET /icon.svg 200 in 190ms
+ ✓ Compiled /signin in 221ms (2013 modules)
+ GET /signin 200 in 283ms
+ GET /icon.svg 200 in 12ms
+[Upstash Redis] The 'url' property is missing or undefined in your Redis config.
+[Upstash Redis] The 'token' property is missing or undefined in your Redis config.
+ POST /signin 200 in 190ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 908ms (3377 modules)
+[2025-08-13T07:33:37.920Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 1084ms
+[2025-08-13T07:33:37.945Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 11ms
+[Upstash Redis] The 'url' property is missing or undefined in your Redis config.
+[Upstash Redis] The 'token' property is missing or undefined in your Redis config.
+ POST /dashboard 200 in 126ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 36ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 23ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 17ms
+ ✓ Compiled in 171ms (1377 modules)
+[2025-08-13T07:34:13.001Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 17ms
+[2025-08-13T07:34:54.467Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 197ms
+ GET /icon.svg 200 in 15ms
+ POST /dashboard 200 in 30ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 36ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 25ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 20ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 15ms
+   Reload env: .env.local
+ ✓ Compiled in 404ms (3507 modules)
+[2025-08-13T07:35:19.240Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 123ms
+ ✓ Compiled /favicon.ico in 181ms (1966 modules)
+ GET /icon.svg 200 in 350ms
+ GET /favicon.ico 200 in 375ms
+ GET /icon.svg 200 in 5ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 4ms
+ ✓ Compiled in 141ms (1377 modules)
+[2025-08-13T07:35:40.315Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 90ms
+ ✓ Compiled in 279ms (3509 modules)
+[2025-08-13T07:35:40.663Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 312ms
+[2025-08-13T07:35:40.687Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 9ms
+ GET /favicon.ico 200 in 22ms
+ GET /icon.svg 200 in 26ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 5ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 3ms
+ ✓ Compiled / in 382ms (2010 modules)
+ GET / 200 in 499ms
+[2025-08-13T07:36:02.709Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 38ms
+[Upstash Redis] The 'url' property is missing or undefined in your Redis config.
+[Upstash Redis] The 'token' property is missing or undefined in your Redis config.
+ POST /dashboard 200 in 131ms
+ POST /dashboard 200 in 23ms
+ POST /dashboard 200 in 30ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 24ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 15ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 10ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 13ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 25ms
+ POST /dashboard 200 in 21ms
+ POST /dashboard 200 in 22ms
+ ✓ Compiled in 500ms (3387 modules)
+[2025-08-13T07:36:12.830Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 79ms
+ ✓ Compiled in 350ms (3387 modules)
+[2025-08-13T07:36:13.741Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 100ms
+ ⚠ ./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+[2025-08-13T07:36:23.601Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 88ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ ./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+[2025-08-13T07:36:27.883Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 323ms
+[2025-08-13T07:36:27.988Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 9ms
+ GET /icon.svg 200 in 14ms
+ POST /dashboard 200 in 132ms
+ POST /dashboard 200 in 12ms
+ POST /dashboard 200 in 19ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 15ms
+ ⚠ ./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+
+./server/actions/auth.ts
+Attempted import error: 'RateLimitExceededError' is not exported from '@/lib/rate-limit-server' (imported as 'RateLimitExceededError').
+
+Import trace for requested module:
+./server/actions/auth.ts
+[2025-08-13T07:36:32.950Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 91ms
+ GET /favicon.ico 200 in 21ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 2ms
+ ✓ Compiled in 326ms (3387 modules)
+[2025-08-13T07:36:36.240Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 67ms
+ GET /icon.svg 200 in 13ms
+ GET /favicon.ico 200 in 32ms
+ GET /icon.svg 200 in 22ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 2ms
+ ✓ Compiled in 335ms (3387 modules)
+[2025-08-13T07:36:38.755Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 68ms
+ GET /favicon.ico 200 in 27ms
+ GET /icon.svg 200 in 28ms
+ GET /icon.svg 200 in 9ms
+ GET /icon.svg 200 in 4ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ ✓ Compiled in 226ms (3387 modules)
+[2025-08-13T07:36:44.967Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 88ms
+ GET /favicon.ico 200 in 19ms
+ GET /icon.svg 200 in 22ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 3ms
+ ✓ Compiled /review in 253ms (3380 modules)
+[2025-08-13T07:36:51.138Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 332ms
+ POST /review 200 in 139ms
+ POST /review 200 in 12ms
+ ✓ Compiled in 322ms (3394 modules)
+[2025-08-13T07:36:54.934Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 84ms
+ ✓ Compiled in 293ms (3394 modules)
+[2025-08-13T07:36:56.749Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 87ms
+ ⨯ ./lib/rate-limit-redis.ts
+Error:   [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/oliver/gh/neuros/lib/rate-limit-redis.ts[0m:73:1]
+ [2m70[0m |   PASSWORD_RESET: createRateLimiter('PASSWORD_RESET', 'rl:password_reset'),
+ [2m71[0m |     analytics: true,
+ [2m72[0m |     prefix: 'rl:reset',
+ [2m73[0m |   }),
+    : [35;1m   ^[0m
+ [2m74[0m | }
+ [2m75[0m | 
+ [2m76[0m | export class RateLimitExceededError extends Error {
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/Users/oliver/gh/neuros/lib/rate-limit-redis.ts[0m:74:1]
+ [2m71[0m |     analytics: true,
+ [2m72[0m |     prefix: 'rl:reset',
+ [2m73[0m |   }),
+ [2m74[0m | }
+    : [35;1m^[0m
+ [2m75[0m | 
+ [2m76[0m | export class RateLimitExceededError extends Error {
+ [2m77[0m |   constructor(
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./lib/rate-limit-redis.ts
+./server/actions/auth.ts
+ ⨯ ./lib/rate-limit-redis.ts
+Error:   [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/oliver/gh/neuros/lib/rate-limit-redis.ts[0m:73:1]
+ [2m70[0m |   PASSWORD_RESET: createRateLimiter('PASSWORD_RESET', 'rl:password_reset'),
+ [2m71[0m |     analytics: true,
+ [2m72[0m |     prefix: 'rl:reset',
+ [2m73[0m |   }),
+    : [35;1m   ^[0m
+ [2m74[0m | }
+ [2m75[0m | 
+ [2m76[0m | export class RateLimitExceededError extends Error {
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/Users/oliver/gh/neuros/lib/rate-limit-redis.ts[0m:74:1]
+ [2m71[0m |     analytics: true,
+ [2m72[0m |     prefix: 'rl:reset',
+ [2m73[0m |   }),
+ [2m74[0m | }
+    : [35;1m^[0m
+ [2m75[0m | 
+ [2m76[0m | export class RateLimitExceededError extends Error {
+ [2m77[0m |   constructor(
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./lib/rate-limit-redis.ts
+./server/actions/auth.ts
+ ○ Compiling /_error ...
+ GET /review 500 in 1042ms
+ GET /review 500 in 5ms
+ GET /review 500 in 5ms
+ GET /review 500 in 5ms
+ GET /favicon.ico 500 in 3ms
+ ✓ Compiled /_not-found in 732ms (3723 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/cf14e4fa1e082beb.webpack.hot-update.json 404 in 959ms
+[2025-08-13T07:37:06.426Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 94ms
+ GET /icon.svg 200 in 12ms
+ POST /review 200 in 407ms
+ ✓ Compiled in 420ms (3723 modules)
+[2025-08-13T07:37:11.737Z] [INFO] Review page loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'review_load_success'
+}
+ GET /review 200 in 87ms
+ GET /favicon.ico 200 in 28ms
+ GET /icon.svg 200 in 5ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 3ms
+ GET /icon.svg 200 in 2ms
+ GET /icon.svg 200 in 2ms
+[2025-08-13T07:37:24.628Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 207ms
+ POST /dashboard 200 in 145ms
+ POST /dashboard 200 in 17ms
+ POST /dashboard 200 in 37ms
+ POST /dashboard 200 in 16ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 16ms
+ ✓ Compiled in 516ms (3679 modules)
+[2025-08-13T07:37:33.877Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 109ms
+ ✓ Compiled in 409ms (3679 modules)
+ POST /dashboard 200 in 399ms
+ POST /dashboard 200 in 14ms
+ POST /dashboard 200 in 18ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 11ms
+ POST /dashboard 200 in 18ms
+[2025-08-13T07:37:39.054Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 38ms
+ POST /dashboard 200 in 14ms
+ ✓ Compiled in 130ms (1526 modules)
+[2025-08-13T07:37:51.256Z] [INFO] Dashboard loaded {
+  userId: '91788ed8-1c45-4cc5-89af-90e1b5fbbe18',
+  action: 'dashboard_load_success'
+}
+ GET /dashboard 200 in 11ms
+ ✓ Compiled in 449ms (3659 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ⨯ Error: Cannot find module './8548.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/(dashboard)/dashboard/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/pages/_document.js:1:327)
+    at Object.<anonymous> (.next/server/pages/_document.js:1:374) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /dashboard 500 in 231ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/oliver/gh/neuros/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/oliver/gh/neuros/.next/routes-manifest.json',
+  page: '/dashboard'
+}
+ ⨯ Error: Cannot find module './8548.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/(dashboard)/dashboard/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/pages/_document.js:1:327)
+    at Object.<anonymous> (.next/server/pages/_document.js:1:374) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /dashboard 500 in 94ms
+ ✓ Compiled /_not-found in 129ms (2134 modules)
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/_not-found/page.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/chunks/fallback/webpack.js 500 in 198ms
+ GET /_next/static/chunks/fallback/main.js 500 in 197ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 197ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 174ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 173ms
+ ✓ Compiled /favicon.ico in 102ms (2151 modules)
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 125ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/(dashboard)/dashboard/page.js:18:72712)
+    at Object.<anonymous> (.next/server/app/(dashboard)/dashboard/page.js:18:72808) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/dashboard'
+}
+ ⨯ Error: Cannot find module './8548.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/pages/_document.js:1:327)
+    at Object.<anonymous> (.next/server/pages/_document.js:1:374) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /dashboard 500 in 38ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/chunks/fallback/webpack.js 500 in 57ms
+ GET /_next/static/chunks/fallback/main.js 500 in 57ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 56ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/_not-found/page.js:2:8015)
+    at Object.<anonymous> (.next/server/app/_not-found/page.js:2:8072) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 36ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 35ms
+ ⨯ Error: Cannot find module './4985.js'
+Require stack:
+- /Users/oliver/gh/neuros/.next/server/webpack-runtime.js
+- /Users/oliver/gh/neuros/.next/server/app/favicon.ico/route.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/require.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/load-components.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/utils.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/options.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/swc/index.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/config.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/next.js
+- /Users/oliver/gh/neuros/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:387199)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:387251) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 21ms
+
+=== Session ended at Wed Aug 13 00:38:30 PDT 2025 ===
