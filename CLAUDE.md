@@ -30,6 +30,43 @@ All automation and utility scripts are organized in the `scripts/` folder:
 - `scripts/testing/` - Testing utilities and helpers
 - `scripts/README.md` - Scripts documentation and usage
 
+## Git Worktree Management
+
+### IMPORTANT: Working with Worktrees
+This repository uses git worktrees extensively. The main directory (`/Users/oliver/gh/neuros`) is typically on a feature branch, NOT main.
+
+**Current Setup:**
+- Main directory: Usually on `test-turbopack` or other feature branch
+- Main branch worktree: `/Users/oliver/gh/neuros/.worktrees/issue-16`
+
+### Worktree Commands for Claude Code
+```bash
+# Check current branch and worktree status
+git worktree list
+git branch --show-current
+
+# When pushing to main (DO NOT checkout main in main directory):
+git push origin HEAD:main  # Push current branch to main
+# OR
+git push origin test-turbopack:main  # Explicitly push test-turbopack to main
+
+# To work on main branch directly:
+cd /Users/oliver/gh/neuros/.worktrees/issue-16  # This is the main branch worktree
+
+# Create a new worktree for a feature:
+git worktree add .worktrees/new-feature -b feature/new-feature
+
+# Remove a worktree:
+git worktree remove .worktrees/feature-name
+```
+
+### Best Practices for Claude Code:
+1. **NEVER** try to `git checkout main` in `/Users/oliver/gh/neuros`
+2. **ALWAYS** check current branch with `git branch --show-current` first
+3. **USE** `git push origin HEAD:main` to push current work to main
+4. **CHECK** `git worktree list` to understand the repository structure
+5. **WORK** on `test-turbopack` branch by default in main directory
+
 ## Development Commands
 
 ### Core Development
