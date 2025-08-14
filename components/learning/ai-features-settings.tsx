@@ -51,14 +51,14 @@ function FeatureCard({
 }: FeatureCardProps) {
   return (
     <Card 
-      className="cursor-pointer transition-all duration-500 hover:shadow-lg bg-white border-black/5 rounded-3xl overflow-hidden group"
+      className="cursor-pointer transition-all duration-500 hover:shadow-md bg-white border-black/5 rounded-xl overflow-hidden group"
       onClick={onClick}
     >
-      <CardContent className="p-8">
+      <CardContent className="p-6">
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-start gap-5 flex-1">
             {icon && (
-              <div className="p-3 bg-gradient-to-br from-stone-50 to-orange-50 rounded-3xl group-hover:from-stone-100 group-hover:to-orange-100 transition-colors duration-300">
+              <div className="p-3 bg-stone-50 rounded-xl group-hover:bg-stone-100 transition-colors duration-300">
                 {icon}
               </div>
             )}
@@ -82,7 +82,7 @@ function FeatureCard({
         <p className="text-base text-black/60 font-light leading-relaxed mb-6">{description}</p>
         
         {research && (
-          <div className="mb-6 p-4 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 rounded-3xl border border-blue-100/50">
+          <div className="mb-6 p-4 bg-blue-50/50 rounded-xl border border-blue-100/50">
             <div className="flex items-start gap-3">
               <InfoIcon className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
               <p className="text-sm text-blue-800/80 font-light leading-relaxed">{research}</p>
@@ -111,7 +111,7 @@ function FeatureCard({
               </div>
             )}
             {badge && (
-              <Badge className="ml-auto bg-gradient-to-r from-stone-900 to-gray-800 text-white rounded-full px-3 py-1">
+              <Badge className="ml-auto bg-black text-white rounded-full px-3 py-1">
                 {badge}
               </Badge>
             )}
@@ -224,11 +224,11 @@ export default function AIFeaturesSettings({ className, onFeatureClick }: AIFeat
         expanded={expandedCard === 'analytics'}
       />
       
-      <Card className="bg-gradient-to-br from-stone-50/50 to-orange-50/50 border-black/10 rounded-3xl">
-        <CardContent className="p-8">
+      <Card className="bg-stone-50/50 border-black/10 rounded-xl">
+        <CardContent className="p-6">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-3xl shadow-sm border border-black/5">
+              <div className="p-3 bg-white rounded-xl shadow-sm border border-black/5">
                 <WandIcon className="h-6 w-6 text-black/70" />
               </div>
               <div>
@@ -237,7 +237,7 @@ export default function AIFeaturesSettings({ className, onFeatureClick }: AIFeat
               </div>
             </div>
             
-            <div className="space-y-5 bg-white rounded-3xl p-6 border border-black/5">
+            <div className="space-y-5 bg-white rounded-xl p-6 border border-black/5">
               <div className="grid grid-cols-2 gap-6 text-sm">
                 <div>
                   <p className="text-black/50 text-xs font-light mb-1">Ease Factor</p>
@@ -281,14 +281,14 @@ export function AIFeaturesSettingsWithIcons({ className, onFeatureClick }: AIFea
     <div className={cn("relative", className)}>
       <div className="absolute -right-16 top-8 z-10">
         <div className="relative animate-pulse">
-          <div className="w-24 h-24 bg-gradient-to-br from-stone-900 to-gray-800 rounded-full flex items-center justify-center shadow-2xl">
+          <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-lg">
             <LightbulbIcon className="w-12 h-12 text-white" />
           </div>
           <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-black/10">
-            <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full animate-spin-slow" />
+            <div className="w-8 h-8 bg-orange-500 rounded-full animate-spin-slow" />
           </div>
           <div className="absolute -top-2 -left-2">
-            <Badge className="bg-gradient-to-r from-stone-800 to-gray-700 text-white text-xs rounded-full">
+            <Badge className="bg-black text-white text-xs rounded-full">
               <AwardIcon className="w-3 h-3 mr-1" />
               v2.0
             </Badge>

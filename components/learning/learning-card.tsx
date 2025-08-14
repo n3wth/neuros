@@ -68,15 +68,15 @@ export default function LearningCard({ card, isActive, onActivate }: LearningCar
                 <Badge className={difficultyInfo.color + ' border-0'}>
                   {difficultyInfo.label}
                 </Badge>
-                <span className="text-xs text-gray-400">• {card.type}</span>
-                <span className="text-xs text-gray-400">• {card.timeEstimate} min</span>
+                <span className="text-xs text-black/40">• {card.type}</span>
+                <span className="text-xs text-black/40">• {card.timeEstimate} min</span>
               </div>
             </div>
           </div>
 
           <Button 
             size="sm"
-            className="bg-white/10 backdrop-blur text-white hover:bg-white/20 border border-white/20"
+            className="bg-white/10 backdrop-blur text-white hover:bg-white/20 border border-white/20 rounded-full px-8 py-3"
           >
             Start
             <ChevronRight className="w-4 h-4 ml-1" />
@@ -87,32 +87,32 @@ export default function LearningCard({ card, isActive, onActivate }: LearningCar
         <div className="grid grid-cols-4 gap-4 pt-4 border-t border-white/10">
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
-              <Clock className="w-3 h-3 text-gray-400" />
-              <span className="text-xs text-gray-400">Due</span>
+              <Clock className="w-3 h-3 text-black/40" />
+              <span className="text-xs text-black/40">Due</span>
             </div>
             <p className="text-sm font-medium text-white">{card.dueIn}</p>
           </div>
 
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
-              <BarChart3 className="w-3 h-3 text-gray-400" />
-              <span className="text-xs text-gray-400">Mastery</span>
+              <BarChart3 className="w-3 h-3 text-black/40" />
+              <span className="text-xs text-black/40">Mastery</span>
             </div>
             <p className="text-sm font-medium text-white">{card.masteryLevel}/5.0</p>
           </div>
 
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
-              <RefreshCw className="w-3 h-3 text-gray-400" />
-              <span className="text-xs text-gray-400">Reviews</span>
+              <RefreshCw className="w-3 h-3 text-black/40" />
+              <span className="text-xs text-black/40">Reviews</span>
             </div>
             <p className="text-sm font-medium text-white">{card.reviewCount}</p>
           </div>
 
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
-              <Calendar className="w-3 h-3 text-gray-400" />
-              <span className="text-xs text-gray-400">Last</span>
+              <Calendar className="w-3 h-3 text-black/40" />
+              <span className="text-xs text-black/40">Last</span>
             </div>
             <p className="text-sm font-medium text-white">{card.lastReviewed}</p>
           </div>

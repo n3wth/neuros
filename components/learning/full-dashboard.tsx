@@ -220,7 +220,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
           <p className="text-black/60 font-light mb-6">{error}</p>
           <Button
             onClick={loadDashboardData}
-            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-md hover:shadow-lg transition-all duration-300"
+            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-sm hover:shadow-md transition-all duration-300"
           >
             <RefreshIcon className="w-4 h-4 mr-2" />
             Try Again
@@ -374,7 +374,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
 
               {/* Stats Cards - Simple, no animations */}
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
-                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                   <div className="mb-4">
                     <BookIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                   </div>
@@ -384,7 +384,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-sm text-black/50">total cards</p>
                 </Card>
 
-                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                   <div className="mb-4">
                     <SparkleIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                   </div>
@@ -394,7 +394,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-sm text-black/50">mastered</p>
                 </Card>
 
-                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                   <div className="mb-4">
                     <ClockIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                   </div>
@@ -404,7 +404,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-sm text-black/50">due today</p>
                 </Card>
 
-                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                   <div className="mb-4">
                     <ChartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                   </div>
@@ -414,7 +414,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-sm text-black/50">accuracy</p>
                 </Card>
 
-                <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                   <div className="mb-4">
                     <HeartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                   </div>
@@ -430,7 +430,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                 <h2 className="text-xl font-serif font-normal text-black/80 mb-6">Quick Actions</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Start Review */}
-                  <Card className="group cursor-pointer hover:shadow-lg bg-white border border-black/5 rounded-3xl overflow-hidden"
+                  <Card className="group cursor-pointer hover:shadow-md bg-white border border-black/5 rounded-xl overflow-hidden"
                     onClick={() => window.location.href = '/review'}>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
@@ -445,7 +445,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   </Card>
 
                   {/* Create New Cards */}
-                  <Card className="group cursor-pointer hover:shadow-lg bg-blue-50 border border-black/5 rounded-3xl overflow-hidden"
+                  <Card className="group cursor-pointer hover:shadow-md bg-blue-50 border border-black/5 rounded-xl overflow-hidden"
                     onClick={() => setIsCreateDialogOpen(true)}>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
@@ -458,7 +458,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   </Card>
 
                   {/* Browse Library */}
-                  <Card className="group cursor-pointer hover:shadow-lg bg-green-50 border border-black/5 rounded-3xl overflow-hidden"
+                  <Card className="group cursor-pointer hover:shadow-md bg-green-50 border border-black/5 rounded-xl overflow-hidden"
                     onClick={() => handleNavigation('browse')}>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
@@ -479,7 +479,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                 <h2 className="text-xl font-serif font-normal text-black/80 mb-6">Your Learning Journey</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Progress Overview */}
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-medium text-black/90">Weekly Progress</h3>
                       <ChartIcon className="w-5 h-5 text-black/40" />
@@ -490,7 +490,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                           <span className="text-black/60">Cards Reviewed</span>
                           <span className="text-black font-medium">{studyStats?.total_reviews || 0}</span>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-2 bg-black/10 rounded-full overflow-hidden">
                           <div className="h-full bg-black rounded-full"
                             style={{ width: `${Math.min((studyStats?.total_reviews || 0) / 50 * 100, 100)}%` }} />
                         </div>
@@ -502,7 +502,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             {stats?.totalCards ? Math.round((stats.mastered / stats.totalCards) * 100) : 0}%
                           </span>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-2 bg-black/10 rounded-full overflow-hidden">
                           <div className="h-full bg-green-500 rounded-full"
                             style={{ width: `${stats?.totalCards ? (stats.mastered / stats.totalCards) * 100 : 0}%` }} />
                         </div>
@@ -514,7 +514,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             {Math.round((studyStats?.total_study_time_minutes || 0) / 60)} hours
                           </span>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-2 bg-black/10 rounded-full overflow-hidden">
                           <div className="h-full bg-blue-500 rounded-full"
                             style={{ width: `${Math.min((studyStats?.total_study_time_minutes || 0) / 60 / 10 * 100, 100)}%` }} />
                         </div>
@@ -523,7 +523,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   </Card>
 
                   {/* Achievement Highlights */}
-                  <Card className="p-6 bg-white rounded-3xl border border-black/5">
+                  <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-medium text-black/90">Recent Achievements</h3>
                       <SparkleIcon className="w-5 h-5 text-black/40" />
@@ -582,7 +582,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
               {stats && stats.totalCards > 0 && (
                 <div className="mb-12">
                   <h2 className="text-xl font-serif font-normal text-black/80 mb-6">Upcoming Reviews</h2>
-                  <Card className="p-6 bg-gray-50 rounded-3xl border border-black/5">
+                  <Card className="p-6 bg-black/5 rounded-xl border border-black/5 shadow-sm">
                     <div className="grid grid-cols-7 gap-2">
                       {[0, 1, 2, 3, 4, 5, 6].map((dayOffset) => {
                         const date = new Date()

@@ -118,14 +118,14 @@ export default function EditorialFeatures() {
               onMouseEnter={() => setHoveredArticle(1)}
               onMouseLeave={() => setHoveredArticle(null)}
             >
-              <div className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden mb-8">
+              <div className="relative h-[500px] bg-black/5 rounded-xl overflow-hidden mb-8">
                 {/* Placeholder for image */}
                 <div className="absolute inset-0 bg-black/5" />
                 
                 {/* Category badge */}
                 <div className="absolute top-8 left-8">
                   <span 
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur rounded-full"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur rounded-full shadow-sm"
                     style={{ borderLeft: `3px solid ${articles[0].categoryColor}` }}
                   >
                     <span className="text-xs font-mono uppercase tracking-wider">
@@ -168,7 +168,7 @@ export default function EditorialFeatures() {
                   </div>
                 </div>
                 <motion.div
-                  className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center"
+                  className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center shadow-sm"
                   animate={hoveredArticle === 1 ? { scale: 1.1 } : { scale: 1 }}
                 >
                   <ArrowUpRight className="w-4 h-4" />
@@ -241,8 +241,8 @@ export default function EditorialFeatures() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-32 relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl" />
-          <div className="relative p-16">
+          <div className="absolute inset-0 bg-yellow-50 rounded-xl" />
+          <div className="relative p-6">
             <div className="max-w-2xl">
               <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase mb-4">
                 Weekly Digest

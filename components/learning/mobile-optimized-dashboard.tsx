@@ -196,7 +196,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
           <p className="text-black/60 mb-6">{error}</p>
           <Button
             onClick={loadEssentialData}
-            className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3"
+            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3"
           >
             Try Again
           </Button>
@@ -272,7 +272,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <Card className="p-4 bg-white rounded-2xl border-black/5">
+              <Card className="p-4 bg-white rounded-xl border-black/5 shadow-sm">
                 <BookIcon className="w-5 h-5 text-black/40 mb-2" />
                 <p className="text-2xl font-serif font-light text-black">{stats.totalCards}</p>
                 <p className="text-xs text-black/50">total cards</p>
@@ -284,7 +284,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <Card className="p-4 bg-white rounded-2xl border-black/5">
+              <Card className="p-4 bg-white rounded-xl border-black/5 shadow-sm">
                 <SparkleIcon className="w-5 h-5 text-black/40 mb-2" />
                 <p className="text-2xl font-serif font-light text-black">{stats.mastered}</p>
                 <p className="text-xs text-black/50">mastered</p>
@@ -296,7 +296,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              <Card className="p-4 bg-white rounded-2xl border-black/5">
+              <Card className="p-4 bg-white rounded-xl border-black/5 shadow-sm">
                 <ChartIcon className="w-5 h-5 text-black/40 mb-2" />
                 <p className="text-2xl font-serif font-light text-black">{studyStats?.average_accuracy || 0}%</p>
                 <p className="text-xs text-black/50">accuracy</p>
@@ -308,7 +308,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.4 }}
             >
-              <Card className="p-4 bg-white rounded-2xl border-black/5">
+              <Card className="p-4 bg-white rounded-xl border-black/5 shadow-sm">
                 <HeartIcon className="w-5 h-5 text-black/40 mb-2" />
                 <p className="text-2xl font-serif font-light text-black">{studyStats?.current_streak_days || 0}</p>
                 <p className="text-xs text-black/50">day streak</p>
@@ -324,7 +324,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           {stats && stats.dueCards > 0 ? (
-            <Card className="p-6 bg-white rounded-3xl border-black/5 mb-6 shadow-sm">
+            <Card className="p-6 bg-white rounded-xl border-black/5 mb-6 shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex-1">
                   <h3 className="text-xl font-serif font-light mb-2">Ready to Review</h3>
@@ -336,14 +336,14 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
               </div>
               <Button
                 onClick={handleStartReview}
-                className="w-full bg-black text-white hover:bg-black/90 rounded-full py-3"
+                className="w-full bg-black text-white hover:bg-black/90 rounded-full px-8 py-3"
               >
                 <PlayIcon className="w-4 h-4 mr-2" />
                 Start Review Session
               </Button>
             </Card>
           ) : (
-            <Card className="p-6 bg-white rounded-3xl border-black/5 mb-6 shadow-sm">
+            <Card className="p-6 bg-white rounded-xl border-black/5 mb-6 shadow-sm">
               <div className="text-center">
                 {completionState?.type === 'new_user' ? (
                   <>
@@ -352,7 +352,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
                     <p className="text-sm text-black/60 mb-4">Create your first learning card to get started</p>
                     <Button
                       onClick={() => setIsCreateDialogOpen(true)}
-                      className="bg-black text-white rounded-full px-6 py-3"
+                      className="bg-black text-white rounded-full px-8 py-3"
                     >
                       <PlusIcon className="w-4 h-4 mr-2" />
                       Create First Card
@@ -366,7 +366,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
                     <Button
                       onClick={() => setIsCreateDialogOpen(true)}
                       variant="outline"
-                      className="rounded-full px-6 py-3"
+                      className="rounded-full px-8 py-3"
                     >
                       <PlusIcon className="w-4 h-4 mr-2" />
                       Add New Cards
@@ -380,7 +380,7 @@ export default function MobileOptimizedDashboard({ user }: MobileOptimizedDashbo
                     <Button
                       onClick={() => setIsCreateDialogOpen(true)}
                       variant="outline"
-                      className="rounded-full px-6 py-3"
+                      className="rounded-full px-8 py-3"
                     >
                       <PlusIcon className="w-4 h-4 mr-2" />
                       Add New Cards

@@ -75,15 +75,15 @@ export default function InteractiveDashboard() {
         {/* Main Dashboard */}
         <div className="relative max-w-7xl mx-auto">
           {/* Glass container */}
-          <div className="relative bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 p-8 overflow-hidden">
-            {/* Animated background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 animate-pulse" />
+          <div className="relative bg-white/5 backdrop-blur-2xl rounded-xl border border-white/10 p-6 overflow-hidden">
+            {/* Animated background */}
+            <div className="absolute inset-0 bg-white/2 animate-pulse" />
             
             {/* Stats Bar */}
             <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10">
+              <div className="bg-white/5 backdrop-blur rounded-xl p-4 border border-white/10 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
                     <Zap className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -93,9 +93,9 @@ export default function InteractiveDashboard() {
                 </div>
               </div>
               
-              <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10">
+              <div className="bg-white/5 backdrop-blur rounded-xl p-4 border border-white/10 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center">
                     <BookOpen className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -105,9 +105,9 @@ export default function InteractiveDashboard() {
                 </div>
               </div>
               
-              <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10">
+              <div className="bg-white/5 backdrop-blur rounded-xl p-4 border border-white/10 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center">
                     <Trophy className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -117,9 +117,9 @@ export default function InteractiveDashboard() {
                 </div>
               </div>
               
-              <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10">
+              <div className="bg-white/5 backdrop-blur rounded-xl p-4 border border-white/10 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center">
                     <TrendingUp className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -145,7 +145,7 @@ export default function InteractiveDashboard() {
                     onHoverEnd={() => setActiveCard(null)}
                     className="relative group"
                   >
-                    <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
                       {/* Card Header */}
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
@@ -201,7 +201,7 @@ export default function InteractiveDashboard() {
                                 key={star}
                                 className={`w-4 h-4 rounded-full ${
                                   star <= Math.floor(card.mastery)
-                                    ? 'bg-gradient-to-r from-yellow-400 to-orange-400'
+                                    ? 'bg-yellow-400'
                                     : 'bg-white/10'
                                 }`}
                               />
@@ -214,7 +214,7 @@ export default function InteractiveDashboard() {
                       {/* Hover Effect */}
                       {activeCard === card.id && (
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 rounded-2xl pointer-events-none"
+                          className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 rounded-xl pointer-events-none"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
@@ -231,7 +231,7 @@ export default function InteractiveDashboard() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative z-10 mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 backdrop-blur-xl rounded-2xl p-6 border border-white/10"
+              className="relative z-10 mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 backdrop-blur-xl rounded-xl p-6 border border-white/10"
             >
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">

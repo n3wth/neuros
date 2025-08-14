@@ -177,7 +177,7 @@ export default function InstantDashboardPlaceholder({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+              <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
                 <div className="mb-4">
                   <BookIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                 </div>
@@ -191,7 +191,7 @@ export default function InstantDashboardPlaceholder({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+              <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
                 <div className="mb-4">
                   <SparkleIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                 </div>
@@ -205,7 +205,7 @@ export default function InstantDashboardPlaceholder({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+              <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
                 <div className="mb-4">
                   <ClockIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                 </div>
@@ -219,7 +219,7 @@ export default function InstantDashboardPlaceholder({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+              <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
                 <div className="mb-4">
                   <ChartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                 </div>
@@ -233,7 +233,7 @@ export default function InstantDashboardPlaceholder({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <Card className="p-6 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+              <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
                 <div className="mb-4">
                   <HeartIcon className="w-5 h-5 text-black/40 stroke-[1.5]" />
                 </div>
@@ -250,7 +250,7 @@ export default function InstantDashboardPlaceholder({
             transition={{ duration: 0.8 }}
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
-            <Card className="p-8 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+            <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
               <div className="mb-6">
                 <SparkleIcon className="w-8 h-8 text-black/40 stroke-[1.5]" />
               </div>
@@ -260,13 +260,13 @@ export default function InstantDashboardPlaceholder({
               </p>
               <button
                 onClick={onCreateCard}
-                className="bg-black text-white px-6 py-3 rounded-full hover:bg-black/90 transition-colors duration-200"
+                className="bg-black text-white px-8 py-3 rounded-full hover:bg-black/90 transition-colors duration-200"
               >
                 Start Creating
               </button>
             </Card>
 
-            <Card className="p-8 bg-white rounded-3xl border border-black/5 hover:shadow-lg transition-all duration-300">
+            <Card className="p-6 bg-white rounded-xl border border-black/5 hover:shadow-md transition-all duration-300 shadow-sm">
               <div className="mb-6">
                 <BookIcon className="w-8 h-8 text-black/40 stroke-[1.5]" />
               </div>
@@ -275,7 +275,7 @@ export default function InstantDashboardPlaceholder({
                 Review your cards using spaced repetition to build long-term memory.
               </p>
               <button
-                className="border border-black/20 text-black px-6 py-3 rounded-full hover:bg-black/5 transition-colors duration-200"
+                className="border border-black/20 text-black px-8 py-3 rounded-full hover:bg-black/5 transition-colors duration-200"
                 disabled
               >
                 Loading Reviews...

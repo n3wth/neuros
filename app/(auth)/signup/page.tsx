@@ -11,7 +11,7 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF9] flex">
       {/* Left Side - Value Proposition */}
-      <div className="hidden lg:flex lg:w-1/2 xl:w-3/5 bg-gradient-to-br from-[#F5F5FF] to-[#FFF5F5] relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 xl:w-3/5 bg-[#FAFAF9] relative overflow-hidden">
         {/* Background Pattern */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
           <defs>

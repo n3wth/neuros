@@ -27,7 +27,7 @@ function SubmitButton() {
   return (
     <button 
       type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors disabled:opacity-50" 
+      className="w-full px-8 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors shadow-sm hover:shadow-md disabled:opacity-50" 
       disabled={pending}
     >
       {pending ? 'Updating password...' : 'Update password'}
@@ -98,7 +98,7 @@ export function ResetPasswordForm() {
             id="password"
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
-            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
             {...form.register('password')}
           />
           <button
@@ -126,7 +126,7 @@ export function ResetPasswordForm() {
         {password && (
           <div className="mt-3 space-y-2">
             <div className="flex items-center gap-2">
-              <div className="flex-1 bg-gray-200 rounded-full h-1">
+              <div className="flex-1 bg-black/10 rounded-full h-1">
                 <div 
                   className={`h-1 rounded-full transition-all duration-300 ${
                     passwordStrength.strength < 2 ? 'bg-red-500 w-1/4' :
@@ -176,7 +176,7 @@ export function ResetPasswordForm() {
             id="confirmPassword"
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder="••••••••"
-            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
             {...form.register('confirmPassword')}
           />
           <button
@@ -202,7 +202,7 @@ export function ResetPasswordForm() {
       </div>
 
       {/* Security Note */}
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
+      <div className="bg-blue-50 border border-blue-100 rounded-md p-4">
         <div className="flex items-start gap-3">
           <svg className="w-5 h-5 text-blue-600 mt-0.5 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />

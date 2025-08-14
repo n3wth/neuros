@@ -29,7 +29,7 @@ export default function ProgressIndicator({
   if (variant === 'minimal') {
     return (
       <motion.div 
-        className="flex items-center gap-3 px-4 py-2 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm"
+        className="flex items-center gap-3 px-4 py-2 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm shadow-sm"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -40,9 +40,9 @@ export default function ProgressIndicator({
             <motion.div 
               className="absolute top-0 left-0 h-full rounded-full"
               style={{
-                background: isComplete 
-                  ? 'linear-gradient(90deg, #10b981, #059669)'
-                  : 'linear-gradient(90deg, #000000, #404040)'
+                backgroundColor: isComplete 
+                  ? '#10b981'
+                  : '#000000'
               }}
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
@@ -71,7 +71,7 @@ export default function ProgressIndicator({
 
   return (
     <motion.div 
-      className="relative bg-white rounded-3xl border border-black/5 p-8 overflow-hidden"
+      className="relative bg-white rounded-xl border border-black/5 p-6 overflow-hidden shadow-sm"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -88,7 +88,7 @@ export default function ProgressIndicator({
           ease: "easeInOut"
         }}
       >
-        <div className="w-full h-full bg-gradient-to-br from-black to-gray-400 rounded-full blur-3xl" />
+        <div className="w-full h-full bg-black/30 rounded-full blur-3xl" />
       </motion.div>
 
       <div className="relative">
@@ -126,9 +126,9 @@ export default function ProgressIndicator({
           <motion.div 
             className="absolute top-0 left-0 h-full rounded-full"
             style={{
-              background: isComplete 
-                ? 'linear-gradient(90deg, #10b981, #059669)'
-                : 'linear-gradient(90deg, #000000, #404040)'
+              backgroundColor: isComplete 
+                ? '#10b981'
+                : '#000000'
             }}
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
@@ -151,8 +151,8 @@ export default function ProgressIndicator({
             >
               <div className={`w-6 h-6 rounded-full border-2 ${
                 isPassed 
-                  ? 'bg-gradient-to-br from-purple-500 to-pink-500 border-purple-300' 
-                  : 'bg-white border-purple-200'
+                  ? 'bg-black border-black/30' 
+                  : 'bg-white border-black/20'
               } flex items-center justify-center -translate-x-1/2`}>
                 {isPassed && (
                   <CheckCircleIcon className="w-3 h-3 text-white" />
@@ -172,7 +172,7 @@ export default function ProgressIndicator({
             return (
               <motion.div
                 key={index}
-                className={`relative p-6 rounded-2xl text-center transition-all duration-500 ${
+                className={`relative p-4 rounded-xl text-center transition-all duration-500 ${
                   isPassed 
                     ? 'bg-black text-white' 
                     : isCurrent
@@ -228,7 +228,7 @@ export default function ProgressIndicator({
         <AnimatePresence>
           {currentCards < targetCards && (
             <motion.div 
-              className="mt-8 p-6 bg-black/[0.02] rounded-2xl border border-black/5"
+              className="mt-8 p-4 bg-black/[0.02] rounded-xl border border-black/5"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}

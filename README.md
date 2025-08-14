@@ -2,41 +2,31 @@
 
 # Neuros - Enterprise Learning Intelligence Platform
 
-**An AI-powered learning platform that uses spaced repetition to help you remember information better**
+> **An AI-powered learning platform that uses spaced repetition to help you remember information better**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.4-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-green?logo=supabase)](https://supabase.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/n3wth/neuros)
 
 ## Table of Contents
 
 - [About](#about)
 - [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Environment Setup](#environment-setup)
-  - [Database Setup](#database-setup)
-  - [Run Development Server](#run-development-server)
+- [Quick Start](#quick-start)
 - [Documentation](#documentation)
 - [Project Structure](#project-structure)
 - [Available Commands](#available-commands)
-  - [Development](#development)
-  - [Database](#database)
-  - [Testing](#testing)
 - [Features](#features)
-  - [Implemented](#implemented)
-  - [In Development](#in-development)
 - [Deployment](#deployment)
-  - [Deploy to Vercel](#deploy-to-vercel)
-  - [Manual Deployment](#manual-deployment)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## About
 
-Neuros is a learning platform that uses AI to help you remember information better through spaced repetition and active recall techniques.
+Neuros is a cutting-edge learning platform that leverages AI to transform how you retain and recall information through scientifically-proven spaced repetition and active recall techniques.
 
 **Live Demo**: [https://neuros.newth.ai](https://neuros.newth.ai)
 
@@ -45,37 +35,41 @@ Neuros is a learning platform that uses AI to help you remember information bett
 - **AI-Powered Card Generation**: Transform any text into structured learning cards using OpenAI GPT-4
 - **Spaced Repetition**: Evidence-based learning algorithm for optimal retention
 - **User Authentication**: Secure sign-up/sign-in with Supabase Auth
-- **Progress Tracking**: Monitor your learning progress with a clean dashboard
+- **Progress Tracking**: Monitor your learning progress with an intuitive dashboard
 - **Modern UI**: Clean, responsive interface built with Tailwind CSS v4
+- **Mobile-First**: Optimized for all devices and screen sizes
 
 ### Enterprise-Grade Integrations
- origin/main
+
 Seamlessly integrate with your existing tech stack:
-- Sequential Thinking - Complex problem-solving workflows
-- Playwright - Browser automation and testing
-- Context7 - Technical documentation retrieval
-- Exa - Web search and research
-- Qdrant - Personal knowledge graph
-- GitHub - Repository management
-- 21st.dev - UI component generation
+
+| Category        | Tools                             | Purpose                                    |
+| --------------- | --------------------------------- | ------------------------------------------ |
+| **AI & ML**     | OpenAI GPT-4, Sequential Thinking | Content generation & problem-solving       |
+| **Testing**     | Playwright                        | Browser automation & E2E testing           |
+| **Knowledge**   | Context7, Exa, Qdrant             | Documentation retrieval & knowledge graphs |
+| **Development** | GitHub, 21st.dev                  | Repository management & UI generation      |
 
 ## Tech Stack
 
-- **Framework**: [Next.js 15.4](https://nextjs.org/) with App Router
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [Supabase](https://supabase.com/) (PostgreSQL + Auth)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **AI**: [OpenAI GPT-4](https://openai.com/) for content generation
-- **Testing**: [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/)
+| Layer             | Technology                                                            | Version            |
+| ----------------- | --------------------------------------------------------------------- | ------------------ |
+| **Framework**     | [Next.js](https://nextjs.org/)                                        | 15.4 (App Router)  |
+| **Language**      | [TypeScript](https://www.typescriptlang.org/)                         | 5.x                |
+| **Database**      | [Supabase](https://supabase.com/)                                     | PostgreSQL + Auth  |
+| **Styling**       | [Tailwind CSS](https://tailwindcss.com/)                              | 4.0                |
+| **UI Components** | [shadcn/ui](https://ui.shadcn.com/)                                   | Latest             |
+| **AI Services**   | [OpenAI GPT-4](https://openai.com/)                                   | Content generation |
+| **Testing**       | [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/) | Unit + E2E         |
+| **Deployment**    | [Vercel](https://vercel.com/)                                         | Hosting platform   |
 
-## Getting Started
+## Quick Start
 
 ### Prerequisites
 
-- Node.js 18+
-- npm/yarn/pnpm
-- Supabase CLI (`npm i -g supabase`)
+- **Node.js** 18+ 
+- **npm/yarn/pnpm** package manager
+- **Supabase CLI** (`npm i -g supabase`)
 
 ### Installation
 
@@ -90,28 +84,28 @@ npm install
 
 ### Environment Setup
 
-Create a `.env.local` file:
+Create a `.env.local` file in the root directory:
 
 ```env
-# Supabase
+# Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
-# OpenAI
+# OpenAI Configuration
 OPENAI_API_KEY=your_openai_api_key
 ```
 
 ### Database Setup
 
 ```bash
-# Start local Supabase
+# Start local Supabase instance
 npm run db:start
 
-# Apply migrations
+# Reset database and apply migrations
 npm run db:reset
 
-# Generate TypeScript types
+# Generate TypeScript types from schema
 npm run db:types
 ```
 
@@ -121,51 +115,43 @@ npm run db:types
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000) in your browser!
 
 ## Documentation
 
 All project documentation is organized in the `docs/` folder:
 
-- **Setup Guides** (`docs/setup/`) - Local development, OAuth configuration, testing setup
-- **Deployment** (`docs/deployment/`) - Production deployment guides
-- **Development** (`docs/development/`) - Architecture, AI systems, testing patterns
-- **Analysis** (`docs/analysis/`) - UX audits and improvement proposals
-- **Refactoring** (`docs/refactoring/`) - Code refactoring and migration guides
+| Category           | Description                           | Key Files           |
+| ------------------ | ------------------------------------- | ------------------- |
+| **📖 Setup Guides** | Local development, OAuth, testing     | `docs/setup/`       |
+| **🚀 Deployment**   | Production deployment guides          | `docs/deployment/`  |
+| **⚙️ Development**  | Architecture, AI systems, testing     | `docs/development/` |
+| **📊 Analysis**     | UX audits and improvement proposals   | `docs/analysis/`    |
+| **🔧 Refactoring**  | Code refactoring and migration guides | `docs/refactoring/` |
 
-See [`docs/README.md`](docs/README.md) for the complete documentation index.
+**Complete Documentation**: See [`docs/README.md`](docs/README.md) for the full index.
 
 ## Project Structure
 
 ```
 neuros/
 ├── app/                    # Next.js App Router
-│   ├── (auth)/            # Authentication routes
-│   ├── (dashboard)/       # Protected dashboard
-│   └── (public)/          # Public pages
+│   ├── (auth)/             # Authentication routes
+│   ├── (dashboard)/        # Protected dashboard
+│   └── (public)/           # Public pages
 ├── components/            
-│   ├── ui/                # Reusable UI components
-│   ├── features/          # Feature-specific components
-│   ├── learning/          # Learning functionality
-│   └── landing/           # Landing page components
+│   ├── ui/                 # Reusable UI components
+│   ├── features/           # Feature-specific components
+│   ├── learning/           # Learning functionality
+│   └── landing/            # Landing page components
 ├── docs/                   # Project documentation
-│   ├── setup/             # Setup guides
-│   ├── deployment/        # Deployment guides
-│   ├── development/       # Development docs
-│   ├── analysis/          # Analysis & audits
-│   └── refactoring/       # Refactoring guides
 ├── scripts/                # Automation & utilities
-│   ├── automation/        # AI & workflow scripts
-│   ├── deployment/        # Deploy scripts
-│   ├── development/       # Dev environment
-│   ├── setup/            # Setup scripts
-│   └── testing/          # Test helpers
 ├── server/
-│   ├── actions/           # Server Actions
-│   └── queries/           # Database queries
+│   ├── actions/            # Server Actions
+│   └── queries/            # Database queries
 ├── supabase/
-│   └── migrations/        # Database schema
-└── types/                 # TypeScript definitions
+│   └── migrations/         # Database schema
+└── types/                  # TypeScript definitions
 ```
 
 ## Available Commands
@@ -198,30 +184,34 @@ npm run test:e2e        # End-to-end tests
 
 ## Features
 
-### Implemented
-- ✅ User authentication (sign up, sign in, password reset)
-- ✅ AI-powered flashcard generation from any text
-- ✅ Spaced repetition algorithm
-- ✅ Learning dashboard with progress tracking
-- ✅ Card review interface
-- ✅ Responsive design
-- ✅ Dark/light theme support
+### ✅ Implemented
+- **Authentication**: Complete user management (sign up, sign in, password reset)
+- **AI Card Generation**: Transform any text into structured learning cards
+- **Spaced Repetition**: Evidence-based algorithm for optimal retention
+- **Dashboard**: Comprehensive learning progress tracking
+- **Review Interface**: Intuitive card review system
+- **Responsive Design**: Mobile-first, cross-device compatibility
+- **Theme Support**: Dark/light mode with smooth transitions
+- **Security**: Rate limiting, input validation, secure authentication
 
 ### In Development
-- 🚧 Advanced analytics
-- 🚧 Collaborative learning features
-- 🚧 Enhanced AI capabilities
+- **Advanced Analytics**: Detailed learning insights and metrics
+- **Collaborative Learning**: Team-based learning features
+- **Enhanced AI**: More sophisticated content generation and personalization
+- **Mobile App**: Native mobile application
+- **API Integration**: Third-party learning platform connections
 
 ## Deployment
 
-### Deploy to Vercel
+### Deploy to Vercel (Recommended)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/n3wth/neuros)
 
+**One-click deployment:**
 1. Fork this repository
 2. Connect to Vercel
 3. Add environment variables
-4. Deploy
+4. Deploy!
 
 ### Manual Deployment
 
@@ -233,23 +223,36 @@ npm run build
 npm run start
 ```
 
-## Additional Documentation
+### Additional Deployment Resources
 
-- [Deployment Guide](docs/deployment/DEPLOYMENT.md)
-- [Playwright Setup](docs/setup/PLAYWRIGHT_SETUP.md)
-- [Testing Coverage](docs/development/TEST_COVERAGE.md)
-- [Rate Limiting Summary](docs/development/RATE_LIMITING_SUMMARY.md)
+- [📖 Deployment Guide](docs/deployment/DEPLOYMENT.md)
+- [🎭 Playwright Setup](docs/setup/PLAYWRIGHT_SETUP.md)
+- [🧪 Testing Coverage](docs/development/TEST_COVERAGE.md)
+- [⚡ Rate Limiting](docs/development/RATE_LIMITING_SUMMARY.md)
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions! Here's how to get started:
 
-## License
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
 
-MIT License - See [LICENSE](LICENSE) for details
+### 🎯 Development Guidelines
 
-**Built by [Oliver Newth](https://github.com/n3wth)**
+- Follow existing code style and patterns
+- Add tests for new features
+- Update documentation as needed
+- Ensure all tests pass before submitting
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**🧠 Built with ❤️ by [Oliver Newth](https://github.com/n3wth)**
+
+*Empowering learners worldwide with AI-driven education technology* 🚀

@@ -280,15 +280,15 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
 
         {/* Compact Stats */}
         <div className="grid grid-cols-3 gap-2 mb-4">
-          <div className="p-3 bg-white/80 backdrop-blur-sm rounded-2xl">
+          <div className="p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm">
             <div className="text-xs text-black/60 mb-1">Reviewed</div>
             <div className="text-lg font-medium">{stats.reviewed}</div>
           </div>
-          <div className="p-3 bg-white/80 backdrop-blur-sm rounded-2xl">
+          <div className="p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm">
             <div className="text-xs text-black/60 mb-1">Correct</div>
             <div className="text-lg font-medium text-green-600">{stats.correct}</div>
           </div>
-          <div className="p-3 bg-white/80 backdrop-blur-sm rounded-2xl">
+          <div className="p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm">
             <div className="text-xs text-black/60 mb-1">Learning</div>
             <div className="text-lg font-medium text-orange-600">{stats.incorrect}</div>
           </div>
@@ -311,7 +311,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
               showAnswer && isMobile && "swipeable"
             )}
           >
-            <Card className="p-6 sm:p-8 bg-white border border-black/5 rounded-3xl shadow-lg min-h-[400px] sm:min-h-[500px]">
+            <Card className="p-6 bg-white border border-black/5 rounded-xl shadow-sm min-h-[400px] sm:min-h-[500px]">
               {/* Topic Badge */}
               {currentCard?.cards.topics && (
                 <div className="mb-4">
@@ -356,13 +356,13 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="mt-4 p-4 bg-blue-50 rounded-2xl border border-blue-100"
+                          className="mt-4 p-4 bg-black/5 rounded-xl border border-black/10"
                         >
                           <div className="flex items-center mb-2">
-                            <LightbulbIcon className="w-5 h-5 text-blue-600 mr-2" />
-                            <span className="font-serif font-light text-sm text-blue-900">Explanation</span>
+                            <LightbulbIcon className="w-5 h-5 text-black/60 mr-2" />
+                            <span className="font-serif font-light text-sm text-black/80">Explanation</span>
                           </div>
-                          <p className="text-sm text-blue-800 font-light leading-relaxed">
+                          <p className="text-sm text-black/70 font-light leading-relaxed">
                             {aiExplanation || currentCard?.cards.explanation}
                           </p>
                         </motion.div>
@@ -483,7 +483,7 @@ export default function MobileReviewInterface({ sessionId }: { sessionId: string
                       onClick={() => handleRate(rating)}
                       className={cn(
                         color,
-                        "text-white rounded-2xl py-3 text-sm font-light transition-all rating-button haptic"
+                        "text-white rounded-xl py-3 text-sm font-light transition-all rating-button haptic"
                       )}
                     >
                       {label}

@@ -1,0 +1,76 @@
+=== Starting neuros at Wed Aug 13 23:32:00 PDT 2025 ===
+Command: npm run dev
+Log file: /Users/oliver/gh/neuros/logs/neuros_20250813_233200.log
+==========================================
+
+> neuros@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 79586, using available port 3002 instead.
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.10.48:3002
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1346ms
+ ✓ Compiled /middleware in 217ms (180 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 3.4s (1821 modules)
+[2025-08-14T06:32:26.931Z] [ERROR] Dashboard auth error {
+  error: [Error [AuthSessionMissingError]: Auth session missing!] {
+    __isAuthError: true,
+    status: 400,
+    code: undefined
+  },
+  action: 'dashboard_load'
+}
+AuthSessionMissingError: Auth session missing!
+    at eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:907:59)
+    at SupabaseAuthClient._useSession (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:804:26)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:473:9)
+    at async SupabaseAuthClient._getUser (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:899:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:886:20)
+    at async eval (webpack-internal:///(rsc)/./node_modules/@supabase/auth-js/dist/module/GoTrueClient.js:749:28)
+ GET /dashboard 307 in 4041ms
+ ✓ Compiled in 665ms (594 modules)
+ ✓ Compiled in 286ms (594 modules)
+ ✓ Compiled in 89ms (594 modules)
+ ✓ Compiled in 75ms (594 modules)
+ ✓ Compiled in 288ms (594 modules)
+ ✓ Compiled in 128ms (594 modules)
+ ✓ Compiled in 190ms (594 modules)
+ ✓ Compiled in 160ms (594 modules)
+ ✓ Compiled in 87ms (594 modules)
+ ✓ Compiled in 101ms (594 modules)
+ ✓ Compiled in 106ms (594 modules)
+ ✓ Compiled in 72ms (594 modules)
+ ✓ Compiled in 91ms (594 modules)
+ ✓ Compiled in 98ms (594 modules)
+ ✓ Compiled in 82ms (594 modules)
+ ✓ Compiled in 85ms (594 modules)
+ ✓ Compiled in 88ms (594 modules)
+ ✓ Compiled in 90ms (594 modules)
+ ✓ Compiled in 84ms (594 modules)
+ ✓ Compiled in 86ms (594 modules)
+ ✓ Compiled in 349ms (594 modules)
+ ✓ Compiled in 220ms (594 modules)
+ ✓ Compiled in 95ms (594 modules)
+ ✓ Compiled in 349ms (594 modules)
+ ✓ Compiled in 91ms (594 modules)
+ ✓ Compiled in 382ms (594 modules)
+ ✓ Compiled in 162ms (594 modules)
+ ✓ Compiled in 89ms (594 modules)
+ ✓ Compiled in 389ms (594 modules)
+ ✓ Compiled in 108ms (594 modules)
+ ✓ Compiled in 101ms (594 modules)
+ ✓ Compiled in 94ms (594 modules)
+ ✓ Compiled in 123ms (594 modules)
+ ✓ Compiled in 127ms (594 modules)
+ ✓ Compiled in 116ms (594 modules)
+ ✓ Compiled in 101ms (594 modules)
+ ✓ Compiled in 373ms (594 modules)
+ ✓ Compiled in 162ms (594 modules)

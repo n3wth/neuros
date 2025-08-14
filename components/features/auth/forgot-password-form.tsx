@@ -20,7 +20,7 @@ function SubmitButton() {
   return (
     <button 
       type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors disabled:opacity-50" 
+      className="w-full px-8 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-colors shadow-sm hover:shadow-md disabled:opacity-50" 
       disabled={pending}
     >
       {pending ? 'Sending reset link...' : 'Send reset link'}
@@ -61,8 +61,8 @@ export function ForgotPasswordForm() {
     return (
       <div className="text-center space-y-6">
         {/* Success Icon */}
-        <div className="mx-auto w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="mx-auto w-16 h-16 bg-black/5 rounded-full flex items-center justify-center">
+          <svg className="w-8 h-8 text-black/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -110,7 +110,7 @@ export function ForgotPasswordForm() {
           id="email"
           type="email"
           placeholder="you@example.com"
-          className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          className="w-full px-4 py-3 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
           {...form.register('email')}
         />
         {form.formState.errors.email && (
@@ -119,14 +119,14 @@ export function ForgotPasswordForm() {
       </div>
 
       {/* Help Text */}
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
+      <div className="bg-black/5 border border-black/10 rounded-xl p-4">
         <div className="flex items-start gap-3">
-          <svg className="w-5 h-5 text-blue-600 mt-0.5 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-black/60 mt-0.5 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div className="text-sm">
-            <p className="text-blue-900 font-medium">How password reset works</p>
-            <p className="text-blue-700 mt-1 leading-relaxed">
+            <p className="text-black/80 font-medium">How password reset works</p>
+            <p className="text-black/60 mt-1 leading-relaxed">
               Enter your account email and we&apos;ll send you a secure link to create a new password. 
               The link expires in 1 hour for your security.
             </p>

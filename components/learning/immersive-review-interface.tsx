@@ -265,25 +265,14 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
     <div className={`min-h-screen relative overflow-hidden transition-colors duration-700 ${focusMode ? 'bg-black' : 'bg-[#0A0A0A]'}`}>
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-blue-900/20" />
-        <motion.div
-          className="absolute -inset-[10px] opacity-30"
-          animate={{
-            background: [
-              'radial-gradient(circle at 20% 80%, #7C3AED 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 20%, #3B82F6 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 80%, #7C3AED 0%, transparent 50%)',
-            ],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        />
+        <div className="absolute inset-0 bg-black/5" />
         {/* Floating orbs */}
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-64 h-64 rounded-full"
             style={{
-              background: `radial-gradient(circle, ${['#7C3AED', '#3B82F6', '#10B981', '#F59E0B', '#EF4444'][i]}20 0%, transparent 70%)`,
+              background: `rgba(0, 0, 0, 0.05)`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
@@ -325,7 +314,7 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
                   cx="32"
                   cy="32"
                   r="28"
-                  stroke="url(#gradient)"
+                  stroke="rgba(0, 0, 0, 0.4)"
                   strokeWidth="4"
                   fill="none"
                   strokeLinecap="round"
@@ -334,12 +323,6 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
                   animate={{ strokeDasharray: `${((currentIndex + 1) / cards.length) * 176} 176` }}
                   transition={{ duration: 0.5 }}
                 />
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#7C3AED" />
-                    <stop offset="100%" stopColor="#3B82F6" />
-                  </linearGradient>
-                </defs>
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-white font-mono text-sm">{Math.round(((currentIndex + 1) / cards.length) * 100)}%</span>
@@ -401,7 +384,7 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
             >
-              <div className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full">
+              <div className="px-8 py-4 bg-black rounded-full">
                 <div className="flex items-center gap-3">
                   <TrophyIcon className="w-6 h-6 text-white" />
                   <span className="text-white font-medium">Amazing streak! Keep going!</span>
@@ -429,9 +412,7 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
             onMouseMove={focusMode ? undefined : handleMouseMove}
             onMouseLeave={focusMode ? undefined : handleMouseLeave}
           >
-            <Card className="relative p-12 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl min-h-[600px] overflow-hidden">
-              {/* Card Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10 opacity-50" />
+            <Card className="relative p-6 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-xl shadow-lg min-h-[600px] overflow-hidden">
               
               {/* Topic Badge with Animation */}
               {currentCard?.cards.topics && (
@@ -485,13 +466,13 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="mt-8 p-8 bg-blue-500/10 backdrop-blur-xl rounded-3xl border border-blue-500/20"
+                          className="mt-8 p-6 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20"
                         >
                           <div className="flex items-center mb-4">
                             <LightbulbIcon className="w-6 h-6 text-blue-400 mr-3" />
-                            <span className="font-serif font-light text-xl text-blue-400">Deep Dive</span>
+                            <span className="font-serif font-light text-xl text-white/80">Deep Dive</span>
                           </div>
-                          <p className="text-lg text-blue-300/90 font-light leading-relaxed">
+                          <p className="text-lg text-white/70 font-light leading-relaxed">
                             {aiExplanation || currentCard?.cards.explanation}
                           </p>
                         </motion.div>
@@ -512,7 +493,7 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
                             <motion.button
                               key={rating}
                               onClick={() => handleRate(rating)}
-                              className={`relative p-6 bg-gradient-to-br ${color} rounded-2xl text-white transition-all overflow-hidden group`}
+                              className={`relative p-6 bg-black rounded-xl text-white transition-all overflow-hidden group`}
                               whileHover={{ scale: 1.05, y: -5 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -541,7 +522,7 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
                 >
                   <motion.button
                     onClick={handleShowAnswer}
-                    className="relative px-12 py-5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-xl font-medium transition-all overflow-hidden group"
+                    className="relative px-8 py-3 bg-white text-black hover:bg-white/90 rounded-full text-xl font-medium transition-all overflow-hidden group"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

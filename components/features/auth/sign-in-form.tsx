@@ -25,7 +25,7 @@ function SubmitButton() {
   return (
     <button 
       type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
+      className="w-full px-8 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
       disabled={pending}
     >
       {pending && (
@@ -132,7 +132,7 @@ export function SignInForm() {
         <button
           type="button"
           onClick={() => setAuthMethod('email')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+          className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
             authMethod === 'email'
               ? 'bg-black text-white'
               : 'bg-black/5 text-black/60 hover:bg-black/10'
@@ -143,7 +143,7 @@ export function SignInForm() {
         <button
           type="button"
           onClick={() => setAuthMethod('phone')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+          className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
             authMethod === 'phone'
               ? 'bg-black text-white'
               : 'bg-black/5 text-black/60 hover:bg-black/10'
@@ -169,7 +169,7 @@ export function SignInForm() {
           type="email"
           placeholder="you@example.com"
           autoComplete="email"
-          className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
+          className="w-full px-4 py-3 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
           {...form.register('email')}
         />
         {form.formState.errors.email && (
@@ -188,7 +188,7 @@ export function SignInForm() {
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             autoComplete="current-password"
-            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
+            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all duration-200 placeholder:text-black/30"
             {...form.register('password')}
           />
           <button
@@ -247,7 +247,7 @@ export function SignInForm() {
             type="button"
             onClick={handleDevSignIn}
             disabled={isDevSigningIn}
-            className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full hover:from-orange-600 hover:to-amber-600 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            className="w-full px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
           >
             {isDevSigningIn ? (
               <SparkleIcon className="w-4 h-4 animate-spin" />

@@ -126,7 +126,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 30 }}
           >
-            <Card className="w-full max-w-2xl bg-white rounded-3xl p-8 max-h-[90vh] overflow-y-auto border-black/5 shadow-2xl shadow-black/10">
+            <Card className="w-full max-w-2xl bg-white rounded-xl p-6 max-h-[90vh] overflow-y-auto border-black/5 shadow-lg">
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
                 <div>
@@ -150,9 +150,9 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
               >
                 <button
                   onClick={() => setMode('ai')}
-                  className={`flex-1 p-4 rounded-3xl border transition-all duration-300 ${
+                  className={`flex-1 p-4 rounded-xl border transition-all duration-300 ${
                     mode === 'ai'
-                      ? 'bg-gradient-to-r from-[#F5F5FF] to-[#FFF5F5] text-black border-black/10 shadow-md'
+                      ? 'bg-black/5 text-black border-black/20 shadow-sm'
                       : 'bg-white text-black/60 border-black/10 hover:border-black/20 hover:bg-black/3'
                   }`}
                 >
@@ -163,9 +163,9 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                 </button>
                 <button
                   onClick={() => setMode('manual')}
-                  className={`flex-1 p-4 rounded-3xl border transition-all duration-300 ${
+                  className={`flex-1 p-4 rounded-xl border transition-all duration-300 ${
                     mode === 'manual'
-                      ? 'bg-black text-white border-black shadow-md'
+                      ? 'bg-black text-white border-black shadow-sm'
                       : 'bg-white text-black/60 border-black/10 hover:border-black/20 hover:bg-black/3'
                   }`}
                 >
@@ -191,9 +191,9 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                     <button
                       key={level}
                       onClick={() => setDifficulty(level)}
-                      className={`p-4 rounded-3xl border capitalize transition-all duration-300 font-light ${
+                      className={`p-4 rounded-xl border capitalize transition-all duration-300 font-light ${
                         difficulty === level
-                          ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 text-green-700 shadow-sm'
+                          ? 'bg-green-50 border-green-200 text-green-700 shadow-sm'
                           : 'bg-white border-black/10 text-black/60 hover:border-black/20 hover:bg-black/3'
                       }`}
                     >
@@ -219,7 +219,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                       value={front}
                       onChange={(e) => setFront(e.target.value)}
                       placeholder="What is the question or prompt?"
-                      className="w-full p-4 border border-black/10 rounded-3xl focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
+                      className="w-full p-4 border border-black/10 rounded-md focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
                       rows={3}
                     />
                   </div>
@@ -232,7 +232,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                       value={back}
                       onChange={(e) => setBack(e.target.value)}
                       placeholder="What is the answer?"
-                      className="w-full p-4 border border-black/10 rounded-3xl focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
+                      className="w-full p-4 border border-black/10 rounded-md focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
                       rows={3}
                     />
                   </div>
@@ -245,7 +245,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                       value={explanation}
                       onChange={(e) => setExplanation(e.target.value)}
                       placeholder="Additional context or explanation..."
-                      className="w-full p-4 border border-black/10 rounded-3xl focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
+                      className="w-full p-4 border border-black/10 rounded-md focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
                       rows={2}
                     />
                   </div>
@@ -253,7 +253,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                   <Button
                     onClick={handleManualCreate}
                     disabled={!front || !back || isCreating}
-                    className="w-full bg-black text-white hover:bg-black/90 rounded-full px-8 py-4 font-light shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-sm hover:shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isCreating ? (
                       <>
@@ -318,7 +318,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                         if (e.target.value) setShowQuickStart(false)
                       }}
                       placeholder="Example: 'React hooks explained' or paste an article..."
-                      className="w-full p-4 border border-black/10 rounded-3xl focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
+                      className="w-full p-4 border border-black/10 rounded-md focus:outline-none focus:border-black/20 focus:shadow-sm bg-white/80 backdrop-blur-sm transition-all duration-300 font-light resize-none"
                       rows={6}
                     />
                   </div>
@@ -326,7 +326,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                   <Button
                     onClick={handleAIGenerate}
                     disabled={!aiInput || isCreating}
-                    className="w-full bg-gradient-to-r from-[#F5F5FF] to-[#FFF5F5] text-black border border-black/10 hover:shadow-lg rounded-full px-8 py-4 font-light transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-black/5 text-black border border-black/10 hover:shadow-md rounded-full px-8 py-3 font-light transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isCreating ? (
                       <>
@@ -350,7 +350,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                       transition={{ duration: 0.6 }}
                     >
                       <motion.div 
-                        className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center"
+                        className="w-16 h-16 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.2, type: "spring" }}
@@ -387,7 +387,7 @@ export default function CreateCardDialog({ isOpen, onClose, onCardCreated }: Cre
                         {generatedCards.map((card, index) => (
                           <motion.div
                             key={index}
-                            className="p-4 bg-gradient-to-r from-gray-50 to-gray-50/50 rounded-3xl border border-black/5"
+                            className="p-4 bg-black/5 rounded-xl border border-black/5"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.3, delay: index * 0.05 }}

@@ -30,7 +30,7 @@ function SubmitButton() {
   return (
     <button 
       type="submit" 
-      className="w-full px-6 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
+      className="w-full px-8 py-3 bg-black text-white rounded-full hover:bg-black/90 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2" 
       disabled={pending}
     >
       {pending && (
@@ -110,7 +110,7 @@ export function SignUpForm() {
         <button
           type="button"
           onClick={() => setAuthMethod('email')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+          className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
             authMethod === 'email'
               ? 'bg-black text-white'
               : 'bg-black/5 text-black/60 hover:bg-black/10'
@@ -121,7 +121,7 @@ export function SignUpForm() {
         <button
           type="button"
           onClick={() => setAuthMethod('phone')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+          className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
             authMethod === 'phone'
               ? 'bg-black text-white'
               : 'bg-black/5 text-black/60 hover:bg-black/10'
@@ -143,7 +143,7 @@ export function SignUpForm() {
             placeholder="John Doe"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            className="w-full px-4 py-3 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
           />
         </div>
       )}
@@ -163,7 +163,7 @@ export function SignUpForm() {
           id="fullName"
           type="text"
           placeholder="John Doe"
-          className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          className="w-full px-4 py-3 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
           {...form.register('fullName')}
         />
       </div>
@@ -177,7 +177,7 @@ export function SignUpForm() {
           id="email"
           type="email"
           placeholder="you@example.com"
-          className="w-full px-4 py-3 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+          className="w-full px-4 py-3 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
           {...form.register('email')}
         />
         {form.formState.errors.email && (
@@ -195,7 +195,7 @@ export function SignUpForm() {
             id="password"
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
-            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
             {...form.register('password')}
           />
           <button
@@ -230,7 +230,7 @@ export function SignUpForm() {
             id="confirmPassword"
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder="••••••••"
-            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
+            className="w-full px-4 py-3 pr-12 bg-white border border-black/10 rounded-md focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-transparent transition-all placeholder:text-black/30"
             {...form.register('confirmPassword')}
           />
           <button

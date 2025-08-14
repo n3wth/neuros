@@ -127,7 +127,7 @@ export default function DiscoveryDashboard({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
-        <Card className="p-8 bg-white border-black/5">
+        <Card className="p-6 bg-white border-black/5 shadow-sm">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-purple-100 rounded-xl">
@@ -172,7 +172,7 @@ export default function DiscoveryDashboard({
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                     onClick={() => onCreateCard(suggestion)}
-                    className="group relative p-4 bg-white rounded-xl border border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all duration-200 text-left"
+                    className="group relative p-4 bg-white rounded-xl border border-purple-100 hover:border-purple-300 hover:shadow-md transition-all duration-200 text-left"
                   >
                     <div className="flex items-start gap-3">
                       <div className="p-1.5 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">
@@ -204,7 +204,7 @@ export default function DiscoveryDashboard({
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border whitespace-nowrap transition-all duration-200 ${
+              className={`flex items-center gap-2 px-8 py-3 rounded-full border whitespace-nowrap transition-all duration-200 ${
                 selectedCategory === category.id
                   ? 'bg-black text-white border-black'
                   : 'bg-white text-black/70 border-black/10 hover:border-black/30 hover:bg-black/5'
@@ -253,7 +253,7 @@ export default function DiscoveryDashboard({
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
-                  <Card className="group relative h-full p-6 bg-white hover:shadow-xl transition-all duration-300 cursor-pointer border-black/5"
+                  <Card className="group relative h-full p-6 bg-white hover:shadow-md transition-all duration-300 cursor-pointer border-black/5 shadow-sm"
                     onClick={() => onStartLearning(topic.id)}
                   >
                     {/* Trending Badge */}
@@ -332,7 +332,7 @@ export default function DiscoveryDashboard({
         transition={{ duration: 0.6, delay: 0.4 }}
         className="mt-12"
       >
-        <Card className="p-8 bg-purple-50 border-purple-100">
+        <Card className="p-6 bg-purple-50 border-purple-100 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-serif font-normal mb-2 text-black/90">
@@ -345,7 +345,7 @@ export default function DiscoveryDashboard({
             <Button
               onClick={() => onCreateCard()}
               size="lg"
-              className="bg-black text-white hover:bg-black/90"
+              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Create Custom Deck

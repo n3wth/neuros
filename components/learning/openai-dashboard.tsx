@@ -478,7 +478,7 @@ export default function OpenAIDashboard({}: OpenAIDashboardProps) {
                   )}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl">
+                    <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
                       <BrainIcon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Your Progress</h3>

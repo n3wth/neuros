@@ -280,11 +280,11 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
               className="flex-1 flex flex-col"
             >
               <Card className={cn(
-                "bg-white border border-black/10 shadow-sm flex-1 flex flex-col relative overflow-hidden transition-all duration-300",
+                "bg-white border border-black/10 rounded-xl shadow-sm flex-1 flex flex-col relative overflow-hidden transition-all duration-300",
                 isFlipping && "scale-[0.995]",
                 showAnswer && "shadow-md"
               )}>
-                <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-6">
+                <div className="flex-1 flex flex-col p-6">
                   {/* Question Section */}
                   <div className="flex-1 flex flex-col justify-center min-h-0">
                     <motion.div
@@ -311,7 +311,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Button
                           onClick={handleShowAnswer}
-                          className="bg-white border border-black/20 text-black hover:bg-black hover:text-white px-6 py-2 transition-all duration-200 group font-medium"
+                          className="bg-white border border-black/20 text-black hover:bg-black hover:text-white px-8 py-3 rounded-full transition-all duration-200 group font-medium"
                         >
                           <span className="mr-2">Reveal Answer</span>
                           <ChevronDownIcon className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
@@ -396,7 +396,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                                   <Button
                                     onClick={() => handleRate(item.rating)}
                                     className={cn(
-                                      "w-full h-10 sm:h-12 font-medium transition-all duration-200 relative overflow-hidden border flex flex-col gap-0.5",
+                                      "w-full h-10 sm:h-12 font-medium transition-all duration-200 relative overflow-hidden border flex flex-col gap-0.5 rounded-xl",
                                       selectedRating === item.rating 
                                         ? "bg-black text-white border-black" 
                                         : "bg-white text-black border-black/20 hover:bg-black/5 hover:border-black/40"
@@ -419,7 +419,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                               <Button
                                 variant="ghost"
                                 onClick={toggleExplanation}
-                                className="text-black/60 hover:text-black hover:bg-black/5 text-xs px-2 py-1 h-6"
+                                className="text-black/60 hover:text-black hover:bg-black/5 text-xs px-2 py-1 h-6 rounded-full"
                               >
                                 <LightbulbIcon className="w-3 h-3 mr-1" />
                                 <span className="hidden sm:inline">Explanation</span>
@@ -429,7 +429,7 @@ export default function ReviewInterface({ sessionId }: { sessionId: string }) {
                               <Button
                                 variant="ghost"
                                 onClick={getAIHelp}
-                                className="text-black/60 hover:text-black hover:bg-black/5 text-xs px-2 py-1 h-6"
+                                className="text-black/60 hover:text-black hover:bg-black/5 text-xs px-2 py-1 h-6 rounded-full"
                               >
                                 <SparkleIcon className="w-3 h-3 mr-1" />
                                 <span className="hidden sm:inline">AI Insight</span>
