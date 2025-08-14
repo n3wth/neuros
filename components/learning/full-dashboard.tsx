@@ -220,7 +220,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
           <p className="text-black/60 font-light mb-6">{error}</p>
           <Button
             onClick={loadDashboardData}
-            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-sm hover:shadow-md transition-all duration-300"
+            className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 font-light shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98]"
           >
             <RefreshIcon className="w-4 h-4 mr-2" />
             Try Again
@@ -334,7 +334,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
               
               <button
                 onClick={() => setIsCreateDialogOpen(true)}
-                className="flex items-center justify-center h-9 w-9 bg-black text-white rounded-full hover:bg-black/80 transition-colors duration-200"
+                className="flex items-center justify-center h-9 w-9 bg-black text-white rounded-full hover:bg-black/80 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
                 title="Create Cards"
               >
                 <PlusIcon className="w-4 h-4" />
@@ -342,7 +342,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
 
               <button
                 onClick={async () => await signOut()}
-                className="hidden md:block p-2 hover:bg-black/5 transition-colors duration-200"
+                className="hidden md:block p-2 hover:bg-black/5 transition-all duration-200 rounded-md"
                 title="Sign out"
               >
                 <LogOutIcon className="w-4 h-4 text-black/60 hover:text-black stroke-[1.5]" />
@@ -360,7 +360,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
             <div className="mb-16">
               <div className="flex items-center gap-4 mb-8">
                 <div className="h-px w-12 bg-black/30" />
-                <p className="text-xs font-mono text-black/50 tracking-[0.2em] uppercase">
+                <p className="text-xs font-mono text-black/60 tracking-[0.2em] uppercase">
                   {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 </p>
               </div>
@@ -381,7 +381,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-3xl font-serif font-light text-black mb-1">
                     {stats?.totalCards ?? '0'}
                   </p>
-                  <p className="text-sm text-black/50">total cards</p>
+                  <p className="text-sm text-black/60">total cards</p>
                 </Card>
 
                 <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
@@ -391,7 +391,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-3xl font-serif font-light text-black mb-1">
                     {stats?.mastered ?? '0'}
                   </p>
-                  <p className="text-sm text-black/50">mastered</p>
+                  <p className="text-sm text-black/60">mastered</p>
                 </Card>
 
                 <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
@@ -401,7 +401,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-3xl font-serif font-light text-black mb-1">
                     {stats?.dueCards ?? '0'}
                   </p>
-                  <p className="text-sm text-black/50">due today</p>
+                  <p className="text-sm text-black/60">due today</p>
                 </Card>
 
                 <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
@@ -411,7 +411,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-3xl font-serif font-light text-black mb-1">
                     {studyStats?.average_accuracy ?? '0'}%
                   </p>
-                  <p className="text-sm text-black/50">accuracy</p>
+                  <p className="text-sm text-black/60">accuracy</p>
                 </Card>
 
                 <Card className="p-6 bg-white rounded-xl border border-black/5 shadow-sm">
@@ -421,7 +421,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                   <p className="text-3xl font-serif font-light text-black mb-1">
                     {studyStats?.current_streak_days ?? '0'}
                   </p>
-                  <p className="text-sm text-black/50">day streak</p>
+                  <p className="text-sm text-black/60">day streak</p>
                 </Card>
               </div>
 
@@ -595,7 +595,7 @@ export default function FullLearningDashboard({ user, initialViewMode = 'overvie
                             isToday ? 'bg-black text-white' : 'bg-white'
                           }`}>
                             <p className={`text-xs font-medium mb-1 ${
-                              isToday ? 'text-white/70' : 'text-black/50'
+                              isToday ? 'text-white/70' : 'text-black/60'
                             }`}>{dayName}</p>
                             <p className={`text-lg font-serif ${
                               isToday ? 'text-white' : 'text-black'

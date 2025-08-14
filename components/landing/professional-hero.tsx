@@ -118,7 +118,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
           >
             <Link 
               href={isAuthenticated ? "/dashboard" : "/signup"}
-              className="group inline-flex items-center gap-2 px-8 py-3 rounded-full bg-black hover:bg-black/90 text-white border-0 outline-none transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group inline-flex items-center gap-2 px-8 py-3 rounded-full bg-black hover:bg-black/90 text-white border-0 outline-none transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
               style={{ backgroundColor: '#000', color: '#fff' }}
             >
               <span className="text-sm font-medium" style={{ color: '#fff' }}>Get started</span>
@@ -130,7 +130,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
               <button
                 onClick={handleTestLogin}
                 disabled={isTestLoading}
-                className="group inline-flex items-center gap-2 bg-black/10 text-black/60 px-8 py-3 rounded-full hover:bg-black/20 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group inline-flex items-center gap-2 bg-black/10 text-black/60 px-8 py-3 rounded-full hover:bg-black/20 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
                 title="Development Only: Quick Test Login\nSigns in as test@neuros.dev with sample learning data"
               >
                 <TestTube2 className="w-4 h-4" />
@@ -170,7 +170,7 @@ export default function ProfessionalHero({ isAuthenticated, isDevelopment = fals
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 + index * 0.05 }}
               >
-                <div className="bg-white border border-black/5 rounded-xl p-6 lg:p-8 h-full hover:shadow-md transition-shadow duration-300">
+                <div className="bg-white border border-black/5 rounded-xl p-6 lg:p-8 h-full hover:shadow-md transition-all duration-200 shadow-sm">
                   <div 
                     className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
                     style={{ backgroundColor: `${feature.color}20` }}

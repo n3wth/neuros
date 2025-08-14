@@ -207,7 +207,7 @@ export default function DiscoveryDashboard({
               className={`flex items-center gap-2 px-8 py-3 rounded-full border whitespace-nowrap transition-all duration-200 ${
                 selectedCategory === category.id
                   ? 'bg-black text-white border-black'
-                  : 'bg-white text-black/70 border-black/10 hover:border-black/30 hover:bg-black/5'
+                  : 'bg-white text-black/60 border-black/10 hover:border-black/30 hover:bg-black/5'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -253,7 +253,7 @@ export default function DiscoveryDashboard({
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
-                  <Card className="group relative h-full p-6 bg-white hover:shadow-md transition-all duration-300 cursor-pointer border-black/5 shadow-sm"
+                  <Card className="group relative h-full p-6 bg-white hover:shadow-md transition-all duration-200 cursor-pointer border-black/5 shadow-sm active:scale-[0.98]"
                     onClick={() => onStartLearning(topic.id)}
                   >
                     {/* Trending Badge */}
@@ -288,7 +288,7 @@ export default function DiscoveryDashboard({
                     </p>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-4 mb-4 text-sm text-black/50">
+                    <div className="flex items-center gap-4 mb-4 text-sm text-black/60">
                       <div className="flex items-center gap-1">
                         <span className="text-xs">#</span>
                         <span>{topic.cardCount} cards</span>
@@ -301,11 +301,11 @@ export default function DiscoveryDashboard({
 
                     {/* Example Cards */}
                     <div className="space-y-2">
-                      <p className="text-xs font-medium text-black/40 uppercase tracking-wider">
+                      <p className="text-xs font-medium text-black/60 uppercase tracking-wider">
                         Sample cards:
                       </p>
                       {topic.exampleCards.slice(0, 2).map((card, i) => (
-                        <div key={i} className="text-sm text-black/70 pl-3 border-l-2 border-purple-100 leading-relaxed">
+                        <div key={i} className="text-sm text-black/60 pl-3 border-l-2 border-purple-100 leading-relaxed">
                           {card}
                         </div>
                       ))}
@@ -345,7 +345,7 @@ export default function DiscoveryDashboard({
             <Button
               onClick={() => onCreateCard()}
               size="lg"
-              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3"
+              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3 shadow-sm hover:shadow-md active:scale-[0.98]"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Create Custom Deck

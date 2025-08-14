@@ -489,7 +489,7 @@ export default function ImmersiveReviewInterface({ sessionId }: { sessionId: str
                             { rating: 3, label: 'Good', color: 'from-blue-500 to-blue-600' },
                             { rating: 4, label: 'Easy', color: 'from-green-500 to-green-600' },
                             { rating: 5, label: 'Perfect', color: 'from-emerald-500 to-emerald-600', icon: CheckCircleIcon },
-                          ].map(({ rating, label, color, icon: Icon }) => (
+                          ].map(({ rating, label, icon: Icon }) => (
                             <motion.button
                               key={rating}
                               onClick={() => handleRate(rating)}

@@ -40,7 +40,7 @@ export function LoadingSkeleton({
 
   if (type === 'card') {
     return (
-      <div className={`p-6 bg-white rounded-xl border border-black/5 ${className}`}>
+      <div className={`p-6 bg-white rounded-xl border border-black/5 shadow-sm ${className}`}>
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
             <motion.div
@@ -69,7 +69,7 @@ export function LoadingSkeleton({
         {[...Array(4)].map((_, i) => (
           <motion.div
             key={i}
-            className="p-4 bg-white/90 backdrop-blur-sm rounded-xl border border-black/5"
+            className="p-4 bg-white/90 backdrop-blur-sm rounded-xl border border-black/5 shadow-sm"
             animate={{
               opacity: [0.5, 1, 0.5]
             }}
@@ -96,7 +96,7 @@ export function LoadingSkeleton({
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            className="p-4 bg-white rounded-xl border-black/5"
+            className="p-4 bg-white rounded-xl border border-black/5 shadow-sm"
             animate={{
               x: [0, 2, 0]
             }}
@@ -123,7 +123,7 @@ export function LoadingSkeleton({
     return (
       <div className={`min-h-screen bg-white flex items-center justify-center ${className}`}>
         <div className="max-w-2xl w-full mx-auto px-8">
-          <div className="p-6 bg-white border border-black/5 rounded-xl shadow-lg">
+          <div className="p-6 bg-white border border-black/5 rounded-xl shadow-md">
             <div className="text-center mb-8">
               <motion.div
                 className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-black/5"
