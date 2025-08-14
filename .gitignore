@@ -58,3 +58,4 @@ CLAUDE_FULL.md
 
 # git worktrees
 .worktrees/
+.env
